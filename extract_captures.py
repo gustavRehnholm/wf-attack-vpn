@@ -12,6 +12,9 @@ def main():
     print("The DataFrame :")
     print(df)
 
+    for i in range(0, 1):
+        print(df.loc[i])
+
 
     print("The column headers :")
     print(df.columns.tolist())
