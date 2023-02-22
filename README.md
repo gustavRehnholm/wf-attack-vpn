@@ -6,15 +6,13 @@ need pandas:
 * pip install pandas
 
 but also pytable and its dependencies as described in (https://www.pytables.org/usersguide/installation.html):
-* HDF5 (ej gjort)
-    * sudo apt-get install libhdf5-serial-dev
 * numpy
     * pip install numpy
 * numexpr
     * pip install numexpr
 * cython
     * pip install Cython
-* c-blosc
+* c-bloscchoco
     * $ pip install blosc
 * python-blosc2
     * pip install blosc2
