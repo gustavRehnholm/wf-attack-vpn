@@ -10,11 +10,10 @@ def main():
     df = pd.read_hdf("VNAT_Dataframe_release_1.h5")
 
     print("The DataFrame :")
-    print(df.head())
+    print(df)
 
-    # print the list using tolist()
+
     print("The column headers :")
-    
     print(df.columns.tolist())
 
 if __name__=="__main__":
