@@ -1,11 +1,13 @@
 import pandas as pd
 
 '''
-Get the keywords that exits in the data, which is:
+Get the keywords that exits in the MIT dataset, which is:
 
 ['youtube', 'sftp', 'skype-chat', 'ssh', 'rdp', 'rsync', 'voip', 'scp', 'netflix', 'vimeo']
 
-python wf-attack-vpn/get_keywords.py
+To run:
+touch get_keywords.txt
+python wf-attack-vpn/get_keywords.py | tee get_keywords.txt
 '''
 
 def main(): 

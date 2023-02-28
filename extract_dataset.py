@@ -2,13 +2,18 @@ import pandas as pd
 
 '''
 extract the captured VPN data that has been generated from the MIT project
-and create new dataframes, stored in h5 format, after teh application used.
-All data that has been captured with non vpn traffic, will be removed.
+and create new dataframes, stored in h5 format, after the application used.
+All data that has been captured with non vpn traffic, will be skipped.
+The data is not parsed.
 
 Application names in use (extracted from get_keywords.py)
 ['youtube', 'sftp', 'skype-chat', 'ssh', 'rdp', 'rsync', 'voip', 'scp', 'netflix', 'vimeo']
 headers:
 ['connection', 'timestamps', 'sizes', 'directions', 'file_names']
+
+To run:
+touch extract_dataset.txt
+python wf-attack-vpn/get_keywords.py | tee extract_dataset.txt
 '''
 
 # Extract all data that are from VPN traffic, and store them in different dataframes depending on the application
@@ -19,28 +24,33 @@ def main():
     # The applications that the dataset have
     APPLICATIONS = ['youtube', 'sftp', 'skype-chat', 'ssh', 'rdp', 'rsync', 'voip', 'scp', 'netflix', 'vimeo']
 
-    # One dataframe for each application
+    # One dataframe for each application, with the correct headers
     dataframe_list = []
     for i in range(0, len(APPLICATIONS)):
         dataframe_list.append(pd.DataFrame( columns = df.columns.values.tolist()))
 
-    # Read whole dataset from MIT
-    nr_of_rows = 0
-    nr_of_vpn = 0
+    # information about the dataset as a whole
+    # number of captures in total, that are vpn and that are not vpn traffic
+    nr_of_rows   = 0
+    nr_of_vpn    = 0
     nr_of_nonvpn = 0
-    nr_of_app = [0] * len(APPLICATIONS)
+    # number of vpn captures per application
+    nr_of_app    = [0] * len(APPLICATIONS)
 
+    # Read whole dataset from MIT
     for index, row in df.iterrows():
         nr_of_rows += 1
-        fileType = row['file_names'].split("_")
-        vpn = fileType[0]
+
+        # the capture vpn and application type
+        fileType    = row['file_names'].split("_")
+        vpn         = fileType[0]
         application = fileType[1]
 
-        # Skip all captured data that are not VPN traffic
+
         if vpn == "nonvpn":
             nr_of_nonvpn += 1
             continue
-        # Store vpn traffic
+        # Store vpn traffic in the right dataframe
         elif vpn == "vpn":
             nr_of_vpn += 1
             for i in range(0, len(APPLICATIONS)):
@@ -59,12 +69,14 @@ def main():
     for i in range(0, len(nr_of_app)):
         print(str(APPLICATIONS[i]) + " : " + str(nr_of_app[i]))
 
+    '''
     # to csv (for testing)
     for i in range(0, len(dataframe_list)):
         df_file_name = APPLICATIONS[i] + ".csv"
         dataframe_list[i].to_csv(df_file_name, index = True)
+    '''
 
-    # Store the result in h5 file, for the parser
+    # Store the result in h5 file, for future use of the data
     for i in range(0, len(dataframe_list)):
         df_file_name = APPLICATIONS[i] + ".h5"
         dataframe_list[i].to_hdf(df_file_name, mode = "w", key = "df")
