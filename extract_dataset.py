@@ -67,10 +67,11 @@ def main():
     print("total rows in the dataset: " + str(nr_of_rows))
     print("VPN rows in the dataset: " + str(nr_of_vpn)) 
     print("NON-VPN rows in the dataset: " + str(nr_of_nonvpn))
+    print("")
     print("number of rows per application")
     for i in range(0, len(nr_of_app)):
         print(str(APPLICATIONS[i]) + " : " + str(nr_of_app[i]))
-
+    print("")
     '''
     # to csv (for testing)
     for i in range(0, len(dataframe_list)):
