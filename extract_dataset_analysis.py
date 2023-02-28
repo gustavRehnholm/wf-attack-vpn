@@ -7,7 +7,7 @@ headers:
 ['connection', 'timestamps', 'sizes', 'directions', 'file_names']
 
 touch stdout/extract_dataset_analysis.txt
-wf-attack-vpn/extract_dataset_analysis.py | tee extract_dataset_analysis.txt
+python wf-attack-vpn/extract_dataset_analysis.py | tee stdout/extract_dataset_analysis.txt
 '''
 import pandas as pd
 
