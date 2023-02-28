@@ -28,7 +28,7 @@ def main():
 
     # analyse each application
     for i in range(0, len(APPLICATIONS)):
-        df = pd.read_hdf(APPLICATIONS[i] + ".h5")
+        df = pd.read_hdf("h5/" + APPLICATIONS[i] + ".h5")
 
         print("--------------------------------------------------------------")
         print(APPLICATIONS[i])
