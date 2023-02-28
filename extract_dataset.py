@@ -72,6 +72,7 @@ def main():
     for i in range(0, len(nr_of_app)):
         print(str(APPLICATIONS[i]) + " : " + str(nr_of_app[i]))
     print("")
+    
     '''
     # to csv (for testing)
     for i in range(0, len(dataframe_list)):
@@ -81,7 +82,7 @@ def main():
 
     # Store the result in h5 file, for future use of the data
     for i in range(0, len(dataframe_list)):
-        df_file_name = APPLICATIONS[i] + ".h5"
+        df_file_name = "h5/" + APPLICATIONS[i] + ".h5"
         dataframe_list[i].to_hdf(df_file_name, mode = "w", key = "df")
 
 
