@@ -6,8 +6,8 @@ Get the keywords that exits in the MIT dataset, which is:
 ['youtube', 'sftp', 'skype-chat', 'ssh', 'rdp', 'rsync', 'voip', 'scp', 'netflix', 'vimeo']
 
 To run:
-touch get_keywords.txt
-python wf-attack-vpn/get_keywords.py | tee get_keywords.txt
+touch stdout/get_keywords.txt
+python wf-attack-vpn/get_keywords.py | tee stdout/get_keywords.txt
 '''
 
 def main(): 

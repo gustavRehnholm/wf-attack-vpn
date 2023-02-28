@@ -12,8 +12,8 @@ headers:
 ['connection', 'timestamps', 'sizes', 'directions', 'file_names']
 
 To run:
-touch extract_dataset.txt
-python wf-attack-vpn/get_keywords.py | tee extract_dataset.txt
+touch stdout/extract_dataset.txt
+python wf-attack-vpn/extract_dataset.py | tee stdout/extract_dataset.txt
 '''
 
 # Extract all data that are from VPN traffic, and store them in different dataframes depending on the application
@@ -62,6 +62,8 @@ def main():
             print("Aborting program")
             return
 
+    print("")
+    print("---------------------------------------------")
     print("total rows in the dataset: " + str(nr_of_rows))
     print("VPN rows in the dataset: " + str(nr_of_vpn)) 
     print("NON-VPN rows in the dataset: " + str(nr_of_nonvpn))

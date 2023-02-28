@@ -6,7 +6,7 @@ Application names in use (extracted from get_keywords.py)
 headers:
 ['connection', 'timestamps', 'sizes', 'directions', 'file_names']
 
-touch extract_dataset_analysis.txt
+touch stdout/extract_dataset_analysis.txt
 wf-attack-vpn/extract_dataset_analysis.py | tee extract_dataset_analysis.txt
 '''
 import pandas as pd
