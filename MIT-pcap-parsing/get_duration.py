@@ -1,6 +1,8 @@
 '''
 Get duration of the different applications and categories for the MIT dataset
 To determine if the lacking of data in the h5 file, is also present in the pcap files
+
+python wf-attack-vpn/MIT-pcap-parsing/get_duration.py
 '''
 # to read the pcap files
 from pcapfile import savefile
@@ -71,7 +73,7 @@ def main():
     print_durations(duration_dic)
 
        
-
+    return
 
 # Get duration for the provided pcap file
 def getDuration(pcap_file):
