@@ -64,7 +64,7 @@ def main():
             nr_of_vpn += 1
             for i in range(0, len(APPLICATIONS)):
                 if APPLICATIONS[i] in filename:
-                    duration_dic[APPLICATIONS[i]].append(getDuration(filename))
+                    duration_dic[APPLICATIONS[i]].append(getDuration(DIRECOTRY, filename))
         else:
             print("ERROR: filename did not start with vpn or nonvpn, ABORT program")
             print(filename)
@@ -76,9 +76,10 @@ def main():
     return
 
 # Get duration for the provided pcap file
-def getDuration(pcap_file):
+def getDuration(dir, pcap_file):
     list_dur = []
-    testcap = open(pcap_file, 'rb')
+    file_dir = dir + pcap_file
+    testcap = open(file_dir, 'rb')
     capfile = savefile.load_savefile(testcap, verbose=True)
 
     for pkt in capfile:
