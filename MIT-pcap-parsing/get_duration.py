@@ -78,7 +78,7 @@ def main():
 # Get duration for the provided pcap file
 def getDuration(dir, pcap_file):
     list_dur = []
-    file_dir = dir + pcap_file
+    file_dir = dir + "/" + pcap_file
     testcap = open(file_dir, 'rb')
     capfile = savefile.load_savefile(testcap, verbose=True)
 
