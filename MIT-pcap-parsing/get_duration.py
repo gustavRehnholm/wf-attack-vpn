@@ -26,7 +26,7 @@ APPLICATIONS = ['youtube', 'sftp', 'skype-chat', 'ssh', 'rdp', 'rsync', 'voip', 
 def main():
     print("Start analyze of pcap files from MIT")
 
-    DIRECOTRY = "VNAT_Dataframe_release_1"
+    DIRECOTRY = "VNAT_release_1"
 
     # information about the dataset as a whole
     # number of captures in total, that are vpn and that are not vpn traffic
