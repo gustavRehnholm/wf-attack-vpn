@@ -57,18 +57,18 @@ def main():
             print("ERROR: the file (" + str(filename) + ") should not be part of the directory")
             return
 
-        filenames = filename.split("_")[1]
-        if filenames[0] == "nonvpn":
+        if filename.startswith("nonvpn"):
             nr_of_nonvpn += 1
             continiue
-        elif filenames[0] == "vpn":
+        elif filename.startswith("vpn"):
             nr_of_vpn += 1
             for i in range(0, len(APPLICATIONS)):
-                if filenames[1] == APPLICATIONS[i]:
+                if APPLICATIONS[i] in filename:
                     duration_dic[APPLICATIONS[i]].append(getDuration(filename))
         else:
             print("ERROR: filename did not start with vpn or nonvpn, ABORT program")
-            print(filenames[0])
+            print(filename)
+            return
 
     print_durations(duration_dic)
 
