@@ -67,11 +67,7 @@ def main():
             nr_of_vpn += 1
             for i in range(0, len(APPLICATIONS)):
                 if APPLICATIONS[i] in filename:
-                    timeStamps = getTimeStamps(DIRECOTRY, filename)
-                    if timeStamps == [-1]:
-                        return
-                    else:
-                        duration_dic[APPLICATIONS[i]] = duration_dic[APPLICATIONS[i]] + timeStamps
+                    duration_dic[APPLICATIONS[i]] = duration_dic[APPLICATIONS[i]] + getTimeStamps(DIRECOTRY, filename)
         else:
             print("ERROR: filename did not start with vpn or nonvpn, ABORT program")
             print(filename)
@@ -81,6 +77,7 @@ def main():
 
        
     return
+
 
 # Get duration for the provided pcap file
 def getTimeStamps(dir, pcap_file):
@@ -99,8 +96,8 @@ def getTimeStamps(dir, pcap_file):
 def print_durations(duration_dic):
     # list of all applications durations, in hours
     duration_list = []
-    for j in duration_dic:
-        tmp_list = duration_dic[j]
+    for keyword in duration_dic:
+        tmp_list = duration_dic[keyword]
         if type(tmp_list[0]) is not float:
             print("Error: the first induvidual timestamps are not a float, but" + str(type(tmp_list[0])))
             print("Aborting the program")
@@ -125,7 +122,7 @@ def print_durations(duration_dic):
     print("--------------------------------------------------------------")
     print("Duration for each application")
     print("")
-    for i in duration_list:
+    for i in ranmge(0, len(duration_list)):
         print(str(APPLICATIONS[i]) + ":" + str(duration_list[i]))
     print("--------------------------------------------------------------")
     print("Duration for each category")
