@@ -102,8 +102,8 @@ def print_durations(duration_dic):
     # list of all applications durations, in hours
     duration_list = []
     for j in duration_dic:
-        #sort(duration_dic[APPLICATION[j]])
         tmp_list = duration_dic[j]
+        print(tmp_list)
         if type(tmp_list[0]) is not float:
             print("Error: the first induvidual timestamps are not a float, but" + str(type(tmp_list[0])))
             print("Aborting the program")
