@@ -7,8 +7,6 @@ python wf-attack-vpn/MIT-pcap-parsing/get_duration.py | tee stdout/get_duration.
 '''
 # to read the pcap files
 import dpkt
-# to denest lists
-from itertools import chain
 # to get the pcap files in their directory 
 import os
 
@@ -98,7 +96,7 @@ def getTimeStamps(dir, pcap_file):
     for timeStamp, pkt in pcap_file:
         list_dur.append(timeStamp)
         
-    return list_dur
+    return sort(list_dur)
 
 
 # print the different durations that are relevant in hours (input should be in seconds)
