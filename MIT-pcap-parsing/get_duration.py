@@ -104,11 +104,15 @@ def print_durations(duration_dic):
     for j in duration_dic:
         #sort(duration_dic[APPLICATION[j]])
         tmp_list = duration_dic[j]
-        print(tmp_list[-1])
-        print(type(tmp_list[-1]))
-        print(tmp_list[0])
-        return
-        duration_sec = float(tmp_list[-1]) - float(tmp_list[0])
+        if type(tmp_list[0]) is not float:
+            print("Error: the first induvidual timestamps are not a float, but" + str(type(tmp_list[0])))
+            print("Aborting the program")
+            return
+        if type(tmp_list[-1]) is not float:
+            print("Error: the last induvidual timestamps are not a float, but" + str(type(tmp_list[-1])))
+            print("Aborting the program")
+            return
+        duration_sec = tmp_list[-1] - tmp_list[0]
         duration_list[j] = duration_sec / (60 * 60)
     
     # The relevant durations
