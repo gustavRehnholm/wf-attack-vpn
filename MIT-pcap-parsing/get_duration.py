@@ -75,6 +75,13 @@ def main():
             print(filename)
             return
 
+    print("")
+    print("--------------------------------------------------------")
+    print("Total number of captures        : " + str(nr_of_captures))
+    print("Total number of vpn captures    : " + str(nr_of_vpn))
+    print("Total number of nonvpn captures : " + str(nr_of_nonvpn))
+    print("--------------------------------------------------------")
+    print("")
     print_durations(duration_dic)
 
        
@@ -115,7 +122,7 @@ def print_durations(duration_dic):
     print("Duration for each application")
     print("")
     for i in range(0, len(duration_list)):
-        print(str(APPLICATIONS[i]) + ":" + str(duration_list[i]))
+        print(str(APPLICATIONS[i]) + " \t : " + str(duration_list[i]))
     print("--------------------------------------------------------------")
     print("Duration for each category")
     print("")
