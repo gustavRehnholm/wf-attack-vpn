@@ -85,7 +85,7 @@ def getTimeStamps(dir, pcap_file):
 
     for timeStamp, pkt in pcap_file:
         list_dur.append(float(timeStamp))
-        print(timeStamp)
+        print(type(timeStamp))
         return[]
     
     return list_dur
