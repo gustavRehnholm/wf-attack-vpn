@@ -7,6 +7,8 @@ python wf-attack-vpn/MIT-pcap-parsing/get_duration.py | tee stdout/get_duration.
 '''
 # to read the pcap files
 import dpkt
+# to denest lists
+from itertools import chain
 # to get the pcap files in their directory 
 import os
 
