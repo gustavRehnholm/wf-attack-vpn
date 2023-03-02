@@ -85,6 +85,7 @@ def getTimeStamps(dir, pcap_file):
 
     for ts, pkt in dpkt.pcap.Reader(opened_file):
         list_dur.append(float(ts))
+        
     '''
     capfile = savefile.load_savefile(testcap, verbose=True)
 
@@ -101,7 +102,9 @@ def print_durations(duration_dic):
     duration_list = []
     for j in duration_dic:
         #sort(duration_dic[APPLICATION[j]])
-        duration_sec = duration_dic[APPLICATIONS[j]][-1] - duration_dic[APPLICATIONS[j]][0]
+        print(duration_dic[APPLICATIONS[j]][-1])
+        print(duration_dic[APPLICATIONS[j]][0])
+        duration_sec = float(duration_dic[APPLICATIONS[j]][-1]) - float(duration_dic[APPLICATIONS[j]][0])
         duration_list[j] = duration_sec / (60 * 60)
     
     # The relevant durations
