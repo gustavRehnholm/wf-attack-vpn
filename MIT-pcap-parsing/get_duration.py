@@ -94,7 +94,7 @@ def getTimeStamps(dir, pcap_file):
             print("ERROR: an timestamp was not a float!")
             return [-1]
     
-    return list_dur
+    return list(chain.from_iterable(list_dur))
 
 
 # print the different durations that are relevant in hours (input should be in seconds)
