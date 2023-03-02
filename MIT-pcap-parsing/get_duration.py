@@ -71,7 +71,7 @@ def main():
                     if timeStamps == [-1]:
                         return
                     else:
-                        duration_dic[APPLICATIONS[i]].append(timeStamps)
+                        duration_dic[APPLICATIONS[i]] = duration_dic[APPLICATIONS[i]] + timeStamps
         else:
             print("ERROR: filename did not start with vpn or nonvpn, ABORT program")
             print(filename)
@@ -101,7 +101,6 @@ def getTimeStamps(dir, pcap_file):
             print("The list of durations conatins more than floats, as: " + str(x))
             return [-1]
         
-
     return list_dur
 
 
