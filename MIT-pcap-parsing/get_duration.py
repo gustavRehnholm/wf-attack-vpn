@@ -6,7 +6,6 @@ touch stdout/get_duration.txt
 python wf-attack-vpn/MIT-pcap-parsing/get_duration.py | tee stdout/get_duration.txt
 '''
 # to read the pcap files
-from pcapfile import savefile
 import dpkt
 # to get the pcap files in their directory 
 import os
@@ -81,17 +80,13 @@ def main():
 def getTimeStamps(dir, pcap_file):
     list_dur = []
     file_dir = dir + "/" + pcap_file
-    opened_file = open(file_dir, 'rb')
 
-    for ts, pkt in dpkt.pcap.Reader(opened_file):
-        list_dur.append(float(ts))
-        
-    '''
-    capfile = savefile.load_savefile(testcap, verbose=True)
+    pcap_file = dpkt.pcap.Reader(open(file_dir, 'rb'))
 
-    for pkt in capfile:
-        list_dur.append(pkt.timestamp)
-    '''
+    for timeStamp, pkt in pcap_file:
+        list_dur.append(float(timeStamp))
+        print(timeStamp)
+        return[]
     
     return list_dur
 
