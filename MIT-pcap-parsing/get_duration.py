@@ -84,7 +84,7 @@ def getTimeStamps(dir, pcap_file):
     opened_file = open(file_dir, 'rb')
 
     for ts, pkt in dpkt.pcap.Reader(opened_file):
-        list_dur.append(ts)
+        list_dur.append(float(ts))
     '''
     capfile = savefile.load_savefile(testcap, verbose=True)
 
