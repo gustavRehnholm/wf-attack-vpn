@@ -106,6 +106,7 @@ def print_durations(duration_dic):
         print(tmp_list[-1])
         print(type(tmp_list[-1]))
         print(tmp_list[0])
+        return
         duration_sec = float(tmp_list[-1]) - float(tmp_list[0])
         duration_list[j] = duration_sec / (60 * 60)
     
