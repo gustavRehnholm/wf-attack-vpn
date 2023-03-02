@@ -96,7 +96,9 @@ def getTimeStamps(dir, pcap_file):
     for timeStamp, pkt in pcap_file:
         list_dur.append(timeStamp)
         
-    return list_dur.sort()
+    list_dur.sort()
+
+    return list_dur
 
 
 # print the different durations that are relevant in hours (input should be in seconds)
