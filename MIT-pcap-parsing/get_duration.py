@@ -95,8 +95,9 @@ def getTimeStamps(dir, pcap_file):
 
     for timeStamp, pkt in pcap_file:
         list_dur.append(timeStamp)
-        
-    list_dur.sort()
+
+    # Sorting made no difference  
+    #list_dur.sort()
 
     return list_dur
 
