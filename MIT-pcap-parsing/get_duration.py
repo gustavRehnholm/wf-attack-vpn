@@ -65,7 +65,11 @@ def main():
             nr_of_vpn += 1
             for i in range(0, len(APPLICATIONS)):
                 if APPLICATIONS[i] in filename:
-                    duration_dic[APPLICATIONS[i]].append(getTimeStamps(DIRECOTRY, filename))
+                    timeStamps = getTimeStamps(DIRECOTRY, filename)
+                    if timeStamps == [-1]:
+                        return
+                    else:
+                        duration_dic[APPLICATIONS[i]].append(timeStamps)
         else:
             print("ERROR: filename did not start with vpn or nonvpn, ABORT program")
             print(filename)
@@ -84,9 +88,11 @@ def getTimeStamps(dir, pcap_file):
     pcap_file = dpkt.pcap.Reader(open(file_dir, 'rb'))
 
     for timeStamp, pkt in pcap_file:
-        list_dur.append(float(timeStamp))
-        print(type(timeStamp))
-        return[]
+        if type(timeStamp) is float:
+            list_dur.append(timeStamp)
+        else:
+            print("ERROR: an timestamp was not a float!")
+            return [-1]
     
     return list_dur
 
