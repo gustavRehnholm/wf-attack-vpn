@@ -98,14 +98,6 @@ def print_durations(duration_dic):
     duration_list = []
     for keyword in duration_dic:
         tmp_list = duration_dic[keyword]
-        if type(tmp_list[0]) is not float:
-            print("Error: the first induvidual timestamps are not a float, but" + str(type(tmp_list[0])))
-            print("Aborting the program")
-            return
-        if type(tmp_list[-1]) is not float:
-            print("Error: the last induvidual timestamps are not a float, but" + str(type(tmp_list[-1])))
-            print("Aborting the program")
-            return
         duration_sec = tmp_list[-1] - tmp_list[0]
         duration_list.append(duration_sec / (60 * 60))
     
@@ -122,26 +114,26 @@ def print_durations(duration_dic):
     print("--------------------------------------------------------------")
     print("Duration for each application")
     print("")
-    for i in ranmge(0, len(duration_list)):
+    for i in range(0, len(duration_list)):
         print(str(APPLICATIONS[i]) + ":" + str(duration_list[i]))
     print("--------------------------------------------------------------")
     print("Duration for each category")
     print("")
-    print("Streaming VPN noise(h): " + str(streaming_duration))
-    print("Chat VPN noise(h): " + str(chat_duration))
-    print("c2 VPN noise(h): " + str(c2_duration))
-    print("file transfer VPN noise(h): " + str(file_transfer_duration))
-    print("voip VPN noise(h): " + str(voip_duration))
+    print("Streaming VPN noise(h)     : " + str(streaming_duration))
+    print("Chat VPN noise(h)          : " + str(chat_duration))
+    print("c2 VPN noise(h)            : " + str(c2_duration))
+    print("file transfer VPN noise(h) : " + str(file_transfer_duration))
+    print("voip VPN noise(h)          : " + str(voip_duration))
     print("")
-    print("Total VPN noise(h): " + str(total_duration))
-    print("--------------------------------------------------------------")
+    print("Total VPN noise(h)        : " + str(total_duration))
+    print("------------------------- -------------------------------------")
     print("Duration, in percent, for each category")
     print("")
-    print("Streaming: " + str((streaming_duration / total_duration) * 100))
-    print("Chat: " + str((chat_duration / total_duration ) * 100))
-    print("c2: " + str((c2_duration / total_duration) * 100))
-    print("file transfer: " + str((file_transfer_duration / total_duration) * 100))
-    print("voip: " + str((voip_duration / total_duration) * 100)) 
+    print("Streaming                 : " + str((streaming_duration / total_duration) * 100))
+    print("Chat                      : " + str((chat_duration / total_duration ) * 100))
+    print("c2                        : " + str((c2_duration / total_duration) * 100))
+    print("file transfer             : " + str((file_transfer_duration / total_duration) * 100))
+    print("voip                      : " + str((voip_duration / total_duration) * 100)) 
 
 
 if __name__=="__main__":
