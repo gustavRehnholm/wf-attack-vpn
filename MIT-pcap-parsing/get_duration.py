@@ -61,7 +61,7 @@ def main():
 
         if filename.startswith("nonvpn"):
             nr_of_nonvpn += 1
-            continiue
+            continue
         elif filename.startswith("vpn"):
             nr_of_vpn += 1
             for i in range(0, len(APPLICATIONS)):
