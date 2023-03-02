@@ -102,9 +102,11 @@ def print_durations(duration_dic):
     duration_list = []
     for j in duration_dic:
         #sort(duration_dic[APPLICATION[j]])
-        print(duration_dic[APPLICATIONS[j]][-1])
-        print(duration_dic[APPLICATIONS[j]][0])
-        duration_sec = float(duration_dic[APPLICATIONS[j]][-1]) - float(duration_dic[APPLICATIONS[j]][0])
+        tmp_list = duration_dic[APPLICATIONS[j]]
+        print(tmp_list[-1])
+        print(type(tmp_list[-1]))
+        print(tmp_list[0])
+        duration_sec = float(tmp_list[-1]) - float(tmp_list[0])
         duration_list[j] = duration_sec / (60 * 60)
     
     # The relevant durations
