@@ -2,10 +2,12 @@
 Get duration of the different applications and categories for the MIT dataset
 To determine if the lacking of data in the h5 file, is also present in the pcap files
 
-python wf-attack-vpn/MIT-pcap-parsing/get_duration.py
+touch stdout/get_duration.txt
+python wf-attack-vpn/MIT-pcap-parsing/get_duration.py | tee stdout/get_duration.txt
 '''
 # to read the pcap files
 from pcapfile import savefile
+import dpkt
 # to get the pcap files in their directory 
 import os
 
@@ -64,7 +66,7 @@ def main():
             nr_of_vpn += 1
             for i in range(0, len(APPLICATIONS)):
                 if APPLICATIONS[i] in filename:
-                    duration_dic[APPLICATIONS[i]].append(getDuration(DIRECOTRY, filename))
+                    duration_dic[APPLICATIONS[i]].append(getTimeStamps(DIRECOTRY, filename))
         else:
             print("ERROR: filename did not start with vpn or nonvpn, ABORT program")
             print(filename)
@@ -76,25 +78,31 @@ def main():
     return
 
 # Get duration for the provided pcap file
-def getDuration(dir, pcap_file):
+def getTimeStamps(dir, pcap_file):
     list_dur = []
     file_dir = dir + "/" + pcap_file
-    testcap = open(file_dir, 'rb')
+    opened_file = open(file_dir, 'rb')
+
+    for ts, pkt in dpkt.pcap.Reader(opened_file):
+        list_dur.append(ts)
+    '''
     capfile = savefile.load_savefile(testcap, verbose=True)
 
     for pkt in capfile:
         list_dur.append(pkt.timestamp)
-
+    '''
     
-
     return list_dur
 
 
 # print the different durations that are relevant in hours (input should be in seconds)
 def print_durations(duration_dic):
+    # list of all applications durations, in hours
     duration_list = []
     for j in duration_dic:
-        duration_list[j] = sum(duration_dic[APPLICATION[j]]) / (60 * 60)
+        #sort(duration_dic[APPLICATION[j]])
+        duration_sec = duration_dic[APPLICATION[j]][-1] - duration_dic[APPLICATION[j]][0]
+        duration_list[j] = duration_sec / (60 * 60)
     
     # The relevant durations
     total_duration         = sum(duration_list)
