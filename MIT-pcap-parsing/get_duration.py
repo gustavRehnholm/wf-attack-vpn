@@ -102,7 +102,7 @@ def print_durations(duration_dic):
     duration_list = []
     for j in duration_dic:
         #sort(duration_dic[APPLICATION[j]])
-        tmp_list = duration_dic[APPLICATIONS[j]]
+        tmp_list = duration_dic[j]
         print(tmp_list[-1])
         print(type(tmp_list[-1]))
         print(tmp_list[0])
