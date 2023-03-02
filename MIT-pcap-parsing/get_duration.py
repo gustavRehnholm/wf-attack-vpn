@@ -90,16 +90,7 @@ def getTimeStamps(dir, pcap_file):
     pcap_file = dpkt.pcap.Reader(open(file_dir, 'rb'))
 
     for timeStamp, pkt in pcap_file:
-        if type(timeStamp) is float:
-            list_dur.append(timeStamp)
-        else:
-            print("ERROR: an timestamp was not a float!")
-            return [-1]
-    
-    for x in list_dur:
-        if type(x) is not float:
-            print("The list of durations conatins more than floats, as: " + str(x))
-            return [-1]
+        list_dur.append(timeStamp)
         
     return list_dur
 
@@ -120,7 +111,7 @@ def print_durations(duration_dic):
             print("Aborting the program")
             return
         duration_sec = tmp_list[-1] - tmp_list[0]
-        duration_list[j] = duration_sec / (60 * 60)
+        duration_list.append(duration_sec / (60 * 60))
     
     # The relevant durations
     total_duration         = sum(duration_list)
