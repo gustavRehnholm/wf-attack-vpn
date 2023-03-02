@@ -67,7 +67,9 @@ def main():
             nr_of_vpn += 1
             for i in range(0, len(APPLICATIONS)):
                 if APPLICATIONS[i] in filename:
-                    duration_dic[APPLICATIONS[i]] = duration_dic[APPLICATIONS[i]] + getTimeStamps(DIRECOTRY, filename)
+                    durations = getTimeStamps(DIRECOTRY, filename)
+                    capture_duration = durations[-1] - durations[0]
+                    duration_dic[APPLICATIONS[i]].append(capture_duration)
         else:
             print("ERROR: filename did not start with vpn or nonvpn, ABORT program")
             print(filename)
@@ -94,12 +96,10 @@ def getTimeStamps(dir, pcap_file):
 
 # print the different durations that are relevant in hours (input should be in seconds)
 def print_durations(duration_dic):
-    # list of all applications durations, in hours
+    # list of all applications total durations, in hours
     duration_list = []
     for keyword in duration_dic:
-        tmp_list = duration_dic[keyword]
-        duration_sec = tmp_list[-1] - tmp_list[0]
-        duration_list.append(duration_sec / (60 * 60))
+        duration_list.append(sum(duration_dic[keyword]) / (60 * 60))
     
     # The relevant durations
     total_duration         = sum(duration_list)
