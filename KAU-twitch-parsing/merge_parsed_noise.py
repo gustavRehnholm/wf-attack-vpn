@@ -10,6 +10,7 @@ import pandas as pd
 import os
 
 def main():
+    print("Start merging twitch traffic")
     # parsed noise files
     DIR_NOISE = "twitch/parsed_captures/"
     # the merged noise file in teh h5 format
@@ -21,6 +22,7 @@ def main():
     merged_df = pd.DataFrame(columns = COL_NAMES)
 
     index = 0
+    print("Start the for loop")
     for file in os.listdir(DIR_NOISE):
         filename = os.fsdecode(file)
         index =+ 1
@@ -46,9 +48,11 @@ def main():
         
         merged_df = pd.concat([merged_df, df_file], axis=0)
 
+    print("Done merging files, store them in twitch.h5")
     # Store the result in h5 file, for future use of the data
     df_file_name = DIR_PARSED_NOISE + "twitch.h5" 
     merged_df.to_hdf(df_file_name, mode = "w", key = "df")
+    print("Done storing the result")
 
 
 # run main 
