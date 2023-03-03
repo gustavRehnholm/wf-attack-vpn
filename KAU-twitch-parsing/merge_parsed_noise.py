@@ -18,7 +18,7 @@ def main():
     COL_NAMES =  ['timeframe', 'direction', 'size']
 
     time_deviation = 0
-    merged_df = pd.Dataframe(columns = COL_NAMES)
+    merged_df = pd.DataFrame(columns = COL_NAMES)
 
     for file in os.listdir(DIR_NOISE):
         filename = os.fsdecode(file)
