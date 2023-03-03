@@ -1,7 +1,7 @@
 '''
 parse the noise, and clean it from any unusable packets
 
-
+python 
 '''
 
 import os
@@ -26,9 +26,9 @@ def main():
     # nanoseconds in an second
     NANO_SEC_PER_SEC = 1000000000
     # Directory with the noise
-    FILES_2_PARSE_DIR = "twitch/raw_captures"
+    FILES_2_PARSE_DIR = "captures/"
     # Directory with the noise parsed
-    PARSED_FILES_DIR = "twitch/good_captures"
+    PARSED_FILES_DIR = "twitch/parsed_captures/"
     # How much of the header to remove (to fit the noise with the web traffic)
     HEADER = 40
 
