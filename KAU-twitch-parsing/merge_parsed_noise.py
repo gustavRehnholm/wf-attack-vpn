@@ -38,7 +38,7 @@ def main():
             row["timeframe"] =  row["timeframe"] + deviation_time
 
         # to shift each new capture forward in time
-        deviation_time = df['timeframe'].iloc[-1]
+        deviation_time = df_file['timeframe'].iloc[-1]
 
         
         merged_df = pd.concat([merged_df, df_file], axis=0)
