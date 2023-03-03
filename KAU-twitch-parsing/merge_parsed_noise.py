@@ -34,7 +34,7 @@ def main():
 
 
         # time corrections on the timeframes
-        for i, row in df.iterrows():
+        for i, row in df_file.iterrows():
             row["timeframe"] =  row["timeframe"] + deviation_time
 
         # to shift each new capture forward in time
