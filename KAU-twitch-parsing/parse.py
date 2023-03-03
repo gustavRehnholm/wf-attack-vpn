@@ -1,7 +1,8 @@
 '''
 parse the noise, and clean it from any unusable packets
 
-python 
+touch stdout/parse.txt
+python wf-attack-vpn/KAU-twitch-parsing/parse.py | tee stdout/parse.txt
 '''
 
 import os

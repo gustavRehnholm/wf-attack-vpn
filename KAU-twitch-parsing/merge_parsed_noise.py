@@ -1,6 +1,9 @@
 '''
 Go though all twitch captures, and store them parsed as h5 files (containing dataframe)
 But will only use files that are of good enough quality
+
+touch stdout/merge_parsed_noise.txt
+python wf-attack-vpn/KAU-twitch-parsing/merge_parsed_noise.py | tee stdout/merge_parsed_noise.txt
 '''
 
 import pandas as pd
@@ -27,8 +30,7 @@ def main():
             return
 
         path = DIR_NOISE + filename
-        df_file = pd.Dataframe(columns = COL_NAMES)
-        df_file = pd.read_csv(path)
+        df_file = pd.read_csv(path, names = COL_NAMES)
 
         print(df_file.keys())
 

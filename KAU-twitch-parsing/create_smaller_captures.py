@@ -1,7 +1,8 @@
 '''
 Script to delete captures, used to test how many captures that are needed
 
-
+touch stdout/create_smaller_captures.txt
+python wf-attack-vpn/KAU-twitch-parsing/merge_parsed_noise.py | tee stdout/create_smaller_captures.txt
 '''
 
 import os
