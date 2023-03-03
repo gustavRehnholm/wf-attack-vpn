@@ -25,8 +25,8 @@ def main():
     print("Start the for loop")
     for file in os.listdir(DIR_NOISE):
         filename = os.fsdecode(file)
-        index =+ 1
-        print("Parsing file" + str(index) + "/1355: " + str(filename))
+        index += 1
+        print("Parsing file " + str(index) + "/1355: " + str(filename))
 
         if not filename.endswith(".log"): 
             print("ERROR: the file (" + str(filename) + ") should not be part of the directory")
