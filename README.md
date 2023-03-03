@@ -54,6 +54,8 @@ At KAU, Tobias Pulls has generated the regular web traffic, and the twitch traff
     * for all text output from the programs
 * h5
     * the extracted MIT datasets
-* twitch/merged_captures
 * twitch/parsed_captures
+    * for the parsed twitch captures, in log files
+* twitch/merged_captures
+    * for the merged twitch captures, as h5 files 
 
