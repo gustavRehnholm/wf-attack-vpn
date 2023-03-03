@@ -1,6 +1,9 @@
 '''
 Convert the raw log files to dataframes, and store them with h5
 That way, they will be faster to handle
+
+touch stdout/log_2_h5.txt
+python wf-attack-vpn/KAU-twitch-parsing/log_2_h5.py | tee stdout/log_2_h5.txt
 '''
 
 import pandas as pd
@@ -27,7 +30,9 @@ def main():
             return
 
         index += 1
+        print("")
         print("converting file " + str(index) + "/1355: " + str(filename))
+        print("")
 
         path = DIR_captures + filename
         df = pd.read_csv(path, names = COL_NAMES)
