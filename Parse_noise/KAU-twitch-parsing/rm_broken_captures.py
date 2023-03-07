@@ -50,7 +50,7 @@ def main():
     # the captures in h5 format
     DIR_RAW_H5_NOISE = "twitch/raw_captures_h5/"
     # the usable captures
-    DIR_RAW_USABLE_NOISE = "twitch/raw_usable/captures_h5/"
+    DIR_RAW_USABLE_NOISE = "twitch/usable_captures_h5/"
 
     COL_NAMES =  ['time', 'sender', 'receiver', 'size']
 
