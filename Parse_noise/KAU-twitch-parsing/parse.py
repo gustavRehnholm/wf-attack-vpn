@@ -54,7 +54,7 @@ def main():
                 time = float(row['time']) * NANO_SEC_PER_SEC
                 parsed_time = int(time)
 
-            sender_receiver = row['sender_receiver'].split("\t")
+            sender_receiver = row['sender_receiver'].split(",")
             sender          = sender_receiver[0]
             receiver        = sender_receiver[1]
 
