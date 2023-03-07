@@ -91,7 +91,7 @@ def main():
             }
 
             new_df = pd.DataFrame(new_packet)
-            pd.concat(df_parsed, new_df)
+            df_parsed = pd.concat([df_parsed, new_df], axis = 0)
 
         # have parsed the whole file, store the result
         df_file_name = DIR_OUTPUT + filename.rsplit('.', 1)[0] + '.h5'
