@@ -56,7 +56,8 @@ def main():
 
 
             sender_receiver = str(row['sender_receiver']).split(",")
-            if not sender_receiver:
+            # if no or only one IP address, skip this packet
+            if len(sender_receiver) < 2:
                 continue
             else:
                 sender          = sender_receiver[0]
