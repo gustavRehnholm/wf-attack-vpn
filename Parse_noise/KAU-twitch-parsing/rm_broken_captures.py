@@ -62,7 +62,6 @@ def main():
         index += 1
         print("")
         print("checking file " + str(index) + "/1370: " + str(filename))
-        print("")
 
         if filename in BROKEN_FILES_1:
             print("Removing file: " + filename)
