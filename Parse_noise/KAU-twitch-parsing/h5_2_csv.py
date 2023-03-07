@@ -19,14 +19,18 @@ def main():
     DIR_OUTPUT = "twitch/captures_csv/"
 
     key = "df"
-
     index = 0
+
+    # clean the previous result
+    os.system("rm -f -r " + DIR_OUTPUT)
+    os.system("mkdir " + DIR_OUTPUT)
+
     for file in os.listdir(DIR_INPUT):
         filename = os.fsdecode(file)
 
         index += 1
         print("")
-        print("converting file " + str(index) + "/1362: " + str(filename))
+        print("converting file " + str(index) + "/1370: " + str(filename))
         print("")
 
         path = DIR_INPUT + filename
