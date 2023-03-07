@@ -35,12 +35,16 @@ def main():
     df_parsed = pd.DataFrame(columns = ['time', 'direction', 'size'])
 
     for file in os.listdir(DIR_RAW_USABLE_NOISE):
+        df_parsed = df_parsed.iloc[0:0]
         index += 1
         filename = os.fsdecode(file)
         
         print("")
         print("parsing file " + str(index) + "/1370: " + str(filename))
         print("")
+
+        path = DIR_RAW_USABLE_NOISE + filename
+        df = pd.read_hdf(path, key=key)
 
         for row in df.rows:
             # convert from sec to ns
@@ -79,8 +83,9 @@ def main():
             new_df = pd.Dataframe(new_packet)
             pd.concat(df_parsed, new_df)
 
+        # have parsed the whole file, store the result
         df_file_name = DIR_PARSED_NOISE + filename.rsplit('.', 1)[0] + '.h5'
-        df_parsed.to_hdf(df_file_name, mode = "w", key = "df") 
+        df_parsed.to_hdf(df_file_name, mode = "w", key = key) 
 
 
 # run main 
