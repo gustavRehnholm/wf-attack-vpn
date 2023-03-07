@@ -51,7 +51,8 @@ def main():
             if not row['time']:
                 continue
             else:
-                parsed_time = int(float(row['time']) * NANO_SEC_PER_SEC)
+                time = float(row['time']) * NANO_SEC_PER_SEC
+                parsed_time = int(time)
 
             # get direction
             if row['sender'] == "":
