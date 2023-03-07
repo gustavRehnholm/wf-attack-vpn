@@ -14,7 +14,7 @@ def main():
     print("Start generating csv file")
 
     # the usable captures
-    DIR_INPUT = "twitch/raw_captures_h5/"
+    DIR_INPUT = "twitch/usable_captures_h5/"
     # the csv files 
     DIR_OUTPUT = "twitch/captures_csv/"
 

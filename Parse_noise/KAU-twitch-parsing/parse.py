@@ -6,8 +6,8 @@ Parse the twitch noise, which is converted to dataframes in the h5 format
 # name for the attributes
 COL_NAMES =  ['time', 'sender_receiver', 'size']
 
-touch stdout/parse.py
-python wf-attack-vpn/Parse_noise/KAU-twitch-parsing/parse.py | tee stdout/parse.py
+touch stdout/parse.txt
+python wf-attack-vpn/Parse_noise/KAU-twitch-parsing/parse.py | tee stdout/parse.txt
 '''
 
 import pandas as pd
