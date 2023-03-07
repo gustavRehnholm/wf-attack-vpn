@@ -30,23 +30,23 @@ def main():
     # for storing the result as h5
     key = "df"
 
-    index = 0
+    curr_file_index = 0
 
     df_parsed = pd.DataFrame(columns = ['time', 'direction', 'size'])
 
     for file in os.listdir(DIR_RAW_USABLE_NOISE):
         df_parsed = df_parsed.iloc[0:0]
-        index += 1
+        curr_file_index += 1
         filename = os.fsdecode(file)
         
         print("")
-        print("parsing file " + str(index) + "/1370: " + str(filename))
+        print("parsing file " + str(curr_file_index) + "/1370: " + str(filename))
         print("")
 
         path = DIR_RAW_USABLE_NOISE + filename
         df = pd.read_hdf(path, key=key)
 
-        for row in df.rows:
+        for index, row in df.iterrows():
             # convert from sec to ns
             if not row['time']:
                 continue
