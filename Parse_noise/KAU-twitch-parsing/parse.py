@@ -17,9 +17,9 @@ def main():
     print("Start generating csv file")
 
     # the usable captures
-    DIR_RAW_USABLE_NOISE = "twitch/usable_captures_h5/"
+    DIR_INPUT = "twitch/usable_captures_h5/"
     # for the parsed captures
-    DIR_PARSED_NOISE = "twitch/parsed_captures/"
+    DIR_OUTPUT = "twitch/parsed_captures/"
     # how many nanoseconds in a second
     NANO_SEC_PER_SEC = 1000000
     # How much of the header to remove (to fit the noise with the web traffic)
@@ -34,16 +34,16 @@ def main():
 
     df_parsed = pd.DataFrame(columns = ['time', 'direction', 'size'])
 
-    for file in os.listdir(DIR_RAW_USABLE_NOISE):
+    for file in os.listdir(DIR_INPUT):
         df_parsed = df_parsed.iloc[0:0]
         curr_file_index += 1
         filename = os.fsdecode(file)
         
         print("")
-        print("parsing file " + str(curr_file_index) + "/1370: " + str(filename))
+        print("parsing file " + str(curr_file_index) + "/1362: " + str(filename))
         print("")
 
-        path = DIR_RAW_USABLE_NOISE + filename
+        path = DIR_INPUT + filename
         df = pd.read_hdf(path, key=key)
 
         for index, row in df.iterrows():
@@ -84,7 +84,7 @@ def main():
             pd.concat(df_parsed, new_df)
 
         # have parsed the whole file, store the result
-        df_file_name = DIR_PARSED_NOISE + filename.rsplit('.', 1)[0] + '.h5'
+        df_file_name = DIR_OUTPUT + filename.rsplit('.', 1)[0] + '.h5'
         df_parsed.to_hdf(df_file_name, mode = "w", key = key) 
 
 
