@@ -65,12 +65,16 @@ def main():
         print("")
 
         if filename in BROKEN_FILES_1:
+            print("Removing file: " + filename)
             continue
         elif filename in BROKEN_FILES_2:
+            print("Removing file: " + filename)
             continue
         elif filename in BAD_FILES:
+            print("Removing file: " + filename)
             continue
         else:
+            print("Keeping file: " + filename)
             src = DIR_RAW_H5_NOISE + filename
             dst = DIR_RAW_USABLE_NOISE + filename
             shutil.copyfile(src, dst)
