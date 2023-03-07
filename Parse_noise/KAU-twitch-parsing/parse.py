@@ -36,7 +36,7 @@ def main():
 
     curr_file_index = 0
 
-    
+    df_parsed = pd.DataFrame(columns = ['time', 'direction', 'size'])
 
     dictionary_parsed = {
         'time': [],
@@ -44,11 +44,16 @@ def main():
         'size': []
     }
     for file in os.listdir(DIR_INPUT):
-        # prepare df_parsed for the new file
-        # This did porbably not work! 
-        #df_parsed = df_parsed.iloc[0:0]
 
-        df_parsed = pd.DataFrame(columns = ['time', 'direction', 'size'])
+        # clear the dictionary and th dataFrame
+        df_parsed = df_parsed.iloc[0:0]
+        dictionary_parsed.clear()
+        dictionary_parsed = {
+            'time': [],
+            'direction': [],
+            'size': []
+        }
+        
 
         curr_file_index += 1
         filename = os.fsdecode(file)
