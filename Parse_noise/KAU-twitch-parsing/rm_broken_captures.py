@@ -48,15 +48,19 @@ def main():
     print("Start the removal of unusable files")
 
     # the captures in h5 format
-    DIR_RAW_H5_NOISE = "twitch/raw_captures_h5/"
+    DIR_INPUT = "twitch/raw_captures_h5/"
     # the usable captures
-    DIR_RAW_USABLE_NOISE = "twitch/usable_captures_h5/"
+    DIR_OUTPUT = "twitch/usable_captures_h5/"
 
     COL_NAMES =  ['time', 'sender', 'receiver', 'size']
 
+    # clean the previous result
+    os.system("rm -f -r " + DIR_OUTPUT)
+    os.system("mkdir " + DIR_OUTPUT)
+
 
     index = 0
-    for file in os.listdir(DIR_RAW_H5_NOISE):
+    for file in os.listdir(DIR_INPUT):
 
         filename = os.fsdecode(file)
         index += 1
@@ -74,8 +78,8 @@ def main():
             continue
         else:
             print("Keeping file: " + filename)
-            src = DIR_RAW_H5_NOISE + filename
-            dst = DIR_RAW_USABLE_NOISE + filename
+            src = DIR_INPUT + filename
+            dst = DIR_OUTPUT + filename
             shutil.copyfile(src, dst)
 
 
