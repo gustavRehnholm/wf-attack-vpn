@@ -84,7 +84,12 @@ def main():
                 continue
 
             # add the parsed packet to the new dataframe
-            new_packet = {'time':parsed_time, 'direction': parsed_direction, 'size': parsed_size}
+            new_packet = {
+                'time': [parsed_time], 
+                'direction': [parsed_direction], 
+                'size': [parsed_size]
+            }
+
             new_df = pd.DataFrame(new_packet)
             pd.concat(df_parsed, new_df)
 
