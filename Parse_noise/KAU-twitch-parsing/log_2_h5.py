@@ -20,7 +20,7 @@ def main():
 
     COL_NAMES =  ['time', 'sender', 'receiver', 'size']
 
-    # clean the prevoius content of the 
+    # clean the previous result
     os.system("rm -f -r " + DIR_OUTPUT)
     os.system("mkdir " + DIR_OUTPUT)
 
