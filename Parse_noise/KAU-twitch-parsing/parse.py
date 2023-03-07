@@ -34,7 +34,7 @@ def main():
 
     df_parsed = pd.DataFrame(columns = ['time', 'direction', 'size'])
 
-    for file in os.listdir(DIR_RAW_NOISE):
+    for file in os.listdir(DIR_RAW_USABLE_NOISE):
         index += 1
         filename = os.fsdecode(file)
         
