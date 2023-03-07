@@ -30,6 +30,10 @@ def main():
     # for storing the result as h5
     key = "df"
 
+    # clean the previous result
+    os.system("rm -f -r " + DIR_OUTPUT)
+    os.system("mkdir " + DIR_OUTPUT)
+
     curr_file_index = 0
 
     df_parsed = pd.DataFrame(columns = ['time', 'direction', 'size'])
