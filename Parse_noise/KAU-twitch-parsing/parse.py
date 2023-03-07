@@ -104,8 +104,8 @@ def main():
             dictionary_parsed['direction'].append(parsed_direction)
             dictionary_parsed['size'].append(parsed_size)
 
-        df_parsed = pd.DataFrame(dictionary_parsed)
         # have parsed the whole file, store the result
+        df_parsed = pd.DataFrame(dictionary_parsed)
         df_file_name = DIR_OUTPUT + filename.rsplit('.', 1)[0] + '.h5'
         df_parsed.to_hdf(df_file_name, mode = "w", key = key) 
 
