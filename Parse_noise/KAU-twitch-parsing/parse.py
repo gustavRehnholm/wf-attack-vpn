@@ -47,6 +47,9 @@ def main():
         df = pd.read_hdf(path, key=key)
 
         for index, row in df.iterrows():
+            print("")
+            print("row: " + str(index))
+            print("")
             # convert from sec to ns
             if not row['time']:
                 continue
