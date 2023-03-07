@@ -80,7 +80,7 @@ def main():
             pd.concat(df_parsed, new_df)
 
         df_file_name = DIR_PARSED_NOISE + filename.rsplit('.', 1)[0] + '.h5'
-        df.to_hdf(df_file_name, mode = "w", key = "df") 
+        df_parsed.to_hdf(df_file_name, mode = "w", key = "df") 
 
 
 # run main 
