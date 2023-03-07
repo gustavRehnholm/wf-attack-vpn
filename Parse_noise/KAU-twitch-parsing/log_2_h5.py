@@ -18,7 +18,7 @@ def main():
     # the captures in h5 format
     DIR_OUTPUT = "twitch/raw_captures_h5/"
 
-    COL_NAMES =  ['time', 'sender', 'receiver', 'size']
+    COL_NAMES =  ['time', 'sender_receiver', 'size']
 
     # clean the previous result
     os.system("rm -f -r " + DIR_OUTPUT)
@@ -41,7 +41,7 @@ def main():
         print("")
 
         path = DIR_INPUT + filename
-        df = pd.read_csv(path, names = COL_NAMES, delim_whitespace = True, sep =',')
+        df = pd.read_csv(path, names = COL_NAMES, delim_whitespace = True)
 
         df_file_name = DIR_OUTPUT + filename.rsplit('.', 1)[0] + '.h5'
         df.to_hdf(df_file_name, mode = "w", key = "df")

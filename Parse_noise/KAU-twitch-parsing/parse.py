@@ -4,7 +4,7 @@
 Parse the twitch noise, which is converted to dataframes in the h5 format
 
 # name for the attributes
-COL_NAMES =  ['time', 'sender', 'receiver', 'size']
+COL_NAMES =  ['time', 'sender_receiver', 'size']
 
 touch stdout/parse.py
 python wf-attack-vpn/Parse_noise/KAU-twitch-parsing/parse.py | tee stdout/parse.py
@@ -54,15 +54,19 @@ def main():
                 time = float(row['time']) * NANO_SEC_PER_SEC
                 parsed_time = int(time)
 
+            sender_receiver = row['sender_receiver'].split("\t")
+            sender          = sender_receiver[0]
+            receiver        = sender_receiver[1]
+
             # get direction
-            if row['sender'] == "":
+            if sender == "":
                 continue
-            elif row['sender'] == ipHost:
+            elif sender == ipHost:
                 parsed_direction = "s"
-            elif row['receiver'] == ipHost:
+            elif receiver == ipHost:
                 parsed_direction = "r"
             else:
-                sender_start_ip = row['sender'].split('.')
+                sender_start_ip = sender.split('.')
                 if sender_start_ip[0] == '10':
                     ipHost = sender_start_ip[0]
                     parsed_direction = "s"
