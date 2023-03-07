@@ -48,6 +48,7 @@ def main():
 
         for index, row in df.iterrows():
             print("")
+            print("parsing file " + str(curr_file_index) + "/1362: " + str(filename))
             print("row: " + str(index))
             print("")
             # convert from sec to ns
