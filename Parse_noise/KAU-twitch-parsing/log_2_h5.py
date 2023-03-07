@@ -14,19 +14,19 @@ import os
 def main():
     print("Start converting twitch traffic")
     # parsed noise files
-    DIR_input = "captures/"
+    DIR_INPUT = "captures/"
     # the captures in h5 format
-    DIR_output = "twitch/raw_captures_h5/"
+    DIR_OUTPUT = "twitch/raw_captures_h5/"
 
     COL_NAMES =  ['time', 'sender', 'receiver', 'size']
 
     # clean the prevoius content of the 
-    os.system("rm -f -r " + DIR_output)
-    os.system("mkdir " + DIR_output)
+    os.system("rm -f -r " + DIR_OUTPUT)
+    os.system("mkdir " + DIR_OUTPUT)
 
 
     index = 0
-    for file in os.listdir(DIR_input):
+    for file in os.listdir(DIR_INPUT):
 
         filename = os.fsdecode(file)
         if not filename.endswith(".log"): 
@@ -40,10 +40,10 @@ def main():
         print("converting file " + str(index) + "/1370: " + str(filename))
         print("")
 
-        path = DIR_input + filename
+        path = DIR_INPUT + filename
         df = pd.read_csv(path, names = COL_NAMES)
 
-        df_file_name = DIR_output + filename.rsplit('.', 1)[0] + '.h5'
+        df_file_name = DIR_OUTPUT + filename.rsplit('.', 1)[0] + '.h5'
         df.to_hdf(df_file_name, mode = "w", key = "df")
 
 # run main 

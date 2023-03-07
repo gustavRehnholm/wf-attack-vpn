@@ -14,14 +14,14 @@ def main():
     print("Start generating csv file")
 
     # the usable captures
-    DIR_RAW_USABLE_NOISE = "twitch/usable_captures_h5/"
+    DIR_INPUT = "twitch/raw_captures_h5/"
     # the csv files 
-    DIR_CSV = "twitch/usable_captures_csv/"
+    DIR_OUTPUT = "twitch/captures_csv/"
 
     key = "df"
 
     index = 0
-    for file in os.listdir(DIR_RAW_USABLE_NOISE):
+    for file in os.listdir(DIR_INPUT):
         filename = os.fsdecode(file)
 
         index += 1
@@ -29,10 +29,10 @@ def main():
         print("converting file " + str(index) + "/1362: " + str(filename))
         print("")
 
-        path = DIR_RAW_USABLE_NOISE + filename
+        path = DIR_INPUT + filename
         df = pd.read_hdf(path, key=key)
 
-        csv_file_name = DIR_CSV + filename.rsplit('.', 1)[0] + '.csv'
+        csv_file_name = DIR_OUTPUT + filename.rsplit('.', 1)[0] + '.csv'
         df.to_csv(csv_file_name, index = True)
 
 
