@@ -5,7 +5,7 @@ Convert the raw log files to dataframes, and store them with h5
 That way, they will be faster to handle
 
 touch stdout/log_2_h5.txt
-python wf-attack-vpn/KAU-twitch-parsing/log_2_h5.py | tee stdout/log_2_h5.txt
+python wf-attack-vpn/Parse_noise/KAU-twitch-parsing/log_2_h5.py | tee stdout/log_2_h5.txt
 '''
 
 import pandas as pd
@@ -21,7 +21,7 @@ def main():
     COL_NAMES =  ['time', 'sender', 'receiver', 'size']
 
     # clean the prevoius content of the 
-    os.system("rm f- r- " + DIR_output)
+    os.system("rm -f -r " + DIR_output)
     os.system("mkdir " + DIR_output)
 
 
