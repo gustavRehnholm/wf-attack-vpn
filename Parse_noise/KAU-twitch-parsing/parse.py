@@ -54,10 +54,6 @@ def main():
         df = pd.read_hdf(path, key=key)
 
         for index, row in df.iterrows():
-            print("")
-            print("parsing file " + str(curr_file_index) + "/1362: " + str(filename))
-            print("row: " + str(index))
-            print("")
 
             # convert from sec to ns
             if not row['time']:
@@ -104,17 +100,6 @@ def main():
             dictionary_parsed['direction'].append(parsed_direction)
             dictionary_parsed['size'].append(parsed_size)
 
-            '''
-            # add the parsed packet to the new dataframe
-            new_packet = {
-                'time': [parsed_time], 
-                'direction': [parsed_direction], 
-                'size': [parsed_size]
-            }
-
-            new_df = pd.DataFrame(new_packet)
-            df_parsed = pd.concat([df_parsed, new_df], axis = 0)
-            '''
         df_parsed = pd.DataFrame(dictionary_parsed)
         # have parsed the whole file, store the result
         df_file_name = DIR_OUTPUT + filename.rsplit('.', 1)[0] + '.h5'
