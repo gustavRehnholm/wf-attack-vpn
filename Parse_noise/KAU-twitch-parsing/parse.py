@@ -85,7 +85,7 @@ def main():
 
             # add the parsed packet to the new dataframe
             new_packet = {'time':parsed_time, 'direction': parsed_direction, 'size': parsed_size}
-            new_df = pd.Dataframe(new_packet)
+            new_df = pd.DataFrame(new_packet)
             pd.concat(df_parsed, new_df)
 
         # have parsed the whole file, store the result
