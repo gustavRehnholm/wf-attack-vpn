@@ -54,26 +54,29 @@ def main():
                 time = float(row['time']) * NANO_SEC_PER_SEC
                 parsed_time = int(time)
 
-            print(row['sender_receiver'])
-            sender_receiver = str(row['sender_receiver']).split(",")
-            sender          = sender_receiver[0]
-            receiver        = sender_receiver[1]
 
-            # get direction
-            if sender == "":
+            sender_receiver = str(row['sender_receiver']).split(",")
+            if not sender_receiver:
                 continue
-            elif sender == ipHost:
-                parsed_direction = "s"
-            elif receiver == ipHost:
-                parsed_direction = "r"
             else:
-                sender_start_ip = sender.split('.')
-                if sender_start_ip[0] == '10':
-                    ipHost = sender_start_ip[0]
+                sender          = sender_receiver[0]
+                receiver        = sender_receiver[1]
+
+                # get direction
+                if sender == "":
+                    continue
+                elif sender == ipHost:
                     parsed_direction = "s"
-                else:
-                    ipHost = sender_start_ip[1]
+                elif receiver == ipHost:
                     parsed_direction = "r"
+                else:
+                    sender_start_ip = sender.split('.')
+                    if sender_start_ip[0] == '10':
+                        ipHost = sender_start_ip[0]
+                        parsed_direction = "s"
+                    else:
+                        ipHost = sender_start_ip[1]
+                        parsed_direction = "r"
 
             # get size
             try:
