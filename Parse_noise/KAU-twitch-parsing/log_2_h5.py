@@ -41,7 +41,7 @@ def main():
         print("")
 
         path = DIR_INPUT + filename
-        df = pd.read_csv(path, names = COL_NAMES)
+        df = pd.read_csv(path, names = COL_NAMES, delim_whitespace = True, sep =',')
 
         df_file_name = DIR_OUTPUT + filename.rsplit('.', 1)[0] + '.h5'
         df.to_hdf(df_file_name, mode = "w", key = "df")
