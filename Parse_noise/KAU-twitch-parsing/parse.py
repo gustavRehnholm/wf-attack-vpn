@@ -7,7 +7,7 @@ Parse the twitch noise, which is converted to dataframes in the h5 format
 COL_NAMES =  ['time', 'sender', 'receiver', 'size']
 
 touch stdout/parse.py
-python wf-attack-vpn/KAU-twitch-parsing/parse.py | tee stdout/parse.py
+python wf-attack-vpn/Parse_noise/KAU-twitch-parsing/parse.py | tee stdout/parse.py
 '''
 
 import pandas as pd
@@ -16,10 +16,11 @@ import os
 def main():
     print("Start generating csv file")
 
-    # the merged noise file in the h5 format
-    DIR_RAW_NOISE = "twitch/raw_captures_h5/"
-    # the csv files 
+    # the usable captures
+    DIR_RAW_USABLE_NOISE = "twitch/usable_captures_h5/"
+    # for the parsed captures
     DIR_PARSED_NOISE = "twitch/parsed_captures/"
+    # how many nanoseconds in a second
     NANO_SEC_PER_SEC = 1000000
     # How much of the header to remove (to fit the noise with the web traffic)
     HEADER = 40
