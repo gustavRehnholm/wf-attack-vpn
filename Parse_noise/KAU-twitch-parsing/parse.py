@@ -34,8 +34,15 @@ def main():
 
     df_parsed = pd.DataFrame(columns = ['time', 'direction', 'size'])
 
+    dictionary_parsed = {
+        'time': [],
+        'direction': [],
+        'size': []
+    }
     for file in os.listdir(DIR_INPUT):
+        # prepare df_parsed for the new file
         df_parsed = df_parsed.iloc[0:0]
+
         curr_file_index += 1
         filename = os.fsdecode(file)
         
@@ -51,6 +58,7 @@ def main():
             print("parsing file " + str(curr_file_index) + "/1362: " + str(filename))
             print("row: " + str(index))
             print("")
+            
             # convert from sec to ns
             if not row['time']:
                 continue
@@ -92,6 +100,11 @@ def main():
             if parsed_size <= 0:
                 continue
 
+            dictionary_parsed['time'].append(parsed_time)
+            dictionary_parsed['direction'].append(parsed_direction)
+            dictionary_parsed['size'].append(parsed_size)
+
+            '''
             # add the parsed packet to the new dataframe
             new_packet = {
                 'time': [parsed_time], 
@@ -101,7 +114,8 @@ def main():
 
             new_df = pd.DataFrame(new_packet)
             df_parsed = pd.concat([df_parsed, new_df], axis = 0)
-
+            '''
+        df_parsed = pd.Dataframe(dictionary_parsed)
         # have parsed the whole file, store the result
         df_file_name = DIR_OUTPUT + filename.rsplit('.', 1)[0] + '.h5'
         df_parsed.to_hdf(df_file_name, mode = "w", key = key) 
