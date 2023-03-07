@@ -12,25 +12,25 @@ import os
 def main():
     print("Start generating csv file")
 
-    # the merged noise file in the h5 format
-    DIR_MERGED_NOISE = "twitch/raw_captures_h5/"
+    # the usable captures
+    DIR_RAW_USABLE_NOISE = "twitch/usable_captures_h5/"
     # the csv files 
-    DIR_CSV = "twitch/raw_captures_csv/"
+    DIR_CSV = "twitch/usable_captures_csv/"
 
     key = "df"
 
     index = 0
-    for file in os.listdir(DIR_MERGED_NOISE):
+    for file in os.listdir(DIR_RAW_USABLE_NOISE):
 
         index += 1
         print("")
-        print("converting file " + str(index) + "/1370: " + str(filename))
+        print("converting file " + str(index) + "/1362: " + str(filename))
         print("")
 
-        path = DIR_MERGED_NOISE + filename
+        path = DIR_RAW_USABLE_NOISE + filename
         df = pd.read_hdf(path, key=key)
 
-        csv_file_name = DIR_MERGED_NOISE + filename.rsplit('.', 1)[0] + '.csv'
+        csv_file_name = DIR_RAW_USABLE_NOISE + filename.rsplit('.', 1)[0] + '.csv'
         df.to_csv(csv_file_name, index = True)
 
 
