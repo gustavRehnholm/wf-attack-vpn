@@ -3,7 +3,7 @@
 '''
 Convert the data in h5 format to csv, to check for any problems in the converting steps
 
-python wf-attack-vpn/KAU-twitch-parsing/h5_2_csv.py
+python wf-attack-vpn/Parse_noise/KAU-twitch-parsing/h5_2_csv.py
 '''
 
 import pandas as pd
@@ -21,6 +21,7 @@ def main():
 
     index = 0
     for file in os.listdir(DIR_RAW_USABLE_NOISE):
+        filename = os.fsdecode(file)
 
         index += 1
         print("")
