@@ -31,7 +31,7 @@ def main():
         path = DIR_RAW_USABLE_NOISE + filename
         df = pd.read_hdf(path, key=key)
 
-        csv_file_name = DIR_RAW_USABLE_NOISE + filename.rsplit('.', 1)[0] + '.csv'
+        csv_file_name = DIR_CSV + filename.rsplit('.', 1)[0] + '.csv'
         df.to_csv(csv_file_name, index = True)
 
 
