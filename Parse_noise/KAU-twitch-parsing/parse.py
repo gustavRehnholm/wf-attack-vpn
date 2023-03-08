@@ -3,6 +3,9 @@
 '''
 Parse the twitch noise, which is converted to dataframes in the h5 format
 
+The program is slow to run for all twitch data
+TODO: implement multiprocessor to speed it up
+
 # name for the attributes
 COL_NAMES =  ['time', 'sender_receiver', 'size']
 
