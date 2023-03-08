@@ -4,7 +4,7 @@
 Merge all the parsed captures to one single file, where the timestamps flows logical between them
 
 touch stdout/merge_parsed_noise.py
-python wf-attack-vpn/KAU-twitch-parsing/merge_parsed_noise.py | tee stdout/merge_parsed_noise.py
+python wf-attack-vpn/Parse_noise/KAU-twitch-parsing/merge_parsed_noise.py | tee stdout/merge_parsed_noise.py
 '''
 
 import pandas as pd
@@ -45,11 +45,11 @@ def main():
         path = DIR_INPUT + filename
         df = pd.read_hdf(path, key=key)
         # time corrections on the timeframes
-        for i, row in df_file.iterrows():
+        for i, row in df.iterrows():
             row["time"] =  row["time"] + deviation_time
 
         # to shift each new capture forward in time
-        deviation_time = df_file['time'].iloc[-1]
+        deviation_time = df['time'].iloc[-1]
 
         # add the capture with shifted time, to the df for the whole dataset
         merged_df = pd.concat([merged_df, df], axis=0)
