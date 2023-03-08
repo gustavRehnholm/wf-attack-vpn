@@ -14,9 +14,9 @@ def main():
     print("Start merging the twitch captures")
 
     # the csv files 
-    DIR_PARSED_NOISE = "twitch/parsed_captures/"
+    DIR_INPUT = "twitch/parsed_captures/"
     # the merged noise file in the h5 format
-    DIR_MERGED_NOISE = "twitch/merged_captures/"
+    DIR_OUTPUT = "twitch/merged_captures/"
     # for storing the result as h5
     key = "df"
     index = 0
@@ -24,20 +24,25 @@ def main():
 
     COL_NAMES =  ['time', 'direction', 'size']
 
+
+    # clean the previous result
+    os.system("rm -f -r " + DIR_OUTPUT)
+    os.system("mkdir " + DIR_OUTPUT)
+
     # to correct each captures time, so they all follow a chronological order
     deviation_time = 0
 
     merged_df = pd.DataFrame(columns = COL_NAMES)
 
-    for file in os.listdir(DIR_PARSED_NOISE):
+    for file in os.listdir(DIR_INPUT):
         index += 1
         filename = os.fsdecode(file)
         
         print("")
-        print("merging file " + str(index) + "/1370: " + str(filename))
+        print("merging file " + str(index) + "/1362: " + str(filename))
         print("")
 
-        path = DIR_PARSED_NOISE + filename
+        path = DIR_INPUT + filename
         df = pd.read_hdf(path, key=key)
         # time corrections on the timeframes
         for i, row in df_file.iterrows():
@@ -50,7 +55,7 @@ def main():
         merged_df = pd.concat([merged_df, df], axis=0)
 
     
-    merged_file_name = DIR_MERGED_NOISE + 'twitch.h5'
+    merged_file_name = DIR_OUTPUT + 'twitch.h5'
     print("Have merged all twitch traffic, store them now in " + merged_file_name)
     df.to_hdf(merged_file_name, mode = "w", key = "df") 
 
