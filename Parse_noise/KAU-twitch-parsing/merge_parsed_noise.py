@@ -32,9 +32,16 @@ def main():
     # to correct each captures time, so they all follow a chronological order
     deviation_time = 0
 
-    merged_df = pd.DataFrame(columns = COL_NAMES)
+    # list of all twitch traffic cpatures files
+    files = os.listdir(DIR_INPUT)
+    files.sort()
 
-    for file in os.listdir(DIR_INPUT):
+    # create the file, that the rest will append to
+    merged_df = pd.DataFrame(columns = COL_NAMES)
+    MERGED_FILE_NAME = DIR_OUTPUT + 'twitch.h5'
+    merged_df.to_hdf(MERGED_FILE_NAME, mode = "w", key = "df") 
+
+    for file in files:
         index += 1
         filename = os.fsdecode(file)
         
@@ -51,13 +58,12 @@ def main():
         # to shift each new capture forward in time
         deviation_time = df['time'].iloc[-1]
 
-        # add the capture with shifted time, to the df for the whole dataset
-        merged_df = pd.concat([merged_df, df], axis=0)
+        # append current files result to the final result file
+        df.to_hdf(MERGED_FILE_NAME, mode = "a", key = "df") 
 
+
+    print("Have merged all twitch traffic, store them now in " + MERGED_FILE_NAME)
     
-    merged_file_name = DIR_OUTPUT + 'twitch.h5'
-    print("Have merged all twitch traffic, store them now in " + merged_file_name)
-    df.to_hdf(merged_file_name, mode = "w", key = "df") 
 
 
 # run main 
