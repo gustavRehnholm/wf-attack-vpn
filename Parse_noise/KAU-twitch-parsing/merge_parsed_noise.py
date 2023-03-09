@@ -32,11 +32,11 @@ def main():
     # to correct each captures time, so they all follow a chronological order
     deviation_time = 0
 
-    # list of all twitch traffic cpatures files
+    # list of all twitch traffic captures files
     files = os.listdir(DIR_INPUT)
     files.sort()
 
-    # create the file, that the rest will append to
+    # create the file, that the final result will be stored in
     merged_df = pd.DataFrame(columns = COL_NAMES)
     MERGED_FILE_NAME = DIR_OUTPUT + 'twitch.h5'
     merged_df.to_hdf(MERGED_FILE_NAME, mode = "w", key = "df") 
