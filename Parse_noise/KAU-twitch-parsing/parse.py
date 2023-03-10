@@ -79,11 +79,11 @@ def main():
 
             if first_row:
                 time_index = df.columns.get_loc('time')
-                direction_index = df.columns.get_loc('direction')
+                sender_receiver_index = df.columns.get_loc('sender_receiver')
                 size_index = df.columns.get_loc('size')
 
                 print("Time: " + str(time_index))
-                print("dir: " + str(direction_index))
+                print("dir: " + str(sender_receiver_index))
                 print("size: " + str(size_index))
                 prev_time = 0
 
@@ -102,7 +102,7 @@ def main():
                     return
 
 
-            sender_receiver = str(row['sender_receiver']).split(",")
+            sender_receiver = str(row[sender_receiver_index]).split(",")
             # if no or only one IP address, skip this packet
             if len(sender_receiver) < 2:
                 continue
@@ -128,7 +128,7 @@ def main():
 
             # get size
             try:
-                parsed_size = int(row['size']) - HEADER
+                parsed_size = int(row[size_index]) - HEADER
             except:
                 continue
 
