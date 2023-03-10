@@ -107,7 +107,7 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
                 mergedFile.writelines(foreground_lines[0])
                 foreground_lines.pop(0)
                 print("Added foreground")
-            return False
+            #return False
             
 
         # prepare next chunk of background traffic
