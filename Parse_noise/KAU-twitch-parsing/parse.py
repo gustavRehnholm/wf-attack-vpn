@@ -98,7 +98,7 @@ def main():
                 continue
             else:
                 # get the time for the data (convert from seconds with 9 float numbers, to nanoseconds as a integer)
-                parseLineTime       = row[time_index].split('.')
+                parseLineTime       = str(row[time_index]).split('.')
                 LeftOfDotInNanoSec  = int(parseLineTime[0]) * NANO_SEC_PER_SEC
                 RightOfDotInNanoSec = int(parseLineTime[1])
                 totalTimeParseLine  = LeftOfDotInNanoSec + RightOfDotInNanoSec
