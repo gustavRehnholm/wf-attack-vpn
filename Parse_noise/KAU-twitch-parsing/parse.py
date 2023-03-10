@@ -3,6 +3,9 @@
 '''
 Parse the twitch noise, which is converted to dataframes in the h5 format
 
+Assumption:
+ that the captured data starts its captures from teh time 0, and that the time between the first packet and time 0, is representable for time between two packets
+
 Takes a little while to run, good time to grab a cup with coffee
 TODO: implement multiprocessor to speed it up 
 
