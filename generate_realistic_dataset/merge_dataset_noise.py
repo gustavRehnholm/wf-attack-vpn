@@ -27,11 +27,27 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
     # To standardize the time between the foreground and the background
     deviationTime = 0
 
+    first = True
 
     while(len(foregroundFiles) > 0): 
 
         df = pd.read_hdf(background_path, key = key, start = start, stop = stop)
-        for row in df.iterrows():
+
+        if first:
+            time_index = df.columns.get_loc('time')
+            direction_index = df.columns.get_loc('direction')
+            size_index = df.columns.get_loc('size')
+
+            print("Time: " + str(time_index))
+            print("dir: " + str(direction_index))
+            print("size: " + str(size_index))
+
+        first = False
+
+
+
+
+        for row in df.itertuples():
             # stop adding background traffic, when the foreground traffic is empty
             if len(foregroundFiles) <= 0:
                 return True
@@ -40,7 +56,7 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
             # Check if a new web traffic file needs to be loaded
             if len(foreground_lines) <= 0:
                 
-                deviationTime = int(row['time']) 
+                deviationTime = int(row[time_index]) 
 
                 foregroundFile = open(foregroundFiles[0], 'r') 
                 foregroundFiles.pop(0)
@@ -48,8 +64,8 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
                 foregroundFile.close()
 
 
-            background_deviated_time = int(row['time'])  - deviationTime
-            background_packet = [str(background_deviated_time), ",", row['direction'], ",", row['size'], "\n"]
+            background_deviated_time = int(row[time_index])  - deviationTime
+            background_packet = [str(background_deviated_time), ",", row[direction_index], ",", row[size_index], "\n"]
 
             # If the current web traffic packet is empty, add the current noise packet
             # Indicates that one should switch to a new web traffic file, but before that, one should add the noise
