@@ -99,7 +99,7 @@ def main():
             else:
                 time = float(row[time_index]) * NANO_SEC_PER_SEC
                 # get the time between this packet and the one before it
-                parsed_time = int(time) - prev_time
+                parsed_time = int(time - prev_time)
 
                 if parsed_time < 0:
                     print("ERROR: the time between two packet was less than 0! duration = " + str(time) + " - " + str(prev_time))
