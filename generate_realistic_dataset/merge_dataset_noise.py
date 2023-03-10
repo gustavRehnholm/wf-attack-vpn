@@ -38,7 +38,7 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
 
             
             # Check if a new web traffic file needs to be loaded
-            if len(webTrafficLines) <= 0:
+            if len(foreground_lines) <= 0:
                 
                 deviationTime = row['time'] 
 
