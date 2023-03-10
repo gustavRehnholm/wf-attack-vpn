@@ -16,7 +16,9 @@ def main():
     # the csv files 
     DIR_INPUT = "twitch/parsed_captures/"
     # the merged noise file in the h5 format
-    DIR_OUTPUT = "twitch/merged_captures/"
+    DIR_OUTPUT = "background_traffic"
+    FILE_OUTPUT = "twitch.h5"
+    PATH_OUTPUT = DIR_OUTPUT + FILE_OUTPUT
     # for storing the result as h5
     key = "df"
     index = 0
@@ -38,8 +40,8 @@ def main():
 
     # create the file, that the final result will be stored in
     merged_df = pd.DataFrame(columns = COL_NAMES)
-    MERGED_FILE_NAME = DIR_OUTPUT + 'twitch.h5'
-    merged_df.to_hdf(MERGED_FILE_NAME, mode = "w", key = "df") 
+    
+    merged_df.to_hdf(PATH_OUTPUT, mode = "w", key = "df") 
 
     first = True
 
@@ -55,10 +57,10 @@ def main():
         df = pd.read_hdf(path, key=key)
 
         # append current files result to the final result file
-        df.to_hdf(MERGED_FILE_NAME, mode = "a", key = "df") 
+        df.to_hdf(PATH_OUTPUT, mode = "a", key = "df") 
 
 
-    print("Have merged all twitch traffic, store them now in " + MERGED_FILE_NAME)
+    print("Have merged all twitch traffic, store them now in " + PATH_OUTPUT)
 
 # run main 
 if __name__=="__main__":
