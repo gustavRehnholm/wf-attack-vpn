@@ -40,7 +40,7 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
             # Check if a new web traffic file needs to be loaded
             if len(foreground_lines) <= 0:
                 
-                deviationTime = row['time'] 
+                deviationTime = int(row['time']) 
 
                 foregroundFile = open(foregroundFiles[0], 'r') 
                 foregroundFiles.pop(0)
@@ -48,7 +48,7 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
                 foregroundFile.close()
 
 
-            background_deviated_time = row['time'] - deviationTime
+            background_deviated_time = int(row['time'])  - deviationTime
             background_packet = [str(background_deviated_time), ",", row['direction'], ",", row['size'], "\n"]
 
             # If the current web traffic packet is empty, add the current noise packet
