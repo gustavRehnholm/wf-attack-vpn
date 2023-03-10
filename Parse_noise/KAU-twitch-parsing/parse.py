@@ -88,6 +88,7 @@ def main():
         first_row = True
 
         for row in df.itertuples():
+            broken = False
 
             if first_row:
                 prev_time = 0
@@ -95,26 +96,23 @@ def main():
 
             # convert from timestamp in sec, to duration form last packet in ns
             if not row[time_index]:
+                broken = True
                 continue
             else:
-                # get the time for the data (convert from seconds with 9 float numbers, to nanoseconds as a integer)
-                left_of_dot, right_of_dot = divmod(row[time_index], 1)
-                left_of_dot  = left_of_dot * NANO_SEC_PER_SEC
-                right_of_dot = right_of_dot * NANO_SEC_PER_SEC
-                totalTimeParseLine  = int(left_of_dot + right_of_dot)
-
-                parsed_time = totalTimeParseLine - prev_time
+                parsed_time_float = row[time_index] - prev_time
+                parsed_time = int(parsed_time_float)
 
                 if parsed_time < 0:
                     print("ERROR: the time between two packet was less than 0! duration = " + str(totalTimeParseLine) + " - " + str(prev_time))
                     print(parsed_time)
-                    prev_time = totalTimeParseLine
-                    continue
+                    print(parsed_time_float)
+                    return
 
 
             sender_receiver = str(row[sender_receiver_index]).split(",")
             # if no or only one IP address, skip this packet
             if len(sender_receiver) < 2:
+                broken = True
                 continue
             else:
                 sender          = sender_receiver[0]
@@ -122,6 +120,7 @@ def main():
 
                 # get direction
                 if sender == "":
+                    broken = True
                     continue
                 elif sender == ipHost:
                     parsed_direction = "s"
@@ -140,26 +139,29 @@ def main():
             try:
                 parsed_size = int(row[size_index]) - HEADER
             except:
+                broken = True
                 continue
 
             if parsed_size <= 0:
+                broken = True
                 continue
 
-            dictionary_parsed['time'].append(parsed_time)
-            dictionary_parsed['direction'].append(parsed_direction)
-            dictionary_parsed['size'].append(parsed_size)
+            if not broken:
+                dictionary_parsed['time'].append(parsed_time)
+                dictionary_parsed['direction'].append(parsed_direction)
+                dictionary_parsed['size'].append(parsed_size)
 
-            # update time for the packet before (in ns)
-            prev_time = totalTimeParseLine
+                # update time for the packet before (in sec as float)
+                prev_time = row[time_index]
 
         # have parsed the whole file, store the result
         df_parsed = pd.DataFrame(dictionary_parsed)
 
-        #df_parsed.to_csv("tmp.csv", index = True)
-        #return
-
         df_file_name = DIR_OUTPUT + filename.rsplit('.', 1)[0] + '.h5'
         df_parsed.to_hdf(df_file_name, mode = "w", key = key) 
+
+
+    print("Have saved the parsed results, ending the program")
 
 
 # run main 
