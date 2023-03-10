@@ -62,8 +62,8 @@ def main():
 
         first = False
         # time corrections on the timeframes
-        for row in df.itertuples():
-            row[time_index] =  row[time_index] + deviation_time
+        for i, row in df.iterrows():
+            row["time"] =  row["time"] + deviation_time
 
         # to shift each new capture forward in time
         deviation_time = df['time'].iloc[-1]
