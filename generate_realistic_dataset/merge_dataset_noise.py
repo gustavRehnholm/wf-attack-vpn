@@ -96,6 +96,9 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
                 print("foreground file is empty, added the noise line")
                 continue
 
+            print(foreground_packet)
+            print(str(foreground_packet[PACKET_ATTR_INDEX_TIME]))
+            return False
              # Sort the noise and the web traffic after time
             if(background_deviated_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
                 mergedFile.writelines([str(background_deviated_time), ",", str(row[direction_index]), ",", str(row[size_index]), "\n"])
