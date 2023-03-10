@@ -55,15 +55,20 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
                 return True
 
             
-            # Check if a new web traffic file needs to be loaded
+            # Check if a new foreground file needs to be opened (which also imply a new merged should be opened)
             if len(foreground_lines) <= 0:
                 
                 deviationTime = int(row[time_index]) 
 
+                # get the values of the new foreground file
                 foregroundFile = open(foregroundFiles[0], 'r') 
                 foregroundFiles.pop(0)
                 foreground_lines = foregroundFile.readlines()
                 foregroundFile.close()
+
+                # open the merged file, that the result will be stored to
+                mergedFile = open(mergedFiles[0], 'r')
+                mergedFiles.pop(0)
 
 
             background_deviated_time = int(row[time_index])  - deviationTime
@@ -74,15 +79,15 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
             try:
                 foreground_packet = foreground_lines[0].split(",")
             except:
-                mergedFiles.writelines(background_packet)
+                mergedFile.writelines(background_packet)
                 # print("Crossline is empty, added the noise line")
                 continue
 
              # Sort the noise and the web traffic after time
             if(background_deviated_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
-                mergedFiles.writelines(background_packet)
+                mergedFile.writelines(background_packet)
             else:
-                mergedFiles.writelines(foreground_lines[0])
+                mergedFile.writelines(foreground_lines[0])
                 foreground_lines.pop(0)
 
         # prepare next chunk of background traffic
