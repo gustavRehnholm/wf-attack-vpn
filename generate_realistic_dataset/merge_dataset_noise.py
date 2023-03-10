@@ -19,6 +19,7 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
     
     # all lines in the open foreground file
     foreground_lines = []
+    key = "df"
 
     # how large part of the 
     start = offset
