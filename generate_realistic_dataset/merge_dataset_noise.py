@@ -67,7 +67,7 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
                 foregroundFile.close()
 
                 # open the merged file, that the result will be stored to
-                mergedFile = open(mergedFiles[0], 'r')
+                mergedFile = open(mergedFiles[0], 'a')
                 mergedFiles.pop(0)
 
 
