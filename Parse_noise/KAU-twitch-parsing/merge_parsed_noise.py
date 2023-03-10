@@ -56,6 +56,7 @@ def main():
         path = DIR_INPUT + filename
         df = pd.read_hdf(path, key=key)
 
+        '''
         if first:
             time_index = df.columns.get_loc('time')
             print("Time: " + str(time_index))
@@ -67,7 +68,7 @@ def main():
 
         # to shift each new capture forward in time
         deviation_time = df['time'].iloc[-1]
-
+        '''
         # append current files result to the final result file
         df.to_hdf(MERGED_FILE_NAME, mode = "a", key = "df") 
 
