@@ -98,7 +98,7 @@ def main():
                 parsed_time = int(time) - prev_time
 
                 if parsed_time > 0:
-                    print("ERROR: the time between two packet was less than 0! duration = " + int(time) + " - " + prev_time)
+                    print("ERROR: the time between two packet was less than 0! duration = " + str(time) + " - " + str(prev_time))
                     return
 
 
