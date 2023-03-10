@@ -108,7 +108,8 @@ def main():
                 if parsed_time < 0:
                     print("ERROR: the time between two packet was less than 0! duration = " + str(totalTimeParseLine) + " - " + str(prev_time))
                     print(parsed_time)
-                    return
+                    prev_time = totalTimeParseLine
+                    continue
 
 
             sender_receiver = str(row[sender_receiver_index]).split(",")
