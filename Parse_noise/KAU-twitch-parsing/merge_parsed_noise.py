@@ -54,7 +54,7 @@ def main():
         path = DIR_INPUT + filename
         df = pd.read_hdf(path, key=key)
         # time corrections on the timeframes
-        for i, row in df.iterrows():
+        for row in df.itertuples():
             row["time"] =  row["time"] + deviation_time
 
         # to shift each new capture forward in time
