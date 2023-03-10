@@ -58,6 +58,7 @@ def main():
     df_parsed = pd.DataFrame(columns = ['time', 'direction', 'size'])
 
 
+    # loop thorugh all files, and use their values for the parsed result
     for file in input_files:
 
         # clear the dictionary and the dataFrame
@@ -96,14 +97,13 @@ def main():
             first_row = False
 
             print(row)
+            print(row[time_index])
+            print(row[sender_receiver_index])
+            print(row[size_index])
             return
 
             # convert from timestamp in sec, to duration form last packet in ns
             if not row[time_index]:
-                print("unsuable time (not)")
-                continue
-            elif row[time_index] < 0:
-                print("unsuable time (bellow 0)")
                 continue
             else:
                 time = float(row[time_index]) * NANO_SEC_PER_SEC
@@ -157,6 +157,10 @@ def main():
 
         # have parsed the whole file, store the result
         df_parsed = pd.DataFrame(dictionary_parsed)
+
+        df_parsed.to_csv("tmp.csv", index = True)
+        return
+
         df_file_name = DIR_OUTPUT + filename.rsplit('.', 1)[0] + '.h5'
         df_parsed.to_hdf(df_file_name, mode = "w", key = key) 
 
