@@ -43,6 +43,8 @@ def main():
     MERGED_FILE_NAME = DIR_OUTPUT + 'twitch.h5'
     merged_df.to_hdf(MERGED_FILE_NAME, mode = "w", key = "df") 
 
+    first = True
+
     for file in files:
         index += 1
         filename = os.fsdecode(file)
@@ -53,9 +55,15 @@ def main():
 
         path = DIR_INPUT + filename
         df = pd.read_hdf(path, key=key)
+
+        if first:
+            time_index = df.columns.get_loc('time')
+            print("Time: " + str(time_index))
+
+        first = False
         # time corrections on the timeframes
         for row in df.itertuples():
-            row["time"] =  row["time"] + deviation_time
+            row[time_index] =  row[time_index] + deviation_time
 
         # to shift each new capture forward in time
         deviation_time = df['time'].iloc[-1]
