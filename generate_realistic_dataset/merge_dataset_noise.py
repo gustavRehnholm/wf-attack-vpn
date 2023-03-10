@@ -3,10 +3,12 @@
 '''
 This program merges the web traffic with noise, so it can be used to test WF attacks
 
+TODO: loop the extraction of background traffic (if stop is longer than the total lenght, set offset to 0, and start to offset)
+
 mergedTestFiles: list of mergedTestFiles
 foregroundTestFiles: list of foregroundTestFiles
 background_path: path to the background PATH_BACKGROUND
-offset: offsets to use for the offsett
+offset: offsets to use for the offsets
 '''
 
 def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
