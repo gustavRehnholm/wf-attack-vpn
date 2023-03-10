@@ -16,6 +16,8 @@ import pandas as pd
 def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
 
     SIZE_DF_IN_MEMORY = 1000
+
+    PACKET_ATTR_INDEX_TIME = 0
     
     # all lines in the open foreground file
     foreground_lines = []
