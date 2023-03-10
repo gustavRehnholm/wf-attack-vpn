@@ -34,6 +34,7 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
 
     while(len(foregroundFiles) > 0): 
 
+        print("gathering a new chunk of background traffic")
         df = pd.read_hdf(background_path, key = key, start = start, stop = stop)
 
         if first:
@@ -47,10 +48,8 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
 
         first = False
 
-
-
-
         for row in df.itertuples():
+
             # stop adding background traffic, when the foreground traffic is empty
             if len(foregroundFiles) <= 0:
                 return True
@@ -61,20 +60,21 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
                 
                 deviationTime = int(row[time_index]) 
 
+                print("---------------------------------------------------------------")
+                print("Reading form a new file ", os.path.basename(foregroundFiles[0]))
+                print("")
+                print("Printing to new file ", os.path.basename(mergedFiles[0]))
+                print("---------------------------------------------------------------")
+
                 # get the values of the new foreground file
                 foregroundFile = open(foregroundFiles[0], 'r') 
                 foregroundFiles.pop(0)
                 foreground_lines = foregroundFile.readlines()
-                print("---------------------------------------------------------------")
-                print("Reading form a new file ", os.path.basename(foregroundFiles[0]))
                 foregroundFile.close()
-
-                print("")
 
                 # open the merged file, that the result will be stored to
                 mergedFile = open(mergedFiles[0], 'a')
-                print("Printing to new file ", os.path.basename(mergedFiles[0]))
-                print("---------------------------------------------------------------")
+
                 mergedFiles.pop(0)
 
 
@@ -87,15 +87,18 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
                 foreground_packet = foreground_lines[0].split(",")
             except:
                 mergedFile.writelines([str(background_deviated_time), ",", str(row[direction_index]), ",", str(row[size_index]), "\n"])
-                # print("Crossline is empty, added the noise line")
+                print("foreground file is empty, added the noise line")
                 continue
 
              # Sort the noise and the web traffic after time
             if(background_deviated_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
                 mergedFile.writelines([str(background_deviated_time), ",", str(row[direction_index]), ",", str(row[size_index]), "\n"])
+                print("Added background")
             else:
                 mergedFile.writelines(foreground_lines[0])
                 foreground_lines.pop(0)
+                print("Added foreground")
+            
 
         # prepare next chunk of background traffic
         start = stop + 1

@@ -57,13 +57,16 @@ def main():
     for x in range(0, len(dfFiles['log'])):
         if(dfFiles['is_train'][x] == True): 
             mergedTrainFiles.append(os.path.join(DIR_MERGED, dfFiles['log'][x]))
-            foregroundTrainFiles.append(os.path.join(DIR_FOREGROUND,"client", dfFiles['log'][x]))
+            foregroundTrainFiles.append(os.path.join(DIR_FOREGROUND, "client", dfFiles['log'][x]))
+
         elif(dfFiles['is_valid'][x] == True): 
             mergedValidFiles.append(os.path.join(DIR_MERGED, dfFiles['log'][x]))
-            foregroundValidFiles.append(os.path.join(DIR_FOREGROUND,"client", dfFiles['log'][x]))
+            foregroundValidFiles.append(os.path.join(DIR_FOREGROUND, "client", dfFiles['log'][x]))
+
         elif(dfFiles['is_test'][x] == True): 
             mergedTestFiles.append(os.path.join(DIR_MERGED, dfFiles['log'][x]))
-            foregroundTestFiles.append(os.path.join(DIR_FOREGROUND,"client", dfFiles['log'][x]))
+            foregroundTestFiles.append(os.path.join(DIR_FOREGROUND, "client", dfFiles['log'][x]))
+
         else:
             print("ERROR: the file " + dfFiles['log'][x] + "does not have a determined usage")
             print("Aborting program")
