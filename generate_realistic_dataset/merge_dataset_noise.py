@@ -9,6 +9,8 @@ mergedTestFiles: list of mergedTestFiles
 foregroundTestFiles: list of foregroundTestFiles
 background_path: path to the background PATH_BACKGROUND
 offset: offsets to use for the offsets
+
+python wf-attack-vpn/generate_realistic_dataset/main.py
 '''
 
 import pandas as pd
@@ -16,7 +18,7 @@ import os
 
 def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
 
-    SIZE_DF_IN_MEMORY = 1000
+    SIZE_DF_IN_MEMORY = 1000000
 
     PACKET_ATTR_INDEX_TIME = 0
     
