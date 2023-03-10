@@ -96,8 +96,8 @@ def main():
             first_row = False
 
             # convert from timestamp in sec, to duration form last packet in ns
-            if not row[time_index]:
-
+            if row[time_index] < 0:
+                print("unsuable time")
                 continue
             else:
                 time = float(row[time_index]) * NANO_SEC_PER_SEC
