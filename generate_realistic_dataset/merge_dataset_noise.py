@@ -11,6 +11,8 @@ background_path: path to the background PATH_BACKGROUND
 offset: offsets to use for the offsets
 '''
 
+import pandas as pd
+
 def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
 
     SIZE_DF_IN_MEMORY = 1000
