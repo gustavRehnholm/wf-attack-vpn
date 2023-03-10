@@ -31,7 +31,7 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
     while(len(foregroundFiles) > 0): 
 
         df = pd.read_hdf(background_path, key = key, start = start, stop = stop)
-        for row in df.itterows():
+        for row in df.iterrows():
             # stop adding background traffic, when the foreground traffic is empty
             if len(foregroundFiles) <= 0:
                 return True
