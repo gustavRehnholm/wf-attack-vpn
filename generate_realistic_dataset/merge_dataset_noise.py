@@ -12,6 +12,7 @@ offset: offsets to use for the offsets
 '''
 
 import pandas as pd
+import os
 
 def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
 
