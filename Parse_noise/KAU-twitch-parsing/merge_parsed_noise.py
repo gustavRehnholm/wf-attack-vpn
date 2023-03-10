@@ -3,6 +3,8 @@
 '''
 Merge all the parsed captures to one single file, where the timestamps flows logical between them
 
+This one takes time, and is not as easy to parallelism as the parse step. Let it run over the night
+
 touch stdout/merge_parsed_noise.py
 python wf-attack-vpn/Parse_noise/KAU-twitch-parsing/merge_parsed_noise.py | tee stdout/merge_parsed_noise.py
 '''
