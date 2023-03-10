@@ -101,7 +101,7 @@ def main():
                 left_of_dot, right_of_dot = divmod(row[time_index], 1)
                 left_of_dot  = left_of_dot * NANO_SEC_PER_SEC
                 right_of_dot = right_of_dot * NANO_SEC_PER_SEC
-                totalTimeParseLine  = int(LeftOfDotInNanoSec + RightOfDotInNanoSec)
+                totalTimeParseLine  = int(left_of_dot + right_of_dot)
 
                 parsed_time = totalTimeParseLine - prev_time
 
