@@ -18,7 +18,7 @@ def main():
     # the merged noise file in the h5 format
     DIR_OUTPUT = "background_traffic"
     FILE_OUTPUT = "twitch.h5"
-    PATH_OUTPUT = DIR_OUTPUT + FILE_OUTPUT
+    PATH_OUTPUT = DIR_OUTPUT + "/" + FILE_OUTPUT
     # for storing the result as h5
     key = "df"
     index = 0

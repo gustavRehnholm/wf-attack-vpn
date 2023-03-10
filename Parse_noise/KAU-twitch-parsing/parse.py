@@ -97,6 +97,7 @@ def main():
 
             # convert from timestamp in sec, to duration form last packet in ns
             if not row[time_index]:
+
                 continue
             else:
                 time = float(row[time_index]) * NANO_SEC_PER_SEC
@@ -145,8 +146,8 @@ def main():
             dictionary_parsed['direction'].append(parsed_direction)
             dictionary_parsed['size'].append(parsed_size)
 
-            # update time for the packet before
-            prev_time = row[time_index]
+            # update time for the packet before (in ns)
+            prev_time = time
 
         # have parsed the whole file, store the result
         df_parsed = pd.DataFrame(dictionary_parsed)
