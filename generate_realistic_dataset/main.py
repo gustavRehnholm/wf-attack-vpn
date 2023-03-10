@@ -20,6 +20,8 @@ def main():
     FILE_BACKBROUND = "twitch.h5"
     PATH_BACKGROUND = DIR_BACKGROUND + "/" + FILE_BACKBROUND
 
+    FOLD0_CSV = DIR_FOREGROUND + "/fold-0.csv"
+
 
     key    = "df"
     offset = 0
