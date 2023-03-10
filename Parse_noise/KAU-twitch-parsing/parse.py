@@ -3,15 +3,14 @@
 '''
 Parse the twitch noise, which is converted to dataframes in the h5 format
 
-The program is slow to run for all twitch data
+Takes a little while to run, good time to grab a cup with coffee
+TODO: implement multiprocessor to speed it up 
 
-TODO: implement multiprocessor to speed it up
-TODO: change iterrows to itertuples to make the program run faster
 
-# name for the attributes
-COL_NAMES =  ['time', 'sender_receiver', 'size']
+To run, type the following in the terminal:
 
 touch stdout/parse.txt
+
 python wf-attack-vpn/Parse_noise/KAU-twitch-parsing/parse.py | tee stdout/parse.txt
 '''
 
@@ -39,21 +38,26 @@ def main():
     os.system("rm -f -r " + DIR_OUTPUT)
     os.system("mkdir " + DIR_OUTPUT)
 
+    # the capture files that will be parsed
+    input_files = os.listdir(DIR_INPUT)
+
+    # to inform the user how long the script has run
     curr_file_index = 0
-
+    total_files = len(input_files)
     
-
-    df_parsed = pd.DataFrame(columns = ['time', 'direction', 'size'])
-
+    # Dictionary to append the results for each row for a file
     dictionary_parsed = {
         'time': [],
         'direction': [],
         'size': []
     }
+    # to store the parsed file
+    df_parsed = pd.DataFrame(columns = ['time', 'direction', 'size'])
 
-    for file in os.listdir(DIR_INPUT):
 
-        # clear the dictionary and th dataFrame
+    for file in input_files:
+
+        # clear the dictionary and the dataFrame
         df_parsed = df_parsed.iloc[0:0]
         dictionary_parsed.clear()
         dictionary_parsed = {
@@ -70,23 +74,25 @@ def main():
         print("parsing file " + str(curr_file_index) + "/1362: " + str(filename))
         print("")
 
+        # get the data from the current file
         path = DIR_INPUT + filename
-        df = pd.read_hdf(path, key=key)
+        df   = pd.read_hdf(path, key=key)
 
         first_row = True
 
         for row in df.itertuples():
 
             if first_row:
-                time_index = df.columns.get_loc('time')
+                # get the indexes to access the values of the input (should be 0, 1 and 2)
+                time_index            = df.columns.get_loc('time')
                 sender_receiver_index = df.columns.get_loc('sender_receiver')
-                size_index = df.columns.get_loc('size')
+                size_index            = df.columns.get_loc('size')
 
                 prev_time = 0
 
             first_row = False
 
-            # convert from sec to ns
+            # convert from timestamp in sec, to duration form last packet in ns
             if not row[time_index]:
                 continue
             else:
