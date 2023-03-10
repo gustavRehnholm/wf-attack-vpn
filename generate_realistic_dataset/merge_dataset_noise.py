@@ -79,13 +79,13 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
             try:
                 foreground_packet = foreground_lines[0].split(",")
             except:
-                mergedFile.writelines(str(background_deviated_time), ",", row[direction_index], ",", row[size_index], "\n")
+                mergedFile.writelines(str(background_deviated_time), ",", str(row[direction_index]), ",", str(row[size_index]), "\n")
                 # print("Crossline is empty, added the noise line")
                 continue
 
              # Sort the noise and the web traffic after time
             if(background_deviated_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
-                mergedFile.writelines(str(background_deviated_time), ",", row[direction_index], ",", row[size_index], "\n")
+                mergedFile.writelines(str(background_deviated_time), ",", str(row[direction_index]), ",", str(row[size_index]), "\n")
             else:
                 mergedFile.writelines(foreground_lines[0])
                 foreground_lines.pop(0)
