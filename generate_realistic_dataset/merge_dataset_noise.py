@@ -39,8 +39,8 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
         print("gathering a new chunk of background traffic")
         df = pd.read_hdf(background_path, key = key, start = start, stop = stop)
 
-        df.to_csv("tmp.csv", index = True)
-        return False
+        #df.to_csv("tmp.csv", index = True)
+        #return False
 
         if first:
             time_index = df.columns.get_loc('time')
