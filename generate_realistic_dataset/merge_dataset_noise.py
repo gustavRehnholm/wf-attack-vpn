@@ -67,7 +67,6 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
                 foreground_lines = foregroundFile.readlines()
                 print("---------------------------------------------------------------")
                 print("Reading form a new file ", os.path.basename(foregroundFiles[0]))
-                print("Reading form a new file ", os.path.basename(foregroundFile))
                 foregroundFile.close()
 
                 print("")
@@ -75,7 +74,6 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
                 # open the merged file, that the result will be stored to
                 mergedFile = open(mergedFiles[0], 'a')
                 print("Printing to new file ", os.path.basename(mergedFiles[0]))
-                print("Printing to new file ", os.path.basename(mergedFile))
                 print("---------------------------------------------------------------")
                 mergedFiles.pop(0)
 
