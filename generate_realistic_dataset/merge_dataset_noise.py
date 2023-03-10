@@ -28,7 +28,7 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
     start = offset
     stop  = offset + SIZE_DF_IN_MEMORY
     # To standardize the time between the foreground and the background
-    deviationTime = 0
+    time_stamp = 0
 
     first = True
 
@@ -58,7 +58,8 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
             # Check if a new foreground file needs to be opened (which also imply a new merged should be opened)
             if len(foreground_lines) <= 0:
                 
-                deviationTime = int(row[time_index]) 
+                # reset the time stamp for the new foreground file
+                time_stamp = 0
 
                 print("---------------------------------------------------------------")
                 print("Reading form a new file ", os.path.basename(foregroundFiles[0]))
@@ -78,7 +79,7 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
                 mergedFiles.pop(0)
 
 
-            background_deviated_time = int(row[time_index])  - deviationTime
+            background_deviated_time = time_stamp + int(row[time_index])
             #background_packet = [str(background_deviated_time), ",", row[direction_index], ",", row[size_index], "\n"]
 
             # If the current web traffic packet is empty, add the current noise packet
