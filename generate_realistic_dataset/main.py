@@ -70,13 +70,13 @@ def main():
 
 
 
-    result = mergeDatasetNoise(mergedTestFiles, foregroundTestFiles, PATH_BACKGROUND, offsets)
+    result = mergeDatasetNoise(mergedTestFiles, foregroundTestFiles, PATH_BACKGROUND, offset)
     if result is False:
         return
-    result = mergeDatasetNoise(mergedValidFiles, foregroundValidFiles, PATH_BACKGROUND, offsets)
+    result = mergeDatasetNoise(mergedValidFiles, foregroundValidFiles, PATH_BACKGROUND, offset)
     if result is False:
         return
-    result = mergeDatasetNoise(mergedTrainFiles, foregroundTrainFiles, PATH_BACKGROUND, offsets)
+    result = mergeDatasetNoise(mergedTrainFiles, foregroundTrainFiles, PATH_BACKGROUND, offset)
     if result is False:
         return
 
