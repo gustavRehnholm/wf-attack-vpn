@@ -7,7 +7,7 @@ python wf-attack-vpn/generate_realistic_dataset/main.py
 '''
 
 import pandas as pd
-from os import walk
+import os
 from merge_dataset_noise import mergeDatasetNoise
 
 def main():
@@ -39,7 +39,7 @@ def main():
 
 
     # The naming structure between the foreground and the merged should be the same
-    for (dirpath, dirnames, filenames) in walk(DIR_FOREGROUND, topdown=True):
+    for (dirpath, dirnames, filenames) in os.walk(DIR_FOREGROUND, topdown=True):
         for dirs in dirnames:
             try: 
                 os.mkdir(os.path.join(DIR_MERGED, dirs))
