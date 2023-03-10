@@ -57,6 +57,10 @@ def main():
     # to store the parsed file
     df_parsed = pd.DataFrame(columns = ['time', 'direction', 'size'])
 
+    time_index            = 1
+    sender_receiver_index = 2
+    size_index            = 3
+
 
     # loop thorugh all files, and use their values for the parsed result
     for file in input_files:
@@ -69,7 +73,6 @@ def main():
             'direction': [],
             'size': []
         }
-        
 
         curr_file_index += 1
         filename = os.fsdecode(file)
@@ -87,13 +90,7 @@ def main():
         for row in df.itertuples():
 
             if first_row:
-                # get the indexes to access the values of the input (should be 0, 1 and 2)
-                time_index            = df.columns.get_loc('time')
-                sender_receiver_index = df.columns.get_loc('sender_receiver')
-                size_index            = df.columns.get_loc('size')
-
                 prev_time = 0
-
             first_row = False
 
             print(row)
