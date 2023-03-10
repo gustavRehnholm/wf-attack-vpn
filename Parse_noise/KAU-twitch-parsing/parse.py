@@ -4,7 +4,9 @@
 Parse the twitch noise, which is converted to dataframes in the h5 format
 
 The program is slow to run for all twitch data
+
 TODO: implement multiprocessor to speed it up
+TODO: change iterrows to itertuples to make the program run faster
 
 # name for the attributes
 COL_NAMES =  ['time', 'sender_receiver', 'size']
@@ -39,6 +41,8 @@ def main():
 
     curr_file_index = 0
 
+    
+
     df_parsed = pd.DataFrame(columns = ['time', 'direction', 'size'])
 
     dictionary_parsed = {
@@ -46,6 +50,7 @@ def main():
         'direction': [],
         'size': []
     }
+
     for file in os.listdir(DIR_INPUT):
 
         # clear the dictionary and th dataFrame
@@ -68,14 +73,33 @@ def main():
         path = DIR_INPUT + filename
         df = pd.read_hdf(path, key=key)
 
-        for index, row in df.iterrows():
+        first_row = True
+
+        for index, row in df.itertuples():
+
+            if first_row:
+                time_index = df.columns.get_loc('time')
+                direction_index = df.columns.get_loc('direction')
+                size_index = df.columns.get_loc('size')
+
+                print("Time: " + str(time_index))
+                print("dir: " + str(direction_index))
+                print("size: " + str(size_index))
+                prev_time = 0
+
+            first_row = False
 
             # convert from sec to ns
-            if not row['time']:
+            if not row[time_index]:
                 continue
             else:
-                time = float(row['time']) * NANO_SEC_PER_SEC
-                parsed_time = int(time)
+                time = float(row[time_index]) * NANO_SEC_PER_SEC
+                # get the time between this packet and the one before it
+                parsed_time = int(time) - prev_time
+
+                if parsed_time > 0:
+                    print("ERROR: the time between two packet was less than 0! duration = " + int(time) + " - " + prev_time)
+                    return
 
 
             sender_receiver = str(row['sender_receiver']).split(",")
@@ -114,6 +138,9 @@ def main():
             dictionary_parsed['time'].append(parsed_time)
             dictionary_parsed['direction'].append(parsed_direction)
             dictionary_parsed['size'].append(parsed_size)
+
+            # update time for the packet before
+            prev_time = row[time_index]
 
         # have parsed the whole file, store the result
         df_parsed = pd.DataFrame(dictionary_parsed)
