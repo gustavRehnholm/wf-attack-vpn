@@ -5,16 +5,12 @@ touch stdout/log_2_h5.txt
 python wf-attack-vpn/Parse_noise/KAU-twitch-parsing/log_2_h5.py | tee stdout/log_2_h5.txt
 
 
-# (optinoal) to check that the convertion made it thoguh as intended
-python wf-attack-vpn/Parse_noise/KAU-twitch-parsing/h5_2_csv.py
-
-
-# rm the capture files that are broken (lack sufficient captures)
+# rm the capture files that are broken 
 touch stdout/rm_broken_captures.txt
 python wf-attack-vpn/Parse_noise/KAU-twitch-parsing/rm_broken_captures.py | tee stdout/rm_broken_captures.txt
 
 
-# Parse the noise, which is now stored as dataframes 
+# Parse the noise, which is now stored as dataframes  in h5 files
 touch stdout/parse.py
 python wf-attack-vpn/Parse_noise/KAU-twitch-parsing/parse.py | tee stdout/parse.py
 
