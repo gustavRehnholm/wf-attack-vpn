@@ -2,9 +2,12 @@
 
 '''
 This program merges the web traffic with noise, so it can be used to test WF attacks
+
+python wf-attack-vpn/generate_realistic_dataset/main.py
 '''
 
 import pandas as pd
+from os import walk
 from merge_dataset_noise import mergeDatasetNoise
 
 def main():
