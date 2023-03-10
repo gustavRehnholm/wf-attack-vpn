@@ -82,9 +82,6 @@ def main():
                 sender_receiver_index = df.columns.get_loc('sender_receiver')
                 size_index = df.columns.get_loc('size')
 
-                print("Time: " + str(time_index))
-                print("dir: " + str(sender_receiver_index))
-                print("size: " + str(size_index))
                 prev_time = 0
 
             first_row = False
@@ -97,7 +94,7 @@ def main():
                 # get the time between this packet and the one before it
                 parsed_time = int(time) - prev_time
 
-                if parsed_time > 0:
+                if parsed_time < 0:
                     print("ERROR: the time between two packet was less than 0! duration = " + str(time) + " - " + str(prev_time))
                     return
 
