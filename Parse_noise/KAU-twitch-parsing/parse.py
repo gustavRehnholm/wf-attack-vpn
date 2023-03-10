@@ -97,14 +97,16 @@ def main():
             if not row[time_index]:
                 continue
             else:
-                time = float(row[time_index])
-                # get the time between this packet and the one before it
-                parsed_time = time - prev_time
-                # time in ns as int
-                parsed_time = int(parsed_time * NANO_SEC_PER_SEC)
+                # get the time for the data (convert from seconds with 9 float numbers, to nanoseconds as a integer)
+                parseLineTime       = row[time_index].split('.')
+                LeftOfDotInNanoSec  = int(parseLineTime[0]) * NANO_SEC_PER_SEC
+                RightOfDotInNanoSec = int(parseLineTime[1])
+                totalTimeParseLine  = LeftOfDotInNanoSec + RightOfDotInNanoSec
+
+                parsed_time = totalTimeParseLine - prev_time
 
                 if parsed_time < 0:
-                    print("ERROR: the time between two packet was less than 0! duration = " + str(time) + " - " + str(prev_time))
+                    print("ERROR: the time between two packet was less than 0! duration = " + str(totalTimeParseLine) + " - " + str(prev_time))
                     print(parsed_time)
                     return
 
@@ -147,7 +149,7 @@ def main():
             dictionary_parsed['size'].append(parsed_size)
 
             # update time for the packet before (in ns)
-            prev_time = time
+            prev_time = totalTimeParseLine
 
         # have parsed the whole file, store the result
         df_parsed = pd.DataFrame(dictionary_parsed)
