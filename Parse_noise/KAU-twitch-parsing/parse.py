@@ -75,7 +75,7 @@ def main():
 
         first_row = True
 
-        for index, row in df.itertuples():
+        for row in df.itertuples():
 
             if first_row:
                 time_index = df.columns.get_loc('time')
