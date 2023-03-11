@@ -4,7 +4,7 @@
 Convert the data in h5 format to csv, to check for any problems in the converting steps
 Only necessary to run for bug hunting
 
-python wf-attack-vpn/Parse_noise/KAU-twitch-parsing/h5_2_csv.py background_traffic/twitch.h5
+python wf-attack-vpn/Parse_noise/KAU-twitch-parsing/h5_2_csv.py background_traffic/
 '''
 
 import pandas as pd
@@ -15,7 +15,6 @@ def main():
     print("Start generating csv file")
 
     # the files to create csv files of
-    #DIR_INPUT = "background_traffic/twitch.h5"
     DIR_INPUT = sys.argv[1]
     # the csv files 
     DIR_OUTPUT = "twitch/captures_csv/"
