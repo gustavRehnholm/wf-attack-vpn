@@ -13,24 +13,30 @@ import os
 def main():
     print("Start generating csv file")
 
-    # the usable captures
+    # the files to create csv files of
     DIR_INPUT = "twitch/merged_captures/"
     # the csv files 
     DIR_OUTPUT = "twitch/captures_csv/"
 
+    # to extract the dataframe from the h5 file
     key = "df"
+    # to inform the user how far the program has traversed
     index = 0
 
     # clean the previous result
     os.system("rm -f -r " + DIR_OUTPUT)
     os.system("mkdir " + DIR_OUTPUT)
 
-    for file in os.listdir(DIR_INPUT):
+    files = os.listdir(DIR_INPUT)
+    len_files = len(files)
+
+    # for every h5 file, create a csv file
+    for file in files:
         filename = os.fsdecode(file)
 
         index += 1
         print("")
-        print("converting file " + str(index) + "/1370: " + str(filename))
+        print("converting file " + str(index) + "/" + str(len_files) + ": " + str(filename))
         print("")
 
         path = DIR_INPUT + filename
