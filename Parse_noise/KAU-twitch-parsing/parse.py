@@ -100,7 +100,7 @@ def main():
                 # get the duration (in ns) between this packet, and the one before it
                 parsed_time_float_sec = row[time_index] - prev_time
                 parsed_time_float_ns = parsed_time_float_sec * NANO_SEC_PER_SEC
-                parsed_time = int(parsed_time_float_ns)
+                parsed_time = round(parsed_time_float_ns)
 
                 if parsed_time < 0:
                     print("ERROR: the time between two packet was less than 0! duration = " + str(row[time_index]) + " - " + str(prev_time))
