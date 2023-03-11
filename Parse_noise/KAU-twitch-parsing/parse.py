@@ -78,7 +78,7 @@ def main():
         filename = os.fsdecode(file)
         
         print("")
-        print("parsing file " + str(curr_file_index) + "/1362: " + str(filename))
+        print("parsing file " + str(curr_file_index) + "/" + str(total_files) + ": " + str(filename))
         print("")
 
         # get the data from the current file
@@ -88,6 +88,7 @@ def main():
         first_row = True
 
         for row in df.itertuples():
+            # flag to check if the packet is broken, so it can be skipped
             broken = False
 
             if first_row:
@@ -99,13 +100,15 @@ def main():
                 broken = True
                 continue
             else:
-                parsed_time_float = row[time_index] - prev_time
-                parsed_time = int(parsed_time_float)
+                parsed_time_float_sec = row[time_index] - prev_time
+                parsed_time_float_ns = parsed_time_float_sec * NANO_SEC_PER_SEC
+                parsed_time = int(parsed_time_float_ns)
 
                 if parsed_time < 0:
-                    print("ERROR: the time between two packet was less than 0! duration = " + str(totalTimeParseLine) + " - " + str(prev_time))
+                    print("ERROR: the time between two packet was less than 0! duration = " + str(row[time_index]) + " - " + str(prev_time))
                     print(parsed_time)
-                    print(parsed_time_float)
+                    print(parsed_time_float_sec)
+                    print(parsed_time_float_ns)
                     return
 
 
