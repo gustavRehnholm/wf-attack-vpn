@@ -85,21 +85,19 @@ def main():
         path = DIR_INPUT + filename
         df   = pd.read_hdf(path, key=key)
 
-        first_row = True
 
+        # should start at 0
+        prev_time = 0
         for row in df.itertuples():
             # flag to check if the packet is broken, so it can be skipped
             broken = False
-
-            if first_row:
-                prev_time = 0
-            first_row = False
 
             # convert from timestamp in sec, to duration form last packet in ns
             if not row[time_index]:
                 broken = True
                 continue
             else:
+                # get the duration (in ns) between this packet, and the one before it
                 parsed_time_float_sec = row[time_index] - prev_time
                 parsed_time_float_ns = parsed_time_float_sec * NANO_SEC_PER_SEC
                 parsed_time = int(parsed_time_float_ns)
