@@ -36,7 +36,9 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
     # To standardize the time between the foreground and the background
     time_stamp = 0
 
-    first = True
+    time_index      = 1
+    direction_index = 2
+    size_index      = 3 
 
     # add background traffic, until the foreground traffic is filled
     while(len(foregroundFiles) > 0): 
@@ -44,20 +46,6 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
         print("gathering a new chunk of background traffic")
         df = pd.read_hdf(background_path, key = key)
         #df = pd.read_hdf(background_path, key = key, start = start, stop = stop)
-
-        #df.to_csv("tmp.csv", index = True)
-        #return False
-
-        if first:
-            time_index = df.columns.get_loc('time')
-            direction_index = df.columns.get_loc('direction')
-            size_index = df.columns.get_loc('size')
-
-            print("Time: " + str(time_index))
-            print("dir: " + str(direction_index))
-            print("size: " + str(size_index))
-
-        first = False
 
         for row in df.itertuples():
 
@@ -100,9 +88,6 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
                 time_stamp = background_deviated_time
                 print("foreground file is empty, added the noise line")
                 continue
-
-            #print(foreground_packet)
-            #print(str(foreground_packet[PACKET_ATTR_INDEX_TIME]))
             
              # Sort the noise and the web traffic after time
             if(background_deviated_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
