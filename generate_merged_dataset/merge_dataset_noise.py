@@ -37,12 +37,9 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset, chu
     direction_index = 2
     size_index      = 3 
 
-    
+    # get size of the background traffic
     store = pd.HDFStore(background_path)
-    #print(store)
     df_len = store.get_storer(key).nrows
-    #print(store.get_storer(key).nrows)
-    #print(df_len)
     store.close()
     
     # add background traffic, until the foreground traffic is filled
@@ -108,8 +105,6 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset, chu
                 time_stamp = background_deviated_time
             else:
                 mergedFile.writelines(foreground_lines[0])
-                print(foreground_lines[0])
-                return False
                 foreground_lines.pop(0)
             
 
