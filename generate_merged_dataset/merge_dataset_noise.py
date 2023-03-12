@@ -42,6 +42,7 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset, chu
 
     store = pd.HDFStore(background_path)
     df_len = store.get_storer(key).nrows
+    store.close()
 
     print(df_len)
 
