@@ -104,13 +104,9 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset, chu
             if(background_deviated_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
                 mergedFile.writelines([str(background_deviated_time), ",", str(row[direction_index]), ",", str(row[size_index]), "\n"])
                 time_stamp = background_deviated_time
-                #print("Added background")
-                #print([str(background_deviated_time), ",", str(row[direction_index]), ",", str(row[size_index]), "\n"])
             else:
                 mergedFile.writelines(foreground_lines[0])
                 foreground_lines.pop(0)
-                #print("Added foreground")
-                #print(foreground_packet)
             
 
         # prepare next chunk of background traffic
