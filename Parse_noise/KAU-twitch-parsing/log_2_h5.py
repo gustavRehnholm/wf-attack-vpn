@@ -24,7 +24,7 @@ def main():
     os.system("rm -f -r " + DIR_OUTPUT)
     os.system("mkdir " + DIR_OUTPUT)
 
-
+    key = "df"
     index = 0
     for file in os.listdir(DIR_INPUT):
 
@@ -44,7 +44,7 @@ def main():
         df = pd.read_csv(path, names = COL_NAMES, delim_whitespace = True)
 
         df_file_name = DIR_OUTPUT + filename.rsplit('.', 1)[0] + '.h5'
-        df.to_hdf(df_file_name, mode = "w", key = "df")
+        df.to_hdf(df_file_name, mode = "w", key = key)
 
 # run main 
 if __name__=="__main__":

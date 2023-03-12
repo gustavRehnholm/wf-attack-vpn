@@ -42,7 +42,7 @@ def main():
     # create the file, that the final result will be stored in
     merged_df = pd.DataFrame(columns = COL_NAMES)
     
-    merged_df.to_hdf(PATH_OUTPUT, mode = "w", key = "df") 
+    merged_df.to_hdf(PATH_OUTPUT, mode = "w", key = key) 
 
     first = True
 
@@ -58,7 +58,7 @@ def main():
         df = pd.read_hdf(path, key=key)
 
         # append current files result to the final result file
-        df.to_hdf(PATH_OUTPUT, mode = "a", key = "df") 
+        df.to_hdf(PATH_OUTPUT, mode = "a", key = key) 
 
 
     print("Have merged all twitch traffic, store them now in " + PATH_OUTPUT)
