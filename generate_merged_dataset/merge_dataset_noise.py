@@ -37,21 +37,26 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset, chu
     direction_index = 2
     size_index      = 3 
 
+    '''
     store = pd.HDFStore(background_path)
     print(store)
     df_len = store.get_storer(key).nrows
     print(store.get_storer(key).nrows)
-    store.close()
-
     print(df_len)
-
-    return False
-
+    store.close()
+    '''
+    
     # add background traffic, until the foreground traffic is filled
     while(len(foregroundFiles) > 0): 
 
         print("gathering a new chunk of background traffic")
-        df = pd.read_hdf(background_path, key = key, start = start, stop = stop)
+        try:
+            df = pd.read_hdf(background_path, key = key, start = start, stop = stop)
+        except:
+            print("Loop the background noise")
+            start = 0
+            stop = CHUNK
+            df = pd.read_hdf(background_path, key = key, start = start, stop = stop)
 
         for row in df.itertuples():
 
@@ -111,10 +116,11 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset, chu
         # prepare next chunk of background traffic
         start = stop + 1
         stop = start + CHUNK
+        '''
         if stop >= df_len:
             start = 0
             stop  = CHUNK
-
+        '''
     return True
 
 if __name__=="__main__":
