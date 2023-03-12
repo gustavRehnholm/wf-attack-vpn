@@ -26,7 +26,7 @@ def main():
 
 
     key    = "df"
-    offset = 0
+    offset = 50000
     # how many rows of background the computer will have in the primary memory at a time
     chunk = 10000
 
