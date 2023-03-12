@@ -18,11 +18,11 @@ python wf-attack-vpn/generate_merged_dataset/main.py
 import pandas as pd
 import os
 
-def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
+def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset, chunk):
 
     background_in_a_row = 0
 
-    SIZE_DF_IN_MEMORY = 1000000
+    CHUNK = chunk
 
     PACKET_ATTR_INDEX_TIME = 0
     
@@ -32,7 +32,7 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
 
     # how large part of the 
     start = offset
-    stop  = offset + SIZE_DF_IN_MEMORY
+    stop  = offset + CHUNK
     # To standardize the time between the foreground and the background
     time_stamp = 0
 
@@ -40,12 +40,16 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
     direction_index = 2
     size_index      = 3 
 
+    store = pd.HDFStore(background_path)
+    df_len = store.get_storer(key).nrows
+
+    print(df_len)
+
     # add background traffic, until the foreground traffic is filled
     while(len(foregroundFiles) > 0): 
 
         print("gathering a new chunk of background traffic")
-        df = pd.read_hdf(background_path, key = key)
-        #df = pd.read_hdf(background_path, key = key, start = start, stop = stop)
+        df = pd.read_hdf(background_path, key = key, start = start, stop = stop)
 
         for row in df.itertuples():
 
@@ -110,7 +114,10 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
 
         # prepare next chunk of background traffic
         start = stop + 1
-        stop = start + SIZE_DF_IN_MEMORY
+        stop = start + CHUNK
+        if stop >= df_len:
+            start = 0
+            stop  = CHUNK
 
     return True
 

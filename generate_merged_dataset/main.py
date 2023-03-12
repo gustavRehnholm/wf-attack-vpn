@@ -3,6 +3,8 @@
 '''
 This program merges the web traffic with noise, so it can be used to test WF attacks
 
+If the program runs out of primary memory during its run time, test to make the variable chunk smaller
+
 python wf-attack-vpn/generate_realistic_dataset/main.py
 '''
 
@@ -25,6 +27,8 @@ def main():
 
     key    = "df"
     offset = 0
+    # how many rows of background the computer will have in the primary memory at a time
+    chunk = 1000000
 
     # list of what each file should be used for
     foregroundTrainFiles = []
@@ -73,13 +77,13 @@ def main():
 
 
 
-    result = mergeDatasetNoise(mergedTestFiles, foregroundTestFiles, PATH_BACKGROUND, offset)
+    result = mergeDatasetNoise(mergedTestFiles, foregroundTestFiles, PATH_BACKGROUND, offset, chunk)
     if result is False:
         return
-    result = mergeDatasetNoise(mergedValidFiles, foregroundValidFiles, PATH_BACKGROUND, offset)
+    result = mergeDatasetNoise(mergedValidFiles, foregroundValidFiles, PATH_BACKGROUND, offset, chunk)
     if result is False:
         return
-    result = mergeDatasetNoise(mergedTrainFiles, foregroundTrainFiles, PATH_BACKGROUND, offset)
+    result = mergeDatasetNoise(mergedTrainFiles, foregroundTrainFiles, PATH_BACKGROUND, offset, chunk)
     if result is False:
         return
 
