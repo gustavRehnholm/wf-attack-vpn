@@ -43,6 +43,7 @@ def main():
 
     # the capture files that will be parsed
     input_files = os.listdir(DIR_INPUT)
+    input_files.sort()
 
     # to inform the user how long the script has run
     curr_file_index = 0
