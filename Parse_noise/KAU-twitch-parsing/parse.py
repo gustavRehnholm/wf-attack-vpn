@@ -28,7 +28,7 @@ def main():
     # for the parsed captures
     DIR_OUTPUT = "twitch/parsed_captures/"
     # how many nanoseconds in a second
-    NANO_SEC_PER_SEC = 1000000
+    NANO_SEC_PER_SEC = 1000000000
     # How much of the header to remove (to fit the noise with the web traffic)
     HEADER = 40
 
@@ -51,6 +51,7 @@ def main():
 
     # for trouble shooting
     amount_in_wrong_order = [0] * total_files
+    amount_with_zero = [0] * total_files
     
     # Dictionary to append the results for each row for a file
     dictionary_parsed = {
@@ -112,11 +113,9 @@ def main():
                     wrong_order = True
                     amount_in_wrong_order[curr_file_index] += 1
                 elif parsed_time == 0:
-                    print("ERROR: the time between two packet was 0, duration = " + str(row[time_index]) + " - " + str(prev_time))
-                    print(parsed_time)
-                    print(parsed_time_float_sec)
-                    print(parsed_time_float_ns)
-                    return
+                    parsed_time = 1
+                    amount_with_zero[curr_file_index] += 1
+
 
 
             sender_receiver = str(row[sender_receiver_index]).split(",")
@@ -174,8 +173,11 @@ def main():
 
 
     amount_in_wrong_order.sort()
+    amount_with_zero.sort()
     print("the number of packets (sorted) that was in the wrong order")
     print(amount_in_wrong_order)
+    print("the number of packets (sorted) that was slower than 1 ns")
+    print(amount_with_zero)
 
     print("Have saved the parsed results, ending the program")
 
