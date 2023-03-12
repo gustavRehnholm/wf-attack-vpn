@@ -97,6 +97,7 @@ def main():
             broken = False
             wrong_order = False
             amount_in_wrong_order[curr_file_index] += 1
+
             # convert from timestamp in sec, to duration form last packet in ns
             if not row[time_index]:
                 broken = True
@@ -109,9 +110,11 @@ def main():
 
                 # Some packets are in the wrong order, 
                 if parsed_time < 0:
-                    parsed_time = abs(parsed_time)
-                    wrong_order = True
+                    #parsed_time = abs(parsed_time)
+                    #wrong_order = True
                     amount_in_wrong_order[curr_file_index] += 1
+                    broken = True
+                    continue
                 elif parsed_time == 0:
                     parsed_time = 1
                     amount_with_zero[curr_file_index] += 1
@@ -160,10 +163,16 @@ def main():
                 dictionary_parsed['direction'].append(parsed_direction)
                 dictionary_parsed['size'].append(parsed_size)
 
-                # if the worng order, keep the prev_time as the one before
-                if not wrong_order:
-                    # update time for the packet before (in sec as float)
-                    prev_time = row[time_index]
+                # if the wrong order, keep the prev_time as the one before
+                #if not wrong_order:
+                # update time for the packet before (in sec as float)
+                prev_time = row[time_index]
+
+        print("Done parsing the file " + str(filename))
+        print("the number of packets that was in the wrong order")
+        print(amount_in_wrong_order[curr_file_index])
+        print("the number of packets that was slower than 1 ns")
+        print(amount_with_zero[curr_file_index])
 
         # have parsed the whole file, store the result
         df_parsed = pd.DataFrame(dictionary_parsed)
@@ -172,11 +181,11 @@ def main():
         df_parsed.to_hdf(df_file_name, mode = "w", key = key) 
 
 
-    amount_in_wrong_order.sort()
-    amount_with_zero.sort()
-    print("the number of packets (sorted) that was in the wrong order")
+    #amount_in_wrong_order.sort()
+    #amount_with_zero.sort()
+    print("the number of packets that was in the wrong order")
     print(amount_in_wrong_order)
-    print("the number of packets (sorted) that was slower than 1 ns")
+    print("the number of packets that was slower than 1 ns")
     print(amount_with_zero)
 
     print("Have saved the parsed results, ending the program")
