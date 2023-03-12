@@ -46,8 +46,11 @@ def main():
     input_files.sort()
 
     # to inform the user how long the script has run
-    curr_file_index = 0
+    curr_file_index = -1
     total_files = len(input_files)
+
+    # for trouble shooting
+    amount_in_wrong_order = [0] * total_files
     
     # Dictionary to append the results for each row for a file
     dictionary_parsed = {
@@ -65,7 +68,7 @@ def main():
 
     # loop thorugh all files, and use their values for the parsed result
     for file in input_files:
-
+        index += 1
         # should start at 0 for each file
         prev_time = 0
 
@@ -91,7 +94,8 @@ def main():
         for row in df.itertuples():
             # flag to check if the packet is broken, so it can be skipped
             broken = False
-
+            wrong_order = False
+            amount_in_wrong_order[curr_file_index] += 1
             # convert from timestamp in sec, to duration form last packet in ns
             if not row[time_index]:
                 broken = True
@@ -102,8 +106,13 @@ def main():
                 parsed_time_float_ns  = parsed_time_float_sec * NANO_SEC_PER_SEC
                 parsed_time           = round(parsed_time_float_ns)
 
-                if parsed_time <= 0:
-                    print("ERROR: the time between two packet was less than 0! duration = " + str(row[time_index]) + " - " + str(prev_time))
+                # Some packets are in the wrong order, 
+                if parsed_time < 0:
+                    parsed_time = abs(parsed_time)
+                    wrong_order = True
+                    list_nr[index] += 1
+                elif parsed_time == 0:
+                    print("ERROR: the time between two packet was 0, duration = " + str(row[time_index]) + " - " + str(prev_time))
                     print(parsed_time)
                     print(parsed_time_float_sec)
                     print(parsed_time_float_ns)
@@ -152,8 +161,10 @@ def main():
                 dictionary_parsed['direction'].append(parsed_direction)
                 dictionary_parsed['size'].append(parsed_size)
 
-                # update time for the packet before (in sec as float)
-                prev_time = row[time_index]
+                # if the worng order, keep the prev_time as the one before
+                if not wrong_order:
+                    # update time for the packet before (in sec as float)
+                    prev_time = row[time_index]
 
         # have parsed the whole file, store the result
         df_parsed = pd.DataFrame(dictionary_parsed)
@@ -161,6 +172,10 @@ def main():
         df_file_name = DIR_OUTPUT + filename.rsplit('.', 1)[0] + '.h5'
         df_parsed.to_hdf(df_file_name, mode = "w", key = key) 
 
+
+    amount_in_wrong_order.sort()
+    print("the number of packets (sorted) that was in the wrong order")
+    print(amount_in_wrong_order)
 
     print("Have saved the parsed results, ending the program")
 
