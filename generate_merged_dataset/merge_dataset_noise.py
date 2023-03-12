@@ -20,6 +20,8 @@ import os
 
 def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
 
+    background_in_a_row = 0
+
     SIZE_DF_IN_MEMORY = 1000000
 
     PACKET_ATTR_INDEX_TIME = 0
@@ -42,8 +44,8 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
         df = pd.read_hdf(background_path, key = key)
         #df = pd.read_hdf(background_path, key = key, start = start, stop = stop)
 
-        df.to_csv("tmp.csv", index = True)
-        return False
+        #df.to_csv("tmp.csv", index = True)
+        #return False
 
         if first:
             time_index = df.columns.get_loc('time')
@@ -106,11 +108,16 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
             if(background_deviated_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
                 mergedFile.writelines([str(background_deviated_time), ",", str(row[direction_index]), ",", str(row[size_index]), "\n"])
                 print("Added background")
+                background_in_a_row += 1
             else:
                 mergedFile.writelines(foreground_lines[0])
                 foreground_lines.pop(0)
                 print("Added foreground")
-            #return False
+                background_in_a_row = 0
+
+            if background_in_a_row > 20:
+                return False
+            
             
 
         # prepare next chunk of background traffic
