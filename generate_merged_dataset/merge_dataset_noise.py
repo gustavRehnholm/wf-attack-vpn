@@ -108,6 +108,8 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset, chu
                 time_stamp = background_deviated_time
             else:
                 mergedFile.writelines(foreground_lines[0])
+                print(foreground_lines[0])
+                return False
                 foreground_lines.pop(0)
             
 
