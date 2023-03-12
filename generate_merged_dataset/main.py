@@ -41,6 +41,10 @@ def main():
 
     print("Start the test of the merging of foreground and background traffic")
 
+    # clean the previous result
+    os.system("rm -f -r " + DIR_MERGED)
+    os.system("mkdir " + DIR_MERGED)
+
 
     # The naming structure between the foreground and the merged should be the same
     for (dirpath, dirnames, filenames) in os.walk(DIR_FOREGROUND, topdown=True):
