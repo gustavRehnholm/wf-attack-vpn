@@ -45,7 +45,7 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset, chu
     # add background traffic, until the foreground traffic is filled
     while(len(foregroundFiles) > 0): 
 
-        print("gathering a new chunk of background traffic")
+        #print("gathering a new chunk of background traffic")
         df = pd.read_hdf(background_path, key = key, start = start, stop = stop)
         '''
         try:
@@ -114,6 +114,7 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset, chu
         
         # if stop is beyond the length of the data, loop around
         if stop >= df_len:
+            print("Loop the background noise")
             start = 0
             stop  = CHUNK
         
