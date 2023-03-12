@@ -110,7 +110,7 @@ def main():
                 if parsed_time < 0:
                     parsed_time = abs(parsed_time)
                     wrong_order = True
-                    amount_in_wrong_order[index] += 1
+                    amount_in_wrong_order[curr_file_index] += 1
                 elif parsed_time == 0:
                     print("ERROR: the time between two packet was 0, duration = " + str(row[time_index]) + " - " + str(prev_time))
                     print(parsed_time)
