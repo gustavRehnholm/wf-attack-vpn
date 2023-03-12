@@ -15,6 +15,7 @@ To run, type the following in the terminal:
 touch stdout/parse.txt
 
 python wf-attack-vpn/Parse_noise/KAU-twitch-parsing/parse.py | tee stdout/parse.txt
+python wf-attack-vpn/Parse_noise/KAU-twitch-parsing/parse.py
 '''
 
 import pandas as pd

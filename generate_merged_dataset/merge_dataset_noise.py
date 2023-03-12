@@ -5,6 +5,8 @@ This program merges the web traffic with noise, so it can be used to test WF att
 
 TODO: loop the extraction of background traffic (if stop is longer than the total lenght, set offset to 0, and start to offset)
 
+TODO: check why does it loops the same data???
+
 mergedTestFiles: list of mergedTestFiles
 foregroundTestFiles: list of foregroundTestFiles
 background_path: path to the background PATH_BACKGROUND
@@ -37,7 +39,8 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
     while(len(foregroundFiles) > 0): 
 
         print("gathering a new chunk of background traffic")
-        df = pd.read_hdf(background_path, key = key, start = start, stop = stop)
+        df = pd.read_hdf(background_path, key = key)
+        #df = pd.read_hdf(background_path, key = key, start = start, stop = stop)
 
         #df.to_csv("tmp.csv", index = True)
         #return False
