@@ -21,7 +21,7 @@ import pandas as pd
 import os
 
 def main():
-    print("Start generating csv file")
+    print("Start generating parsing")
 
     # the usable captures
     DIR_INPUT = "twitch/usable_captures_h5/"
@@ -92,7 +92,9 @@ def main():
         path = DIR_INPUT + filename
         df   = pd.read_hdf(path, key=key)
 
+        capture_len = 0
         for row in df.itertuples():
+            capture_len += 1
             # flag to check if the packet is broken, so it can be skipped
             broken = False
             wrong_order = False
@@ -169,6 +171,7 @@ def main():
                 prev_time = row[time_index]
 
         print("Done parsing the file " + str(filename))
+        print("Out of " + str(capture_len) + "files:")
         print("the number of packets that was in the wrong order")
         print(amount_in_wrong_order[curr_file_index])
         print("the number of packets that was slower than 1 ns")
