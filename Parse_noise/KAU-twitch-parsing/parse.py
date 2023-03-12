@@ -68,7 +68,7 @@ def main():
 
     # loop thorugh all files, and use their values for the parsed result
     for file in input_files:
-        index += 1
+
         # should start at 0 for each file
         prev_time = 0
 
