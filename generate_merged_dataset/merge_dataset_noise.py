@@ -10,7 +10,7 @@ foregroundTestFiles: list of foregroundTestFiles
 background_path: path to the background PATH_BACKGROUND
 offset: offsets to use for the offsets
 
-python wf-attack-vpn/generate_realistic_dataset/main.py
+python wf-attack-vpn/generate_merged_dataset/main.py
 '''
 
 import pandas as pd
