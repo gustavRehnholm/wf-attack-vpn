@@ -98,7 +98,6 @@ def main():
             # flag to check if the packet is broken, so it can be skipped
             broken = False
             wrong_order = False
-            amount_in_wrong_order[curr_file_index] += 1
 
             # convert from timestamp in sec, to duration form last packet in ns
             if not row[time_index]:
@@ -184,12 +183,13 @@ def main():
         df_parsed.to_hdf(df_file_name, mode = "w", key = key) 
 
 
-    #amount_in_wrong_order.sort()
-    #amount_with_zero.sort()
+    amount_in_wrong_order.sort()
+    amount_with_zero.sort()
+    print("Shows the 10 worst cases of: ")
     print("the number of packets that was in the wrong order")
-    print(amount_in_wrong_order)
+    print(amount_in_wrong_order[-10:])
     print("the number of packets that was slower than 1 ns")
-    print(amount_with_zero)
+    print(amount_with_zero[-10:])
 
     print("Have saved the parsed results, ending the program")
 
