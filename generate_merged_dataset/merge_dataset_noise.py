@@ -38,6 +38,7 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
 
     first = True
 
+    # add background traffic, until the foreground traffic is filled
     while(len(foregroundFiles) > 0): 
 
         print("gathering a new chunk of background traffic")
@@ -85,12 +86,10 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
 
                 # open the merged file, that the result will be stored to
                 mergedFile = open(mergedFiles[0], 'a')
-
                 mergedFiles.pop(0)
 
 
             background_deviated_time = time_stamp + int(row[time_index])
-            #background_packet = [str(background_deviated_time), ",", row[direction_index], ",", row[size_index], "\n"]
 
             # If the current web traffic packet is empty, add the current noise packet
             # Indicates that one should switch to a new web traffic file, but before that, one should add the noise
@@ -98,6 +97,7 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
                 foreground_packet = foreground_lines[0].split(",")
             except:
                 mergedFile.writelines([str(background_deviated_time), ",", str(row[direction_index]), ",", str(row[size_index]), "\n"])
+                time_stamp = background_deviated_time
                 print("foreground file is empty, added the noise line")
                 continue
 
@@ -107,6 +107,7 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset):
              # Sort the noise and the web traffic after time
             if(background_deviated_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
                 mergedFile.writelines([str(background_deviated_time), ",", str(row[direction_index]), ",", str(row[size_index]), "\n"])
+                time_stamp = background_deviated_time
                 print("Added background")
                 background_in_a_row += 1
             else:
