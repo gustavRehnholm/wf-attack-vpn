@@ -5,6 +5,7 @@ Convert the data in h5 format to csv, to check for any problems in the convertin
 Only necessary to run for bug hunting
 
 python wf-attack-vpn/Parse_noise/KAU-twitch-parsing/h5_2_csv.py background_traffic/
+python wf-attack-vpn/Parse_noise/KAU-twitch-parsing/h5_2_csv.py twitch/usable_captures_h5/
 '''
 
 import pandas as pd
