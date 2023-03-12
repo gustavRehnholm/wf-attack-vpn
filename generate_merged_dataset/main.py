@@ -28,7 +28,7 @@ def main():
     key    = "df"
     offset = 0
     # how many rows of background the computer will have in the primary memory at a time
-    chunk = 1000000
+    chunk = 10000
 
     # list of what each file should be used for
     foregroundTrainFiles = []
