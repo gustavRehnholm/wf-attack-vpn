@@ -38,11 +38,12 @@ def main():
     # list of all twitch traffic captures files
     files = os.listdir(DIR_INPUT)
     files.sort()
+    files_len = len(files)
 
     # create the file, that the final result will be stored in
+    # format table, so that it is appendable
     merged_df = pd.DataFrame(columns = COL_NAMES)
-    
-    merged_df.to_hdf(PATH_OUTPUT, mode = "w", key = key) 
+    merged_df.to_hdf(PATH_OUTPUT, mode = "w", key = key, format = 'table') 
 
     first = True
 
@@ -51,14 +52,15 @@ def main():
         filename = os.fsdecode(file)
         
         print("")
-        print("merging file " + str(index) + "/1362: " + str(filename))
+        print("merging file " + str(index) + "/" + str(files_len) + ": " + str(filename))
         print("")
 
         path = DIR_INPUT + filename
         df = pd.read_hdf(path, key=key)
 
         # append current files result to the final result file
-        df.to_hdf(PATH_OUTPUT, mode = "a", key = key) 
+        # append = True: the value should be appended on the old
+        df.to_hdf(PATH_OUTPUT, mode = "r+", key = key, append = True) 
 
 
     print("Have merged all twitch traffic, store them now in " + PATH_OUTPUT)
