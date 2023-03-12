@@ -90,7 +90,9 @@ def main():
 
         # get the data from the current file
         path = DIR_INPUT + filename
-        df   = pd.read_hdf(path, key=key)
+        df_unsorted   = pd.read_hdf(path, key=key)
+
+        df = df_unsorted.sort_values(by='time')
 
         capture_len = 0
         for row in df.itertuples():
