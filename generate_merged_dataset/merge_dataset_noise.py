@@ -43,6 +43,8 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset, chu
 
     print(df_len)
 
+    return False
+
     # add background traffic, until the foreground traffic is filled
     while(len(foregroundFiles) > 0): 
 
