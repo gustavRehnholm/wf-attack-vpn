@@ -40,7 +40,7 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset_perc
     df_len = store.get_storer(key).nrows
     store.close()
 
-    offset = df_len * offset_percent
+    offset = int(df_len * offset_percent)
     # how large part of the 
     start = offset
     stop  = offset + CHUNK
