@@ -5,7 +5,7 @@ This program merges the web traffic with noise, so it can be used to test WF att
 
 If the program runs out of primary memory during its run time, test to make the variable chunk smaller
 
-python wf-attack-vpn/generate_realistic_dataset/main.py
+python wf-attack-vpn/generate_merged_dataset/main.py
 '''
 
 import pandas as pd
