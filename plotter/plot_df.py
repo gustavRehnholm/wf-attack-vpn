@@ -3,6 +3,7 @@
 '''
 To plot the result from the WF training
 input: {title} {csv file 1} {csv file 2} ...
+
 ./rds-collect2/scripts/script-plotter.sh
 '''
 
@@ -25,10 +26,9 @@ def main():
     colors = ["blue", "green", "red", "cyan", "magenta", "yellow", "black", "white"]
     markers_list = ['x','o','v','^','<']
     
-    if title == "old-result":
-        labels = ["default", "constant", "tiktok"]
-    else:
-        labels = ["1355", "685", "342", "230", "none"]
+
+    labels = ["default", "constant", "tiktok"]
+
 
     # Extract all csv files that should be plotted in a graph
     for i in range(2, len(sys.argv)):
