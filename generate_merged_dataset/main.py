@@ -25,7 +25,7 @@ def main():
 
     # TODO: gather from the user
     DIR_FOREGROUND = "foreground_traffic"
-    DIR_MERGED     = "merged_traffic/twitch_small_offset_30_60_0"
+    DIR_MERGED     = "merged_traffic/twitch_smallest_offset_30_60_0"
 
     DIR_BACKGROUND = "background_traffic"
     FILE_BACKBROUND = "twitch.h5"
