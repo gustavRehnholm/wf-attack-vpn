@@ -28,7 +28,7 @@ def main():
     DIR_INPUT = "twitch/usable_captures_h5/"
     # for the parsed captures
     DIR_OUTPUT = "twitch/parsed_captures/"
-    # how many nanoseconds in a second
+    # 1000000000 ns = 1 sec
     NANO_SEC_PER_SEC = 1000000000
     # How much of the header to remove (to fit the noise with the web traffic)
     HEADER = 40
@@ -100,7 +100,6 @@ def main():
             capture_len += 1
             # flag to check if the packet is broken, so it can be skipped
             broken = False
-            wrong_order = False
 
             # convert from timestamp in sec, to duration form last packet in ns
             if not row[time_index]:
@@ -114,8 +113,6 @@ def main():
 
                 # Some packets are in the wrong order, 
                 if parsed_time < 0:
-                    #parsed_time = abs(parsed_time)
-                    #wrong_order = True
                     amount_in_wrong_order[curr_file_index] += 1
                     broken = True
                     continue
@@ -167,8 +164,6 @@ def main():
                 dictionary_parsed['direction'].append(parsed_direction)
                 dictionary_parsed['size'].append(parsed_size)
 
-                # if the wrong order, keep the prev_time as the one before
-                #if not wrong_order:
                 # update time for the packet before (in sec as float)
                 prev_time = row[time_index]
 
