@@ -88,8 +88,7 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset_perc
                 try:
                     foreground_packet = foreground_lines[0].split(",")
                 except:
-                    foreground_lines.pop(0)
-                    print("foreground file is empty, pop it")
+                    print("foreground file is empty, skip it")
                     added_backgorund = True
                     continue
 
