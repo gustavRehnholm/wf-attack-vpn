@@ -18,18 +18,16 @@ python wf-attack-vpn/generate_merged_dataset/main.py
 import pandas as pd
 import os
 
-def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset, offset):
+def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset_percent, chunk):
 
-    
+    CHUNK = chunk
     PACKET_ATTR_INDEX_TIME = 0
     
     # all lines in the open foreground file
     foreground_lines = []
     key = "df"
 
-    # how large part of the 
-    start = offset
-    stop  = offset + CHUNK
+
     # To standardize the time between the foreground and the background
     time_stamp = 0
 
@@ -42,7 +40,10 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset, off
     df_len = store.get_storer(key).nrows
     store.close()
 
-    CHUNK = df_len * offset
+    offset = df_len * offset_percent
+    # how large part of the 
+    start = offset
+    stop  = offset + CHUNK
     
     # add background traffic, until the foreground traffic is filled
     while(len(foregroundFiles) > 0): 
