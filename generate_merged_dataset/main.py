@@ -5,6 +5,15 @@ This program merges the web traffic with noise, so it can be used to test WF att
 
 If the program runs out of primary memory during its run time, test to make the variable chunk smaller
 
+Input (sys.argv):
+[1] : chunk size
+[2] : offsett for the test files
+[3] : offset for the valid files
+[4] : offset for the train files
+[5] : directory for the foreground traffic to use
+[6] : directory for the merged traffic to use
+[7] : directory for the background traffic file to use
+
 python wf-attack-vpn/generate_merged_dataset/main.py
 '''
 
