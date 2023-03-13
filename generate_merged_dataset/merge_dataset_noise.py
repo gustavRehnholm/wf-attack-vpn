@@ -35,6 +35,9 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset_perc
     df_len = store.get_storer(key).nrows
     store.close()
 
+    # to test smaller size 
+    df_len = df_len * (1/500)
+
     offset = int(df_len * offset_percent)
     # how large part of the 
     start = offset
@@ -60,10 +63,8 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset_perc
                 time_stamp = 0
 
                 print("---------------------------------------------------------------")
-                print("Reading form a new file ", os.path.basename(foregroundFiles[0]))
+                print("new file ", os.path.basename(foregroundFiles[0]))
                 print("")
-                print("Printing to new file ", os.path.basename(mergedFiles[0]))
-                print("---------------------------------------------------------------")
 
                 # get the values of the new foreground file
                 foregroundFile = open(foregroundFiles[0], 'r') 
