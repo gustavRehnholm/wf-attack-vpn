@@ -88,9 +88,8 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset_perc
                 try:
                     foreground_packet = foreground_lines[0].split(",")
                 except:
-                    mergedFile.writelines([str(background_deviated_time), ",", str(row[direction_index]), ",", str(row[size_index]), "\n"])
-                    time_stamp = background_deviated_time
-                    print("foreground file is empty, added the noise line")
+                    foreground_lines.pop(0)
+                    print("foreground file is empty, pop it")
                     added_backgorund = True
                     continue
 
