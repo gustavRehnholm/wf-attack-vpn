@@ -26,7 +26,9 @@ def main():
 
 
     key    = "df"
-    offset = 50000
+    offset_test = 0.3
+    offset_valid = 0.6
+    offset_train = 0
     # how many rows of background the computer will have in the primary memory at a time
     chunk = 10000
 
@@ -81,13 +83,13 @@ def main():
 
 
 
-    result = mergeDatasetNoise(mergedTestFiles, foregroundTestFiles, PATH_BACKGROUND, offset, chunk)
+    result = mergeDatasetNoise(mergedTestFiles, foregroundTestFiles, PATH_BACKGROUND, offset_test, chunk)
     if result is False:
         return
-    result = mergeDatasetNoise(mergedValidFiles, foregroundValidFiles, PATH_BACKGROUND, offset, chunk)
+    result = mergeDatasetNoise(mergedValidFiles, foregroundValidFiles, PATH_BACKGROUND, offset_valid, chunk)
     if result is False:
         return
-    result = mergeDatasetNoise(mergedTrainFiles, foregroundTrainFiles, PATH_BACKGROUND, offset, chunk)
+    result = mergeDatasetNoise(mergedTrainFiles, foregroundTrainFiles, PATH_BACKGROUND, offset_train, chunk)
     if result is False:
         return
 
