@@ -16,17 +16,21 @@ Input (sys.argv):
 python wf-attack-vpn/generate_merged_dataset/main.py
 '''
 
-
+import sys
 from generate_merged_traffic import generateMergedTraffic
 
 def main():
 
-    DIR_FOREGROUND = input("Where is the foreground located?")
-    DIR_BACKGROUND = input("Where is the background located?")
-    DIR_MERGED     = input("Where should the merged traffic be stored")
+    #DIR_FOREGROUND = input("Where is the foreground located?")
+    #DIR_BACKGROUND = input("Where is the background located?")
+    #DIR_MERGED     = input("Where should the merged traffic be stored")
 
+    DIR_FOREGROUND = sys.argv[1]
+    DIR_BACKGROUND = sys.argv[2]
+    DIR_MERGED     = sys.argv[3]
     
-    amount = int(input("How large part of the background traffic should be used? (1/input packets will be used)"))
+    #amount = int(input("How large part of the background traffic should be used? (1/input packets will be used)"))
+    amount = sys.argv[4]
     if type(amount) is int:
         BACKGROUND_AMOUNT = amount
     else:
