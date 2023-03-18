@@ -25,8 +25,9 @@ def main():
     labels = ["default", "constant", "tiktok"]
 
     path = sys.argv[1]
-    title = path.split("/")[-1]
+    
     csv_files = os.listdir(path)
+    title = path.split("/")[-1]
 
     plotDf(title = title, list_of_csv = csv_files, labels = labels)
 
