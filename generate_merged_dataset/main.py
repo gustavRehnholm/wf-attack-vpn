@@ -26,7 +26,7 @@ def main():
     DIR_MERGED     = input("Where should the merged traffic be stored")
 
     
-    amount = input("How large part of the background traffic should be used? (1/input packets will be used)")
+    amount = int(input("How large part of the background traffic should be used? (1/input packets will be used)"))
     if type(amount) is int:
         BACKGROUND_AMOUNT = amount
     else:
