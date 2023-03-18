@@ -25,7 +25,13 @@ def main():
     DIR_BACKGROUND = input("Where is the background located?")
     DIR_MERGED     = input("Where should the merged traffic be stored")
 
-    BACKGROUND_AMOUNT = input("How large part of the background traffic should be used? (1/input packets will be used)")
+    
+    amount = input("How large part of the background traffic should be used? (1/input packets will be used)")
+    if type(amount) is int:
+        BACKGROUND_AMOUNT = amount
+    else:
+        print("the provided value is not an integer, aborting the program ")
+        return
 
 
     #DIR_FOREGROUND = "foreground_traffic"
