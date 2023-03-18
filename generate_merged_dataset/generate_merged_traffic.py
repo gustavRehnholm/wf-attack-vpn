@@ -11,7 +11,7 @@ python wf-attack-vpn/generate_merged_dataset/main.py
 import pandas as pd
 import os
 from merge_datasets_offset import mergeDatasetNoiseOffset
-from merge_datasets_rnd import mergeDatasetNoiseRnd
+from merge_dataset_rnd import mergeDatasetNoiseRnd
 
 def generateMergedTraffic(dir_foreground, dir_merged, dir_background, background_amount = 1):
 
