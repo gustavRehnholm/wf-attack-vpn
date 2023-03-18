@@ -2,9 +2,8 @@
 
 '''
 To plot the result from the WF training
-input: {title} {csv file 1} {csv file 2} ...
 
-./rds-collect2/scripts/script-plotter.sh
+python /rds-collect2/plotter/plot_all.py
 '''
 
 import matplotlib.pyplot as plt
@@ -13,25 +12,17 @@ import pandas as pd
 import sys
 
 '''
-sys.argv[0] : name of the program
-sys.argv[1] : title
-sys.argv[2] : first file
-'''
-def main():
 
+'''
+def plotDf(title = "untitled", list_of_csv = [], labels = []):
 
     datasets = []
-    title = sys.argv[1]
 
     colors = ["blue", "green", "red", "cyan", "magenta", "yellow", "black", "white"]
     markers_list = ['x','o','v','^','<']
     
-
-    labels = ["default", "constant", "tiktok"]
-
-
     # Extract all csv files that should be plotted in a graph
-    for i in range(2, len(sys.argv)):
+    for csv_file in list_of_csv:
         datasets.append(pd.read_csv(sys.argv[i]))
 
     # end program if data is unsuable
