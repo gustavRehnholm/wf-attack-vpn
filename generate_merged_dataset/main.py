@@ -30,7 +30,7 @@ def main():
     DIR_MERGED     = sys.argv[3]
     
     #amount = int(input("How large part of the background traffic should be used? (1/input packets will be used)"))
-    amount = sys.argv[4]
+    amount = int(sys.argv[4])
     if type(amount) is int:
         BACKGROUND_AMOUNT = amount
     else:
