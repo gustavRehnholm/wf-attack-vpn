@@ -3,7 +3,7 @@
 # generate all merged datasets when not using any offset, or any other method to reduce the risk of the WF to learn by unwanted patterns
 
 # to run:
-# ./wf_attack_vpn/generate_merged_dataset/scripts/generate_no_offset.sh
+# ./wf-attack-vpn/generate_merged_dataset/scripts/generate_no_offset.sh
 
 #python wf-attack-vpn/generate_merged_dataset/main.py
 #foreground_traffic
