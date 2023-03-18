@@ -14,11 +14,7 @@ from merge_datasets_offset import mergeDatasetNoiseOffset
 
 def generateMergedTraffic(dir_foreground, dir_merged, dir_background, background_amount = 1):
 
-    # TODO: gather from the user
-
-
     FOLD0_CSV = dir_foreground + "/fold-0.csv"
-
 
     key    = "df"
     #offset_test = 0.3
