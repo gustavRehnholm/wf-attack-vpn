@@ -26,7 +26,7 @@ def generateMergedTraffic(dir_foreground, dir_merged, dir_background, background
 
 
     # how many rows of background the computer will have in the primary memory at a time
-    chunk = 10000
+    chunk = 100
 
     # list of what each file should be used for
     foregroundTrainFiles = []
