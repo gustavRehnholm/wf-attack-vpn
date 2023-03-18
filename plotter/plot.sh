@@ -1,10 +1,6 @@
-#!/usr/bin/expect
+#!/bin/bash
 
-set timeout -1
+# ./wf-attack-vpn/plotter/plot.sh
 
-spawn ./wf-attack-vpn/plotter/plot_all.py
-
-expect "Where is the csv files located?"
-
-send -- "wf-result/twitch/no_offset"
+python wf-attack-vpn/plotter/plot_all.py wf-result/twitch/no_offset
 
