@@ -14,9 +14,8 @@ import sys
 from plot_df import plotDf
 
 '''
-sys.argv[0] : name of the program
 sys.argv[1] : title
-sys.argv[2] : first file
+sys.argv[2] : path to dir
 '''
 def main():
 
@@ -24,10 +23,12 @@ def main():
 
     labels = ["default", "constant", "tiktok"]
 
-    path = sys.argv[1]
+    
+    title = sys.argv[1]
+    path = sys.argv[2]
     
     csv_files = os.listdir(path)
-    title = path.split("/")[-1]
+    
 
     plotDf(title = title, list_of_csv = csv_files, labels = labels)
 
