@@ -21,7 +21,16 @@ from generate_merged_traffic import generateMergedTraffic
 
 def main():
 
-   generateMergedTraffic()
+    DIR_FOREGROUND = "foreground_traffic"
+    DIR_MERGED     = "merged_traffic/twitch_no_offset"
+
+    DIR_ALL_BACKGROUNDS = "background_traffic"
+    FILE_BACKBROUND     = "twitch.h5"
+    DIR_BACKGROUND      = DIR_ALL_BACKGROUNDS + "/" + FILE_BACKBROUND
+
+    BACKGROUND_AMOUNT = 1
+
+    generateMergedTraffic(dir_foreground = DIR_FOREGROUND, dir_merged = DIR_MERGED, dir_background = DIR_BACKGROUND, background_amount = BACKGROUND_AMOUNT)
 
 if __name__=="__main__":
     main()

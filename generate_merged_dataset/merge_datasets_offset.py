@@ -9,6 +9,7 @@ input:
     background_path: list of paths to the background files
     offset: offsets the start packet of the background files
     chunk: how large dataset to have in memory at a time
+    background_amount: [0, 1] how large part of the background traffic should be used
 output:
     True: it succeeded in creating the whole merged files
     False: it did not succeed
@@ -19,7 +20,7 @@ python wf-attack-vpn/generate_merged_dataset/main.py
 import pandas as pd
 import os
 
-def mergeDatasetNoiseOffset(mergedFiles, foregroundFiles, background_path, offset_percent, chunk):
+def mergeDatasetNoiseOffset(mergedFiles, foregroundFiles, background_path, offset_percent, chunk, background_amount = 1):
     # how many packets of background traffic to have in memory at a time
     CHUNK = chunk
     # access the foreground packets time
@@ -40,7 +41,7 @@ def mergeDatasetNoiseOffset(mergedFiles, foregroundFiles, background_path, offse
     df_len = store.get_storer(key).nrows
     store.close()
     # to test smaller size 
-    df_len = round(df_len * (1/500))
+    df_len = round(df_len * background_amount)
     # where to start the 
     offset = round(df_len * offset_percent)
     # how large part of the background to have in the memory at a time
