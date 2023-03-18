@@ -82,13 +82,13 @@ def generateMergedTraffic(dir_foreground, dir_merged, dir_background, background
 
 
 
-    result = mergeDatasetNoiseOffset(mergedTestFiles, foregroundTestFiles, dir_background, offset_test, chunk)
+    result = mergeDatasetNoiseOffset(mergedTestFiles, foregroundTestFiles, dir_background, offset_test, chunk, background_amount = background_amount)
     if not result:
         return
-    result = mergeDatasetNoiseOffset(mergedValidFiles, foregroundValidFiles, dir_background, offset_valid, chunk)
+    result = mergeDatasetNoiseOffset(mergedValidFiles, foregroundValidFiles, dir_background, offset_valid, chunk, background_amount = background_amount)
     if not result:
         return
-    result = mergeDatasetNoiseOffset(mergedTrainFiles, foregroundTrainFiles, dir_background, offset_train, chunk)
+    result = mergeDatasetNoiseOffset(mergedTrainFiles, foregroundTrainFiles, dir_background, offset_train, chunk, background_amount = background_amount)
     if not result:
         return
 

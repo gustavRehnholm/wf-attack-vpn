@@ -25,7 +25,7 @@ def main():
     DIR_BACKGROUND = input("Where is the background located?")
     DIR_MERGED     = input("Where should the merged traffic be stored")
 
-    BACKGROUND_AMOUNT = input("How large part ( ]0, 1] ) of the background traffic should be used?")
+    BACKGROUND_AMOUNT = input("How large part of the background traffic should be used? (1/input packets will be used)")
 
 
     #DIR_FOREGROUND = "foreground_traffic"
