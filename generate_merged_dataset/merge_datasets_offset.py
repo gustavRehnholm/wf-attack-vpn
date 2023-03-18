@@ -110,11 +110,15 @@ def mergeDatasetNoiseOffset(mergedFiles, foregroundFiles, background_path, offse
         start = stop + 1
         stop = start + CHUNK
         
-        # if stop is beyond the length of the data, loop around
-        if stop >= df_len:
+        # if start is beyond the size, get chunk from the start again
+        if start >= df_len:
             print("Loop the background noise")
             start = 0
             stop  = CHUNK
+        # if stop is to long, set it to the end of the list (will loop the list next iteration)
+        elif stop > df_len:
+            print("Last chunk before the loop")
+            stop = df_len
         
     return True
 
