@@ -21,31 +21,16 @@ from generate_merged_traffic import generateMergedTraffic
 
 def main():
 
-    #DIR_FOREGROUND = input("Where is the foreground located?")
-    #DIR_BACKGROUND = input("Where is the background located?")
-    #DIR_MERGED     = input("Where should the merged traffic be stored")
-
     DIR_FOREGROUND = sys.argv[1]
     DIR_BACKGROUND = sys.argv[2]
     DIR_MERGED     = sys.argv[3]
     
-    #amount = int(input("How large part of the background traffic should be used? (1/input packets will be used)"))
     amount = int(sys.argv[4])
     if type(amount) is int:
         BACKGROUND_AMOUNT = amount
     else:
         print("the provided value is not an integer, aborting the program ")
         return
-
-
-    #DIR_FOREGROUND = "foreground_traffic"
-    #DIR_MERGED     = "merged_traffic/twitch_no_offset"
-
-    #DIR_ALL_BACKGROUNDS = "background_traffic"
-    #FILE_BACKBROUND     = "twitch.h5"
-    #DIR_BACKGROUND      = DIR_ALL_BACKGROUNDS + "/" + FILE_BACKBROUND
-
-    #BACKGROUND_AMOUNT = 1
 
     generateMergedTraffic(dir_foreground = DIR_FOREGROUND, dir_merged = DIR_MERGED, dir_background = DIR_BACKGROUND, background_amount = BACKGROUND_AMOUNT)
 
