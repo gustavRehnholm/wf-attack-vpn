@@ -19,7 +19,7 @@ python wf-attack-vpn/generate_merged_dataset/main.py
 import pandas as pd
 import os
 
-def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset_percent, chunk):
+def mergeDatasetNoiseOffset(mergedFiles, foregroundFiles, background_path, offset_percent, chunk):
     # how many packets of background traffic to have in memory at a time
     CHUNK = chunk
     # access the foreground packets time
@@ -92,7 +92,7 @@ def mergeDatasetNoise(mergedFiles, foregroundFiles, background_path, offset_perc
                 try:
                     foreground_packet = foreground_lines[0].split(",")
                 except:
-                    print("foreground file is empty, skip it")
+                    #print("foreground file is empty, skip it")
                     added_background = True
                     continue
                 # add the packet that arrives first
