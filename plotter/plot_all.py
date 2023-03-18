@@ -28,7 +28,7 @@ def main():
     title = path.split("/")[-1]
     csv_files = os.listdir(path)
 
-    plotDf(title = title, list_of_csv = csv_files, labels = lables)
+    plotDf(title = title, list_of_csv = csv_files, labels = labels)
 
 
 # run main 
