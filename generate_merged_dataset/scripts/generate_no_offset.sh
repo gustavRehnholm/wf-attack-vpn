@@ -18,8 +18,8 @@
 #500
 
 python wf-attack-vpn/generate_merged_dataset/main.py
-<<< "foreground_traffic"
-<<< "background_traffic/twitch.h5"
-<<< "merged_traffic/twitch_no_offset/twitch_no_offset_2.5h"
-<<< "1000"
+send "foreground_traffic\r"
+send "background_traffic/twitch.h5\r"
+send "merged_traffic/twitch_no_offset/twitch_no_offset_2.5h"
+send "1000"
 
