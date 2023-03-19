@@ -64,8 +64,6 @@ def main():
     print("Chosen divide")
     print(sys.argv[7])
 
-    return
-
     generateMergedTraffic(dir_foreground    = DIR_FOREGROUND, 
                           dir_merged        = DIR_MERGED, 
                           dir_background    = DIR_BACKGROUND, 
