@@ -28,6 +28,12 @@ def main():
     path = sys.argv[2]
     
     csv_files = os.listdir(path)
+    csv_paths = []
+
+    for fileName in csv_files:
+        curr_path = str(path + fileName)
+        print(curr_path)
+        csv_paths.append(curr_path)
     
 
     plotDf(title = title, list_of_csv = csv_files, labels = labels)
