@@ -20,33 +20,34 @@ def main():
         BACKGROUND_AMOUNT = amount
     else:
         print("the provided value is not an integer, aborting the program ")
-        return
-
-    if sys.argv[4] == "True":
-        offset = True
-    elif sys.argv[4] == "False":
-        offset = False
-    else:
-        print("invalid offset")
         print(sys.argv[4])
         return
 
     if sys.argv[5] == "True":
-        rnd = True
+        offset = True
     elif sys.argv[5] == "False":
-        rnd = False
+        offset = False
     else:
-        print("invalid random")
+        print("invalid offset")
         print(sys.argv[5])
         return
 
     if sys.argv[6] == "True":
-        divide = True
+        rnd = True
     elif sys.argv[6] == "False":
+        rnd = False
+    else:
+        print("invalid random")
+        print(sys.argv[6])
+        return
+
+    if sys.argv[7] == "True":
+        divide = True
+    elif sys.argv[7] == "False":
         divide = False
     else:
         print("invalid divide")
-        print(sys.argv[6])
+        print(sys.argv[7])
         return
 
     generateMergedTraffic(dir_foreground    = DIR_FOREGROUND, 
