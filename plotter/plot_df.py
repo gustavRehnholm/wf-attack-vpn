@@ -23,7 +23,7 @@ def plotDf(title = "untitled", list_of_csv = [], labels = []):
     
     # Extract all csv files that should be plotted in a graph
     for csv_file in list_of_csv:
-        datasets.append(pd.read_csv(sys.argv[i]))
+        datasets.append(pd.read_csv(csv_file))
 
     # end program if data is unsuable
     if len(datasets) <= 0:
