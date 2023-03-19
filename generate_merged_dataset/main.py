@@ -12,14 +12,22 @@ from generate_merged_traffic import generateMergedTraffic
 def main():
 
     DIR_FOREGROUND = sys.argv[1]
+    print("Chosen foreground")
+    print(sys.argv[1])
     DIR_BACKGROUND = sys.argv[2]
+    print("Chosen background")
+    print(sys.argv[2])
     DIR_MERGED     = sys.argv[3]
+    print("Chosen merged")
+    print(sys.argv[3])
     
     amount = int(sys.argv[4])
     if type(amount) is int:
         BACKGROUND_AMOUNT = amount
+        print("Chosen amount")
+        print(sys.argv[4])
     else:
-        print("the provided value is not an integer, aborting the program ")
+        print("the provided value is not an integer, aborting the program")
         print(sys.argv[4])
         return
 
@@ -49,6 +57,8 @@ def main():
         print("invalid divide")
         print(sys.argv[7])
         return
+
+    return
 
     generateMergedTraffic(dir_foreground    = DIR_FOREGROUND, 
                           dir_merged        = DIR_MERGED, 
