@@ -24,15 +24,15 @@ import os
 def mergeDatasetNoiseDivideRnd(mergedFiles, foregroundFiles, background_path, background_start, background_stop, chunk, background_amount = 1):
 
 
-    if background_start is not int:
+    if not isinstance(background_start, int):
         print("must start with an integer")
         print(type(background_start))
         return False
-    if background_stop is not int:
+    if not isinstance(background_stop, int):
         print("must end with an integer")
         print(type(background_stop))
         return False
-    if chunk is not int:
+    if not isinstance(chunk, int):
         print("chunk must be an integet")
         print(type(chunk))
         return False
