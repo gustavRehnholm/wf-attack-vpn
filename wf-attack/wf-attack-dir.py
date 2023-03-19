@@ -11,7 +11,7 @@ import os
 import sys
 
 def main():
-    
+
     DIR_MERGED = sys.argv[1]
     DIR_RESULT = sys.argv[2]
 
@@ -21,10 +21,10 @@ def main():
     os.system("./df-fitness.py -d " + DIR_MERGED + " --train --csv " + DIR_RESULT + "/default.csv")
 
     # constant wf attack
-    os.system("./df-fitness.py -d " + DIR_MERGED + " --train --constant --csv " + DIR_RESULT + "/default.csv")
+    os.system("./df-fitness.py -d " + DIR_MERGED + " --train --constant --csv " + DIR_RESULT + "/constant.csv")
 
     # tiktok wf attack
-    os.system("./df-fitness.py -d " + DIR_MERGED + " --train --tiktok --csv " + DIR_RESULT + "/default.csv")
+    os.system("./df-fitness.py -d " + DIR_MERGED + " --train --tiktok --csv " + DIR_RESULT + "/tiktok.csv")
 
     return
 
