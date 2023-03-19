@@ -28,6 +28,6 @@ python wf-attack-vpn/plotter/plot_all.py twitch_div_ittr_5h    wf-result/twitch/
 python wf-attack-vpn/plotter/plot_all.py twitch_div_ittr_2_5h  wf-result/twitch/twitch_div_ittr/twitch_div_ittr_2_5h  fig/twitch_div_ittr
 
 # div rnd
-#python wf-attack-vpn/plotter/plot_all.py twitch_div_rnd_2600h wf-result/twitch/twitch_div_rnd/twitch_div_rnd_2600h fig/twitch_div_rnd
-#python wf-attack-vpn/plotter/plot_all.py twitch_div_rnd_5h    wf-result/twitch/twitch_div_rnd/twitch_div_rnd_5h    fig/twitch_div_rnd
-#python wf-attack-vpn/plotter/plot_all.py twitch_div_rnd_2_5h  wf-result/twitch/twitch_div_rnd/twitch_div_rnd_2_5h  fig/twitch_div_rnd
+python wf-attack-vpn/plotter/plot_all.py twitch_div_rnd_2600h wf-result/twitch/twitch_div_rnd/twitch_div_rnd_2600h fig/twitch_div_rnd
+python wf-attack-vpn/plotter/plot_all.py twitch_div_rnd_5h    wf-result/twitch/twitch_div_rnd/twitch_div_rnd_5h    fig/twitch_div_rnd
+python wf-attack-vpn/plotter/plot_all.py twitch_div_rnd_2_5h  wf-result/twitch/twitch_div_rnd/twitch_div_rnd_2_5h  fig/twitch_div_rnd

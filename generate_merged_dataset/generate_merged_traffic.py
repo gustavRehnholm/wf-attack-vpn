@@ -116,8 +116,6 @@ def generateMergedTraffic(dir_foreground, dir_merged, dir_background, background
         print(df_len)
 
         if random:
-            print("WRONG")
-            return
             if not mergeDatasetNoiseDivideRnd(mergedTestFiles, foregroundTestFiles, dir_background, 0              , part_of_10  , chunk, background_amount = background_amount):
                 return
             if not mergeDatasetNoiseDivideRnd(mergedValidFiles, foregroundValidFiles, dir_background, part_of_10 + 1 , part_of_10*2, chunk, background_amount = background_amount):

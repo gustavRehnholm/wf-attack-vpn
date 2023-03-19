@@ -28,9 +28,6 @@ python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_ittr/t
 python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_ittr/twitch_div_ittr_2_5h  wf-result/twitch_div_ittr/twitch_div_ittr_2_5h
 
 # divide-rnd
-#python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_rnd/twitch_div_rnd_2600h wf-result/twitch_div_rnd/twitch_div_rnd_2600h
-#python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_rnd/twitch_div_rnd_5h    wf-result/twitch_div_rnd/twitch_div_rnd_5h
-#python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_rnd/twitch_div_rnd_2_5h  wf-result/twitch_div_rnd/twitch_div_rnd_2_5h
-
-
-
+python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_rnd/twitch_div_rnd_2600h wf-result/twitch_div_rnd/twitch_div_rnd_2600h
+python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_rnd/twitch_div_rnd_5h    wf-result/twitch_div_rnd/twitch_div_rnd_5h
+python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_rnd/twitch_div_rnd_2_5h  wf-result/twitch_div_rnd/twitch_div_rnd_2_5h
