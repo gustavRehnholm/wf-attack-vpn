@@ -10,18 +10,20 @@ python wf-attack-vpn/generate_merged_dataset/main.py
 
 import pandas as pd
 import os
-from merge_datasets_offset   import mergeDatasetNoiseOffset
-from merge_dataset_rnd       import mergeDatasetNoiseRnd
-from generate_dataset_divide import mergeDatasetNoiseDivide
+from merge_datasets_offset    import mergeDatasetNoiseOffset
+from merge_dataset_rnd        import mergeDatasetNoiseRnd
+from merge_dataset_divide     import mergeDatasetNoiseDivide
+from merge_dataset_divide_rnd import mergeDatasetNoiseDivideRnd
 
 '''
-dir_foreground: path to the directory that has the foreground that the background should be merged into
-dir_merged: path to the directory where the merged result will be stored in
-dir_background: path to the directory where the background traffic is
-background_amount: if one wish to use 1/x amount of the available background traffic
-offset: if one uses offset or not
-random: if one should go through the background traffic in order (false) or random (true)
-divide: if the background data should be divided among the training, testing and validation
+Input:
+    dir_foreground: path to the directory that has the foreground that the background should be merged into
+    dir_merged: path to the directory where the merged result will be stored in
+    dir_background: path to the directory where the background traffic is
+    background_amount: if one wish to use 1/x amount of the available background traffic
+    offset: if one uses offset or not
+    random: if one should go through the background traffic in order (false) or random (true)
+    divide: if the background data should be divided among the training, testing and validation
 '''
 def generateMergedTraffic(dir_foreground, dir_merged, dir_background, background_amount = 1, offset = True, random = True, divide = False):
 
