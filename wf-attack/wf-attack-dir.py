@@ -14,6 +14,7 @@ def main():
 
     DIR_MERGED = sys.argv[1]
     DIR_RESULT = sys.argv[2]
+    #sample     = sys.argv[3]
 
     os.system("mkdir " + DIR_RESULT)
 

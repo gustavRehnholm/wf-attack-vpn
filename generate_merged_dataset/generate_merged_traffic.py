@@ -11,19 +11,28 @@ python wf-attack-vpn/generate_merged_dataset/main.py
 import pandas as pd
 import os
 from merge_datasets_offset import mergeDatasetNoiseOffset
-from merge_dataset_rnd import mergeDatasetNoiseRnd
+from merge_dataset_rnd     import mergeDatasetNoiseRnd
 
-def generateMergedTraffic(dir_foreground, dir_merged, dir_background, background_amount = 1):
+'''
+dir_foreground: path to the directory that has the foreground that the background should be merged into
+dir_merged: path to the directory where the merged result will be stored in
+dir_background: path to the directory where the background traffic is
+background_amount: if one wish to use 1/x amount of the available background traffic
+offset: if one uses offset or not
+random: if one should go through the background traffic in order (false) or random (true)
+'''
+def generateMergedTraffic(dir_foreground, dir_merged, dir_background, background_amount = 1, offset = True, random = True):
 
     FOLD0_CSV = dir_foreground + "/fold-0.csv"
-
     key    = "df"
-    #offset_test = 0.3
-    #offset_valid = 0.6
-    offset_test = 0
-    offset_valid = 0
-    offset_train = 0
 
+    if offset:
+        offset_test = 0.3
+        offset_valid = 0.6
+    else:
+        offset_test = 0
+        offset_valid = 0
+    offset_train = 0
 
     # how many rows of background the computer will have in the primary memory at a time
     chunk = 10000
@@ -78,16 +87,20 @@ def generateMergedTraffic(dir_foreground, dir_merged, dir_background, background
             return
 
 
-
-    result = mergeDatasetNoiseRnd(mergedTestFiles, foregroundTestFiles, dir_background, offset_test, chunk, background_amount = background_amount)
-    if not result:
-        return
-    result = mergeDatasetNoiseRnd(mergedValidFiles, foregroundValidFiles, dir_background, offset_valid, chunk, background_amount = background_amount)
-    if not result:
-        return
-    result = mergeDatasetNoiseRnd(mergedTrainFiles, foregroundTrainFiles, dir_background, offset_train, chunk, background_amount = background_amount)
-    if not result:
-        return
+    if random:
+        if not mergeDatasetNoiseRnd(mergedTestFiles, foregroundTestFiles, dir_background, offset_test, chunk, background_amount = background_amount):
+            return
+        if not mergeDatasetNoiseRnd(mergedValidFiles, foregroundValidFiles, dir_background, offset_valid, chunk, background_amount = background_amount):
+            return
+        if not  mergeDatasetNoiseRnd(mergedTrainFiles, foregroundTrainFiles, dir_background, offset_train, chunk, background_amount = background_amount):
+            return
+    else:
+        if not mergeDatasetNoiseOffset(mergedTestFiles, foregroundTestFiles, dir_background, offset_test, chunk, background_amount = background_amount):
+            return
+        if not mergeDatasetNoiseOffset(mergedValidFiles, foregroundValidFiles, dir_background, offset_valid, chunk, background_amount = background_amount):
+            return
+        if not mergeDatasetNoiseOffset(mergedTrainFiles, foregroundTrainFiles, dir_background, offset_train, chunk, background_amount = background_amount):
+            return
 
     print("Succeeded in creating the merged traffic set")
 
