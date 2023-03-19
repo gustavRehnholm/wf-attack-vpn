@@ -1,15 +1,17 @@
+#!/bin/bash
 
-# merged_traffic/twitch_offset_30_60_0 
-# wf-result/twitch_offset_30_60_0/twitch_tiktok.csv
+# ./wf-attack-vpn/wf-attack/wf-attack.sh
 
-# merged_traffic/twitch_small_offset_30_60_0 
-# wf-result/twitch_small_offset_30_60_0/twitch_tiktok.csv
+# naive approach: no offset
+python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_no_offset/twitch_no_offset_2600h wf-result/twitch/twitch_no_offset/twitch_no_offset_2600h
+#python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_no_offset/twitch_no_offset_5h wf-result/twitch/twitch_no_offset/twitch_no_offset_5h
+#python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_no_offset/twitch_no_offset_2.5h wf-result/twitch/twitch_no_offset/twitch_no_offset_2.5h
 
-# merged_traffic/twitch_smallest_offset_30_60_0 
-# wf-result/twitch_small_offset_30_60_0/twitch_tiktok.csv
+# with only randomize
+#python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_rnd_no_offset/twitch_rnd_no_offset_2600h wf-result/twitch/twitch_rnd_no_offset/twitch_rnd_no_offset_2600h
+#python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_rnd_no_offset/twitch_rnd_no_offset_5h wf-result/twitch/twitch_rnd_no_offset/twitch_rnd_no_offset_5h
+#python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_rnd_no_offset/twitch_rnd_no_offset_2_5h wf-result/twitch/twitch_rnd_no_offset/twitch_rnd_no_offset_2_5h
 
-./df-fitness.py -d merged_traffic/twitch_small_offset_30_60_0 --train --csv wf-result/twitch_small_offset_30_60_0/twitch_default.csv
-
-./df-fitness.py -d merged_traffic/twitch_small_offset_30_60_0 --train --constant --csv wf-result/twitch_small_offset_30_60_0/twitch_constant.csv
-
-./df-fitness.py -d merged_traffic/twitch_small_offset_30_60_0 --train --tiktok --csv wf-result/twitch_small_offset_30_60_0/twitch_tiktok.csv
+# randomize, but with an smaller chunk size
+#python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_rnd_no_offset_chunk_100/twitch_rnd_no_offset_chunk_100_2600h wf-result/twitch/twitch_rnd_no_offset_chunk_100/twitch_rnd_no_offset_chunk_100_2600h
+#python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_rnd_no_offset_chunk_100/twitch_rnd_no_offset_chunk_100_5h wf-result/twitch/twitch_rnd_no_offset_chunk_100/twitch_rnd_no_offset_chunk_100_5h
