@@ -17,6 +17,7 @@ output:
 python wf-attack-vpn/generate_merged_dataset/main.py
 '''
 
+import random
 import pandas as pd
 import os
 
