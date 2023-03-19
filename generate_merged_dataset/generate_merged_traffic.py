@@ -112,19 +112,24 @@ def generateMergedTraffic(dir_foreground, dir_merged, dir_background, background
         store.close()
         part_of_10 = round(df_len/10)
 
+        print("Size of the background")
+        print(df_len)
+
         if random:
-            if not mergeDatasetNoiseDivideRnd(  mergedTestFiles, foregroundTestFiles, dir_background, 0              , part_of_10  , chunk, background_amount = background_amount):
+            print("WRONG")
+            return
+            if not mergeDatasetNoiseDivideRnd(mergedTestFiles, foregroundTestFiles, dir_background, 0              , part_of_10  , chunk, background_amount = background_amount):
                 return
-            if not mergeDatasetNoiseDivideRnd( mergedValidFiles, foregroundValidFiles, dir_background, part_of_10 + 1 , part_of_10*2, chunk, background_amount = background_amount):
+            if not mergeDatasetNoiseDivideRnd(mergedValidFiles, foregroundValidFiles, dir_background, part_of_10 + 1 , part_of_10*2, chunk, background_amount = background_amount):
                 return
-            if not  mergeDatasetNoiseDivideRnd(mergedTrainFiles, foregroundTrainFiles, dir_background, part_of_10*2 + 1, df_len    , chunk, background_amount = background_amount):
+            if not mergeDatasetNoiseDivideRnd(mergedTrainFiles, foregroundTrainFiles, dir_background, part_of_10*2 + 1, int(df_len), chunk, background_amount = background_amount):
                 return
         else:
-            if not mergeDatasetNoiseDivide(  mergedTestFiles, foregroundTestFiles, dir_background, 0              , part_of_10  , chunk, background_amount = background_amount):
+            if not mergeDatasetNoiseDivide(mergedTestFiles,  foregroundTestFiles,  dir_background, 0              , part_of_10  , chunk, background_amount = background_amount):
                 return
-            if not mergeDatasetNoiseDivide( mergedValidFiles, foregroundValidFiles, dir_background, part_of_10 + 1 , part_of_10*2, chunk, background_amount = background_amount):
+            if not mergeDatasetNoiseDivide(mergedValidFiles, foregroundValidFiles, dir_background, part_of_10 + 1 , part_of_10*2, chunk, background_amount = background_amount):
                 return
-            if not  mergeDatasetNoiseDivide(mergedTrainFiles, foregroundTrainFiles, dir_background, part_of_10*2 + 1, df_len    , chunk, background_amount = background_amount):
+            if not mergeDatasetNoiseDivide(mergedTrainFiles, foregroundTrainFiles, dir_background, part_of_10*2 + 1, int(df_len), chunk, background_amount = background_amount):
                 return
 
 
