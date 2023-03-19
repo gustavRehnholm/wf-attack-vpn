@@ -29,6 +29,7 @@ def main():
     
     # path to each size of 
     csv_dir = os.listdir(path)
+    files2plot = []
 
     for file in csv_dir:
         files2plot.append(path + "/" + file)
