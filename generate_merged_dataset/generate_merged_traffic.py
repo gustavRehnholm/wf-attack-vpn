@@ -10,8 +10,9 @@ python wf-attack-vpn/generate_merged_dataset/main.py
 
 import pandas as pd
 import os
-from merge_datasets_offset import mergeDatasetNoiseOffset
-from merge_dataset_rnd     import mergeDatasetNoiseRnd
+from merge_datasets_offset   import mergeDatasetNoiseOffset
+from merge_dataset_rnd       import mergeDatasetNoiseRnd
+from generate_dataset_divide import mergeDatasetNoiseDivide
 
 '''
 dir_foreground: path to the directory that has the foreground that the background should be merged into
@@ -20,8 +21,9 @@ dir_background: path to the directory where the background traffic is
 background_amount: if one wish to use 1/x amount of the available background traffic
 offset: if one uses offset or not
 random: if one should go through the background traffic in order (false) or random (true)
+divide: if the background data should be divided among the training, testing and validation
 '''
-def generateMergedTraffic(dir_foreground, dir_merged, dir_background, background_amount = 1, offset = True, random = True):
+def generateMergedTraffic(dir_foreground, dir_merged, dir_background, background_amount = 1, offset = True, random = True, divide = False):
 
     FOLD0_CSV = dir_foreground + "/fold-0.csv"
     key    = "df"
@@ -86,21 +88,43 @@ def generateMergedTraffic(dir_foreground, dir_merged, dir_background, background
             print("Aborting program")
             return
 
-
-    if random:
-        if not mergeDatasetNoiseRnd(mergedTestFiles, foregroundTestFiles, dir_background, offset_test, chunk, background_amount = background_amount):
-            return
-        if not mergeDatasetNoiseRnd(mergedValidFiles, foregroundValidFiles, dir_background, offset_valid, chunk, background_amount = background_amount):
-            return
-        if not  mergeDatasetNoiseRnd(mergedTrainFiles, foregroundTrainFiles, dir_background, offset_train, chunk, background_amount = background_amount):
-            return
+    if not divide:
+        if random:
+            if not mergeDatasetNoiseRnd(mergedTestFiles, foregroundTestFiles, dir_background, offset_test, chunk, background_amount = background_amount):
+                return
+            if not mergeDatasetNoiseRnd(mergedValidFiles, foregroundValidFiles, dir_background, offset_valid, chunk, background_amount = background_amount):
+                return
+            if not  mergeDatasetNoiseRnd(mergedTrainFiles, foregroundTrainFiles, dir_background, offset_train, chunk, background_amount = background_amount):
+                return
+        else:
+            if not mergeDatasetNoiseOffset(mergedTestFiles, foregroundTestFiles, dir_background, offset_test, chunk, background_amount = background_amount):
+                return
+            if not mergeDatasetNoiseOffset(mergedValidFiles, foregroundValidFiles, dir_background, offset_valid, chunk, background_amount = background_amount):
+                return
+            if not mergeDatasetNoiseOffset(mergedTrainFiles, foregroundTrainFiles, dir_background, offset_train, chunk, background_amount = background_amount):
+                return
     else:
-        if not mergeDatasetNoiseOffset(mergedTestFiles, foregroundTestFiles, dir_background, offset_test, chunk, background_amount = background_amount):
-            return
-        if not mergeDatasetNoiseOffset(mergedValidFiles, foregroundValidFiles, dir_background, offset_valid, chunk, background_amount = background_amount):
-            return
-        if not mergeDatasetNoiseOffset(mergedTrainFiles, foregroundTrainFiles, dir_background, offset_train, chunk, background_amount = background_amount):
-            return
+        # get size of the background traffic
+        store = pd.HDFStore(dir_background)
+        df_len = store.get_storer(key).nrows
+        store.close()
+        part_of_8 = df_len/8
+
+        if random:
+            if not mergeDatasetNoiseDivideRnd(  mergedTestFiles, foregroundTestFiles, dir_background, 0              , part_of_8  , chunk, background_amount = background_amount):
+                return
+            if not mergeDatasetNoiseDivideRnd( mergedValidFiles, foregroundValidFiles, dir_background, part_of_8 + 1 , part_of_8*2, chunk, background_amount = background_amount):
+                return
+            if not  mergeDatasetNoiseDivideRnd(mergedTrainFiles, foregroundTrainFiles, dir_background, part_of_8*2 + 1, df_len    , chunk, background_amount = background_amount):
+                return
+        else:
+            if not mergeDatasetNoiseDivide(  mergedTestFiles, foregroundTestFiles, dir_background, 0              , part_of_8  , chunk, background_amount = background_amount):
+                return
+            if not mergeDatasetNoiseDivide( mergedValidFiles, foregroundValidFiles, dir_background, part_of_8 + 1 , part_of_8*2, chunk, background_amount = background_amount):
+                return
+            if not  mergeDatasetNoiseDivide(mergedTrainFiles, foregroundTrainFiles, dir_background, part_of_8*2 + 1, df_len    , chunk, background_amount = background_amount):
+                return
+
 
     print("Succeeded in creating the merged traffic set")
 

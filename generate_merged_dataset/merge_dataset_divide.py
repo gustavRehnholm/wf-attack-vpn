@@ -16,11 +16,11 @@ output:
 
 python wf-attack-vpn/generate_merged_dataset/main.py
 '''
-import random
+
 import pandas as pd
 import os
 
-def mergeDatasetNoiseRnd(mergedFiles, foregroundFiles, background_path, offset_percent = 0, chunk = 10000, background_amount = 1):
+def mergeDatasetNoiseDivide(mergedFiles, foregroundFiles, background_path, background_start, background_stop, chunk, background_amount = 1):
     # how many packets of background traffic to have in memory at a time
     CHUNK = chunk
     # access the foreground packets time
@@ -36,30 +36,12 @@ def mergeDatasetNoiseRnd(mergedFiles, foregroundFiles, background_path, offset_p
     time_index      = 1
     direction_index = 2
     size_index      = 3 
-    # get size of the background traffic
-    store = pd.HDFStore(background_path)
-    df_len = store.get_storer(key).nrows
-    store.close()
-    # to test smaller size 
-    df_len = round(df_len * background_amount)
-    # how many chunks there is in the background
-    nr_of_chunks = int(df_len/chunk)
-    # in the slim case that this would be real
-    if nr_of_chunks == df_len/chunk:
-        nr_of_chunks -= 1
-        print("the background traffic was devisable on the chunk size, set it one less")
-    # where to start the 
-    offset = round(nr_of_chunks * offset_percent)
     # how large part of the background to have in the memory at a time
-    start = offset
-    stop  = offset + CHUNK
-    if start >= df_len:
-        print("ERROR: the start index (" + start + ") is to large")
-        print("Aborting the program")
-        return False
+    start = background_start
+    stop  = background_start + CHUNK
     # if stop is to large, set it to the last index
-    if stop > df_len:
-        stop = df_len
+    if stop > background_stop:
+        stop = background_stop
     
     # add background traffic, until the foreground traffic is filled
     while(len(foregroundFiles) > 0): 
@@ -117,18 +99,18 @@ def mergeDatasetNoiseRnd(mergedFiles, foregroundFiles, background_path, offset_p
                     added_background =  False
 
         # prepare next chunk of background traffic
-        # can be [0, nr_of_chunks]
-        start_chunk = random.randint(0, nr_of_chunks)
-        start = start_chunk * chunk
+        start = stop + 1
         stop = start + CHUNK
-
-        # incase there is an bug with the start position
-        if start > df_len:
-            print("ERROR, start got to big!")
-            return False
-
-        if stop > df_len:
-            stop = df_len
+        
+        # if start is beyond the size, get chunk from the start again
+        if start >= background_stop:
+            print("Loop the background noise")
+            start = background_start
+            stop  = CHUNK
+        # if stop is to long, set it to the end of the list (will loop the list next iteration)
+        elif stop > background_stop:
+            print("Last chunk before the loop")
+            stop = background_stop
         
     return True
 
