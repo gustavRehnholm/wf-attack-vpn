@@ -110,7 +110,7 @@ def generateMergedTraffic(dir_foreground, dir_merged, dir_background, background
         store = pd.HDFStore(dir_background)
         df_len = store.get_storer(key).nrows
         store.close()
-        part_of_8 = df_len/8
+        part_of_8 = round(df_len/8)
 
         if random:
             if not mergeDatasetNoiseDivideRnd(  mergedTestFiles, foregroundTestFiles, dir_background, 0              , part_of_8  , chunk, background_amount = background_amount):
