@@ -27,16 +27,13 @@ def main():
     title = sys.argv[1]
     path = sys.argv[2]
     
-    csv_files = os.listdir(path)
-    csv_paths = []
+    # path to each size of 
+    csv_dir = os.listdir(path)
 
-    for fileName in csv_files:
-        curr_path = path + "/" + fileName
-        print(curr_path)
-        csv_paths.append(curr_path)
-    
+    for file in csv_dir:
+        files2plot.append(path + "/" + file)
 
-    plotDf(title = title, list_of_csv = csv_paths, labels = labels)
+    plotDf(title = title, list_of_csv = files2plot, labels = labels)
 
 
 # run main 
