@@ -39,6 +39,8 @@ def main():
         print("invalid offset")
         print(sys.argv[5])
         return
+    print("Chosen offset")
+    print(sys.argv[5])
 
     if sys.argv[6] == "True":
         rnd = True
@@ -48,6 +50,8 @@ def main():
         print("invalid random")
         print(sys.argv[6])
         return
+    print("Chosen rnd")
+    print(sys.argv[6])
 
     if sys.argv[7] == "True":
         divide = True
@@ -57,6 +61,8 @@ def main():
         print("invalid divide")
         print(sys.argv[7])
         return
+    print("Chosen divide")
+    print(sys.argv[7])
 
     return
 
