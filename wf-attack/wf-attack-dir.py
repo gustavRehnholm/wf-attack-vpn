@@ -24,8 +24,7 @@ def main():
     #print(files)
 
     # default wf attack
-    print("./df-fitness.py -d " + DIR_MERGED + " --train --csv " + DIR_RESULT + "/default.csv")
-    #os.system("./df-fitness.py -d " + DIR_MERGED + " --train --csv " + DIR_RESULT + "/default.csv")
+    os.system("./df-fitness.py -d " + DIR_MERGED + " --train --csv " + DIR_RESULT + "/default.csv")
 
     # constant wf attack
     #for file in files:
