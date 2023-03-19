@@ -31,12 +31,12 @@ def main():
     csv_paths = []
 
     for fileName in csv_files:
-        curr_path = str(path + fileName)
+        curr_path = path + "/" + fileName
         print(curr_path)
         csv_paths.append(curr_path)
     
 
-    plotDf(title = title, list_of_csv = csv_files, labels = labels)
+    plotDf(title = title, list_of_csv = csv_paths, labels = labels)
 
 
 # run main 
