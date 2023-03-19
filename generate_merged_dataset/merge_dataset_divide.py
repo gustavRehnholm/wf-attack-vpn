@@ -21,6 +21,20 @@ import pandas as pd
 import os
 
 def mergeDatasetNoiseDivide(mergedFiles, foregroundFiles, background_path, background_start, background_stop, chunk, background_amount = 1):
+    print("Start merge, with divided set, iterative")
+    if not isinstance(background_start, int):
+        print("must start with an integer")
+        print(type(background_start))
+        return False
+    if not isinstance(background_stop, int):
+        print("must end with an integer")
+        print(type(background_stop))
+        return False
+    if not isinstance(chunk, int):
+        print("chunk must be an integet")
+        print(type(chunk))
+        return False
+
     # how many packets of background traffic to have in memory at a time
     CHUNK = chunk
     # access the foreground packets time

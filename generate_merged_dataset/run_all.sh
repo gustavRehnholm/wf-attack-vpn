@@ -19,8 +19,8 @@
 
 # divide without rnd
 python wf-attack-vpn/generate_merged_dataset/main.py foreground_traffic background_traffic/twitch.h5 merged_traffic/twitch_div_ittr/twitch_div_ittr_2600h 1    True False True
-python wf-attack-vpn/generate_merged_dataset/main.py foreground_traffic background_traffic/twitch.h5 merged_traffic/twitch_div_ittr/twitch_div_ittr_5h    500  True False True
-python wf-attack-vpn/generate_merged_dataset/main.py foreground_traffic background_traffic/twitch.h5 merged_traffic/twitch_div_ittr/twitch_div_ittr_2_5h  1000 True False True
+#python wf-attack-vpn/generate_merged_dataset/main.py foreground_traffic background_traffic/twitch.h5 merged_traffic/twitch_div_ittr/twitch_div_ittr_5h    500  True False True
+#python wf-attack-vpn/generate_merged_dataset/main.py foreground_traffic background_traffic/twitch.h5 merged_traffic/twitch_div_ittr/twitch_div_ittr_2_5h  1000 True False True
 
 # divide with rnd
 #python wf-attack-vpn/generate_merged_dataset/main.py foreground_traffic background_traffic/twitch.h5 merged_traffic/twitch_div_rnd/twitch_div_rnd_2600h 1    True True True

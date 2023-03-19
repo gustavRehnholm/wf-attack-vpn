@@ -23,7 +23,7 @@ import os
 
 def mergeDatasetNoiseDivideRnd(mergedFiles, foregroundFiles, background_path, background_start, background_stop, chunk, background_amount = 1):
 
-
+    print("Start merge, with divided set, random")
     if not isinstance(background_start, int):
         print("must start with an integer")
         print(type(background_start))
