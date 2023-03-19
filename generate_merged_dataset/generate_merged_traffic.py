@@ -18,10 +18,10 @@ def generateMergedTraffic(dir_foreground, dir_merged, dir_background, background
     FOLD0_CSV = dir_foreground + "/fold-0.csv"
 
     key    = "df"
-    offset_test = 0.3
-    offset_valid = 0.6
-    #offset_test = 0
-    #offset_valid = 0
+    #offset_test = 0.3
+    #offset_valid = 0.6
+    offset_test = 0
+    offset_valid = 0
     offset_train = 0
 
 
