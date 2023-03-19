@@ -33,14 +33,14 @@ def main():
         return
 
     offset = bool(sys.argv[4])
+    rnd    = bool(sys.argv[5])
 
-    rnd = bool(sys.argv[5])
-
-    print(offset)
-    print(rnd)
-    return
-
-    generateMergedTraffic(dir_foreground = DIR_FOREGROUND, dir_merged = DIR_MERGED, dir_background = DIR_BACKGROUND, background_amount = BACKGROUND_AMOUNT, offset = offset, random = rnd)
+    generateMergedTraffic(dir_foreground    = DIR_FOREGROUND, 
+                          dir_merged        = DIR_MERGED, 
+                          dir_background    = DIR_BACKGROUND, 
+                          background_amount = BACKGROUND_AMOUNT, 
+                          offset            = offset, 
+                          random            = rnd)
 
 if __name__=="__main__":
     main()
