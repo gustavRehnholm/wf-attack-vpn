@@ -16,6 +16,7 @@ from plot_df import plotDf
 '''
 sys.argv[1] : title
 sys.argv[2] : path to dir
+sys.argv[3] : path for result
 '''
 def main():
 
@@ -34,7 +35,9 @@ def main():
     for file in csv_dir:
         files2plot.append(path + "/" + file)
 
-    plotDf(title = title, list_of_csv = files2plot, labels = labels)
+    result = sys.argv[3] + "/"
+
+    plotDf(title = title, list_of_csv = files2plot, labels = labels, result_path = result)
 
 
 # run main 

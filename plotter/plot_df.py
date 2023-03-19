@@ -14,7 +14,7 @@ import sys
 '''
 
 '''
-def plotDf(title = "untitled", list_of_csv = [], labels = []):
+def plotDf(title = "untitled", list_of_csv = [], labels = [], result_path = "fig/"):
 
     datasets = []
 
@@ -57,7 +57,7 @@ def plotDf(title = "untitled", list_of_csv = [], labels = []):
     plt.title(title)
 
     fig = plt.gcf()
-    fig.savefig("fig/" + title)
+    fig.savefig(result_path + title)
 
     plt.show()
 
