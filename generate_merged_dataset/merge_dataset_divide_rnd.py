@@ -24,12 +24,12 @@ import os
 def mergeDatasetNoiseDivideRnd(mergedFiles, foregroundFiles, background_path, background_start, background_stop, chunk, background_amount = 1):
 
     if background_start is not int:
-        print("must start with an integer, not " + background_start)
+        print("must start with an integer, not " + str(background_start))
         return False
     if background_stop is not int:
-        print("must end with an integer, not " + background_stop)
+        print("must end with an integer, not " + str(background_stop))
     if chunk is not int:
-        print("chunk must be an integet, not " + chunk)
+        print("chunk must be an integet, not " + str(chunk))
     # how many packets of background traffic to have in memory at a time
     CHUNK = chunk
     # access the foreground packets time
