@@ -18,15 +18,15 @@ def generateMergedTraffic(dir_foreground, dir_merged, dir_background, background
     FOLD0_CSV = dir_foreground + "/fold-0.csv"
 
     key    = "df"
-    #offset_test = 0.3
-    #offset_valid = 0.6
-    offset_test = 0
-    offset_valid = 0
+    offset_test = 0.3
+    offset_valid = 0.6
+    #offset_test = 0
+    #offset_valid = 0
     offset_train = 0
 
 
     # how many rows of background the computer will have in the primary memory at a time
-    chunk = 100
+    chunk = 10000
 
     # list of what each file should be used for
     foregroundTrainFiles = []
