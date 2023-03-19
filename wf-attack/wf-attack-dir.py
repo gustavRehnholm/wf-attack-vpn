@@ -19,14 +19,12 @@ def main():
 
     os.system("mkdir " + DIR_RESULT)
 
-    files = os.listdir(DIR_MERGED)
+    #files = os.listdir(DIR_MERGED)
 
-    print(files)
+    #print(files)
 
     # default wf attack
-    for file in files:
-        print(file)
-        #os.system("./df-fitness.py -d " + DIR_MERGED + "--train --csv " + file + "/default.csv")
+    os.system("./df-fitness.py -d " + DIR_MERGED + "--train --csv " + file + "/default.csv")
 
     # constant wf attack
     #for file in files:
