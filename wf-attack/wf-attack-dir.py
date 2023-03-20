@@ -14,18 +14,18 @@ def main():
 
     DIR_MERGED = sys.argv[1]
     DIR_RESULT = sys.argv[2]
-    #sample     = sys.argv[3]
+    SAMPLE     = sys.argv[3]
 
     os.system("mkdir " + DIR_RESULT)
 
     # default wf attack
-    os.system("./df-fitness.py -d " + DIR_MERGED + " --train --csv " + DIR_RESULT + "/default.csv")
+    os.system("./df-fitness.py -d " + DIR_MERGED + " --train -s "+ SAMPLE +" --csv " + DIR_RESULT + "/default.csv")
 
     # constant wf attack
-    os.system("./df-fitness.py -d " + DIR_MERGED + " --train --constant --csv " + DIR_RESULT + "/constant.csv")
+    os.system("./df-fitness.py -d " + DIR_MERGED + " --train -s "+ SAMPLE +" --constant --csv " + DIR_RESULT + "/constant.csv")
 
     # tiktok wf attack
-    os.system("./df-fitness.py -d " + DIR_MERGED + " --train --tiktok --csv " + DIR_RESULT + "/tiktok.csv")
+    os.system("./df-fitness.py -d " + DIR_MERGED + " --train -s "+ SAMPLE +" --tiktok --csv " + DIR_RESULT + "/tiktok.csv")
 
     return
 
