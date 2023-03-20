@@ -110,6 +110,8 @@ def generateMergedTraffic(dir_foreground, dir_merged, dir_background, background
         store = pd.HDFStore(dir_background)
         df_len = store.get_storer(key).nrows
         store.close()
+
+        df_len = round(df_len / background_amount)
         part_of_10 = round(df_len/10)
 
         print("Size of the background")

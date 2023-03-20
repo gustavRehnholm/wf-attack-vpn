@@ -41,7 +41,7 @@ def mergeDatasetNoiseOffset(mergedFiles, foregroundFiles, background_path, offse
     df_len = store.get_storer(key).nrows
     store.close()
     # to test smaller size 
-    df_len = round(df_len * background_amount)
+    df_len = round(df_len / background_amount)
     # where to start the 
     offset = round(df_len * offset_percent)
     # how large part of the background to have in the memory at a time
