@@ -41,7 +41,7 @@ def mergeDatasetNoiseRnd(mergedFiles, foregroundFiles, background_path, offset_p
     df_len = store.get_storer(key).nrows
     store.close()
     # to test smaller size 
-    df_len = round(df_len * background_amount)
+    df_len = round(df_len / background_amount)
     # how many chunks there is in the background
     nr_of_chunks = int(df_len/chunk)
     # in the slim case that this would be real
