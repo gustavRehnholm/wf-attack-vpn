@@ -38,7 +38,7 @@ def main():
 
     for file in csv_dir:
         files2plot.append(path + "/" + file)
-        labels.append(file)
+        labels.append(file.split(".")[0])
 
     # create path for the result
     splitted_result_path = os.path.dirname(sys.argv[3])
