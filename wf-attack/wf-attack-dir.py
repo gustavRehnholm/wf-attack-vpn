@@ -15,8 +15,8 @@ def main():
     DIR_MERGED = sys.argv[1]
     DIR_RESULT = sys.argv[2]
     SAMPLE     = sys.argv[3]
-    
-    splitted_merged_path = os.path.dirname(DIR_MERGED)
+
+    splitted_merged_path = os.path.dirname(DIR_RESULT)
 
     # create the path for the result
     os.system("mkdir " + splitted_merged_path)
