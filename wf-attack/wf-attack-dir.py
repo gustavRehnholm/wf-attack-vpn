@@ -4,6 +4,9 @@
 wf attack on all files in a directory
 Performed with Deep fingerprinting, on teh modes: default, constant and tiktok
 
+TODO: Stop program if it can not create the result dir
+TODO: check that the input paths exists
+
 python wf-attack-vpn/wf-attack/wf-attack-dir.py
 '''
 
