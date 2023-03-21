@@ -4,6 +4,9 @@
 To plot the result from the WF training
 input: {title} {csv file 1} {csv file 2} ...
 
+TODO: Stop program if it can not create the result dir
+TODO: check that the input paths exists
+
 ./wf-attack-vpn/plotter/plot.sh
 or
 python wf-attack-vpn/plotter/plot_all.py
@@ -22,7 +25,7 @@ def main():
 
     print("Creates a graph from all csv files provided in a directory")
 
-    labels = ["default", "constant", "tiktok"]
+    #labels = ["default", "constant", "tiktok"]
 
     
     title = sys.argv[1]
@@ -34,10 +37,14 @@ def main():
 
     for file in csv_dir:
         files2plot.append(path + "/" + file)
+        labels.append(file)
+
+    # create path for the result
+    splitted_result_path = os.path.dirname(sys.argv[3])
+    os.system("mkdir " + splitted_result_path)
+    os.system("mkdir " + sys.argv[3])
 
     result = sys.argv[3] + "/"
-
-    os.system("mkdir " + sys.argv[3])
 
     plotDf(title = title, list_of_csv = files2plot, labels = labels, result_path = result)
 
