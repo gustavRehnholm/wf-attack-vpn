@@ -26,7 +26,7 @@ def main():
     print("Creates a graph from all csv files provided in a directory")
 
     #labels = ["default", "constant", "tiktok"]
-    label = []
+    labels = []
 
     
     title = sys.argv[1]
