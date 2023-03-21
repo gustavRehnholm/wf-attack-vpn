@@ -16,6 +16,13 @@ def main():
     DIR_RESULT = sys.argv[2]
     SAMPLE     = sys.argv[3]
 
+
+    splitted_merged_path = os.path.dirname(DIR_MERGED)
+    print(splitted_merged_path)
+    return
+
+    os.system("mkdir " + splitted_merged_path)
+
     os.system("mkdir " + DIR_RESULT)
 
     # default wf attack
