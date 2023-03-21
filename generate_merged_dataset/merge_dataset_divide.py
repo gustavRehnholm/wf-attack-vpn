@@ -20,8 +20,10 @@ python wf-attack-vpn/generate_merged_dataset/main.py
 import pandas as pd
 import os
 
-def mergeDatasetNoiseDivide(mergedFiles, foregroundFiles, background_path, background_start, background_stop, chunk, background_amount = 1):
+def mergeDatasetNoiseDivide(mergedFiles, foregroundFiles, background_path, background_start, background_stop, chunk):
+
     print("Start merge, with divided set, iterative")
+
     if not isinstance(background_start, int):
         print("must start with an integer")
         print(type(background_start))
@@ -39,17 +41,18 @@ def mergeDatasetNoiseDivide(mergedFiles, foregroundFiles, background_path, backg
     CHUNK = chunk
     # access the foreground packets time
     PACKET_ATTR_INDEX_TIME = 0
-    
+    # index to access the values for the background packages
+    TIME_INDEX      = 1
+    DIRECTION_INDEX = 2
+    SIZE_INDEX      = 3
+
     # all lines in the open foreground file
     foreground_lines = []
     # to access the background data
     key = "df"
     # timestamp of the current background packets
     time_stamp = 0
-    # index to access the values for the background packages
-    time_index      = 1
-    direction_index = 2
-    size_index      = 3 
+
     # how large part of the background to have in the memory at a time
     start = background_start
     stop  = background_start + CHUNK
@@ -90,7 +93,7 @@ def mergeDatasetNoiseDivide(mergedFiles, foregroundFiles, background_path, backg
                 mergedFiles.pop(0)
 
             # timestamp the current background packet is on
-            background_deviated_time = time_stamp + int(row[time_index])
+            background_deviated_time = time_stamp + int(row[TIME_INDEX])
    
             added_background =  False
              # Add foreground traffic, until one has added the background traffic (or there is no more foreground traffic in this file)
@@ -104,7 +107,7 @@ def mergeDatasetNoiseDivide(mergedFiles, foregroundFiles, background_path, backg
                     continue
                 # add the packet that arrives first
                 if(background_deviated_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
-                    mergedFile.writelines([str(background_deviated_time), ",", str(row[direction_index]), ",", str(row[size_index]), "\n"])
+                    mergedFile.writelines([str(background_deviated_time), ",", str(row[DIRECTION_INDEX]), ",", str(row[SIZE_INDEX]), "\n"])
                     time_stamp = background_deviated_time
                     added_background = True
                 else:

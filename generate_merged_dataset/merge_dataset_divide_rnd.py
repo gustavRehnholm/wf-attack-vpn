@@ -21,7 +21,7 @@ import random
 import pandas as pd
 import os
 
-def mergeDatasetNoiseDivideRnd(mergedFiles, foregroundFiles, background_path, background_start, background_stop, chunk, background_amount = 1):
+def mergeDatasetNoiseDivideRnd(mergedFiles, foregroundFiles, background_path, background_start, background_stop, chunk):
 
     print("Start merge, with divided set, random")
     if not isinstance(background_start, int):
