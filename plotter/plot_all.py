@@ -37,6 +37,8 @@ def main():
 
     result = sys.argv[3] + "/"
 
+    os.system("mkdir " + sys.argv[3])
+
     plotDf(title = title, list_of_csv = files2plot, labels = labels, result_path = result)
 
 
