@@ -149,11 +149,13 @@ while(len(trainFiles) > 0):
                     else: IP_host = directionSplit[1]
 
                 #if(int(splitParseLine[2]) > 1420): splitParseLine[2] = '1420\n'
+
                 # ADDED, WAS NOT HERRE ORIGINAL; but the script crashes if it does not
                 try:
                      splitCrossLine = crossLine[0].split(",")
                 except:
                     print("Cross line is empty")
+                    crossLine.pop(0)
                     continue
 
                 packetSize = str(int(splitParseLine[2])-header)
