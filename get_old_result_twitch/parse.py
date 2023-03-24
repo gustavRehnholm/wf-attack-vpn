@@ -165,6 +165,8 @@ def main():
                         print("Cross line is empty")
                         continue
 
+                    packetSize = str(int(splitParseLine[2])-header)
+
                     if(finalTime < int(splitCrossLine[0])):
                         newFile.writelines([str(finalTime), ",", direction, ",", packetSize, "\n"])
                         saveTime = totalTime
