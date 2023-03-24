@@ -133,7 +133,7 @@ def main():
                         print("Printing to new training set file ", os.path.basename(parsedTrainFiles[0]))
                         parsedTrainFiles.pop(0)
                     # ADDED, WAS NOT HERE ORIGINAL;
-                    else:
+                    elif len(crossLine) == 0:
                         # Done with the parsing
                         print("Have injected all web traffic with noise")
                         print("Ending the program")
