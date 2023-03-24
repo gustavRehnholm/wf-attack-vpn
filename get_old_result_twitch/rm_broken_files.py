@@ -74,8 +74,8 @@ def main():
             continue
         else:
             print("Keeping file: " + filename)
-            src = DIR_INPUT + filename
-            dst = DIR_OUTPUT + filename
+            src = DIR_INPUT + "/" + filename
+            dst = DIR_OUTPUT + "/" + filename
             shutil.copyfile(src, dst)
 
 # run main 
