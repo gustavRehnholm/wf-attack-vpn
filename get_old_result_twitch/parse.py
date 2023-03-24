@@ -157,6 +157,7 @@ while(len(trainFiles) > 0):
                     print("Cross line is empty")
                     newFile.writelines([str(finalTime), ",", direction, ",", packetSize, "\n"])
                     saveTime = totalTime
+                    continue
 
 
                 packetSize = str(int(splitParseLine[2])-header)
