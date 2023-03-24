@@ -2,10 +2,6 @@
 
 '''
 Merge all the parsed captures to one single file, where the timestamps flows logical between them
-
-touch stdout/merge_parsed_noise.py
-python wf-attack-vpn/Parse_noise/KAU-twitch-parsing/merge_parsed_noise.py | tee stdout/merge_parsed_noise.py
-python wf-attack-vpn/Parse_noise/KAU-twitch-parsing/merge_parsed_noise.py
 '''
 
 import pandas as pd
