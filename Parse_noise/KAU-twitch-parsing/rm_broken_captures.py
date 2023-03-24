@@ -3,8 +3,7 @@
 '''
 rm the capture files that are broken (lack sufficient captures)
 
-touch stdout/rm_broken_captures.txt
-python wf-attack-vpn/Parse_noise/KAU-twitch-parsing/rm_broken_captures.py | tee stdout/rm_broken_captures.txt
+TODO: make the cleaning automatic
 '''
 
 import pandas as pd
@@ -81,21 +80,6 @@ def main():
             src = DIR_INPUT + filename
             dst = DIR_OUTPUT + filename
             shutil.copyfile(src, dst)
-
-
-        #path = DIR_RAW_H5_NOISE + filename
-        #df = pd.read_hdf(path, key=key)
-
-        # check the data for holes of unusable, or no data
-        # and if the total amount of unusable packets, or time between packets is to high
-        #for row in df:
-        #    print("todo")
-
-
-        # if packet is usable, store it in the new direcotry
-
-
-    # check if any bad packets is left in DIR_RAW_USABLE_NOISE
 
 # run main 
 if __name__=="__main__":

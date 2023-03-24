@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 '''
-
+With the parsed applications, merge them after categories
 '''
 
 def main():

@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 '''
-
+Parse the MIT dataset
 '''
 
 def main():

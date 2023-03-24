@@ -17,14 +17,21 @@ python wf-attack-vpn/extract_dataset.py | tee stdout/extract_dataset.txt
 '''
 
 import pandas as pd
+from get_keywords.py import get_keywords
 
 # Extract all data that are from VPN traffic, and store them in different dataframes depending on the application
 def main(): 
+    INPUT_FILE = "VNAT_Dataframe_release_1.h5"
     # the whole dataset
-    df = pd.read_hdf("VNAT_Dataframe_release_1.h5")
+    df = pd.read_hdf(INPUT_FILE)
 
     # The applications that the dataset have
-    APPLICATIONS = ['youtube', 'sftp', 'skype-chat', 'ssh', 'rdp', 'rsync', 'voip', 'scp', 'netflix', 'vimeo']
+    #APPLICATIONS = ['youtube', 'sftp', 'skype-chat', 'ssh', 'rdp', 'rsync', 'voip', 'scp', 'netflix', 'vimeo']
+    APPLICATIONS = get_keywords(INPUT_FILE)
+    # where to store the result
+    DIR_RESULT = "mit/raw_applications"
+
+    os.system("mkdir " + DIR_RESULT)
 
     # One dataframe for each application, with the correct headers
     dataframe_list = []
@@ -74,13 +81,6 @@ def main():
     for i in range(0, len(nr_of_app)):
         print(str(APPLICATIONS[i]) + " : " + str(nr_of_app[i]))
     print("")
-    
-    '''
-    # to csv (for testing)
-    for i in range(0, len(dataframe_list)):
-        df_file_name = APPLICATIONS[i] + ".csv"
-        dataframe_list[i].to_csv(df_file_name, index = True)
-    '''
 
     # Store the result in h5 file, for future use of the data
     for i in range(0, len(dataframe_list)):
