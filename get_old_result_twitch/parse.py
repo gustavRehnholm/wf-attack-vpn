@@ -13,9 +13,9 @@ nanoseconds = 1000000000
 saveTime = time.time()
 IP_host = '10.88.0.9'
 filesToParseDir = "captures_clean"
-parsedFilesDir = "merged/old_twitch"
-crossFilesDir = "dataset/client"
-excelFile = "fold-0.csv"
+parsedFilesDir = "merged_traffic/old_twitch"
+crossFilesDir = "foreground_traffic/client"
+excelFile = "foreground_traffic/fold-0.csv"
 header = 40
 
 deviationTime = 0
