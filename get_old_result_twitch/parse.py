@@ -155,17 +155,18 @@ while(len(trainFiles) > 0):
                      splitCrossLine = crossLine[0].split(",")
                 except:
                     print("Cross line is empty")
-                    splitCrossLine.clear()
+                    newFile.writelines([str(finalTime), ",", direction, ",", packetSize, "\n"])
+                    saveTime = totalTime
 
-                if not splitCrossLine:
-                    packetSize = str(int(splitParseLine[2])-header)
 
-                    if(finalTime < int(splitCrossLine[0])):
-                        newFile.writelines([str(finalTime), ",", direction, ",", packetSize, "\n"])
-                        saveTime = totalTime
-                    else:
-                        newFile.writelines(crossLine[0])
-                        crossLine.pop(0)
+                packetSize = str(int(splitParseLine[2])-header)
+
+                if(finalTime < int(splitCrossLine[0])):
+                    newFile.writelines([str(finalTime), ",", direction, ",", packetSize, "\n"])
+                    saveTime = totalTime
+                else:
+                    newFile.writelines(crossLine[0])
+                    crossLine.pop(0)
 
             print("Out of lines in ", os.path.basename(fileToParsePath), "\nClosing...")
             deviationTime = 0
