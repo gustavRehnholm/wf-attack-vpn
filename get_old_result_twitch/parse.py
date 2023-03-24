@@ -130,6 +130,12 @@ while(len(trainFiles) > 0):
                     newFile = open(parsedTrainFiles[0], 'a') #What we write to
                     print("Printing to new training set file ", os.path.basename(parsedTrainFiles[0]))
                     parsedTrainFiles.pop(0)
+                # ADDED, WAS NOT HERE ORIGINAL;
+                else:
+                    # Done with the parsing
+                    print("Have injected all web traffic with noise")
+                    print("Ending the program")
+                    return
 
                 #-------------------------rewrite this shit code above to take less lines, this looks abyssmal---------------
 
@@ -150,17 +156,12 @@ while(len(trainFiles) > 0):
 
                 #if(int(splitParseLine[2]) > 1420): splitParseLine[2] = '1420\n'
 
-                # ADDED, WAS NOT HERRE ORIGINAL; but the script crashes if it does not
+                # ADDED, WAS NOT HERE ORIGINAL; but the script crashes if it does not
                 try:
                      splitCrossLine = crossLine[0].split(",")
                 except:
                     print("Cross line is empty")
-                    newFile.writelines([str(finalTime), ",", direction, ",", packetSize, "\n"])
-                    saveTime = totalTime
                     continue
-
-
-                packetSize = str(int(splitParseLine[2])-header)
 
                 if(finalTime < int(splitCrossLine[0])):
                     newFile.writelines([str(finalTime), ",", direction, ",", packetSize, "\n"])
