@@ -7,6 +7,9 @@ from re import search
 import time
 import pandas as pd
 
+'''
+modified version of rds-collect, with the bug fixed which stopped the program from applying all 
+'''    
 def main():
 
     hours = 60*60

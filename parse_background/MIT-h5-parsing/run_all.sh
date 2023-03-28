@@ -6,11 +6,6 @@ touch stdout/extract_dataset.txt
 python wf-attack-vpn/Parse_noise/MIT-h5-parsing/extract_dataset.py | tee stdout/extract_dataset.txt
 
 
-# (optional) analysis of the extracted data
-#touch stdout/extract_dataset_analysis.txt
-#python wf-attack-vpn/Parse_noise/MIT-h5-parsing/extract_dataset_analysis.py | tee stdout/extract_dataset_analysis.txt
-
-
 # Divide the captures after application useage
 touch stdout/split_dataset_application.txt
 python wf-attack-vpn/Parse_noise/MIT-h5-parsing/split_dataset_application.py | tee stdout/split_dataset_application.txt
