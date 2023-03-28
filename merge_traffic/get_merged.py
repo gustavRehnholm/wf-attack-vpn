@@ -73,11 +73,23 @@ def getMerged(dir_foreground, dir_merged, dir_background, fold = 0):
             print("Aborting program")
             return
 
-    if not mergeTraffic(mergedTestFiles , foregroundTestFiles , dir_background):
+    # get size of the background traffic
+    store = pd.HDFStore(dir_background)
+    df_len = store.get_storer(key).nrows
+    store.close()
+    # make it smaller for testing
+    df_len = round(df_len / background_amount)
+    # divide it up in 10 parts, 
+    part_of_10 = round(df_len/10)
+
+    print("Size of the background")
+    print(df_len)
+
+    if not mergeTraffic(mergedTestFiles , foregroundTestFiles , dir_background, 0              , part_of_10):
         return
-    if not mergeTraffic(mergedValidFiles, foregroundValidFiles, dir_background):
+    if not mergeTraffic(mergedValidFiles, foregroundValidFiles, dir_background, part_of_10 + 1 , part_of_10*2):
         return
-    if not mergeTraffic(mergedTrainFiles, foregroundTrainFiles, dir_background):
+    if not mergeTraffic(mergedTrainFiles, foregroundTrainFiles, dir_background, part_of_10*2 + 1, int(df_len)):
         return
 
 
