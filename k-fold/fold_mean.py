@@ -13,7 +13,7 @@ def main():
    
     df_list = []
     for csv_file in os.listdir(PATH_INPUT):
-        df_list.append(pd.read_csv(csv_file))
+        df_list.append(pd.read_csv(PATH_INPUT + "/" + csv_file))
 
     df = pd.concat(df_list)
     foo = df.groupby(level=1).mean()
