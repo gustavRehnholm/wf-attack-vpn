@@ -2,6 +2,9 @@
 
 # ./wf-attack-vpn/plotter/plot.sh
 
+# plot the compare graph
+python wf-attack-vpn/plotter/plot_all.py compare wf-result/combined fig/combined
+
 # navie approach
 python wf-attack-vpn/plotter/plot_all.py twitch_ittr_no_offset_2600h wf-result/twitch_ittr_no_offset/twitch_ittr_no_offset_2600h fig/twitch_no_offset
 python wf-attack-vpn/plotter/plot_all.py twitch_ittr_no_offset_5h    wf-result/twitch_ittr_no_offset/twitch_ittr_no_offset_5h    fig/twitch_no_offset
