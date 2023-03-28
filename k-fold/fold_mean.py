@@ -15,11 +15,22 @@ def main():
     for csv_file in os.listdir(PATH_INPUT):
         df_list.append(pd.read_csv(PATH_INPUT + "/" + csv_file))
 
-    df = pd.concat(df_list)
-    foo = df.groupby(level=1).mean()
-    foo.head()
+    df_output = df_list[0]
+    df_len = df_list.len()
+    df_list.pop(0)
 
-    foo.to_csv(PATH_OUTPUT, index = False)
+
+    # add all accuracy
+    for df in df_list:
+        for index, row in df.iterrows():
+            df_output["accuracy"].loc[index] += row["accuracy"]
+        
+    # mean for each value
+    for index, row in df_output.iterrows():
+        row["accuracy"] = row["accuracy"] / df_len
+
+    # save result
+    df_output.to_csv(PATH_OUTPUT, index = False)
 
 # run main 
 if __name__=="__main__":
