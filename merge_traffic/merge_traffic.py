@@ -18,7 +18,7 @@ import random
 import pandas as pd
 import os
 
-def mergeTraffic(mergedFiles, foregroundFiles, background_path):
+def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
 
     # access the foreground packets time
     PACKET_ATTR_INDEX_TIME = 0
@@ -33,27 +33,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path):
     time_index      = 1
     direction_index = 2
     size_index      = 3 
-
-    '''
-        # prepare next chunk of background traffic
-        # can be [0, nr_of_chunks]
-        start_chunk = random.randint(0, nr_of_chunks)
-        start = start_chunk * CHUNK + background_start
-        stop = start + CHUNK 
-
-        # incase there is an bug with the start position
-        if start > background_stop:
-            print("ERROR, start got to big!")
-            return False
-        # incase the stop went beyond the length
-        if stop > background_stop:
-            stop = background_stop
-    '''
     
-    # get size of the background traffic
-    store = pd.HDFStore(dir_background)
-    df_len = store.get_storer(key).nrows
-    store.close()
     # the background traffic
     df = pd.read_hdf(background_path, key = key)
     chunk = 100
@@ -62,9 +42,9 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path):
     while(len(foregroundFiles) > 0): 
 
         # get randomized subset of the background to use
-        start = random.randint(0, df_len-chunk)
+        rnd = random.randint(start, stop-chunk)
 
-        subset_df = df.isin(([start, start + chunk]))
+        subset_df = df.isin(([rnd, rnd + chunk]))
 
         # for every packet in the chunk of background traffic
         for row in subset_df.itertuples():
