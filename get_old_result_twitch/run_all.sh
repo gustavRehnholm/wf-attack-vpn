@@ -16,6 +16,6 @@ python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/old_twitch wf-res
 python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/old_twitch wf-result/old_twitch_100  100
 
 # plot the result (as they did)
-python wf-attack-vpn/plotter/plot_all.py twitch_old_og  wf-result/old_twitch fig/twitch_old_og
-python wf-attack-vpn/plotter/plot_all.py twitch_old_20  wf-result/old_twitch fig/twitch_old_20
-python wf-attack-vpn/plotter/plot_all.py twitch_old_100 wf-result/old_twitch fig/twitch_old_100
+python wf-attack-vpn/plotter/plot_all.py twitch_old_og  wf-result/old_twitch_og fig/twitch_old_og
+python wf-attack-vpn/plotter/plot_all.py twitch_old_20  wf-result/old_twitch_20 fig/twitch_old_20
+python wf-attack-vpn/plotter/plot_all.py twitch_old_100 wf-result/old_twitch_100 fig/twitch_old_100
