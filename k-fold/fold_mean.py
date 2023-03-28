@@ -7,8 +7,8 @@ import pandas as pd
 merge the 10 fold, so it can be showed as one graph
 '''
 def main():
-    PATH_INPUT = "merged_traffic/undef"
-    PATH_OUTPUT = "merged_traffic/undef/combined.csv"
+    PATH_INPUT = "wf-result/undef"
+    PATH_OUTPUT = "wf-result/undef/combined.csv"
     os.system("rm " + PATH_OUTPUT)
    
     df_list = []
