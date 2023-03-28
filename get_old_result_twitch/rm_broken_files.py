@@ -49,6 +49,8 @@ def main():
     # the usable captures
     DIR_OUTPUT = "captures_clean"
 
+    files_left = 0
+
     # clean the previous result
     os.system("rm -f -r " + DIR_OUTPUT)
     os.system("mkdir " + DIR_OUTPUT)
@@ -74,10 +76,12 @@ def main():
             continue
         else:
             print("Keeping file: " + filename)
+            files_left += 1
             src = DIR_INPUT + "/" + filename
             dst = DIR_OUTPUT + "/" + filename
             shutil.copyfile(src, dst)
 
+    print(files_left)
 # run main 
 if __name__=="__main__":
     main()
