@@ -23,6 +23,7 @@ def main():
     # add all accuracy
     for df in df_list:
         for index, row in df.iterrows():
+            print(index)
             acc_list[index] += row["accuracy"]
         
     # mean for each value
