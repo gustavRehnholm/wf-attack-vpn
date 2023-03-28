@@ -16,7 +16,7 @@ def main():
         df_list.append(pd.read_csv(PATH_INPUT + "/" + csv_file))
 
     df_output = df_list[0]
-    df_len = df_list.len()
+    df_len = len(df_list)
     df_list.pop(0)
 
 
