@@ -58,6 +58,10 @@ def main():
         # append = True: the value should be appended on the old
         df.to_hdf(PATH_OUTPUT, mode = "r+", key = key, append = True) 
 
+        # to gather a subset
+        #if index > 200:
+        #    return
+
 
     print("Have merged all twitch traffic, store them now in " + PATH_OUTPUT)
 
