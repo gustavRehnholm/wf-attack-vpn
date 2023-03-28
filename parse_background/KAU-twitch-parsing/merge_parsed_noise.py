@@ -14,7 +14,7 @@ def main():
     DIR_INPUT = "twitch/parsed_captures/"
     # the merged noise file in the h5 format
     DIR_OUTPUT = "background_traffic"
-    FILE_OUTPUT = "twitch_1.h5"
+    FILE_OUTPUT = "twitch_200.h5"
     PATH_OUTPUT = DIR_OUTPUT + "/" + FILE_OUTPUT
     # for storing the result as h5
     key = "df"
@@ -25,8 +25,9 @@ def main():
 
 
     # clean the previous result
-    os.system("rm -f -r " + DIR_OUTPUT)
     os.system("mkdir " + DIR_OUTPUT)
+    os.system("rm " + PATH_OUTPUT)
+    
 
     # to correct each captures time, so they all follow a chronological order
     deviation_time = 0
@@ -59,7 +60,7 @@ def main():
         df.to_hdf(PATH_OUTPUT, mode = "r+", key = key, append = True) 
 
         # to gather a subset
-        if index >= 1:
+        if index >= 200:
             return
 
 
