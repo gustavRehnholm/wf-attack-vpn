@@ -18,7 +18,8 @@ def main():
     df_output = df_list[0]
     df_len = len(df_list)
 
-    acc_list = [0] * 15
+    acc_list = [0] * len(df_output.index)
+    print(df_output.index)
 
     # add all accuracy
     for df in df_list:
