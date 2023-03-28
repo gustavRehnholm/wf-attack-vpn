@@ -77,8 +77,6 @@ def getMerged(dir_foreground, dir_merged, dir_background, fold = 0):
     store = pd.HDFStore(dir_background)
     df_len = store.get_storer(key).nrows
     store.close()
-    # make it smaller for testing
-    df_len = round(df_len / background_amount)
     # divide it up in 10 parts, 
     part_of_10 = round(df_len/10)
 
