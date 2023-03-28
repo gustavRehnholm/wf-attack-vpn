@@ -17,17 +17,17 @@ def main():
 
     df_output = df_list[0]
     df_len = len(df_list)
-    df_list.pop(0)
 
+    acc_list = [0] * 15
 
     # add all accuracy
     for df in df_list:
         for index, row in df.iterrows():
-            df_output["accuracy"].loc[index] += row["accuracy"]
+            acc_list[index] += row["accuracy"]
         
     # mean for each value
     for index, row in df_output.iterrows():
-        row["accuracy"] = row["accuracy"] / df_len
+        row["accuracy"] = acc_list[index] / df_len
 
     # save result
     df_output.to_csv(PATH_OUTPUT, index = False)
