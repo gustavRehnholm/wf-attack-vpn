@@ -59,7 +59,7 @@ def main():
         df.to_hdf(PATH_OUTPUT, mode = "r+", key = key, append = True) 
 
         # to gather a subset
-        if index > 1:
+        if index >= 1:
             return
 
 
