@@ -19,12 +19,10 @@ def main():
     df_len = len(df_list)
 
     acc_list = [0] * len(df_output.index)
-    print(df_output.index)
 
     # add all accuracy
     for df in df_list:
         for index, row in df.iterrows():
-            print(index)
             acc_list[index] += row["accuracy"]
         
     # mean for each value

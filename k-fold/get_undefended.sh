@@ -16,4 +16,4 @@
 
 python wf-attack-vpn/k-fold/fold_mean.py
 
-python wf-attack-vpn/plotter/plot_all.py undefended wf-result/undef/combined.csv fig/undef
+python wf-attack-vpn/plotter/plot_all.py undefended wf-result/undef/10-fold fig/undef
