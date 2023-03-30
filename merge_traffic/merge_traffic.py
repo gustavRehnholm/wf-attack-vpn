@@ -54,9 +54,6 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
         rnd       = random.randint(start, stop-chunk)
         subset_df = df.iloc[rnd:(rnd + chunk)]
 
-        print(subset_df.shape)
-        return False
-
         print("Start for loop")
         # for every packet in the chunk of background traffic
         for row in subset_df.itertuples():
@@ -95,7 +92,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                 try:
                     foreground_packet = foreground_lines[0].split(",")
                 except:
-                    print("foreground file is empty, skip it")
+                    #print("foreground file is empty, skip it")
                     added_background = True
                     continue
                 # add the packet that arrives first
