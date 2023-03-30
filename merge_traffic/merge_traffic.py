@@ -39,14 +39,11 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     foreground_lines = []
     # timestamp of the current background packets
     time_stamp = 0
-    print("before df")
     # the background traffic
     df = pd.read_hdf(background_path, key = KEY)
-    print("after df")
     # how many packets to use in a row before randomizing a packet again
     chunk = 100
     
-    print("Start while loop")
     # add background traffic, until the foreground traffic is filled
     while(len(foregroundFiles) > 0): 
 
@@ -54,7 +51,6 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
         rnd       = random.randint(start, stop-chunk)
         subset_df = df.iloc[rnd:(rnd + chunk)]
 
-        print("Start for loop")
         # for every packet in the chunk of background traffic
         for row in subset_df.itertuples():
 
@@ -64,7 +60,6 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
 
             # Check if a new foreground file needs to be opened (which also imply a new merged should be opened)
             if len(foreground_lines) <= 0:
-                print("Get a new foreground and merged file")
                 # reset the time stamp for the background packets
                 time_stamp = 0
 
