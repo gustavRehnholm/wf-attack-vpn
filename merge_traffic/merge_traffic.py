@@ -52,7 +52,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
 
         # get randomized subset of the background to use
         rnd       = random.randint(start, stop-chunk)
-        subset_df = df.isin(([rnd, rnd + chunk]))
+        subset_df = df.iloc[rnd:(rnd + chunk)]
 
         print(subset_df.shape)
         return False
