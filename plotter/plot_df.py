@@ -56,7 +56,7 @@ def plotDf(title = "untitled", list_of_csv = [], labels = [], result_path = "fig
 
     # Pad margins so that markers don't get 
     # clipped by the axes
-    plt.margins(0.2)
+    #plt.margins(0.2)
     # Tweak spacing to prevent clipping of tick-labels
     plt.subplots_adjust(bottom = 0.15)
 
