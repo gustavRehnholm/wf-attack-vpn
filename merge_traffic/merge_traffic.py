@@ -54,7 +54,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
         rnd       = random.randint(start, stop-chunk)
         subset_df = df.isin(([rnd, rnd + chunk]))
 
-        print(subset_df.size)
+        print(subset_df.shape)
         return False
 
         print("Start for loop")
