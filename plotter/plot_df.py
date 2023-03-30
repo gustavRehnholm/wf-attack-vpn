@@ -51,9 +51,15 @@ def plotDf(title = "untitled", list_of_csv = [], labels = [], result_path = "fig
         sns.pointplot(data=datasets[j], x ="th", y="accuracy", markers=markers_list[j], color=colors[j], label=labels[j])
 
     x_ticks = [0.25, 0.5, 0.75, 0.9]
-    plt.xticks(ticks = x_ticks)
+    labels_x = ["0.25", "0.5", "0.75", "0.9"]
+    plt.xticks(ticks = x_ticks, labels = labels_x, rotation ='vertical')
 
-    #plt.ylim(0, 1)
+    # Pad margins so that markers don't get 
+    # clipped by the axes
+    plt.margins(0.2)
+    # Tweak spacing to prevent clipping of tick-labels
+    plt.subplots_adjust(bottom = 0.15)
+
     plt.legend()
     plt.title(title)
 
