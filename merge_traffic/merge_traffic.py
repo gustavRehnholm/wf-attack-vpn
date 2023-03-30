@@ -44,7 +44,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     df = pd.read_hdf(background_path, key = KEY)
     print("after df")
     # how many packets to use in a row before randomizing a packet again
-    chunk = 1000
+    chunk = 100
     
     print("Start while loop")
     # add background traffic, until the foreground traffic is filled
@@ -53,6 +53,9 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
         # get randomized subset of the background to use
         rnd       = random.randint(start, stop-chunk)
         subset_df = df.isin(([rnd, rnd + chunk]))
+
+        print(subset_df.size)
+        return False
 
         print("Start for loop")
         # for every packet in the chunk of background traffic
