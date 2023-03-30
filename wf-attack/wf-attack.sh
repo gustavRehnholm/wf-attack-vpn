@@ -2,32 +2,27 @@
 
 # ./wf-attack-vpn/wf-attack/wf-attack.sh
 
-# ittr-no offset
-#python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_ittr_no_offset/twitch_ittr_no_offset_2600h wf-result/twitch_ittr_no_offset/twitch_ittr_no_offset_2600h
-#python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_ittr_no_offset/twitch_ittr_no_offset_5h    wf-result/twitch_ittr_no_offset/twitch_ittr_no_offset_5h
-#python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_ittr_no_offset/twitch_ittr_no_offset_2_5h  wf-result/twitch_ittr_no_offset/twitch_ittr_no_offset_2_5h
+# non divided, non randomized, but with an offset
+python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_ittr_offset/twitch_ittr_offset_2600h wf-result/twitch_ittr_offset/twitch_ittr_offset_2600h 20
+python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_ittr_offset/twitch_ittr_offset_2_5h  wf-result/twitch_ittr_offset/twitch_ittr_offset_2_5h  20
 
-# ittr-offset
-#python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_ittr_offset/twitch_ittr_offset_2600h wf-result/twitch_ittr_offset/twitch_ittr_offset_2600h
-#python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_ittr_offset/twitch_ittr_offset_5h    wf-result/twitch_ittr_offset/twitch_ittr_offset_5h
-#python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_ittr_offset/twitch_ittr_offset_2_5h  wf-result/twitch_ittr_offset/twitch_ittr_offset_2_5h
+# non divide, randomized order
+python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_rnd_150 wf-result/twitch_rnd_offset_20/twitch_rnd_offset_300h 20
+python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_rnd_1   wf-result/twitch_rnd_offset_20/twitch_rnd_offset_2h   20
 
-# rnd-no offset
-#python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_rnd_no_offset/twitch_rnd_no_offset_2600h wf-result/twitch_rnd_no_offset/twitch_rnd_no_offset_2600h
-#python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_rnd_no_offset/twitch_rnd_no_offset_5h    wf-result/twitch_rnd_no_offset/twitch_rnd_no_offset_5h
-#python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_rnd_no_offset/twitch_rnd_no_offset_2_5h  wf-result/twitch_rnd_no_offset/twitch_rnd_no_offset_2_5h
+python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_rnd_150 wf-result/twitch_rnd_offset_100/twitch_rnd_offset_300h 100
+python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_rnd_1   wf-result/twitch_rnd_offset_100/twitch_rnd_offset_2h   100
 
-# rnd-offset
-python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_rnd_offset/twitch_rnd_offset_2600h wf-result/twitch_rnd_offset/twitch_rnd_offset_2600h
-python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_rnd_offset/twitch_rnd_offset_5h    wf-result/twitch_rnd_offset/twitch_rnd_offset_5h
-python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_rnd_offset/twitch_rnd_offset_2_5h  wf-result/twitch_rnd_offset/twitch_rnd_offset_2_5h
+# divide, non randomized order
+python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_ittr/twitch_div_ittr_2600h wf-result/twitch_div_ittr_20/twitch_div_ittr_2600h 20
+python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_ittr/twitch_div_ittr_2_5h  wf-result/twitch_div_ittr_20/twitch_div_ittr_2_5h  20
 
-# divide
-python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_ittr/twitch_div_ittr_2600h wf-result/twitch_div_ittr/twitch_div_ittr_2600h
-python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_ittr/twitch_div_ittr_5h    wf-result/twitch_div_ittr/twitch_div_ittr_5h
-python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_ittr/twitch_div_ittr_2_5h  wf-result/twitch_div_ittr/twitch_div_ittr_2_5h
+python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_ittr/twitch_div_ittr_2600h wf-result/twitch_div_ittr_100/twitch_div_ittr_2600h 100
+python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_ittr/twitch_div_ittr_2_5h  wf-result/twitch_div_ittr_100/twitch_div_ittr_2_5h  100
 
-# divide-rnd
-python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_rnd/twitch_div_rnd_2600h wf-result/twitch_div_rnd/twitch_div_rnd_2600h
-python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_rnd/twitch_div_rnd_5h    wf-result/twitch_div_rnd/twitch_div_rnd_5h
-python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_rnd/twitch_div_rnd_2_5h  wf-result/twitch_div_rnd/twitch_div_rnd_2_5h
+# divide, randomized order
+python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_rnd_150 wf-result/twitch_div_rnd_20/twitch_div_rnd_300h 20
+python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_rnd_1   wf-result/twitch_div_rnd_20/twitch_div_rnd_2h   20
+
+python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_rnd_150 wf-result/twitch_div_rnd_100/twitch_div_rnd_300h 100
+python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/twitch_div_rnd_1   wf-result/twitch_div_rnd_100/twitch_div_rnd_2h   100
