@@ -18,8 +18,9 @@ import os
 '''
 def plotDf(title = "untitled", list_of_csv = [], labels = [], result_path = "fig/"):
 
-    colors       = ["blue", "green", "red", "cyan", "magenta", "yellow", "black", "white"]
-    markers_list = ['x','o','v','^','<']
+    #colors       = ["blue", "green", "red", "cyan", "magenta", "yellow", "black", "white", ]
+    colors = sns.color_palette(n_colors = len(list_of_csv))
+    #markers_list = ['x','o','v','^','<']
     
     # Extract all csv files that should be plotted in a graph
     datasets = []
@@ -41,16 +42,11 @@ def plotDf(title = "untitled", list_of_csv = [], labels = [], result_path = "fig
         print("ERROR: there are more lines to plot than labels, add more labels in the labels list")
         print("There is ", len(datasets), " lines to show in the graphs")
         print("Aborting program")
-    elif len(datasets) > len(markers_list):
-        print("ERROR: there are more lines to plot than markers, add more markers in markers_list")
-        print("There is ", len(datasets), " lines to show in the graphs")
-        print("Aborting program")
-        return
         
 
     # plot all lines for the graph
     for j in range(0, len(datasets)):
-        ax = sns.pointplot(data = datasets[j][["th", "accuracy"]], x ="th", y="accuracy", markers = markers_list[j], color = colors[j], label = labels[j])
+        ax = sns.pointplot(data = datasets[j][["th", "accuracy"]], x ="th", y="accuracy", color = colors[j], label = labels[j])
 
     #x_ticks = [0.1, 0.5, 0.7, 0.9]
     #labels_x = ["0.1", "0.5", "0.7", "0.9"]
