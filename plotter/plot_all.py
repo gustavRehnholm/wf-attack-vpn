@@ -43,6 +43,9 @@ def main():
 
     result = sys.argv[3] + "/"
 
+    print(labels)
+    print("---------------")
+    print(files2plot)
     return
 
     plotDf(title = title, list_of_csv = files2plot, labels = labels, result_path = result)
