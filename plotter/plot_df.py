@@ -55,8 +55,8 @@ def plotDf(title = "untitled", list_of_csv = [], labels = [], result_path = "fig
     #labels_x = ["0.1", "0.5", "0.7", "0.9"]
     #plt.xticks(ticks = x_ticks, rotation ='horizontal')
 
-    ax.xaxis.set_major_locator(ticker.MultipleLocator(5))
-    ax.xaxis.set_major_formatter(ticker.ScalarFormatter())
+    ax.xaxis.set_major_locator(x_ticks)
+    #ax.xaxis.set_major_formatter(ticker.ScalarFormatter())
 
 
     # Tweak spacing to prevent clipping of tick-labels
