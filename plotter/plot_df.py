@@ -26,8 +26,6 @@ def plotDf(title = "untitled", list_of_csv = [], labels = [], result_path = "fig
     for csv_file in list_of_csv:
         df = pd.read_csv(csv_file, usecols = ["th", "accuracy"], index_col = None)
         datasets.append(df)
-        print(df)
-        return
 
     # end program if data is unsuable
     if len(datasets) <= 0:
