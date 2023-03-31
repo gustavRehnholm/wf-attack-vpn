@@ -24,10 +24,9 @@ def plotDf(title = "untitled", list_of_csv = [], labels = [], result_path = "fig
     
     # Extract all csv files that should be plotted in a graph
     for csv_file in list_of_csv:
-        df = pd.read_csv(csv_file)
-        df_core = df[["th", "accuracy"]]
-        datasets.append(df_core)
-        print(df_core)
+        df = pd.read_csv(csv_file, usecols = ["th", "accuracy"])
+        datasets.append(df)
+        print(df)
         return
 
     # end program if data is unsuable
