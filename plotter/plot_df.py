@@ -67,7 +67,7 @@ def plotDf(title = "untitled", list_of_csv = [], labels = [], result_path = "fig
     plt.title(title)
 
     fig = plt.gcf()
-    os.system("rm " + str(result_path + title))
+    os.system("rm " + str(result_path + title) + ".png")
     fig.savefig(result_path + title)
 
     plt.show()
