@@ -48,11 +48,14 @@ def plotDf(title = "untitled", list_of_csv = [], labels = [], result_path = "fig
 
     # plot all lines for the graph
     for j in range(0, len(datasets)):
-        sns.pointplot(data=datasets[j], x ="th", y="accuracy", markers=markers_list[j], color=colors[j], label=labels[j])
+        ax = sns.pointplot(data = datasets[j], x ="th", y="accuracy", markers = markers_list[j], color = colors[j], label = labels[j])
 
-    x_ticks = [0.1, 0.5, 0.7, 0.9]
-    labels_x = ["0.1", "0.5", "0.7", "0.9"]
-    plt.xticks(ticks = x_ticks, rotation ='horizontal')
+    #x_ticks = [0.1, 0.5, 0.7, 0.9]
+    #labels_x = ["0.1", "0.5", "0.7", "0.9"]
+    #plt.xticks(ticks = x_ticks, rotation ='horizontal')
+
+    ax.xaxis.set_major_locator(ticker.MultipleLocator(5))
+    ax.xaxis.set_major_formatter(ticker.ScalarFormatter())
 
 
     # Tweak spacing to prevent clipping of tick-labels
