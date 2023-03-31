@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 10-fold on the undefended dataset
-# ./wf-attack-vpn/undefended/get_undefended.sh
+# ./wf-attack-vpn/recreate_data_size_comparison/k-fold/get_undefended.sh
 
 ./df-fitness.py -d foreground_traffic/client --train -s 20 -f 1 --csv wf-result/undef_20/10-fold/fold1.csv
 ./df-fitness.py -d foreground_traffic/client --train -s 20 -f 2 --csv wf-result/undef_20/10-fold/fold2.csv
