@@ -51,7 +51,7 @@ def plotDf(title = "untitled", list_of_csv = [], labels = [], result_path = "fig
     for j in range(0, len(datasets)):
         ax = sns.pointplot(data = datasets[j], x ="th", y="accuracy", markers = markers_list[j], color = colors[j], label = labels[j])
 
-    #x_ticks = [0.1, 0.5, 0.7, 0.9]
+    x_ticks = [0.1, 0.5, 0.7, 0.9]
     #labels_x = ["0.1", "0.5", "0.7", "0.9"]
     #plt.xticks(ticks = x_ticks, rotation ='horizontal')
 
