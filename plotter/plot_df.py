@@ -18,9 +18,7 @@ import os
 '''
 def plotDf(title = "untitled", list_of_csv = [], labels = [], result_path = "fig/"):
 
-    #colors       = ["blue", "green", "red", "cyan", "magenta", "yellow", "black", "white", ]
     colors = sns.color_palette(n_colors = len(list_of_csv))
-    #markers_list = ['x','o','v','^','<']
     
     # Extract all csv files that should be plotted in a graph
     datasets = []
@@ -54,7 +52,6 @@ def plotDf(title = "untitled", list_of_csv = [], labels = [], result_path = "fig
 
     #ax.set_xticks(range(0, len(labels_x)))
     #ax.set_xticklabels(labels_x)
-
 
     # Tweak spacing to prevent clipping of tick-labels
     plt.subplots_adjust(bottom = 0.15)

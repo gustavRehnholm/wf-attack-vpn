@@ -2,13 +2,14 @@
 
 import os
 import pandas as pd
+import sys
 
 '''
 merge the 10 fold, so it can be showed as one graph
 '''
 def main():
-    PATH_INPUT = "wf-result/undef"
-    PATH_OUTPUT = "wf-result/undef/combined.csv"
+    PATH_INPUT  = sys.argv[1]
+    PATH_OUTPUT = sys.argv[2]
     os.system("rm " + PATH_OUTPUT)
    
     df_list = []
