@@ -12,11 +12,11 @@ python wf-attack-vpn/plotter/plot_all.py compare wf-result/compare fig/compare
 python wf-attack-vpn/plotter/plot_all.py twitch_offset_2600h wf-result/twitch_offset/twitch_offset_2600h fig/twitch_offset
 python wf-attack-vpn/plotter/plot_all.py twitch_offset_2_5h  wf-result/twitch_offset/twitch_offset_2_5h  fig/twitch_offset
 # rnd, sample 20
-python wf-attack-vpn/plotter/plot_all.py twitch_rnd_20_150h wf-result/twitch_rnd_20/twitch_rnd_150  fig/twitch_rnd
-python wf-attack-vpn/plotter/plot_all.py twitch_rnd_20_2h   wf-result/twitch_rnd_20/twitch_rnd_1    fig/twitch_rnd
+python wf-attack-vpn/plotter/plot_all.py twitch_rnd_20_150h wf-result/twitch_rnd_20/twitch_rnd_300h  fig/twitch_rnd
+python wf-attack-vpn/plotter/plot_all.py twitch_rnd_20_2h   wf-result/twitch_rnd_20/twitch_rnd_2h    fig/twitch_rnd
 # rnd, sample 100
-python wf-attack-vpn/plotter/plot_all.py twitch_rnd_100_150h wf-result/twitch_rnd_100/twitch_rnd_150  fig/twitch_rnd
-python wf-attack-vpn/plotter/plot_all.py twitch_rnd_100_2h   wf-result/twitch_rnd_100/twitch_rnd_1    fig/twitch_rnd
+python wf-attack-vpn/plotter/plot_all.py twitch_rnd_100_150h wf-result/twitch_rnd_100/twitch_rnd_300h  fig/twitch_rnd
+python wf-attack-vpn/plotter/plot_all.py twitch_rnd_100_2h   wf-result/twitch_rnd_100/twitch_rnd_2h    fig/twitch_rnd
 # div ittr, sample 20
 python wf-attack-vpn/plotter/plot_all.py twitch_div_ittr_20_2600h wf-result/twitch_div_ittr_20/twitch_div_ittr_2600h fig/twitch_div_ittr
 python wf-attack-vpn/plotter/plot_all.py twitch_div_ittr_20_2_5h  wf-result/twitch_div_ittr_20/twitch_div_ittr_2_5h  fig/twitch_div_ittr
