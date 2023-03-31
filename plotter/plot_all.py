@@ -22,18 +22,14 @@ sys.argv[2] : path to dir
 sys.argv[3] : path for result
 '''
 def main():
-
     print("Creates a graph from all csv files provided in a directory")
 
-    #labels = ["default", "constant", "tiktok"]
     labels = []
-
-    
-    title = sys.argv[1]
-    path = sys.argv[2]
+    title  = sys.argv[1]
+    path   = sys.argv[2]
     
     # path to each size of 
-    csv_dir = os.listdir(path)
+    csv_dir    = os.listdir(path)
     files2plot = []
 
     for file in csv_dir:
@@ -47,8 +43,9 @@ def main():
 
     result = sys.argv[3] + "/"
 
-    plotDf(title = title, list_of_csv = files2plot, labels = labels, result_path = result)
+    return
 
+    plotDf(title = title, list_of_csv = files2plot, labels = labels, result_path = result)
 
 # run main 
 if __name__=="__main__":

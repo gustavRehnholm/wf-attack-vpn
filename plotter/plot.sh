@@ -2,6 +2,8 @@
 
 # ./wf-attack-vpn/plotter/plot.sh
 
+# undefended plot
+python wf-attack-vpn/plotter/plot_all.py twitch_undef wf-result/undef/10-fold fig/undef
 # replicated twitch dataset
 python wf-attack-vpn/plotter/plot_all.py twitch_old_og  wf-result/twitch_old/old_twitch_og  fig/twitch_old
 python wf-attack-vpn/plotter/plot_all.py twitch_old_20  wf-result/twitch_old/old_twitch_20  fig/twitch_old
