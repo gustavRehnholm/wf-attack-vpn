@@ -71,7 +71,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
             mergedFiles.pop(0)
 
         # timestamp the current background packet is on
-        background_deviated_time = time_stamp + int(df.iloc[index_df][TIME_INDEX])
+        background_deviated_time = time_stamp + int(df.iat[index_df][TIME_INDEX])
 
         # Add foreground traffic, until one has added the background traffic (or there is no more foreground traffic in this file)
         added_background =  False
@@ -87,8 +87,8 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
             if(background_deviated_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
                 currMergedFile.writelines(
                     [str(background_deviated_time), ",", 
-                    str(df.iloc[index_df][DIRECTION_INDEX]), ",", 
-                    str(df.iloc[index_df][SIZE_INDEX]), "\n"])
+                    str(df.iat[index_df][DIRECTION_INDEX]), ",", 
+                    str(df.iat[index_df][SIZE_INDEX]), "\n"])
 
                 time_stamp = background_deviated_time
 
