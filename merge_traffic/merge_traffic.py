@@ -8,6 +8,7 @@ python wf-attack-vpn/generate_merged_dataset/main.py
 import random
 import pandas as pd
 import os
+import timeit
 
 '''
 This program merges the web traffic with noise, so it can be used to test WF attacks
@@ -59,10 +60,12 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
         # Prepare background for the foreground
         time_stamp = 0
         index_df = random.randint(start, stop-1)
+        print()
         sub_df = df.iloc[index_df:stop]
         rows = list(sub_df.itertuples())
 
         # inject all foreground lines
+        start = timeit.default_timer()
         for foregroundLine in foregroundLines:
             added_foreground =  False
 
@@ -95,6 +98,9 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                 else:
                     currMergedFile.writelines(foregroundLine)
                     added_foreground =  True
+
+        stop = timeit.default_timer()
+        print('Time for the file: ', stop - start)  
         
     return True
 
