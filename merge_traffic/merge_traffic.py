@@ -64,7 +64,6 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
 
         # inject all foreground lines
         for foregroundLine in foregroundLines:
-
             added_foreground =  False
 
             # Add background traffic, until one has added the foreground packet
@@ -76,7 +75,6 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                 try:
                     foreground_packet = foregroundLine.split(",")
                 except:
-                    #print("foreground file is empty, skip it")
                     added_foreground = True
                     continue
 
@@ -90,7 +88,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                     rows.pop(0)
                     if len(rows) >= 0:
                         sub_df = df.iloc[0:stop]
-                        rows = sub_df.itertuples()
+                        rows = list(sub_df.itertuples())
 
                     time_stamp = background_deviated_time
                     added_foreground = False
