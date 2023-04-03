@@ -79,14 +79,8 @@ def getMerged(dir_foreground, dir_merged, dir_background, fold = 0):
     store.close()
     # divide it up in 10 parts, 
     part_of_10 = round(df_len/10)
-    print(part_of_10)
-    print(type(part_of_10))
-    
-
     print("Size of the background")
     print(df_len)
-    return False
-
     
     if not mergeTraffic(mergedTestFiles , foregroundTestFiles , dir_background, 0              , part_of_10):
         return False

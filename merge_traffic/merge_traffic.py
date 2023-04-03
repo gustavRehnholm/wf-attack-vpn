@@ -62,15 +62,14 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
         try:
             index_df = random.randint(start, stop-1)
         except:
-            print(start)
-            print(stop)
-            print(index_df)
+            print("Invalid start and stop input")
             return False
+            
         sub_df = df.iloc[index_df:stop]
         rows = list(sub_df.itertuples())
 
         # inject all foreground lines
-        start = timeit.default_timer()
+        start_time = timeit.default_timer()
         for foregroundLine in foregroundLines:
             added_foreground =  False
 
@@ -104,8 +103,8 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                     currMergedFile.writelines(foregroundLine)
                     added_foreground =  True
 
-        stop = timeit.default_timer()
-        print('Time for the file: ', stop - start)  
+        stop_time = timeit.default_timer()
+        print('Time for the file: ', stop_time - start_time)  
         
     return True
 
