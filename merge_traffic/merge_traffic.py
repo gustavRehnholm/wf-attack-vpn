@@ -72,7 +72,8 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                 # timestamp the current background packet is on
                 background_deviated_time = time_stamp + int(rows[0][TIME_INDEX])
                 print("background dev time " + str(background_deviated_time))
-
+                pritn(foreground_packet[PACKET_ATTR_INDEX_TIME])
+                
                 # If the current web traffic packet is empty, one is at the end of the foreground file
                 try:
                     foreground_packet = foregroundLine.split(",")
@@ -81,6 +82,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                     print("foreground file is empty")
                     continue
 
+                
                 # add the packet that arrives first
                 if(background_deviated_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
                     currMergedFile.writelines(
