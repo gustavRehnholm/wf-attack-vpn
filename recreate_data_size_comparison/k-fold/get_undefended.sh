@@ -14,4 +14,4 @@
 ./df-fitness.py -d foreground_traffic/client --train -s 20 -f 9 --csv wf-result/undef_20/10-fold/fold9.csv
 ./df-fitness.py -d foreground_traffic/client --train -s 20 -f 0 --csv wf-result/undef_20/10-fold/fold0.csv
 
-python wf-attack-vpn/k-fold/fold_mean.py wf-result/undef_20/10-fold wf-result/undef_20/combined/combined.csv
+python wf-attack-vpn/recreate_data_size_comparison/k-fold/fold_mean.py wf-result/undef_20/10-fold wf-result/undef_20/combined/combined.csv
