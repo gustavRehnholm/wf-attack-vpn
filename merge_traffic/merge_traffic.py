@@ -60,7 +60,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
         time_stamp = 0
         index_df = random.randint(start, stop-1)
         sub_df = df.iloc[index_df:stop]
-        rows = sub_df.itertuples()
+        rows = list(sub_df.itertuples())
 
         # inject all foreground lines
         for foregroundLine in foregroundLines:
