@@ -73,7 +73,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                 background_deviated_time = time_stamp + int(rows[0][TIME_INDEX])
                 print("background dev time " + str(background_deviated_time))
                 pritn(foreground_packet[PACKET_ATTR_INDEX_TIME])
-                
+
                 # If the current web traffic packet is empty, one is at the end of the foreground file
                 try:
                     foreground_packet = foregroundLine.split(",")
@@ -91,9 +91,10 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                         str(rows[0][SIZE_INDEX]), "\n"])
                     # next row in the list, of the list becomes empty, get packet from the start
                     rows.pop(0)
-                    if len(rows) >= 0:
+                    if len(rows) <= 0:
                         sub_df = df.iloc[0:stop]
                         rows = list(sub_df.itertuples())
+                        print("New list fo rows")
 
                     time_stamp = background_deviated_time
                     added_foreground = False
