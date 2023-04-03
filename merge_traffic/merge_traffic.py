@@ -55,7 +55,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
             time_stamp = 0
 
             # get randomized subset of the background to use
-            rnd       = random.randint(start, stop-chunk)
+            rnd       = random.randint(start, stop)
             subset_df = df.iloc[rnd:stop]
             # index for looping through teh df subset, and its lenght to get
             subset_df_len = subset_df.shape[0]
