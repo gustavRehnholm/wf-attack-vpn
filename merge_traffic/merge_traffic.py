@@ -53,13 +53,8 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
         if len(foreground_lines) <= 0:
             # reset the time stamp for the background packets
             time_stamp = 0
-
-            # get randomized subset of the background to use
-            rnd       = random.randint(start, stop)
-            subset_df = df.iloc[rnd:stop]
-            # index for looping through teh df subset, and its lenght to get
-            subset_df_len = subset_df.shape[0]
-            index_df = 0
+            # get randomized starting position for this foreground file
+            index_df = random.randint(start, stop-10)
 
             print("---------------------------------------------------------------")
             print("new file ", os.path.basename(foregroundFiles[0]))
@@ -76,7 +71,8 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
             mergedFiles.pop(0)
 
         # timestamp the current background packet is on
-        background_deviated_time = time_stamp + int(subset_df.iloc[index_df][TIME_INDEX])
+        tmp_df = df.iloc[index_df]
+        background_deviated_time = time_stamp + int(tmp_df[TIME_INDEX])
 
         # Add foreground traffic, until one has added the background traffic (or there is no more foreground traffic in this file)
         added_background =  False
@@ -92,16 +88,14 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
             if(background_deviated_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
                 currMergedFile.writelines(
                     [str(background_deviated_time), ",", 
-                    str(subset_df.iloc[index_df][DIRECTION_INDEX]), ",", 
-                    str(subset_df.iloc[index_df][SIZE_INDEX]), "\n"])
+                    str(df.iloc[index_df][DIRECTION_INDEX]), ",", 
+                    str(df.iloc[index_df][SIZE_INDEX]), "\n"])
 
                 time_stamp = background_deviated_time
 
                 index_df += 1
                 # if the background subset was not enough, loop around to the start of the list
-                if index_df >= subset_df_len:
-                    subset_df     = df.iloc[0:stop]
-                    subset_df_len = subset_df.shape[0]
+                if index_df >= stop:
                     index_df      = 0
 
                 added_background = True
