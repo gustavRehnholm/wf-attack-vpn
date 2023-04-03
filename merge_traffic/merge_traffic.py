@@ -24,7 +24,7 @@ output:
 '''
 def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
 
-    print("Start merging subset")
+    print("Start merging subset (takes a while to move background to memory)")
 
     # access the foreground packets time
     PACKET_ATTR_INDEX_TIME = 0
@@ -70,7 +70,8 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
             # Add background traffic, until one has added the foreground packet
             while(added_foreground == False):
                 # timestamp the current background packet is on
-                background_deviated_time = time_stamp + int(rows[0][TIME_INDEX])
+                row = rows[0]
+                background_deviated_time = time_stamp + int(row[TIME_INDEX])
 
                 # If the current web traffic packet is empty, one is at the end of the foreground file
                 try:
@@ -79,13 +80,13 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                     #print("foreground file is empty, skip it")
                     added_foreground = True
                     continue
-                
+
                 # add the packet that arrives first
                 if(background_deviated_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
                     currMergedFile.writelines(
                         [str(background_deviated_time), ",", 
-                        str(rows[0][DIRECTION_INDEX]), ",", 
-                        str(rows[0][SIZE_INDEX]), "\n"])
+                        str(row[DIRECTION_INDEX]), ",", 
+                        str(row[SIZE_INDEX]), "\n"])
                     # next row in the list, of the list becomes empty, get packet from the start
                     rows.pop(0)
                     if len(rows) >= 0:
