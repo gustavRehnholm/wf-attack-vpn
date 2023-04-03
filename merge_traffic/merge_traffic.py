@@ -31,9 +31,9 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     # to access the background data
     KEY = "df"
     # index to access the values for the background packages
-    TIME_INDEX      = 1
-    DIRECTION_INDEX = 2
-    SIZE_INDEX      = 3 
+    TIME_INDEX      = 0
+    DIRECTION_INDEX = 1
+    SIZE_INDEX      = 2 
     
     # all lines in the open foreground file
     foreground_lines = []
@@ -71,8 +71,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
             mergedFiles.pop(0)
 
         # timestamp the current background packet is on
-        tmp_df = df.iloc[index_df]
-        background_deviated_time = time_stamp + int(tmp_df[TIME_INDEX])
+        background_deviated_time = time_stamp + int(df.iloc[index_df][TIME_INDEX])
 
         # Add foreground traffic, until one has added the background traffic (or there is no more foreground traffic in this file)
         added_background =  False
