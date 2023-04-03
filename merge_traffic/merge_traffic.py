@@ -59,8 +59,13 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
 
         # Prepare background for the foreground
         time_stamp = 0
-        index_df = random.randint(start, stop-1)
-        print()
+        try:
+            index_df = random.randint(start, stop-1)
+        except:
+            print(start)
+            print(stop)
+            print(index_df)
+            return False
         sub_df = df.iloc[index_df:stop]
         rows = list(sub_df.itertuples())
 
