@@ -20,7 +20,7 @@ input:
     stop:            The end index of the background traffic to use
 output:
     True:   it succeeded in creating the whole merged files
-    False: it did not succeed
+    False:  it did not succeed
 '''
 def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
 
@@ -37,68 +37,78 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     
     # all lines in the open foreground file
     foreground_lines = []
-    # timestamp of the current background packets
+    # timestamp of the current background packets, reset for each foreground file
     time_stamp = 0
     # the background traffic
     df = pd.read_hdf(background_path, key = KEY)
-    # how many packets to use in a row before randomizing a packet again
-    chunk = 100
     
     # add background traffic, until the foreground traffic is filled
     while(len(foregroundFiles) > 0): 
 
-        # get randomized subset of the background to use
-        rnd       = random.randint(start, stop-chunk)
-        subset_df = df.iloc[rnd:(rnd + chunk)]
+        # stop adding background traffic, when the foreground traffic is empty
+        if len(foregroundFiles) <= 0:
+            return True
 
-        # for every packet in the chunk of background traffic
-        for row in subset_df.itertuples():
+        # Check if a new foreground file needs to be opened (which also imply a new merged should be opened)
+        if len(foreground_lines) <= 0:
+            # reset the time stamp for the background packets
+            time_stamp = 0
 
-            # stop adding background traffic, when the foreground traffic is empty
-            if len(foregroundFiles) <= 0:
-                return True
+            # get randomized subset of the background to use
+            rnd       = random.randint(start, stop-chunk)
+            subset_df = df.iloc[rnd:stop]
+            # index for looping through teh df subset, and its lenght to get
+            subset_df_len = subset_df.shape[0]
+            index_df = 0
 
-            # Check if a new foreground file needs to be opened (which also imply a new merged should be opened)
-            if len(foreground_lines) <= 0:
-                # reset the time stamp for the background packets
-                time_stamp = 0
+            print("---------------------------------------------------------------")
+            print("new file ", os.path.basename(foregroundFiles[0]))
+            print("")
 
-                print("---------------------------------------------------------------")
-                print("new file ", os.path.basename(foregroundFiles[0]))
-                print("")
+            # get the values (lines) of the new foreground file
+            currForegroundFile = open(foregroundFiles[0], 'r') 
+            foreground_lines   = currForegroundFile.readlines()
+            currForegroundFile.close()
+            foregroundFiles.pop(0)
 
-                # get the values (lines) of the new foreground file
-                currForegroundFile = open(foregroundFiles[0], 'r') 
-                foreground_lines   = currForegroundFile.readlines()
-                currForegroundFile.close()
-                foregroundFiles.pop(0)
+            # open the merged file, that the result will be stored to
+            currMergedFile = open(mergedFiles[0], 'a')
+            mergedFiles.pop(0)
 
-                # open the merged file, that the result will be stored to
-                currMergedFile = open(mergedFiles[0], 'a')
-                mergedFiles.pop(0)
+        # timestamp the current background packet is on
+        background_deviated_time = time_stamp + int(subset_df.iloc[index_df][TIME_INDEX])
 
-            # timestamp the current background packet is on
-            background_deviated_time = time_stamp + int(row[TIME_INDEX])
-   
-            # Add foreground traffic, until one has added the background traffic (or there is no more foreground traffic in this file)
-            added_background =  False
-            while(added_background == False):
-                # If the current web traffic packet is empty, one is at the end of the foreground file
-                try:
-                    foreground_packet = foreground_lines[0].split(",")
-                except:
-                    #print("foreground file is empty, skip it")
-                    added_background = True
-                    continue
-                # add the packet that arrives first
-                if(background_deviated_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
-                    currMergedFile.writelines([str(background_deviated_time), ",", str(row[DIRECTION_INDEX]), ",", str(row[SIZE_INDEX]), "\n"])
-                    time_stamp = background_deviated_time
-                    added_background = True
-                else:
-                    currMergedFile.writelines(foreground_lines[0])
-                    foreground_lines.pop(0)
-                    added_background =  False
+        # Add foreground traffic, until one has added the background traffic (or there is no more foreground traffic in this file)
+        added_background =  False
+        while(added_background == False):
+            # If the current web traffic packet is empty, one is at the end of the foreground file
+            try:
+                foreground_packet = foreground_lines[0].split(",")
+            except:
+                #print("foreground file is empty, skip it")
+                added_background = True
+                continue
+            # add the packet that arrives first
+            if(background_deviated_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
+                currMergedFile.writelines(
+                    [str(background_deviated_time), ",", 
+                    str(subset_df.iloc[index_df][DIRECTION_INDEX]), ",", 
+                    str(subset_df.iloc[index_df][SIZE_INDEX]), "\n"])
+
+                time_stamp = background_deviated_time
+
+                index_df += 1
+                # if the background subset was not enough, loop around to the start of the list
+                if index_df >= subset_df_len:
+                    subset_df     = df.iloc[0:stop]
+                    subset_df_len = subset_df.shape[0]
+                    index_df      = 0
+
+                added_background = True
+            else:
+                currMergedFile.writelines(foreground_lines[0])
+                foreground_lines.pop(0)
+                added_background =  False
         
     return True
 
