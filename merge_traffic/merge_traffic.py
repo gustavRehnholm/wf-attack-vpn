@@ -8,24 +8,23 @@ python wf-attack-vpn/generate_merged_dataset/main.py
 import random
 import pandas as pd
 import os
-import timeit
 
 '''
-This program merges the chosen foreground and background traffic
+This program merges the web traffic with noise, so it can be used to test WF attacks
 
 input:
-    mergedFiles:     list of merged files
-    foregroundFiles: list of foreground files
-    background_path: path to the directory where the background files are be stored
+    mergedFiles:     list of paths to the merged files
+    foregroundFiles: list of paths to the foreground files
+    background_path: list of paths to the background files
     start:           The start index of the background traffic to use
     stop:            The end index of the background traffic to use
 output:
     True:   it succeeded in creating the whole merged files
-    False:  it did not succeed
+    False: it did not succeed
 '''
 def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
 
-    print("Start merging subset (takes a while to move background to memory)")
+    print("Start merging subset")
 
     # access the foreground packets time
     PACKET_ATTR_INDEX_TIME = 0
@@ -38,79 +37,68 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     
     # all lines in the open foreground file
     foreground_lines = []
-    # timestamp of the current background packets, reset for each foreground file
+    # timestamp of the current background packets
     time_stamp = 0
     # the background traffic
     df = pd.read_hdf(background_path, key = KEY)
+    # how many packets to use in a row before randomizing a packet again
     chunk = 100
     
-    # inject each foreground file
-    for foregroundFile in foregroundFiles:
-        print("---------------------------------------------------------------")
-        print("new file ", os.path.basename(foregroundFile))
-        print("")
-        start_time = timeit.default_timer()
-        # get the values (lines) of the new foreground file
-        currForegroundFile = open(foregroundFile, 'r') 
-        foregroundLines   = currForegroundFile.readlines()
-        currForegroundFile.close()
-        # open the merged file, that the result will be stored to
-        currMergedFile = open(mergedFiles[0], 'a')
-        mergedFiles.pop(0)
+    # add background traffic, until the foreground traffic is filled
+    while(len(foregroundFiles) > 0): 
 
-        # Prepare background for the foreground
-        prev_pkt_time = 0
-        index_df      = random.randint(start, stop-1)
+        # get randomized subset of the background to use
+        rnd       = random.randint(start, stop-chunk)
+        subset_df = df.iloc[rnd:(rnd + chunk)]
 
-        while len(foregroundLines) > 0:
+        # for every packet in the chunk of background traffic
+        for row in subset_df.itertuples():
 
-            # extract a chunk or less of background packets
-            if index_df + chunk < stop:
-                curr_end = index_df + chunk
-            else:
-                curr_end = stop
-            sub_df = df.iloc[index_df:curr_end]
-            
-            for row in sub_df.itertuples():
-                # stop add background if the foreground list is empty
-                if len(foregroundLines) <= 0:
-                    break
-                added_foreground =  False
-                # Add background traffic, until one has added the foreground packet
-                while(added_foreground == False):
-                    # If the current web traffic packet is empty, one is at the end of the foreground file
-                    try:
-                        foreground_packet = foregroundLines[0].split(",")
-                    except:
-                        print("could not split foreground line")
-                        break
+            # stop adding background traffic, when the foreground traffic is empty
+            if len(foregroundFiles) <= 0:
+                return True
 
-                    # timestamp the current background packet is on
-                    pkt_time = prev_pkt_time + int(row[TIME_INDEX])
-                    # add the packet that arrives first
-                    if(pkt_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
-                        currMergedFile.writelines(
-                            [str(pkt_time), ",", 
-                            str(row[DIRECTION_INDEX]), ",", 
-                            str(row[SIZE_INDEX]), "\n"])
+            # Check if a new foreground file needs to be opened (which also imply a new merged should be opened)
+            if len(foreground_lines) <= 0:
+                # reset the time stamp for the background packets
+                time_stamp = 0
 
-                        prev_pkt_time = pkt_time
-                        added_foreground = False
-                    else:
-                        currMergedFile.writelines(foregroundLines[0])
-                        foregroundLines.pop(0)
-                        added_foreground =  True
+                print("---------------------------------------------------------------")
+                print("new file ", os.path.basename(foregroundFiles[0]))
+                print("")
 
-            # if need more background packets for this foreground file
-            # start from the next chunk, or from the start
-            if (curr_end + 1) < (stop - round(chunk/2)):
-                index_df = curr_end + 1
-            else:
-                index_df = start
+                # get the values (lines) of the new foreground file
+                currForegroundFile = open(foregroundFiles[0], 'r') 
+                foreground_lines   = currForegroundFile.readlines()
+                currForegroundFile.close()
+                foregroundFiles.pop(0)
 
+                # open the merged file, that the result will be stored to
+                currMergedFile = open(mergedFiles[0], 'a')
+                mergedFiles.pop(0)
 
-        stop_time = timeit.default_timer()
-        print('Time for the file: ', stop_time - start_time) 
+            # timestamp the current background packet is on
+            background_deviated_time = time_stamp + int(row[TIME_INDEX])
+   
+            # Add foreground traffic, until one has added the background traffic (or there is no more foreground traffic in this file)
+            added_background =  False
+            while(added_background == False):
+                # If the current web traffic packet is empty, one is at the end of the foreground file
+                try:
+                    foreground_packet = foreground_lines[0].split(",")
+                except:
+                    #print("foreground file is empty, skip it")
+                    added_background = True
+                    continue
+                # add the packet that arrives first
+                if(background_deviated_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
+                    currMergedFile.writelines([str(background_deviated_time), ",", str(row[DIRECTION_INDEX]), ",", str(row[SIZE_INDEX]), "\n"])
+                    time_stamp = background_deviated_time
+                    added_background = True
+                else:
+                    currMergedFile.writelines(foreground_lines[0])
+                    foreground_lines.pop(0)
+                    added_background =  False
         
     return True
 
