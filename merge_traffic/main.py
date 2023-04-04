@@ -45,7 +45,8 @@ def main():
         print("The merged traffic was created successfully")
     else:
         print("ERROR: the merged traffic could not be created")
-    print("Runtime: " + str(end_time - start_time))
+    runtime_min = (end_time - start_time) / 60 
+    print("Runtime: " + str(runtime_min))
 
     return
 

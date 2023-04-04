@@ -42,10 +42,9 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     time_stamp = 0
     # the background traffic
     df = pd.read_hdf(background_path, key = KEY)
-    # how many packets to use in a row before randomizing a packet again
+    # how large part of the background to iterate through
+    # is set to speed up the run time
     chunk = 100
-
-    start_time = timeit.default_timer()
 
     subset_start = random.randint(start, stop-chunk)
     
@@ -112,8 +111,6 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
         else:
             subset_start = subset_start + chunk + 1
         
-    end_time = timeit.default_timer()
-    print("Runtime: " + str(end_time - start_time))
     return True
 
 if __name__=="__main__":
