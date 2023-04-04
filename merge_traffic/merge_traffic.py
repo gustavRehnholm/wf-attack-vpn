@@ -46,13 +46,15 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     chunk = 100
 
     start_time = timeit.default_timer()
+
+    subset_start = random.randint(start, stop-chunk)
     
     # add background traffic, until the foreground traffic is filled
     while(len(foregroundFiles) > 0): 
 
         # get randomized subset of the background to use
-        rnd       = random.randint(start, stop-chunk)
-        subset_df = df.iloc[rnd:(rnd + chunk)]
+        
+        subset_df = df.iloc[subset_start:(subset_start + chunk)]
 
         # for every packet in the chunk of background traffic
         for row in subset_df.itertuples():
@@ -65,7 +67,8 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
             if len(foreground_lines) <= 0:
                 # reset the time stamp for the background packets
                 time_stamp = 0
-
+                subset_start       = random.randint(start, stop-chunk)
+                subset_df = df.iloc[subset_start:(subset_start + chunk)]
                 print("---------------------------------------------------------------")
                 print("new file ", os.path.basename(foregroundFiles[0]))
                 print("")
@@ -102,6 +105,12 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                     currMergedFile.writelines(foreground_lines[0])
                     foreground_lines.pop(0)
                     added_background =  False
+
+        # if need a new set of background chunk
+        if (subset_start + 2*chunk) >= stop:
+            subset_start = start
+        else:
+            subset_start = subset_start + chunk + 1
         
     end_time = timeit.default_timer()
     print("Runtime: " + str(end_time - start_time))
