@@ -42,6 +42,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     time_stamp = 0
     # the background traffic
     df = pd.read_hdf(background_path, key = KEY)
+    chunk = 1000
     
     # inject each foreground file
     for foregroundFile in foregroundFiles:
@@ -62,10 +63,16 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
         index_df      = random.randint(start, stop-1)
 
         while len(foregroundLines) > 0:
-            sub_df = df.iloc[index_df:stop]
+
+            # extract a chunk or less of background packets
+            if index_df + chunk < stop:
+                curr_end = index_df + chunk
+            else:
+                curr_end = stop
+            sub_df = df.iloc[index_df:curr_end]
             
             for row in sub_df.itertuples():
-                # stop add rows if the foreground list is empty
+                # stop add background if the foreground list is empty
                 if len(foregroundLines) <= 0:
                     break
                 # timestamp the current background packet is on
@@ -81,7 +88,6 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                         break
                     # add the packet that arrives first
                     if(pkt_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
-                        print("Added background")
                         currMergedFile.writelines(
                             [str(pkt_time), ",", 
                             str(row[DIRECTION_INDEX]), ",", 
@@ -90,13 +96,17 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                         prev_pkt_time = pkt_time
                         added_foreground = False
                     else:
-                        print("added foreground")
                         currMergedFile.writelines(foregroundLines[0])
                         foregroundLines.pop(0)
                         added_foreground =  True
 
-            # if need more background packets, loop around from the start
-            index_df = start
+            # if need more background packets for this foreground file
+            # start from the next chunk, or from the start
+            if (curr_end + 1) < stop - 100:
+                index_df = curr_end + 1
+            else:
+                index_df = start
+
 
         stop_time = timeit.default_timer()
         print('Time for the file: ', stop_time - start_time) 
