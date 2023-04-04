@@ -11,7 +11,7 @@ import os
 import timeit
 
 '''
-This program merges the web traffic with noise, so it can be used to test WF attacks
+This program merges the choosen foreground and background traffic
 
 input:
     mergedFiles:     list of paths to the merged files
@@ -75,7 +75,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                 while(added_foreground == False):
                     # If the current web traffic packet is empty, one is at the end of the foreground file
                     try:
-                        foreground_packet = foreground_lines[0].split(",")
+                        foreground_packet = foregroundLines[0].split(",")
                     except:
                         print("could not split foreground line")
                         break
