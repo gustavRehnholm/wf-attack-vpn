@@ -75,8 +75,6 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                 # stop add background if the foreground list is empty
                 if len(foregroundLines) <= 0:
                     break
-                # timestamp the current background packet is on
-                pkt_time = prev_pkt_time + int(row[TIME_INDEX])
                 added_foreground =  False
                 # Add background traffic, until one has added the foreground packet
                 while(added_foreground == False):
@@ -86,6 +84,9 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                     except:
                         print("could not split foreground line")
                         break
+
+                    # timestamp the current background packet is on
+                    pkt_time = prev_pkt_time + int(row[TIME_INDEX])
                     # add the packet that arrives first
                     if(pkt_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
                         currMergedFile.writelines(
