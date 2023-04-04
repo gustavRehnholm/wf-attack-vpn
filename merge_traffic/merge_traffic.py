@@ -99,7 +99,6 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                     else:
                         currMergedFile.writelines(foregroundLines[0])
                         foregroundLines.pop(0)
-                        print("Added foreground")
                         added_foreground =  True
 
             # if need more background packets for this foreground file
