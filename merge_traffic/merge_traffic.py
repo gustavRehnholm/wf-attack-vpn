@@ -59,13 +59,13 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
 
         # Prepare background for the foreground
         prev_pkt_time = 0
-        index_df = random.randint(start, stop-1)
-        sub_df = df.iloc[index_df:stop]
+        index_df      = random.randint(start, stop-1)
 
         while len(foregroundLines) > 0:
             sub_df = df.iloc[index_df:stop]
             
             for row in sub_df.itertuples():
+                # stop add rows if the foreground list is empty
                 if len(foregroundLines) <= 0:
                     break
                 # timestamp the current background packet is on
@@ -77,10 +77,11 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                     try:
                         foreground_packet = foreground_lines[0].split(",")
                     except:
-                        added_foreground = True
+                        print("could not split foreground line")
                         break
                     # add the packet that arrives first
                     if(pkt_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
+                        print("Added background")
                         currMergedFile.writelines(
                             [str(pkt_time), ",", 
                             str(row[DIRECTION_INDEX]), ",", 
@@ -89,6 +90,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                         prev_pkt_time = pkt_time
                         added_foreground = False
                     else:
+                        print("added foreground")
                         currMergedFile.writelines(foregroundLines[0])
                         foregroundLines.pop(0)
                         added_foreground =  True
