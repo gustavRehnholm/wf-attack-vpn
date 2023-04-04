@@ -25,7 +25,7 @@ output:
 '''
 def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
 
-    print("Start merging subset")
+    print("Start merging subset(can take some time to move the background to memory)")
 
     # access the foreground packets time
     PACKET_ATTR_INDEX_TIME = 0
