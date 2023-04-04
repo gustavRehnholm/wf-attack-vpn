@@ -11,12 +11,12 @@ import os
 import timeit
 
 '''
-This program merges the choosen foreground and background traffic
+This program merges the chosen foreground and background traffic
 
 input:
-    mergedFiles:     list of paths to the merged files
-    foregroundFiles: list of paths to the foreground files
-    background_path: list of paths to the background files
+    mergedFiles:     list of merged files
+    foregroundFiles: list of foreground files
+    background_path: path to the directory where the background files are be stored
     start:           The start index of the background traffic to use
     stop:            The end index of the background traffic to use
 output:
@@ -98,6 +98,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                     else:
                         currMergedFile.writelines(foregroundLines[0])
                         foregroundLines.pop(0)
+                        print("Added foreground")
                         added_foreground =  True
 
             # if need more background packets for this foreground file
