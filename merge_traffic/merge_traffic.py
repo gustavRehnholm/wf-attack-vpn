@@ -42,7 +42,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     time_stamp = 0
     # the background traffic
     df = pd.read_hdf(background_path, key = KEY)
-    chunk = 1000
+    chunk = 100
     
     # inject each foreground file
     for foregroundFile in foregroundFiles:
@@ -103,7 +103,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
 
             # if need more background packets for this foreground file
             # start from the next chunk, or from the start
-            if (curr_end + 1) < stop - 100:
+            if (curr_end + 1) < (stop - round(chunk/2)):
                 index_df = curr_end + 1
             else:
                 index_df = start
