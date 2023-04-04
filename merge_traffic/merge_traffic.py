@@ -48,7 +48,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
         print("---------------------------------------------------------------")
         print("new file ", os.path.basename(foregroundFile))
         print("")
-
+        start_time = timeit.default_timer()
         # get the values (lines) of the new foreground file
         currForegroundFile = open(foregroundFile, 'r') 
         foregroundLines   = currForegroundFile.readlines()
@@ -58,53 +58,46 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
         mergedFiles.pop(0)
 
         # Prepare background for the foreground
-        time_stamp = 0
-        try:
-            index_df = random.randint(start, stop-1)
-        except:
-            print("Invalid start and stop input")
-            return False
-            
+        prev_pkt_time = 0
+        index_df = random.randint(start, stop-1)
         sub_df = df.iloc[index_df:stop]
-        rows = list(sub_df.itertuples())
 
-        # inject all foreground lines
-        start_time = timeit.default_timer()
-        for foregroundLine in foregroundLines:
-            added_foreground =  False
-
-            # Add background traffic, until one has added the foreground packet
-            while(added_foreground == False):
+        while len(foregroundLines) > 0:
+            sub_df = df.iloc[index_df:stop]
+            
+            for row in sub_df.itertuples():
+                if len(foregroundLines) <= 0:
+                    break
                 # timestamp the current background packet is on
-                background_deviated_time = time_stamp + int(rows[0][TIME_INDEX])
-                # If the current web traffic packet is empty, one is at the end of the foreground file
-                try:
-                    foreground_packet = foregroundLine.split(",")
-                except:
-                    added_foreground = True
-                    continue
+                pkt_time = prev_pkt_time + int(row[TIME_INDEX])
+                added_foreground =  False
+                # Add background traffic, until one has added the foreground packet
+                while(added_foreground == False):
+                    # If the current web traffic packet is empty, one is at the end of the foreground file
+                    try:
+                        foreground_packet = foreground_lines[0].split(",")
+                    except:
+                        added_foreground = True
+                        break
+                    # add the packet that arrives first
+                    if(pkt_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
+                        currMergedFile.writelines(
+                            [str(pkt_time), ",", 
+                            str(row[DIRECTION_INDEX]), ",", 
+                            str(row[SIZE_INDEX]), "\n"])
 
-                # add the packet that arrives first
-                if(background_deviated_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
-                    currMergedFile.writelines(
-                        [str(background_deviated_time), ",", 
-                        str(rows[0][DIRECTION_INDEX]), ",", 
-                        str(rows[0][SIZE_INDEX]), "\n"])
-                    # next row in the list, of the list becomes empty, get packet from the start
-                    rows.pop(0)
-                    if len(rows) <= 0:
-                        print("new row")
-                        sub_df = df.iloc[start:stop]
-                        rows = list(sub_df.itertuples())
+                        prev_pkt_time = pkt_time
+                        added_foreground = False
+                    else:
+                        currMergedFile.writelines(foregroundLines[0])
+                        foregroundLines.pop(0)
+                        added_foreground =  True
 
-                    time_stamp = background_deviated_time
-                    added_foreground = False
-                else:
-                    currMergedFile.writelines(foregroundLine)
-                    added_foreground =  True
+            # if need more background packets, loop around from the start
+            index_df = start
 
         stop_time = timeit.default_timer()
-        print('Time for the file: ', stop_time - start_time)  
+        print('Time for the file: ', stop_time - start_time) 
         
     return True
 
