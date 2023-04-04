@@ -9,6 +9,7 @@ python wf-attack-vpn/merge_traffic/main.py
 import sys
 # to run the script for the actually merging
 from get_merged import getMerged
+import timeit
 
 '''
 Creates the merged traffic, used to test the WF attacks capabilities
@@ -33,15 +34,18 @@ def main():
     print("Chosen fold")
     print(sys.argv[4])
 
+    start_time = timeit.default_timer()
+
     success = getMerged(dir_foreground    = DIR_FOREGROUND, 
                         dir_merged        = DIR_MERGED, 
                         dir_background    = DIR_BACKGROUND,
                         fold              = FOLD)
-
+    end_time = timeit.default_timer()
     if success:
         print("The merged traffic was created successfully")
     else:
         print("ERROR: the merged traffic could not be created")
+    print("Runtime: " + str(end_time - start_time))
 
     return
 
