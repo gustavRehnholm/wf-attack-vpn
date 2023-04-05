@@ -41,26 +41,35 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     time_stamp = 0
     # the background traffic: use the tuple for performance
     df               = pd.read_hdf(path_or_buf = background_path, key = KEY, start = start, stop = stop)
-    background_tuple = list(df.itertuples(index=False, name=None))
+    # list with indexes [0, background_nr_packets[
+    background_tuple      = list(df.itertuples(index=False, name=None))
     background_nr_packets = len(background_tuple)
+    df_len = df.shape[0]
+    if background_nr_packets != df_len:
+        print("tuple has not the same size as the df")
+        return False
     # current index to get background from
     subset_index = 0
     # for testing
     added_foreground = True
+    # seed the rnd generator
+    random.seed(timeit.default_timer())
 
     while(len(foregroundFiles) > 0): 
 
             # if should open a new foreground file
             if len(foreground_lines) <= 0:
+
                 # for testing
                 if added_foreground == False:
                     print("The foreground file ", os.path.basename(foregroundFiles[0]), " was not injected with any foreground")
                     return False
+
                 added_foreground = False
                 # reset the time stamp for the background packets
                 prev_time = 0
                 # get a new randomized stating position
-                df_index = random.randint(0, background_nr_packets-1)
+                df_index = random.randrange(0, background_nr_packets)
 
                 
                 print("---------------------------------------------------------------")
