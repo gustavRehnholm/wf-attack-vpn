@@ -24,8 +24,6 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
         boolean if the program succeeded or not in creating the merge files
     '''
 
-    print("Start merging subset(can take some time to move the background to memory)")
-
     # access the foreground packets time
     PACKET_ATTR_INDEX_TIME = 0
     # to access the background data in the hdf5 file
@@ -119,14 +117,12 @@ def printProgressBar (progress, progressLen, prefix = '', suffix = '', barLen = 
         barLen      - Optional  : character length of bar                         (Int)
         fill        - Optional  : bar fill character                              (Str)
     """
-    percent_txt   = "{perc:.1f}"
     curr_progress = 100 * (progress / float(progressLen))
-    percent       = txt.format(perc = curr_progress)
+    percent       = ("{0:.1f}").format(curr_progress)
 
-    progPercent   = int(progress / progressLen)
-    filledLength  = int(barLen * progPercent)
+    filledLength  = int(barLen * int(progress / progressLen))
     bar           = fill * filledLength + '-' * (barLen - filledLength)
-    
+
     print(f'\r{prefix} |{bar}| {percent}% {suffix}', end = "\r")
 
     # Print New Line on Complete

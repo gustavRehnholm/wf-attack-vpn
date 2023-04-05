@@ -79,10 +79,13 @@ def getMerged(dir_foreground, dir_merged, dir_background, fold = 0):
     print(df_len)
     
     '''
+    print("Start merging test files")
     if not mergeTraffic(mergedTestFiles , foregroundTestFiles , dir_background, 0              , part_of_10):
         return False
+    print("Start validation test files")
     if not mergeTraffic(mergedValidFiles, foregroundValidFiles, dir_background, part_of_10 + 1 , part_of_10*2):
         return False
+    print("Start merging train files")
     if not mergeTraffic(mergedTrainFiles, foregroundTrainFiles, dir_background, part_of_10*2 + 1, int(df_len)):
         return False
     '''
