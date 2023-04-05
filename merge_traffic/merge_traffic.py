@@ -117,7 +117,7 @@ def printProgressBar (progress, progressLen, prefix = '', suffix = '', barLen = 
     curr_progress = 100 * (progress / float(progressLen))
     percent       = ("{0:.1f}").format(curr_progress)
 
-    filledLength = int(length * iteration // total)
+    filledLength = int(barLen * progress // progressLen)
     bar          = fill * filledLength + '-' * (barLen - filledLength)
 
     print(f'\r{prefix} |{bar}| {percent}% {suffix}', end = "\r")
