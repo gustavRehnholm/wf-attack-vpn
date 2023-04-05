@@ -44,7 +44,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     background_tuple = list(df.itertuples(index=False, name=None))
     df_len = df.shape[0]
 
-    print(background_tuple)
+    print(background_tuple[0][TIME_INDEX])
     return False
     # current index to get background from
     subset_index = 0
