@@ -44,8 +44,6 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     df_len = df.shape[0]
     # current index to get background from
     subset_index = 0
-    print(df_len)
-    return False
 
     while(len(foregroundFiles) > 0): 
 
