@@ -73,12 +73,8 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                 # get a new randomized stating position
                 df_index = random.randrange(0, background_nr_packets)
 
-                
-                #print("---------------------------------------------------------------")
-                #print("new file ", os.path.basename(foregroundFiles[0]))
-                #print("")
                 mergeFilesDone += 1
-                printProgressBar(progress = mergeFilesDone, progressLen = totalMergeFiles, prefix = 'Progress:', suffix = 'Complete', barLen = 50)
+                printProgressBar(progress = mergeFilesDone, progressLen = totalMergeFiles, prefix = 'Progress:', suffix = 'Complete')
 
                 # get the values (lines) of the new foreground file
                 currForegroundFile = open(foregroundFiles[0], 'r') 
@@ -112,7 +108,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     return True
 
 
-def printProgressBar (progress, progressLen, prefix = '', suffix = '', decimals = 1, barLen = 100, fill = '█', endChar = "\r"):
+def printProgressBar (progress, progressLen, prefix = '', suffix = '', barLen = 50, fill = '█'):
     """
     Call in a loop to create terminal progress bar
     args:
@@ -120,15 +116,15 @@ def printProgressBar (progress, progressLen, prefix = '', suffix = '', decimals 
         progressLen - Required  : total iterations                                (Int)
         prefix      - Optional  : prefix string                                   (Str)
         suffix      - Optional  : suffix string                                   (Str)
-        decimals    - Optional  : positive number of decimals in percent complete (Int)
         barLen      - Optional  : character length of bar                         (Int)
         fill        - Optional  : bar fill character                              (Str)
-        endChar     - Optional  : end character (e.g. "\r", "\r\n")               (Str)
     """
-    percent      = ("{0:." + str(decimals) + "f}").format(100 * (progress / float(progressLen)))
-    filledLength = int(barLen * progress // progressLen)
+    txt          = "{perc:.1f}"
+    percent      = txt.format(100 * (progress / float(progressLen)))
+    progPercent  = int(progress / progressLen)
+    filledLength = int(barLen * progPercent)
     bar          = fill * filledLength + '-' * (barLen - filledLength)
-    print(f'\r{prefix} |{bar}| {percent}% {suffix}', end = endChar)
+    print(f'\r{prefix} |{bar}| {percent}% {suffix}', end = "\r")
 
     # Print New Line on Complete
     if progress == progressLen: 

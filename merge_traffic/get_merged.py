@@ -49,7 +49,6 @@ def getMerged(dir_foreground, dir_merged, dir_background, fold = 0):
                 os.mkdir(curr_path)
 
     df_fold = pd.read_csv(FOLD_CSV)
-    #dfFiles = df_fold['log', 'is_train', 'is_valid', 'is_test']
 
     # For every log file in the web traffic, make sure that there is an correlating log file to store the parsed result
     for x in range(0, len(df_fold['log'])):
