@@ -78,7 +78,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                 #print("new file ", os.path.basename(foregroundFiles[0]))
                 #print("")
                 mergeFilesDone += 1
-                printProgressBar(mergeFilesDone, totalMergeFiles, prefix = 'Progress:', suffix = 'Complete', length = 50)
+                printProgressBar(progress = mergeFilesDone, progressLen = totalMergeFiles, prefix = 'Progress:', suffix = 'Complete', barLen = 50)
 
                 # get the values (lines) of the new foreground file
                 currForegroundFile = open(foregroundFiles[0], 'r') 
