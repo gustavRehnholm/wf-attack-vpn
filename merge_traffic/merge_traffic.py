@@ -57,9 +57,6 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                 prev_time   = 0
                 df_index = random.randint(0, df_len-1)
 
-                print(next(background_iter))
-                return False
-
                 print("---------------------------------------------------------------")
                 print("new file ", os.path.basename(foregroundFiles[0]))
                 print("")
@@ -82,12 +79,11 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                 continue
 
             # timestamp the current background packet is on
-            #background_dict
-            curr_time = prev_time + int(df.iat[df_index, TIME_INDEX])
+            curr_time = prev_time + int(background_tuple[df_index][TIME_INDEX])
 
             # add the packet that arrives first
             if(curr_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
-                currMergedFile.writelines([str(curr_time), ",", str(df.iat[df_index, DIRECTION_INDEX]), ",", str(df.iat[df_index, SIZE_INDEX]), "\n"])
+                currMergedFile.writelines([str(curr_time), ",", str(background_tuple[df_index][DIRECTION_INDEX]), ",", str(background_tuple[df_index][SIZE_INDEX]), "\n"])
                 prev_time = curr_time
                 df_index += 1
                 # if end of the background list, loop it from the start
