@@ -54,7 +54,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     # seed the rnd generator
     random.seed(timeit.default_timer())
 
-    totalMergeFiles = len(len(mergedFiles))
+    totalMergeFiles = len(mergedFiles)
     mergeFilesDone = 0
 
     while(len(foregroundFiles) > 0): 
