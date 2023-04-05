@@ -16,12 +16,12 @@ This program merges the web traffic with noise, so it can be used to test WF att
 input:
     mergedFiles:     list of paths to the merged files
     foregroundFiles: list of paths to the foreground files
-    background_path: list of paths to the background files
+    background_path: path to the background file
     start:           The start index of the background traffic to use
     stop:            The end index of the background traffic to use
 output:
-    True:   it succeeded in creating the whole merged files
-    False: it did not succeed
+    True:  it succeeded in creating the whole merged files
+    False: it did not succeed in creating the merged files
 '''
 def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
 
@@ -39,22 +39,30 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     foreground_lines = []
     # timestamp of the current background packets
     time_stamp = 0
-    # the background traffic
-    df     = pd.read_hdf(path_or_buf = background_path, key = KEY, start = start, stop = stop)
+    # the background traffic: use the tuple for performance
+    df               = pd.read_hdf(path_or_buf = background_path, key = KEY, start = start, stop = stop)
     background_tuple = list(df.itertuples(index=False, name=None))
-    df_len = df.shape[0]
-
+    background_nr_packets = len(background_tuple)
     # current index to get background from
     subset_index = 0
+    # for testing
+    added_foreground = True
 
     while(len(foregroundFiles) > 0): 
 
             # if should open a new foreground file
             if len(foreground_lines) <= 0:
+                # for testing
+                if added_foreground == False:
+                    print("The foreground file ", os.path.basename(foregroundFiles[0]), " was not injected with any foreground")
+                    return False
+                added_foreground = False
                 # reset the time stamp for the background packets
-                prev_time   = 0
-                df_index = random.randint(0, df_len-1)
+                prev_time = 0
+                # get a new randomized stating position
+                df_index = random.randint(0, background_nr_packets-1)
 
+                
                 print("---------------------------------------------------------------")
                 print("new file ", os.path.basename(foregroundFiles[0]))
                 print("")
@@ -69,23 +77,20 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                 currMergedFile = open(mergedFiles[0], 'a')
                 mergedFiles.pop(0)
 
-            # If the current web traffic packet is empty, one is at the end of the foreground file
-            try:
-                foreground_packet = foreground_lines[0].split(",")
-            except:
-                print("foreground file is empty, skip it")
-                continue
-
+            foreground_time = int(foreground_lines[0].split(",")[PACKET_ATTR_INDEX_TIME])
             # timestamp the current background packet is on
             curr_time = prev_time + int(background_tuple[df_index][TIME_INDEX])
 
             # add the packet that arrives first
-            if(curr_time < int(foreground_packet[PACKET_ATTR_INDEX_TIME])):
-                currMergedFile.writelines([str(curr_time), ",", str(background_tuple[df_index][DIRECTION_INDEX]), ",", str(background_tuple[df_index][SIZE_INDEX]), "\n"])
+            if(curr_time < foreground_time):
+                currMergedFile.writelines([str(curr_time), ",", 
+                                           str(background_tuple[df_index][DIRECTION_INDEX]), ",", 
+                                           str(background_tuple[df_index][SIZE_INDEX]), "\n"])
+                added_foreground = True
                 prev_time = curr_time
                 df_index += 1
                 # if end of the background list, loop it from the start
-                if df_index >= df_len:
+                if df_index >= background_nr_packets:
                     df_index = 0
             else:
                 currMergedFile.writelines(foreground_lines[0])
