@@ -119,11 +119,14 @@ def printProgressBar (progress, progressLen, prefix = '', suffix = '', barLen = 
         barLen      - Optional  : character length of bar                         (Int)
         fill        - Optional  : bar fill character                              (Str)
     """
-    txt          = "{perc:.1f}"
-    percent      = txt.format(100 * (progress / float(progressLen)))
-    progPercent  = int(progress / progressLen)
-    filledLength = int(barLen * progPercent)
-    bar          = fill * filledLength + '-' * (barLen - filledLength)
+    percent_txt   = "{perc:.1f}"
+    curr_progress = 100 * (progress / float(progressLen))
+    percent       = txt.format(perc = curr_progress)
+
+    progPercent   = int(progress / progressLen)
+    filledLength  = int(barLen * progPercent)
+    bar           = fill * filledLength + '-' * (barLen - filledLength)
+    
     print(f'\r{prefix} |{bar}| {percent}% {suffix}', end = "\r")
 
     # Print New Line on Complete
