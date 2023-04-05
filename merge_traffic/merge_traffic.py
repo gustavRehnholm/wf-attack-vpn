@@ -41,10 +41,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     # list with indexes [0, background_nr_packets[
     background_tuple      = list(df.itertuples(index=False, name=None))
     background_nr_packets = len(background_tuple)
-    df_len = df.shape[0]
-    if background_nr_packets != df_len:
-        print("tuple has not the same size as the df")
-        return False
+
     # current index to get background from
     subset_index = 0
     # for testing
@@ -110,12 +107,12 @@ def printProgressBar (progress, progressLen, prefix = '', suffix = '', barLen = 
     """
     Call in a loop to create terminal progress bar
     args:
-        progress    - Required  : current progress                                (Int)
-        progressLen - Required  : total iterations                                (Int)
-        prefix      - Optional  : prefix string                                   (Str)
-        suffix      - Optional  : suffix string                                   (Str)
-        barLen      - Optional  : character length of bar                         (Int)
-        fill        - Optional  : bar fill character                              (Str)
+        progress    - Required  : current progress          (Int)
+        progressLen - Required  : total iterations          (Int)
+        prefix      - Optional  : prefix string             (Str)
+        suffix      - Optional  : suffix string             (Str)
+        barLen      - Optional  : character length of bar   (Int)
+        fill        - Optional  : bar fill character        (Str)
     """
     curr_progress = 100 * (progress / float(progressLen))
     percent       = ("{0:.1f}").format(curr_progress)
