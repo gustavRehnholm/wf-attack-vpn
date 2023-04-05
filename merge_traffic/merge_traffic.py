@@ -10,20 +10,19 @@ import pandas as pd
 import os
 import timeit
 
-'''
-This program merges the web traffic with noise, so it can be used to test WF attacks
-
-input:
-    mergedFiles:     list of paths to the merged files
-    foregroundFiles: list of paths to the foreground files
-    background_path: path to the background file
-    start:           The start index of the background traffic to use
-    stop:            The end index of the background traffic to use
-output:
-    True:  it succeeded in creating the whole merged files
-    False: it did not succeed in creating the merged files
-'''
 def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
+    '''
+    This program merges the web traffic with noise, so it can be used to test WF attacks
+
+    Args:
+        mergedFiles      - Required  : list of paths to the merged files                (List[str])
+        foregroundFiles  - Required  : list of paths to the foreground files            (List[str])
+        background_path  - Required  : path to the background file                      (str)
+        start            - Required  : The start index of the background traffic to use (int)
+        stop             - Required  : The end index of the background traffic to use   (int)
+    Returns:
+        boolean if the program succeeded or not in creating the merge files
+    '''
 
     print("Start merging subset(can take some time to move the background to memory)")
 
@@ -55,6 +54,9 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     # seed the rnd generator
     random.seed(timeit.default_timer())
 
+    totalMergeFiles = len(len(mergedFiles))
+    mergeFilesDone = 0
+
     while(len(foregroundFiles) > 0): 
 
             # if should open a new foreground file
@@ -72,9 +74,11 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                 df_index = random.randrange(0, background_nr_packets)
 
                 
-                print("---------------------------------------------------------------")
-                print("new file ", os.path.basename(foregroundFiles[0]))
-                print("")
+                #print("---------------------------------------------------------------")
+                #print("new file ", os.path.basename(foregroundFiles[0]))
+                #print("")
+                mergeFilesDone += 1
+                printProgressBar(mergeFilesDone, totalMergeFiles, prefix = 'Progress:', suffix = 'Complete', length = 50)
 
                 # get the values (lines) of the new foreground file
                 currForegroundFile = open(foregroundFiles[0], 'r') 
@@ -106,6 +110,29 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
                 foreground_lines.pop(0)
         
     return True
+
+
+def printProgressBar (progress, progressLen, prefix = '', suffix = '', decimals = 1, barLen = 100, fill = '█', endChar = "\r"):
+    """
+    Call in a loop to create terminal progress bar
+    args:
+        progress    - Required  : current progress                                (Int)
+        progressLen - Required  : total iterations                                (Int)
+        prefix      - Optional  : prefix string                                   (Str)
+        suffix      - Optional  : suffix string                                   (Str)
+        decimals    - Optional  : positive number of decimals in percent complete (Int)
+        barLen      - Optional  : character length of bar                         (Int)
+        fill        - Optional  : bar fill character                              (Str)
+        endChar     - Optional  : end character (e.g. "\r", "\r\n")               (Str)
+    """
+    percent      = ("{0:." + str(decimals) + "f}").format(100 * (progress / float(progressLen)))
+    filledLength = int(barLen * progress // progressLen)
+    bar          = fill * filledLength + '-' * (barLen - filledLength)
+    print(f'\r{prefix} |{bar}| {percent}% {suffix}', end = endChar)
+
+    # Print New Line on Complete
+    if progress == progressLen: 
+        print()
 
 if __name__=="__main__":
     main()

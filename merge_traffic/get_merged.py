@@ -48,11 +48,8 @@ def getMerged(dir_foreground, dir_merged, dir_background, fold = 0):
             if not os.path.exists(os.path.join(dir_merged, dirs)):
                 os.mkdir(curr_path)
 
-
-    # dataframe representation of what each foreground file should be used for
     df_fold = pd.read_csv(FOLD_CSV)
-    #FOLD_DF_ATTR = ['log', 'is_train', 'is_valid', 'is_test']
-    #dfFiles = df_fold[FOLD_DF_ATTR]
+    #dfFiles = df_fold['log', 'is_train', 'is_valid', 'is_test']
 
     # For every log file in the web traffic, make sure that there is an correlating log file to store the parsed result
     for x in range(0, len(df_fold['log'])):

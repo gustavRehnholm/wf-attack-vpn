@@ -5,21 +5,21 @@ To run:
 python wf-attack-vpn/merge_traffic/main.py
 '''
 
-# to access input from the user
 import sys
-# to run the script for the actually merging
 from get_merged import getMerged
 import timeit
 
-'''
-Creates the merged traffic, used to test the WF attacks capabilities
-Input:
-    sys.argv[1]: the directory where the foreground dataset is stored
-    sys.argv[2]: the directory where the background dataset is stored
-    sys.argv[3]: the directory where the merged dataset will be stored
-    sys.argv[4]: Which fold file to use, should be an integer from 0 to 9 
-'''
+
 def main():
+    '''
+    Creates the merged traffic, used to test the WF attacks capabilities
+
+    Args:
+        sys.argv[1]  - Required : the directory where the foreground dataset is stored
+        sys.argv[2]  - Required : the directory where the background dataset is stored
+        sys.argv[3]  - Required : the directory where the merged dataset will be stored
+        sys.argv[4]  - Required : Which fold file to use, should be an integer from 0 to 9 
+    '''
 
     DIR_FOREGROUND = sys.argv[1]
     print("Chosen foreground")
