@@ -2,7 +2,7 @@
 
 '''
 wf attack on all files in a directory
-Performed with Deep fingerprinting, on teh modes: default, constant and tiktok
+Performed with Deep fingerprinting, on teh modes: default, constant and Tik-Tok
 
 TODO: Stop program if it can not create the result dir
 TODO: check that the input paths exists
@@ -19,10 +19,10 @@ def main():
     DIR_RESULT = sys.argv[2]
     SAMPLE     = sys.argv[3]
 
-    splitted_merged_path = os.path.dirname(DIR_RESULT)
-
     # create the path for the result
+    splitted_merged_path = os.path.dirname(DIR_RESULT)
     os.system("mkdir " + splitted_merged_path)
+    os.system("rm -f -r " + DIR_RESULT)
     os.system("mkdir " + DIR_RESULT)
 
     # default wf attack
