@@ -40,11 +40,11 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     # timestamp of the current background packets
     time_stamp = 0
     # the background traffic
-    df     = pd.read_hdf(path_or_buf = background_path, key = KEY, start = start, stop = stop, iterator = True)
-    #background_tuple = list(df.itertuples(index=False, name=None))
-    #df_len = df.shape[0]
+    df     = pd.read_hdf(path_or_buf = background_path, key = KEY, start = start, stop = stop)
+    background_tuple = list(df.itertuples(index=False, name=None))
+    df_len = df.shape[0]
 
-    print(df.__next__())
+    print(background_tuple)
     return False
     # current index to get background from
     subset_index = 0
