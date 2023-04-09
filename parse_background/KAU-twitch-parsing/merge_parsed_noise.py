@@ -32,9 +32,11 @@ def main():
 
     # list of all twitch traffic captures files
     files = os.listdir(DIR_INPUT)
+    for file in files:
+        file = DIR_INPUT + file
     #files.sort()
-    sorted_list = sorted(files, key=os.path.getsize, reverse=True)
-    files_len = len(files)
+    sorted_files = sorted(files, key=os.path.getsize, reverse=True)
+    files_len = len(sorted_files)
 
     # create the file, that the final result will be stored in
     # format table, so that it is appendable
@@ -43,7 +45,7 @@ def main():
 
     first = True
 
-    for file in files:
+    for file in sorted_files:
         index += 1
         filename = os.fsdecode(file)
         
