@@ -78,7 +78,7 @@ def getMerged(dir_foreground, dir_merged, dir_background, fold = 0):
     print("Size of the background")
     print(df_len)
     
-    '''
+    
     print("Start merging test files")
     if not mergeTraffic(mergedTestFiles , foregroundTestFiles , dir_background, 0              , part_of_10):
         return False
@@ -95,7 +95,7 @@ def getMerged(dir_foreground, dir_merged, dir_background, fold = 0):
         return False
     if not mergeTraffic(mergedTrainFiles, foregroundTrainFiles, dir_background, 0              , int(df_len)):
         return False
-    
+    '''
     print("Succeeded in creating the merged traffic set")
     return True
 
