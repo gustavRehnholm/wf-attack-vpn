@@ -76,10 +76,10 @@ cp wf-result/twitch_div_rnd_100/twitch_div_rnd_2h/tiktok.csv     wf-result/compa
 
 
 # The final comparison graph
-python wf-attack-vpn/plotter/plot_all.py compare_20_constant  wf-result/compare_20_constant  fig/compare_20_constant
-python wf-attack-vpn/plotter/plot_all.py compare_20_default   wf-result/compare_20_default   fig/compare_20_default
-python wf-attack-vpn/plotter/plot_all.py compare_20_tiktok    wf-result/compare_20_tiktok    fig/compare_20_tiktok
+python wf-attack-vpn/plotter/plot_all.py compare_20_constant  wf-result/compare_20_constant  fig/compare_20
+python wf-attack-vpn/plotter/plot_all.py compare_20_default   wf-result/compare_20_default   fig/compare_20
+python wf-attack-vpn/plotter/plot_all.py compare_20_tiktok    wf-result/compare_20_tiktok    fig/compare_20
 
-python wf-attack-vpn/plotter/plot_all.py compare_100_constant  wf-result/compare_100_constant  fig/compare_100_constant
-python wf-attack-vpn/plotter/plot_all.py compare_100_default   wf-result/compare_100_default   fig/compare_100_default
-python wf-attack-vpn/plotter/plot_all.py compare_100_tiktok    wf-result/compare_100_tiktok    fig/compare_100_tiktok
+python wf-attack-vpn/plotter/plot_all.py compare_100_constant  wf-result/compare_100_constant  fig/compare_100
+python wf-attack-vpn/plotter/plot_all.py compare_100_default   wf-result/compare_100_default   fig/compare_100
+python wf-attack-vpn/plotter/plot_all.py compare_100_tiktok    wf-result/compare_100_tiktok    fig/compare_100
