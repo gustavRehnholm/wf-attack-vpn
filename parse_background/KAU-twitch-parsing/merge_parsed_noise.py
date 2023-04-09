@@ -59,7 +59,7 @@ def main():
 
         df_len.append(len(df.axes[0]))
 
-        df.to_hdf(PATH_OUTPUT, mode = "r+", key = key, append = True) 
+        #df.to_hdf(PATH_OUTPUT, mode = "r+", key = key, append = True) 
 
         # to gather a subset
         if index >= 50:
