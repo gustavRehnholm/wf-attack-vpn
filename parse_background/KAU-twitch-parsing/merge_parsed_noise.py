@@ -53,7 +53,6 @@ def main():
         print("")
         print("merging file " + str(index) + "/" + str(files_len) + ": " + str(filename))
         print("")
-        return
 
         path = DIR_INPUT + filename
         df = pd.read_hdf(path, key=key)
