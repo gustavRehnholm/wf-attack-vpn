@@ -37,7 +37,7 @@ def main():
     # Sort list of file names by size 
     sorted_files = sorted(files, key =  lambda x: os.stat(os.path.join(DIR_INPUT, x)).st_size)
     sorted_files = list(reversed(sorted_files))
-    files_len = len(sorted_files)
+    files_len    = len(sorted_files)
 
     # create the file, that the final result will be stored in
     # format table, so that it is appendable
@@ -72,8 +72,8 @@ def main():
 
     with open('stdout/output.csv', 'w') as csvfile:
         csvwriter = csv.writer(csvfile)
-        for len in df_len:
-            csvwriter.writerow(len)
+        for row in df_len:
+            csvwriter.writerow(row)
 
 # run main 
 if __name__=="__main__":
