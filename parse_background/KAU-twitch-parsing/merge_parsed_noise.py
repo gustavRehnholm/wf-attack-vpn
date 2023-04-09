@@ -7,6 +7,7 @@ Merge all the parsed captures to one single file, where the timestamps flows log
 import pandas as pd
 import os
 import operator
+import csv
 
 def main():
     print("Start merging the twitch captures")
