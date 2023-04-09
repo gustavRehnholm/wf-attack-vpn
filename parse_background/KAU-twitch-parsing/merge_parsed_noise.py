@@ -44,7 +44,7 @@ def main():
     merged_df = pd.DataFrame(columns = COL_NAMES)
     merged_df.to_hdf(PATH_OUTPUT, mode = "w", key = key, format = 'table') 
 
-    first = True
+    df_len = []
 
     for file in sorted_files:
         index += 1
@@ -57,13 +57,23 @@ def main():
         path = DIR_INPUT + filename
         df = pd.read_hdf(path, key=key)
 
+        df_len.append(len(df.axes[0]))
+
         df.to_hdf(PATH_OUTPUT, mode = "r+", key = key, append = True) 
 
         # to gather a subset
         if index >= 50:
-            return
+            break
 
     print("Have merged all twitch traffic, store them now in " + PATH_OUTPUT)
+
+    for row in df_len:
+        print(row)
+
+    with open('stdout/output.csv', 'w') as csvfile:
+        csvwriter = csv.writer(csvfile)
+        for len in df_len:
+            csvwriter.writerow(len)
 
 # run main 
 if __name__=="__main__":
