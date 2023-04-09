@@ -14,7 +14,7 @@ def main():
     DIR_INPUT = "twitch/parsed_captures/"
     # the merged noise file in the h5 format
     DIR_OUTPUT = "background_traffic"
-    FILE_OUTPUT = "twitch_150.h5"
+    FILE_OUTPUT = "twitch_1.h5"
     PATH_OUTPUT = DIR_OUTPUT + "/" + FILE_OUTPUT
     # for storing the result as h5
     key = "df"
@@ -55,13 +55,16 @@ def main():
         path = DIR_INPUT + filename
         df = pd.read_hdf(path, key=key)
 
-        # append current files result to the final result file
-        # append = True: the value should be appended on the old
-        df.to_hdf(PATH_OUTPUT, mode = "r+", key = key, append = True) 
+        if filename == "tshark_1.9h_twitch-jackport99_stream_2023-01-04_1.h5":
+            # append current files result to the final result file
+            # append = True: the value should be appended on the old
+            df.to_hdf(PATH_OUTPUT, mode = "r+", key = key, append = True) 
+            print("Added the file")
+            return
 
         # to gather a subset
-        if index >= 150:
-            return
+        #if index >= 150:
+        #    return
 
 
     print("Have merged all twitch traffic, store them now in " + PATH_OUTPUT)
