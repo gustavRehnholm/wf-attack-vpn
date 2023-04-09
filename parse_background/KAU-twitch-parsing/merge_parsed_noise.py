@@ -1,15 +1,13 @@
 #!/usr/bin/python3
 
-'''
-Merge all the parsed captures to one single file, where the timestamps flows logical between them
-'''
-
 import pandas as pd
 import os
-import operator
-import csv
 
 def main():
+    '''
+    Merge all the parsed captures to one single file, where the timestamps flows logical between them
+    '''
+
     print("Start merging the twitch captures")
 
     # the csv files 
@@ -60,7 +58,7 @@ def main():
 
         df_len.append(len(df.axes[0]))
 
-        #df.to_hdf(PATH_OUTPUT, mode = "r+", key = key, append = True) 
+        df.to_hdf(PATH_OUTPUT, mode = "r+", key = key, append = True) 
 
         # to gather a subset
         if index >= 50:
@@ -68,13 +66,9 @@ def main():
 
     print("Have merged all twitch traffic, store them now in " + PATH_OUTPUT)
 
-    for row in df_len:
-        print(row)
-
-    with open('stdout/output.csv', 'w') as csvfile:
-        csvwriter = csv.writer(csvfile)
-        csvwriter.writerow("#packets")
-        csvwriter.writerows(df_len)
+    # get packets per capture
+    #for row in df_len:
+    #    print(row)
 
 # run main 
 if __name__=="__main__":
