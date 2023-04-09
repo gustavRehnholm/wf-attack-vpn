@@ -73,8 +73,8 @@ def main():
 
     with open('stdout/output.csv', 'w') as csvfile:
         csvwriter = csv.writer(csvfile)
-        for row in df_len:
-            csvwriter.writerow(row)
+        csvwriter.writerow("#packets")
+        csvwriter.writerows(df_len)
 
 # run main 
 if __name__=="__main__":
