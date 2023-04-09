@@ -36,7 +36,7 @@ def main():
 
     # Sort list of file names by size 
     sorted_files = sorted(files, key =  lambda x: os.stat(os.path.join(DIR_INPUT, x)).st_size)
-    sorted_files = reversed(sorted_files)
+    sorted_files = list(reversed(sorted_files))
     files_len = len(sorted_files)
 
     # create the file, that the final result will be stored in
