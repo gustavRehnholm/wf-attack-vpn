@@ -6,7 +6,7 @@
 # to run:
 # ./wf-attack-vpn/merge_traffic/run_all.sh
 
-python wf-attack-vpn/merge_traffic/main.py foreground_traffic background_traffic/twitch_50.h5 merged_traffic/twitch_div_rnd_50 1
+#python wf-attack-vpn/merge_traffic/main.py foreground_traffic background_traffic/twitch_50.h5 merged_traffic/twitch_div_rnd_50 1
 #python wf-attack-vpn/merge_traffic/main.py foreground_traffic background_traffic/twitch_1.h5  merged_traffic/twitch_div_rnd_1   1
 
 #python wf-attack-vpn/merge_traffic/main.py foreground_traffic background_traffic/twitch_50.h5 merged_traffic/twitch_rnd_50 1
