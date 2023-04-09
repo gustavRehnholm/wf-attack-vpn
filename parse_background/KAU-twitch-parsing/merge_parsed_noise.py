@@ -32,10 +32,10 @@ def main():
 
     # list of all twitch traffic captures files
     files = os.listdir(DIR_INPUT)
-    for file in files:
-        file = DIR_INPUT + file
     #files.sort()
-    sorted_files = sorted(files, key=os.path.getsize, reverse=True)
+
+    # Sort list of file names by size 
+    sorted_files = sorted(files, key =  lambda x: os.stat(os.path.join(name_of_dir, x)).st_size)
     files_len = len(sorted_files)
 
     # create the file, that the final result will be stored in
