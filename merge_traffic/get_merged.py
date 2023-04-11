@@ -10,20 +10,21 @@ import os
 from merge_traffic import mergeTraffic
 import shutil
 
-'''
-This program merges the inputted background and foreground traffic, and store it in the specified directory.
-One can if one which to specify which fold file to use, to split the foreground traffic differently.
 
-Input:
-    dir_foreground: path to the directory that has the foreground that the background should be merged into
-    dir_merged:     path to the directory where the merged result will be stored in
-    dir_background: path to the directory where the background traffic is
-    fold:           which fold file to use
-
-Output:
-    Boolean which tells if the program succeeded in creating the merged traffic set
-'''
 def getMerged(dir_foreground, dir_merged, dir_background, fold = 0):
+    '''
+    This program merges the inputted background and foreground traffic, and store it in the specified directory.
+    One can if one which to specify which fold file to use, to split the foreground traffic differently.
+
+    Input:
+        dir_foreground: path to the directory that has the foreground that the background should be merged into
+        dir_merged:     path to the directory where the merged result will be stored in
+        dir_background: path to the directory where the background traffic is
+        fold:           which fold file to use
+
+    Output:
+        Boolean which tells if the program succeeded in creating the merged traffic set
+    '''
 
     FOLD_CSV = dir_foreground + "/fold-" + fold + ".csv"
     key    = "df"
