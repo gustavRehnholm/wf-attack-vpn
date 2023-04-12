@@ -4,6 +4,7 @@ import argparse
 import os
 from multiprocessing import Pool
 import numpy as np
+import sys
 
 # python wf-attack-vpn/merged-dataset-stats.py -d captures
 
@@ -128,6 +129,9 @@ def parse_trace(fname, name):
                     recv_lines += 1
                 else:
                     sender_start_ip = sender.split('.')
+                    print(sender)
+                    print(sender_start_ip)
+                    sys.exit()
                     clients += 1
                     if sender_start_ip[0] == '10':
                         ipHost = sender_start_ip[0]
