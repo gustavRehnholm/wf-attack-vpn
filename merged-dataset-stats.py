@@ -66,8 +66,9 @@ def main():
         print("---------------------------------------------------------------------------------------------------------------------------------------------------------------")
     except:
         print("ERROR while calculating stastics")
+    print(f" {len(one_client)} files are with 1 client")
     print(f" {len(multiple_clients)} files are with to many clients")
-    print(multiple_clients)
+    #print(multiple_clients)
 
 
 def parse_trace(fname, name):
