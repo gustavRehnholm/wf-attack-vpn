@@ -8,6 +8,7 @@ import sys
 from collections import Counter
 
 # python wf-attack-vpn/merged-dataset-stats.py -d captures
+# python wf-attack-vpn/merged-dataset-stats.py -d captures_clean
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-d", required=True, default="", help="root folder of client/server dataset")
