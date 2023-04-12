@@ -2,6 +2,8 @@
 
 '''
 rm the capture files that are broken (lack sufficient captures)
+
+TODO: parallize
 '''
 
 import pandas as pd
