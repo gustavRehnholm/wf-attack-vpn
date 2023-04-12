@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
+
 import argparse
 import os
 from multiprocessing import Pool
 import numpy as np
+
+# python wf-attack-vpn/merged-dataset-stats.py -d captures
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-d", required=True, default="", help="root folder of client/server dataset")
@@ -12,6 +15,9 @@ ap.add_argument("--min", required=False, type=int, default=0, help="smallest pac
 args = vars(ap.parse_args())
 
 def main():
+    '''
+
+    '''
     print(f"walking {args['d']}, this might take a long time...")
 
     # walk the dataset folder
@@ -53,6 +59,7 @@ def parse_trace(fname, name):
     with open(fname, "r") as f:
         n = 0
         for line in f:
+            print(line)
             parts = line.strip().split(",")
             direction = parts[1]
             size = int(parts[2])
