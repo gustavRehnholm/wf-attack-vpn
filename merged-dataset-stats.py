@@ -169,7 +169,7 @@ def parse_trace(fname, name):
                     else:
                         continue
 
-    pkt_sec = (sent_lines + recv_lines) / parts[0]
+    pkt_sec = (sent_lines + recv_lines) / float(parts[0])
     return dict(success = True, 
                 sent_lines = sent_lines, 
                 recv_lines = recv_lines, 
