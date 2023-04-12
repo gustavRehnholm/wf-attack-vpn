@@ -39,36 +39,52 @@ def main():
     # store statistics gathered from the file
     sent_lines, recv_lines = [], []
     sent_bytes, recv_bytes = [], []
+    pkt_sec                = []
     multiple_clients_nr    = []
     multiple_clients_file  = []
     one_client             = []
+
     for result in results:
-        if result[0] == True:
+        if result.get(success) == True:
             # only analyse files that have one client
-            if result[5] == 1:
-                sent_lines.append(result[1])
-                recv_lines.append(result[2])
-                sent_bytes.append(result[3])
-                recv_bytes.append(result[4])
-                one_client.append(result[6])
+            if result.get(clients) == 1:
+                sent_lines.append(result.get(sent_lines))
+                recv_lines.append(result.get(recv_lines))
+                sent_bytes.append(result.get(sent_bytes))
+                recv_bytes.append(result.get(recv_bytes))
+                one_client.append(result.get(fname))
+                pkt_sec.append(result.get(pkt_sec))
             else:
-                multiple_clients_nr.append(result[5])
-                multiple_clients_file.append(result[6])
+                multiple_clients_nr.append(result.get(clients))
+                multiple_clients_file.append(result.get(fname))
 
     # convert to numpy arrays
     sent_lines = np.array(sent_lines)
     recv_lines = np.array(recv_lines)
     sent_bytes = np.array(sent_bytes)
     recv_bytes = np.array(recv_bytes)
+    pkt_sec    = np.array(pkt_sec)
 
     try:
+        txt = "{description}: {mean:.2f} +- {std:.2f}, median: {median:.2f},  min: {min}, max: {max}"
         # print some descriptive statistics
+        print(txt.format(description = "sent lines"         , mean = np.mean(sent_lines), std = np.std(sent_lines), 
+                         median      = np.median(sent_lines), min  = np.min(sent_lines) , max = np.max(sent_lines)))
+        print(f"recv lines: {np.mean(recv_lines):.2f} +- {np.std(recv_lines):.2f}, median: {np.median(recv_lines):.2f},  min: {np.min(recv_lines)}, max: {np.max(recv_lines)}")
+        print("----------------------------------------------------------------------------------------------------------------------------------------")
+        print(f"sent bytes: {np.mean(sent_bytes):.2f} +- {np.std(sent_bytes):.2f}, median: {np.median(sent_bytes):.2f}, min: {np.min(sent_bytes)}, max: {np.max(sent_bytes)}")
+        print(f"recv bytes: {np.mean(recv_bytes):.2f} +- {np.std(recv_bytes):.2f}, median: {np.median(recv_bytes):.2f}, min: {np.min(recv_bytes)}, max: {np.max(recv_bytes)}")
+        print("----------------------------------------------------------------------------------------------------------------------------------------")
+        print(f"packets/sec: {np.mean(pkt_sec):.2f} +- {np.std(pkt_sec):.2f}, median: {np.median(pkt_sec):.2f}, min: {np.min(pkt_sec)}, max: {np.max(pkt_sec)}")
+        '''
         print(f"sent lines: {np.mean(sent_lines):.2f} +- {np.std(sent_lines):.2f}, median: {np.median(sent_lines):.2f},  min: {np.min(sent_lines)}, max: {np.max(sent_lines)}")
         print(f"recv lines: {np.mean(recv_lines):.2f} +- {np.std(recv_lines):.2f}, median: {np.median(recv_lines):.2f},  min: {np.min(recv_lines)}, max: {np.max(recv_lines)}")
         print("----------------------------------------------------------------------------------------------------------------------------------------")
-        print(f"sent bytes: {np.mean(sent_bytes):.2f} +- {np.std(sent_bytes):.2f}, min: {np.min(sent_bytes)}, max: {np.max(sent_bytes)}")
-        print(f"recv bytes: {np.mean(recv_bytes):.2f} +- {np.std(recv_bytes):.2f}, min: {np.min(recv_bytes)}, max: {np.max(recv_bytes)}")
+        print(f"sent bytes: {np.mean(sent_bytes):.2f} +- {np.std(sent_bytes):.2f}, median: {np.median(sent_bytes):.2f}, min: {np.min(sent_bytes)}, max: {np.max(sent_bytes)}")
+        print(f"recv bytes: {np.mean(recv_bytes):.2f} +- {np.std(recv_bytes):.2f}, median: {np.median(recv_bytes):.2f}, min: {np.min(recv_bytes)}, max: {np.max(recv_bytes)}")
         print("----------------------------------------------------------------------------------------------------------------------------------------")
+        print(f"packets/sec: {np.mean(pkt_sec):.2f} +- {np.std(pkt_sec):.2f}, median: {np.median(pkt_sec):.2f}, min: {np.min(pkt_sec)}, max: {np.max(pkt_sec)}")
+        '''
     except:
         print("ERROR while calculating stastics")
     print(f" {len(one_client)} files are with 1 client")
@@ -87,10 +103,12 @@ def parse_trace(fname, name):
         name: 
     Output:
         Tuple with statistics of the file
-        sent_lines, recv_lines:  the number of packets that was sent/received
-        sent_bytes, recv_bytes:  the sent/received packets total size in bytes
-        clients:                 Clients used in the stream
-        fname:                   the file that was analyzed
+        Boolean               :  If it succeeded in gathering the files statistics
+        sent_lines, recv_lines:  The number of packets that was sent/received
+        sent_bytes, recv_bytes:  The sent/received packets total size in bytes
+        clients               :  Number of clients used in the stream
+        pkt_sec               :  Packets per second in the stream
+        fname                 :  The file that was analyzed
     '''
 
     # gathered statistics
@@ -98,8 +116,7 @@ def parse_trace(fname, name):
     sent_bytes, recv_bytes = 0, 0
     clients = 0
 
-    # temporary placeholder name
-    ipHost = '10'
+    ipHost = 'temporary placeholder name'
     
     with open(fname, "r") as f:
         for line in f:
@@ -139,19 +156,30 @@ def parse_trace(fname, name):
                     recv_bytes += size
                     recv_lines += 1
                 else:
-                    clients += 1
                     if sender.split('.')[0] == '10':
+                        clients += 1
                         ipHost = sender
                         sent_bytes += size
                         sent_lines += 1
                     elif receiver.split('.')[0] == '10':
+                        clients += 1
                         ipHost = receiver
                         recv_bytes += size
                         recv_lines += 1
                     else:
-                        return (False, sent_lines, recv_lines, sent_bytes, recv_bytes, clients, fname)
+                        continue
 
-    return (True, sent_lines, recv_lines, sent_bytes, recv_bytes, clients, fname)
+    pkt_sec = (sent_lines + recv_lines) / parts[0]
+    return dict(success = True, 
+                sent_lines = sent_lines, 
+                recv_lines = recv_lines, 
+                sent_bytes = sent_bytes, 
+                recv_bytes = recv_bytes, 
+                clients = clients, 
+                pkt_sec = pkt_sec, 
+                fname = fname)
+
+
 
 if __name__ == "__main__":
     main()
