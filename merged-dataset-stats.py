@@ -98,6 +98,8 @@ def parse_trace(fname, name):
         for line in f:
             parts = line.strip().split(",")
 
+            print(parts)
+
             # unusable lines that would not be used either way
             if len(parts) < 3:
                 continue
@@ -111,7 +113,6 @@ def parse_trace(fname, name):
                 continue
 
             sender_receiver = str(direction).split(",")
-            print(sender_receiver)
             # if no or only one IP address, skip this packet
             if len(sender_receiver) < 2:
                 continue
