@@ -38,18 +38,21 @@ def main():
     # store statistics gathered from the file
     sent_lines, recv_lines = [], []
     sent_bytes, recv_bytes = [], []
-    multiple_clients       = []
+    multiple_clients_nr    = []
+    multiple_clients_file  = []
     one_client             = []
     for result in results:
-        # only analyse files that have one client
-        if result[4] == 1:
-            sent_lines.append(result[0])
-            recv_lines.append(result[1])
-            sent_bytes.append(result[2])
-            recv_bytes.append(result[3])
-            one_client.append(result[5])
-        else:
-            multiple_clients.append(result[5])
+        if result[0] == True:
+            # only analyse files that have one client
+            if result[5] == 1:
+                sent_lines.append(result[1])
+                recv_lines.append(result[2])
+                sent_bytes.append(result[3])
+                recv_bytes.append(result[4])
+                one_client.append(result[6])
+            else:
+                multiple_clients_nr.append(result[5])
+                multiple_clients_file.append(result[6])
 
     # convert to numpy arrays
     sent_lines = np.array(sent_lines)
@@ -68,8 +71,13 @@ def main():
     except:
         print("ERROR while calculating stastics")
     print(f" {len(one_client)} files are with 1 client")
-    print(f" {len(multiple_clients)} files are with to many clients")
-    #print(multiple_clients)
+    print(f" {len(multiple_clients_nr)} files are with to many clients")
+
+    # how many 
+    counts = {}
+    for n in multiple_clients_nr:
+        counts[n] = counts.get(n, 0) + 1
+    print(counts)
 
 
 def parse_trace(fname, name):
@@ -132,19 +140,19 @@ def parse_trace(fname, name):
                     recv_bytes += size
                     recv_lines += 1
                 else:
-                    sender_start_ip = sender.split('.')
-                    print(sender_start_ip)
                     clients += 1
-                    if sender_start_ip[0] == '10':
-                        ipHost = sender_start_ip[0]
+                    if sender.split('.')[0] == '10':
+                        ipHost = sender
                         sent_bytes += size
                         sent_lines += 1
-                    else:
-                        ipHost = sender_start_ip[1]
+                    elif receiver.split('.')[0] == '10':
+                        ipHost = receiver
                         recv_bytes += size
                         recv_lines += 1
+                    else:
+                        return (False, sent_lines, recv_lines, sent_bytes, recv_bytes, clients, fname)
 
-    return (sent_lines, recv_lines, sent_bytes, recv_bytes, clients, fname)
+    return (True, sent_lines, recv_lines, sent_bytes, recv_bytes, clients, fname)
 
 if __name__ == "__main__":
     main()
