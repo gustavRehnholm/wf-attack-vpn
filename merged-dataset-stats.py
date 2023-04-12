@@ -47,7 +47,7 @@ def main():
     for result in results:
         if result.get("success") == True:
             # only analyse files that have one client
-            if result.get(clients) == 1:
+            if result.get("clients") == 1:
                 sent_lines.append(result.get("sent_lines"))
                 recv_lines.append(result.get("recv_lines"))
                 sent_bytes.append(result.get("sent_bytes"))
