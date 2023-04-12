@@ -96,7 +96,7 @@ def parse_trace(fname, name):
     
     with open(fname, "r") as f:
         for line in f:
-            parts = line.strip().split(",")
+            parts = line.strip().split("\t")
 
             print(parts)
 
