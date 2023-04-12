@@ -90,7 +90,6 @@ def parse_trace(fname, name):
     
     with open(fname, "r") as f:
         for line in f:
-            print(line)
             parts = line.strip().split(",")
 
             # unusable lines that would not be used either way
