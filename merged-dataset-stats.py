@@ -72,7 +72,7 @@ def main():
     except:
         print("ERROR while calculating stastics")
     print(f" {len(one_client)} files are with 1 client")
-    if multiple_clients_nr > 0:
+    if len(multiple_clients_nr) > 0:
         print(f" {len(multiple_clients_nr)} files are with to many clients, with the distribution: ")
         print(counter(multiple_clients_nr))
         for file in multiple_clients_file:
