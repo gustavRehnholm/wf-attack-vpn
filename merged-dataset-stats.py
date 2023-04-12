@@ -39,25 +39,26 @@ def main():
     # store statistics gathered from the file
     sent_lines, recv_lines = [], []
     sent_bytes, recv_bytes = [], []
-    pkt_sec                = []
+    pkt_sec, total_time    = [], []
     multiple_clients_nr    = []
     multiple_clients_file  = []
     one_client             = []
 
-    print(results[0].keys())
     for result in results:
-        if result.get(success) == True:
+        if result.get("success") == True:
             # only analyse files that have one client
             if result.get(clients) == 1:
-                sent_lines.append(result.get(sent_lines))
-                recv_lines.append(result.get(recv_lines))
-                sent_bytes.append(result.get(sent_bytes))
-                recv_bytes.append(result.get(recv_bytes))
-                one_client.append(result.get(fname))
-                pkt_sec.append(result.get(pkt_sec))
+                sent_lines.append(result.get("sent_lines"))
+                recv_lines.append(result.get("recv_lines"))
+                sent_bytes.append(result.get("sent_bytes"))
+                recv_bytes.append(result.get("recv_bytes"))
+                one_client.append(result.get("fname"))
+                pkt_sec.append(result.get("pkt_sec"))
+                size.append(result.get("size"))
+                total_time.append(result.get("total_time"))
             else:
-                multiple_clients_nr.append(result.get(clients))
-                multiple_clients_file.append(result.get(fname))
+                multiple_clients_nr.append(result.get("clients"))
+                multiple_clients_file.append(result.get("fname"))
 
     # convert to numpy arrays
     sent_lines = np.array(sent_lines)
@@ -65,6 +66,8 @@ def main():
     sent_bytes = np.array(sent_bytes)
     recv_bytes = np.array(recv_bytes)
     pkt_sec    = np.array(pkt_sec)
+    total_time = np.array(total_time)
+    size       = np.array(size)
 
     try:
         txt = "{description}: {mean:.2f} +- {std:.2f}, median: {median:.2f},  min: {min}, max: {max}"
@@ -77,6 +80,8 @@ def main():
         print(f"recv bytes: {np.mean(recv_bytes):.2f} +- {np.std(recv_bytes):.2f}, median: {np.median(recv_bytes):.2f}, min: {np.min(recv_bytes)}, max: {np.max(recv_bytes)}")
         print("----------------------------------------------------------------------------------------------------------------------------------------")
         print(f"packets/sec: {np.mean(pkt_sec):.2f} +- {np.std(pkt_sec):.2f}, median: {np.median(pkt_sec):.2f}, min: {np.min(pkt_sec)}, max: {np.max(pkt_sec)}")
+        print(f"duration   : {np.mean(total_time):.2f} +- {np.std(total_time):.2f}, median: {np.median(total_time):.2f}, min: {np.min(total_time)}, max: {np.max(total_time)}")
+        print(f"size       : {np.mean(size):.2f} +- {np.std(size):.2f}, median: {np.median(size):.2f}, min: {np.min(size)}, max: {np.max(size)}")
         '''
         print(f"sent lines: {np.mean(sent_lines):.2f} +- {np.std(sent_lines):.2f}, median: {np.median(sent_lines):.2f},  min: {np.min(sent_lines)}, max: {np.max(sent_lines)}")
         print(f"recv lines: {np.mean(recv_lines):.2f} +- {np.std(recv_lines):.2f}, median: {np.median(recv_lines):.2f},  min: {np.min(recv_lines)}, max: {np.max(recv_lines)}")
@@ -169,8 +174,9 @@ def parse_trace(fname, name):
                         recv_lines += 1
                     else:
                         continue
-
-    pkt_sec = (sent_lines + recv_lines) / float(parts[0])
+    total_time = float(parts[0])
+    pkt_sec = (sent_lines + recv_lines) / total_time
+    size = os.path.getsize(fname)
     return dict(success = True, 
                 sent_lines = sent_lines, 
                 recv_lines = recv_lines, 
@@ -178,6 +184,8 @@ def parse_trace(fname, name):
                 recv_bytes = recv_bytes, 
                 clients = clients, 
                 pkt_sec = pkt_sec, 
+                total_time = total_time,
+                size = size,
                 fname = fname)
 
 
