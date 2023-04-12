@@ -40,6 +40,7 @@ def main():
     sent_lines, recv_lines = [], []
     sent_bytes, recv_bytes = [], []
     pkt_sec, total_time    = [], []
+    size                   = []
     multiple_clients_nr    = []
     multiple_clients_file  = []
     one_client             = []
