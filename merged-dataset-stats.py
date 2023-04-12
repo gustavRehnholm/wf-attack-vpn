@@ -131,7 +131,7 @@ def parse_trace(fname, name):
                     sender_start_ip = sender.split('.')
                     print(sender)
                     print(sender_start_ip)
-                    sys.exit()
+                    return
                     clients += 1
                     if sender_start_ip[0] == '10':
                         ipHost = sender_start_ip[0]
