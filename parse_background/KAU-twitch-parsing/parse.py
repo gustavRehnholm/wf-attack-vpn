@@ -128,17 +128,17 @@ def main():
                     broken = True
                     continue
                 elif sender == ipHost:
-                    parsed_direction = "s"
+                    parsed_direction = "sb"
                 elif receiver == ipHost:
-                    parsed_direction = "r"
+                    parsed_direction = "rb"
                 else:
                     sender_start_ip = sender.split('.')
                     if sender_start_ip[0] == '10':
                         ipHost = sender_start_ip[0]
-                        parsed_direction = "s"
+                        parsed_direction = "sb"
                     else:
                         ipHost = sender_start_ip[1]
-                        parsed_direction = "r"
+                        parsed_direction = "rb"
 
             # get size
             try:
