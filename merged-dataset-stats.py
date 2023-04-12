@@ -5,6 +5,7 @@ import os
 from multiprocessing import Pool
 import numpy as np
 import sys
+from collections import Counter
 
 # python wf-attack-vpn/merged-dataset-stats.py -d captures
 
@@ -64,20 +65,18 @@ def main():
         # print some descriptive statistics
         print(f"sent lines: {np.mean(sent_lines):.2f} +- {np.std(sent_lines):.2f}, median: {np.median(sent_lines):.2f},  min: {np.min(sent_lines)}, max: {np.max(sent_lines)}")
         print(f"recv lines: {np.mean(recv_lines):.2f} +- {np.std(recv_lines):.2f}, median: {np.median(recv_lines):.2f},  min: {np.min(recv_lines)}, max: {np.max(recv_lines)}")
-        print("---------------------------------------------------------------------------------------------------------------------------------------------------------------")
+        print("----------------------------------------------------------------------------------------------------------------------------------------")
         print(f"sent bytes: {np.mean(sent_bytes):.2f} +- {np.std(sent_bytes):.2f}, min: {np.min(sent_bytes)}, max: {np.max(sent_bytes)}")
         print(f"recv bytes: {np.mean(recv_bytes):.2f} +- {np.std(recv_bytes):.2f}, min: {np.min(recv_bytes)}, max: {np.max(recv_bytes)}")
-        print("---------------------------------------------------------------------------------------------------------------------------------------------------------------")
+        print("----------------------------------------------------------------------------------------------------------------------------------------")
     except:
         print("ERROR while calculating stastics")
     print(f" {len(one_client)} files are with 1 client")
-    print(f" {len(multiple_clients_nr)} files are with to many clients")
-
-    # how many 
-    counts = {}
-    for n in multiple_clients_nr:
-        counts[n] = counts.get(n, 0) + 1
-    print(counts)
+    if multiple_clients_nr > 0:
+        print(f" {len(multiple_clients_nr)} files are with to many clients, with the distribution: ")
+        print(counter(multiple_clients_nr))
+        for file in multiple_clients_file:
+            print(file)
 
 
 def parse_trace(fname, name):
@@ -105,16 +104,14 @@ def parse_trace(fname, name):
     with open(fname, "r") as f:
         for line in f:
 
-            # parts: [time, sender,reciever, size]
+            # parts: ["time", "sender,reciever", "size"]
             parts = line.strip().split("\t")
 
             # unusable lines that would not be used either way
             if len(parts) < 3:
                 continue
 
-            # (<sender IP>, <reciever IP>)
             direction = parts[1]
-            # size in bytes
             size      = int(parts[2])
 
             if size < args["min"]:
@@ -133,6 +130,8 @@ def parse_trace(fname, name):
                 # get direction
                 if sender == "":
                     continue
+                elif receiver == "":
+                    continue 
                 elif sender == ipHost:
                     sent_bytes += size
                     sent_lines += 1
