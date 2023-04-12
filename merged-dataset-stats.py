@@ -112,8 +112,9 @@ def parse_trace(fname, name):
             if size < args["min"]:
                 continue
 
+            # sender_receiver: [sender, receiver]
             sender_receiver = str(direction).split(",")
-            print(sender_receiver)
+
             # if no or only one IP address, skip this packet
             if len(sender_receiver) < 2:
                 continue
@@ -132,6 +133,7 @@ def parse_trace(fname, name):
                     recv_lines += 1
                 else:
                     sender_start_ip = sender.split('.')
+                    print(sender_start_ip)
                     clients += 1
                     if sender_start_ip[0] == '10':
                         ipHost = sender_start_ip[0]
