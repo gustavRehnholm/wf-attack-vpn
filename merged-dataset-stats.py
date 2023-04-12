@@ -44,7 +44,7 @@ def main():
     multiple_clients_file  = []
     one_client             = []
 
-    print(type(results[0]))
+    print(type(results.keys()))
     for result in results:
         if result.get(success) == True:
             # only analyse files that have one client
