@@ -40,9 +40,9 @@ BAD_FILES = [
 ]
 
 FILES_2_CLIENTS = [
-    "tshark_1.9h_twitch-ccm6403_stream_2023-01-03.log",
-    "tshark_1.9h_twitch-caedrel_stream_2023-01-04.log",
-    "tshark_1.9h_twitch-thewillhallexp_stream_2022-12-31_6.log"
+    "tshark_1.9h_twitch-ccm6403_stream_2023-01-03.h5",
+    "tshark_1.9h_twitch-caedrel_stream_2023-01-04.h5",
+    "tshark_1.9h_twitch-thewillhallexp_stream_2022-12-31_6.h5"
 ]
 
 def main():
