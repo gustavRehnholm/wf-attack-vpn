@@ -10,8 +10,7 @@ import pandas as pd
 import shutil
 import os
 
-# the known unusable files, check that they are removed
-BROKEN_FILES_1 = [
+BROKEN_FILES = [
     "tshark_1.9h_twitch-chess_stream_2022-12-26.h5",
     "tshark_1.9h_twitch-public_domain_television_stream_2022-12-17.h5",
     "tshark_1.9h_twitch-reallyreallylongathon_stream_2022-12-26.h5",
@@ -21,10 +20,7 @@ BROKEN_FILES_1 = [
     "tshark_1.9h_twitch-smilesguthrie_stream_2022-12-24_1.h5",
     "tshark_1.9h_twitch-thorlar_stream_2022-12-25.h5",
     "tshark_1.9h_twitch-worldoftanks_stream_2022-12-23.h5",
-    "tshark_1.9h_twitch-yungdingo_stream_2022-12-24.h5"
-]
-
-BROKEN_FILES_2 = [
+    "tshark_1.9h_twitch-yungdingo_stream_2022-12-24.h5",
     "tshark_1.9h_twitch-bridgetcase_stream_2022-12-29.h5",
     "tshark_1.9h_twitch-caedrel_stream_2023-01-04.h5",
     "tshark_1.9h_twitch-ccm6403_stream_2023-01-03.h5",
@@ -41,6 +37,12 @@ BAD_FILES = [
     "tshark_8h_twitch-pdcinema_stream_2022-12-15.h5",
     "tshark_10h_twitch-fgfm_stream_2022-12-14.h5",
     "tshark_10h_twitch-pdcinema_stream_2022-12-14.h5"
+]
+
+FILES_2_CLIENTS = [
+    "tshark_1.9h_twitch-ccm6403_stream_2023-01-03.log",
+    "tshark_1.9h_twitch-caedrel_stream_2023-01-04.log",
+    "tshark_1.9h_twitch-thewillhallexp_stream_2022-12-31_6.log"
 ]
 
 def main():
@@ -66,10 +68,10 @@ def main():
         print("")
         print("checking file " + str(index) + "/1370: " + str(filename))
 
-        if filename in BROKEN_FILES_1:
+        if filename in BROKEN_FILES:
             print("Removing file: " + filename)
             continue
-        elif filename in BROKEN_FILES_2:
+        elif filename in FILES_2_CLIENTS:
             print("Removing file: " + filename)
             continue
         elif filename in BAD_FILES:
