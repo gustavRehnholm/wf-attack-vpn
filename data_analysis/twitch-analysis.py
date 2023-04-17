@@ -9,6 +9,7 @@ from collections import Counter
 
 # python wf-attack-vpn/data_analysis/twitch-analysis.py -d captures
 # python wf-attack-vpn/data_analysis/twitch-analysis.py -d captures_clean
+# python wf-attack-vpn/data_analysis/twitch-analysis.py -d captures_50
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-d", required=True, default="", help="root folder of client/server dataset")
@@ -72,36 +73,43 @@ def main():
     size       = np.array(size)
 
     try:
-        txt = "{description}: {mean:.2f} +- {std:.2f}, median: {median:.2f},  min: {min}, max: {max}"
         # print some descriptive statistics
-        print(txt.format(description = "sent lines"         , mean = np.mean(sent_lines), std = np.std(sent_lines), 
-                         median      = np.median(sent_lines), min  = np.min(sent_lines) , max = np.max(sent_lines)))
-        print(f"recv lines: {np.mean(recv_lines):.2f} +- {np.std(recv_lines):.2f}, median: {np.median(recv_lines):.2f},  min: {np.min(recv_lines)}, max: {np.max(recv_lines)}")
+        print(stat_txt("sent lines" , sent_lines))
+        print(stat_txt("recv lines" , recv_lines))
         print("----------------------------------------------------------------------------------------------------------------------------------------")
-        print(f"sent bytes: {np.mean(sent_bytes):.2f} +- {np.std(sent_bytes):.2f}, median: {np.median(sent_bytes):.2f}, min: {np.min(sent_bytes)}, max: {np.max(sent_bytes)}")
-        print(f"recv bytes: {np.mean(recv_bytes):.2f} +- {np.std(recv_bytes):.2f}, median: {np.median(recv_bytes):.2f}, min: {np.min(recv_bytes)}, max: {np.max(recv_bytes)}")
+        print(stat_txt("sent bytes" , sent_bytes))
+        print(stat_txt("recv bytes" , recv_bytes))
         print("----------------------------------------------------------------------------------------------------------------------------------------")
-        print(f"packets/sec: {np.mean(pkt_sec):.2f} +- {np.std(pkt_sec):.2f}, median: {np.median(pkt_sec):.2f}, min: {np.min(pkt_sec)}, max: {np.max(pkt_sec)}")
-        print(f"duration   : {np.mean(total_time):.2f} +- {np.std(total_time):.2f}, median: {np.median(total_time):.2f}, min: {np.min(total_time)}, max: {np.max(total_time)}")
-        print(f"size       : {np.mean(size):.2f} +- {np.std(size):.2f}, median: {np.median(size):.2f}, min: {np.min(size)}, max: {np.max(size)}")
-        '''
-        print(f"sent lines: {np.mean(sent_lines):.2f} +- {np.std(sent_lines):.2f}, median: {np.median(sent_lines):.2f},  min: {np.min(sent_lines)}, max: {np.max(sent_lines)}")
-        print(f"recv lines: {np.mean(recv_lines):.2f} +- {np.std(recv_lines):.2f}, median: {np.median(recv_lines):.2f},  min: {np.min(recv_lines)}, max: {np.max(recv_lines)}")
+        print(stat_txt("packets/sec", pkt_sec))
+        print(stat_txt("duration"   , total_time))
+        print(stat_txt("size"       , size))
         print("----------------------------------------------------------------------------------------------------------------------------------------")
-        print(f"sent bytes: {np.mean(sent_bytes):.2f} +- {np.std(sent_bytes):.2f}, median: {np.median(sent_bytes):.2f}, min: {np.min(sent_bytes)}, max: {np.max(sent_bytes)}")
-        print(f"recv bytes: {np.mean(recv_bytes):.2f} +- {np.std(recv_bytes):.2f}, median: {np.median(recv_bytes):.2f}, min: {np.min(recv_bytes)}, max: {np.max(recv_bytes)}")
-        print("----------------------------------------------------------------------------------------------------------------------------------------")
-        print(f"packets/sec: {np.mean(pkt_sec):.2f} +- {np.std(pkt_sec):.2f}, median: {np.median(pkt_sec):.2f}, min: {np.min(pkt_sec)}, max: {np.max(pkt_sec)}")
-        '''
     except:
         print("ERROR while calculating stastics")
-    print(f" {len(one_client_file)} files are with 1 client")
+        return
+
+    print(f" {len(one_client_file)} files with 1 client")
+
     if len(multiple_clients_nr) > 0:
         print(f" {len(multiple_clients_nr)} files are with to many clients, with the distribution: ")
         print(Counter(multiple_clients_nr))
         for file in multiple_clients_file:
             print(file)
 
+
+def stat_txt(description_text, np_array):
+    '''
+    format how to print statistics 
+    Input:
+        description_text: short string (1-3 words) to describe what the statistics is for 
+        np_array        : what to show statistics for 
+    Output:
+        string to print
+    '''
+    txt = "{description}: {mean:.2f} +- {std:.2f}, median: {median:.2f},  min: {min:.2f}, max: {max:.2f}"
+
+    return txt.format(description = description_text   , mean = np.mean(np_array), std = np.std(np_array), 
+                      median      = np.median(np_array), min  = np.min(np_array) , max = np.max(np_array))
 
 def parse_trace(fname, name):
     '''
