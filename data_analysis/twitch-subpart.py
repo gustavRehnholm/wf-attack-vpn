@@ -4,6 +4,9 @@ import pandas as pd
 import os
 import shutil
 
+
+# python wf-attack-vpn/data_analysis/twitch-subpart.py
+
 def main():
     '''
     create a subpart of the Twitch dataset, for analysis
@@ -35,7 +38,7 @@ def main():
         print("Include file " + str(index) + "/" + str(files_len) + ": " + str(filename))
         print("")
 
-        src = file
+        src = DIR_INPUT  + "/" + filename
         dst = DIR_OUTPUT + "/" + filename
         shutil.copyfile(src, dst)
 
