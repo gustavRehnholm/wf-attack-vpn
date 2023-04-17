@@ -46,7 +46,7 @@ def main():
         if index >= 50:
             break
 
-    print("Have created a subset of Twitch data, store in " + PATH_OUTPUT)
+    print("Have created a subset of Twitch data, store in " + DIR_OUTPUT)
 
 # run main 
 if __name__=="__main__":
