@@ -81,7 +81,7 @@ def main():
         print(stat_txt("sent bytes" , sent_bytes))
         print(stat_txt("recv bytes" , recv_bytes))
         print("----------------------------------------------------------------------------------------------------------------------------------------")
-        print(stat_txt("packets/sec", pkt_sec))
+        print(stat_txt("pkt/sec"    , pkt_sec))
         print(stat_txt("duration"   , total_time))
         print(stat_txt("size"       , size))
         print("----------------------------------------------------------------------------------------------------------------------------------------")
@@ -107,7 +107,7 @@ def stat_txt(description_text, np_array):
     Output:
         string to print
     '''
-    txt = "{description}: {mean:>15.2f} +- {std:>15.2f}, median: {median:>15.2f},  min: {min:>15.2f}, max: {max:>15.2f}"
+    txt = "{description:>13}: {mean:>15.2f} +- {std:>15.2f}, median: {median:>15.2f},  min: {min:>15.2f}, max: {max:>15.2f}"
 
     return txt.format(description = description_text   , mean = np.mean(np_array), std = np.std(np_array), 
                       median      = np.median(np_array), min  = np.min(np_array) , max = np.max(np_array))
