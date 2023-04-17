@@ -66,10 +66,6 @@ def main():
 
     print("Have merged all twitch traffic, store them now in " + PATH_OUTPUT)
 
-    # get packets per capture
-    #for row in df_len:
-    #    print(row)
-
 # run main 
 if __name__=="__main__":
     main()
