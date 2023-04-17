@@ -18,16 +18,14 @@ def main():
 
     # clean the previous result
     os.system("mkdir " + DIR_OUTPUT)
-    os.system("rm " + PATH_OUTPUT)
 
-    # list of all twitch traffic captures files
-    files = os.listdir(DIR_INPUT)
-    #files.sort()
-
-    # Sort list of file names by size 
+    # list of all twitch traffic captures files, sorted by size
+    files        = os.listdir(DIR_INPUT)
     sorted_files = sorted(files, key =  lambda x: os.stat(os.path.join(DIR_INPUT, x)).st_size)
     sorted_files = list(reversed(sorted_files))
     files_len    = len(sorted_files)
+
+    index = 0
 
     for file in sorted_files:
         index += 1
