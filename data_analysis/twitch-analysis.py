@@ -107,7 +107,7 @@ def stat_txt(description_text, np_array):
     Output:
         string to print
     '''
-    txt = "{description}: {mean:>5.2f} +- {std:>5.2f}, median: {median:>5.2f},  min: {min:>5.2f}, max: {max:>5.2f}"
+    txt = "{description}: {mean:>10.2f} +- {std:>10.2f}, median: {median:>10.2f},  min: {min:>10.2f}, max: {max:>10.2f}"
 
     return txt.format(description = description_text   , mean = np.mean(np_array), std = np.std(np_array), 
                       median      = np.median(np_array), min  = np.min(np_array) , max = np.max(np_array))
