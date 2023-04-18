@@ -39,6 +39,9 @@ def main():
                     )
 
     p = Pool(args["w"])
+    print(todo)
+    sys.exit()
+    
     results = p.starmap(parse_trace, todo)
 
     # store statistics gathered from the file
