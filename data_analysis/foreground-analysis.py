@@ -32,8 +32,14 @@ def main():
     todo = []
     dirs = os.listdir(args["d"])
 
+    print(dirs)
+    sys.exit()
+
+    
+
     # for each webpage dir
     for curr_dir in dirs:
+        folder = args['d'] + curr_dir
         # for all log files for each webpage
         for root, dirs, files in os.walk(curr_dir, topdown = False):
             for name in files:
