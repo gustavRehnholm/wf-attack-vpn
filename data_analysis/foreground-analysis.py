@@ -139,7 +139,7 @@ def get_pkt_sec(timestamps):
         labels.append(str(k) + "-" + str(k+1))
 
     d = {"pkt/sec" : pkt_sec, "interval" : labels}
-    df = dp.Dataframe(d)
+    df = pd.Dataframe(d)
     return df
 
 if __name__ == "__main__":
