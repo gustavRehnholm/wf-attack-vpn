@@ -49,7 +49,6 @@ def main():
     sys.exit()
     # store statistics gathered from the file
     pkt_sec = get_pkt_sec(results)
-    print(pkt_sec)
 
     plot_bar(description_text = "mean pkt/sec", x_txt = "time (s)", y_txt = "packets", stat = pkt_sec)
 
@@ -93,8 +92,8 @@ def parse_trace(fname, name):
             # parts: ["time(ns)", "direction", "size"]
             parts = line.strip().split(",")
             time = int(parts[0])
-            if (time > upper_limit):
-                timestamp.append(int(parts[0]))
+            if (time < upper_limit):
+                timestamp.append(time)
             else:
                 break
 
