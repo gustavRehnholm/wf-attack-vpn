@@ -46,6 +46,7 @@ def main():
 
     results = p.starmap(parse_trace, todo)
     pkt_sec = get_pkt_sec(results)
+    print(pkt_sec)
     plot_bar(description_text = "mean pkt/sec", x_txt = "time (s)", y_txt = "packets", stat = pkt_sec)
 
     print("Saved the result")
