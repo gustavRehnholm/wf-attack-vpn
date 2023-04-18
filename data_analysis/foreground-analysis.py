@@ -101,18 +101,18 @@ def get_pkt_sec(timestamps):
     '''
     returns list of mean number of packets per second interval (from 0 to 15 seconds)
     '''
-    upper     = []
-    lower     = []
+
     ns        = 1000000000
     intervals = 15
-
+    upper        = [0] * intervals
+    lower        = [0] * intervals
     pkt_interval = [0] * intervals
-    pkt_sec      = [0] * intervals
+    #pkt_sec      = [0] * intervals
     traces       = len(timestamps)
 
     for i in range(0,intervals):
-        lower.append(ns * i)
-        upper.append(ns * (i + 1))
+        lower[i] = ns * i
+        upper[i] = ns * (i + 1)
 
     # for every packet, in every trace, get which interval it resistent in
     for trace in timestamps:
@@ -129,14 +129,14 @@ def get_pkt_sec(timestamps):
                 print(packet)
                 sys.exit()
 
-    for j in pkt_interval:
-        pkt_sec.append(j / traces)
+    #for j in pkt_interval:
+    #    pkt_sec.append(j / traces)
 
     labels = []
-    for k in range(len(pkt_sec)):
-        labels.append(str(k) + "-" + str(k+1))
+    for k in range(len(pkt_interval)):
+        labels.append("[" + str(k) + "," + str(k+1) + "[")
 
-    d = {"pkt/sec" : pkt_sec, "interval" : labels}
+    d = {"pkt/sec" : pkt_interval, "interval" : labels}
     df = pd.DataFrame(d)
     return df
 
