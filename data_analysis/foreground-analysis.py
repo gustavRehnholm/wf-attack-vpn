@@ -42,7 +42,7 @@ def main():
     results = p.starmap(parse_trace, todo)
 
     # store statistics gathered from the file
-    pkt_sec = get_pkt_sec(results.get("timestamp"))
+    pkt_sec = get_pkt_sec(results)
 
     plot_bar(description_text = "mean pkt/sec", x_txt = "time (s)", y_txt = "packets", stat = pkt_sec)
 
@@ -90,9 +90,7 @@ def parse_trace(fname, name):
             parts = line.strip().split(",")
             timestamp.append(int(parts[0]))
 
-    return dict(success = True, 
-                timestamp = timestamp, 
-                fname = fname)
+    return timestamp
 
 
 def get_pkt_sec(timestamps):
