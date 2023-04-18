@@ -46,10 +46,10 @@ def main():
 
     input = []
     for file in todo:
-        input.append( (file[0], 20) )
+        input.append( (file[0], 30) )
 
     results = p.starmap(parse_trace, input)
-    pkt_sec = get_pkt_sec(results, 20)
+    pkt_sec = get_pkt_sec(results, 30)
     print(pkt_sec)
     plot_bar(description_text = "mean pkt/sec", x_txt = "time (s)", y_txt = "packets", stat = pkt_sec)
 
@@ -117,9 +117,6 @@ def get_pkt_sec(timestamps, interval):
     for i in range(0,intervals):
         lower[i] = ns * i
         upper[i] = ns * (i + 1)
-
-        print(lower)
-        print(upper)
 
     # for every packet, in every trace, get which interval it resistent in
     for trace in timestamps:
