@@ -4,6 +4,7 @@ import argparse
 import os
 from multiprocessing import Pool
 import numpy as np
+import pandas as pd
 import sys
 from collections import Counter
 import seaborn as sns
@@ -62,7 +63,7 @@ def plot_bar(description_text, x_txt, y_txt, stat):
     result_path = "fig/"
     file_name   = "foreground_stat"
 
-    sns.barplot(data=stat, x=x_txt, y=y_txt)
+    sns.barplot(data=stat)
 
     plt.title(description_text)
 
@@ -133,7 +134,13 @@ def get_pkt_sec(timestamps):
     for j in pkt_interval:
         pkt_sec.append(j / traces)
 
-    return pkt_sec
+    labels = []
+    for k in range(len(pkt_sec)):
+        labels.append(str(k) + "-" + str(k+1))
+
+    d = {"pkt/sec" : pkt_sec, "interval" : labels}
+    df = dp.Dataframe(d)
+    return df
 
 if __name__ == "__main__":
     main()
