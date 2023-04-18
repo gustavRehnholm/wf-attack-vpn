@@ -46,7 +46,7 @@ def main():
 
     input = []
     for file in todo:
-        input.append( (file, 20) )
+        input.append( (file[0], 20) )
 
     print(input)
     sys.exit()
