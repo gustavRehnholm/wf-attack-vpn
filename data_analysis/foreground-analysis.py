@@ -120,7 +120,7 @@ def get_pkt_sec(timestamps):
             # determine which interval it belongs to
             added_pkt = False
             for i in range(0,intervals):
-                if packet > lower[i] and packet < upper[i]:
+                if packet >= lower[i] and packet < upper[i]:
                     pkt_interval[i] += 1
                     added_pkt = True
                     break
