@@ -31,7 +31,7 @@ def main():
     # walk the dataset folder
     todo = []
     for root, dirs, files in os.walk(args["d"], topdown = False):
-        for dirs in dirnames:
+        for directories in dirs:
             for name in files:
                 if ".log" in name:
                     todo.append(
