@@ -126,6 +126,7 @@ def get_pkt_sec(timestamps):
                     break
             if not added_pkt:
                 print("ERROR: packet could not be found in a interval")
+                print(packet)
                 sys.exit()
 
     for j in pkt_interval:
