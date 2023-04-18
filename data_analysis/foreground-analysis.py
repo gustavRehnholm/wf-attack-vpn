@@ -44,8 +44,9 @@ def main():
     # store statistics gathered from the file
     pkt_sec = get_pkt_sec(results.get("timestamp"))
 
-
     plot_bar(description_text = "mean pkt/sec", x_txt = "time (s)", y_txt = "packets", stat = pkt_sec)
+
+    print("Saved the result")
 
 
 
@@ -114,12 +115,19 @@ def get_pkt_sec(timestamps):
     # for every packet, in every trace, get which interval it resistent in
     for trace in timestamps:
         for packet in trace:
+            # determine which interval it belongs to
+            added_pkt = False
             for i in range(0,intervals):
                 if packet > lower[i] and packet < upper[i]:
                     pkt_interval[i] += 1
+                    added_pkt = True
+                    break
+            if not added_pkt:
+                print("ERROR: packet could not be found in a interval")
+                sys.exit()
 
     for j in pkt_interval:
-        pkt_sec = j / traces
+        pkt_sec.append(j / traces)
 
     return pkt_sec
 
