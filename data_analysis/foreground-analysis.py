@@ -30,18 +30,20 @@ def main():
 
     # walk the dataset folder
     todo = []
-    for root, dirs, files in os.walk(args["d"], topdown = False):
-        for directories in dirs:
+    dirs = os.listdir(args["d"])
+
+    # for each webpage dir
+    for curr_dir in dirs:
+        # for all log files for each webpage
+        for root, dirs, files in os.walk(curr_dir, topdown = False):
             for name in files:
                 if ".log" in name:
-                    todo.append(
-                        (os.path.join(root, name), name)
-                    )
+                    todo.append((os.path.join(root, name), name))
 
     p = Pool(args["w"])
     print(todo)
     sys.exit()
-    
+
     results = p.starmap(parse_trace, todo)
 
     # store statistics gathered from the file
