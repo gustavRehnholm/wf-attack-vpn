@@ -48,9 +48,6 @@ def main():
     for file in todo:
         input.append( (file[0], 20) )
 
-    print(input)
-    sys.exit()
-
     results = p.starmap(parse_trace, input)
     pkt_sec = get_pkt_sec(results, 20)
     print(pkt_sec)
