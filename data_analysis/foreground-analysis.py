@@ -45,11 +45,7 @@ def main():
     p = Pool(args["w"])
 
     results = p.starmap(parse_trace, todo)
-    print(results)
-    sys.exit()
-    # store statistics gathered from the file
     pkt_sec = get_pkt_sec(results)
-
     plot_bar(description_text = "mean pkt/sec", x_txt = "time (s)", y_txt = "packets", stat = pkt_sec)
 
     print("Saved the result")
