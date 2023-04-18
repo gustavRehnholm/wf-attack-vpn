@@ -42,8 +42,6 @@ def main():
                     todo.append((os.path.join(root, name), name))
 
     p = Pool(args["w"])
-    print(todo)
-    sys.exit()
 
     results = p.starmap(parse_trace, todo)
 
