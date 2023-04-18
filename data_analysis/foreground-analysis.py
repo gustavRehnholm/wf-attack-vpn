@@ -118,15 +118,20 @@ def get_pkt_sec(timestamps, interval):
         lower[i] = ns * i
         upper[i] = ns * (i + 1)
 
+        print(lower)
+        print(upper)
+
     # for every packet, in every trace, get which interval it resistent in
     for trace in timestamps:
         for packet in trace:
             # determine which interval it belongs to
             added_pkt = False
             for i in range(0,intervals):
-                if packet >= lower[i] and packet < upper[i]:
-                    pkt_interval[i] += 1
-                    added_pkt = True
+                if not added_pkt:
+                    if packet >= lower[i] and packet < upper[i]:
+                        pkt_interval[i] += 1
+                        added_pkt = True
+                elif added_pkt:
                     break
             if not added_pkt:
                 print("ERROR: packet could not be found in a interval")
