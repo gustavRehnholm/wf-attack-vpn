@@ -33,9 +33,9 @@ def main():
     files = os.listdir(DIR_INPUT)
     #files.sort()
 
-    # Sort list of file names by size 
+    # Sort list of file names by size (only the 50 largest files)
     sorted_files = sorted(files, key =  lambda x: os.stat(os.path.join(DIR_INPUT, x)).st_size)
-    sorted_files = list(reversed(sorted_files))
+    sorted_files = list(reversed(sorted_files))[:50]
     files_len    = len(sorted_files)
 
     # create the file, that the final result will be stored in
@@ -59,10 +59,6 @@ def main():
         df_len.append(len(df.axes[0]))
 
         df.to_hdf(PATH_OUTPUT, mode = "r+", key = key, append = True) 
-
-        # to gather a subset
-        if index >= 50:
-            break
 
     print("Have merged all twitch traffic, store them now in " + PATH_OUTPUT)
 
