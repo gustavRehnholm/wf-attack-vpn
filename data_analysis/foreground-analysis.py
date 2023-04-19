@@ -45,8 +45,10 @@ def main():
     p = Pool(args["w"])
 
     input = []
-    for file in todo:
-        input.append( (file[0], 30) )
+    #for file in todo:
+    #    input.append( (file[0], 30) )
+
+    input = [("foreground_traffic/client/0/0000-0001-0047.log",30),("foreground_traffic/client/0/0000-0000-0014.log",30)]
 
     results = p.starmap(parse_trace, input)
     pkt_sec = get_pkt_sec(results, 30)
