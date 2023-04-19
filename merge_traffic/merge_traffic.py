@@ -47,7 +47,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     totalMergeFiles = len(mergedFiles)
     mergeFilesDone = 0
 
-    p = Pool(2)
+    p = Pool(1)
 
     input = []
     for j in range(len(mergedFiles)):
