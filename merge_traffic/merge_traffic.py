@@ -9,6 +9,7 @@ import random
 import pandas as pd
 import os
 import timeit
+from multiprocessing import Pool
 
 def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     '''
@@ -28,16 +29,10 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     PACKET_ATTR_INDEX_TIME = 0
     # to access the background data in the hdf5 file
     KEY = "df"
-    # index to access the values for the background packages
-    TIME_INDEX      = 0
-    DIRECTION_INDEX = 1
-    SIZE_INDEX      = 2 
-    # all lines in the open foreground file
-    foreground_lines = []
     # timestamp of the current background packets
     time_stamp = 0
     # the background traffic: use the tuple for performance
-    df               = pd.read_hdf(path_or_buf = background_path, key = KEY, start = start, stop = stop)
+    df = pd.read_hdf(path_or_buf = background_path, key = KEY, start = start, stop = stop)
     # list with indexes [0, background_nr_packets[
     background_tuple      = list(df.itertuples(index=False, name=None))
     background_nr_packets = len(background_tuple)
@@ -52,54 +47,74 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     totalMergeFiles = len(mergedFiles)
     mergeFilesDone = 0
 
-    while(len(foregroundFiles) > 0): 
+    p = Pool(10)
 
-            # if should open a new foreground file
-            if len(foreground_lines) <= 0:
-
-                # for testing
-                if added_foreground == False:
-                    print("The foreground file ", os.path.basename(foregroundFiles[0]), " was not injected with any foreground")
-                    return False
-
-                added_foreground = False
-                # reset the time stamp for the background packets
-                prev_time = 0
-                # get a new randomized stating position
-                df_index = random.randrange(0, background_nr_packets)
-
-                mergeFilesDone += 1
-                printProgressBar(progress = mergeFilesDone, progressLen = totalMergeFiles, prefix = 'Progress:', suffix = 'Complete')
-
-                # get the values (lines) of the new foreground file
-                currForegroundFile = open(foregroundFiles[0], 'r') 
-                foreground_lines = getStartForeground(currForegroundFile.readlines())
-                currForegroundFile.close()
-                foregroundFiles.pop(0)
-
-                # open the merged file, that the result will be stored to
-                currMergedFile = open(mergedFiles[0], 'a')
-                mergedFiles.pop(0)
-
-            foreground_time = int(foreground_lines[0].split(",")[PACKET_ATTR_INDEX_TIME])
-            # timestamp the current background packet is on
-            curr_time = prev_time + int(background_tuple[df_index][TIME_INDEX])
-
-            # add the packet that arrives first
-            if(curr_time < foreground_time):
-                currMergedFile.writelines([str(curr_time), ",", 
-                                           str(background_tuple[df_index][DIRECTION_INDEX]), ",", 
-                                           str(background_tuple[df_index][SIZE_INDEX]), "\n"])
-                added_foreground = True
-                prev_time = curr_time
-                df_index += 1
-                # if end of the background list, loop it from the start
-                if df_index >= background_nr_packets:
-                    df_index = 0
-            else:
-                currMergedFile.writelines(foreground_lines[0])
-                foreground_lines.pop(0)
+    input = []
+    for j in range(len(mergedFiles)):
+        input.append((mergedFiles[j], foregroundFiles[j], background_tuple))
         
+    results = p.starmap(inject, input)
+
+    if False in results:
+        print("ERROR: failed to inject")
+        return False
+    else:
+        return True
+
+def inject(mergedFile, foregroundFile, background_tuple):
+    '''
+    Inject all foreground packets, with background to the merged file
+    Input:
+        mergedFile: path to the file where the result will be stored (string)
+        foregroundFile: Path to the file where the foreground file is stored (string)
+        background_tuple: the background data as a tuple
+    Output:
+        Boolean if it succeeded or not in creating the merged file
+    '''
+    # index to access the values for the background packages
+    TIME_INDEX      = 0
+    DIRECTION_INDEX = 1
+    SIZE_INDEX      = 2 
+    # index for the foreground
+    PACKET_ATTR_INDEX_TIME = 0
+    # all lines in the open foreground file
+    foreground_lines = []
+    # reset the time stamp for the background packets
+    prev_time = 0
+
+    # get randomized stating position
+    df_index = random.randrange(0, background_nr_packets)
+
+    # get the values (lines) of the new foreground file
+    currForegroundFile = open(foregroundFile, 'r') 
+    foreground_lines = getStartForeground(currForegroundFile.readlines())
+    currForegroundFile.close()
+
+    # open the merged file, that the result will be stored to
+    currMergedFile = open(mergedFile, 'a')
+
+    foreground_time = int(foreground_lines[0].split(",")[PACKET_ATTR_INDEX_TIME])
+    # timestamp the current background packet is on
+    curr_time = prev_time + int(background_tuple[df_index][TIME_INDEX])
+
+    # inject until all foreground is injected
+    while(len(foreground_lines) > 0): 
+        # add the packet that arrives first
+        if(curr_time < foreground_time):
+            currMergedFile.writelines([str(curr_time), ",", 
+                                    str(background_tuple[df_index][DIRECTION_INDEX]), ",", 
+                                    str(background_tuple[df_index][SIZE_INDEX]), "\n"])
+            prev_time = curr_time
+            df_index += 1
+            # if end of the background list, loop it from the start
+            if df_index >= background_nr_packets:
+                df_index = 0
+            curr_time = prev_time + int(background_tuple[df_index][TIME_INDEX])
+        else:
+            currMergedFile.writelines(foreground_lines[0])
+            foreground_lines.pop(0)
+            foreground_time = int(foreground_lines[0].split(",")[PACKET_ATTR_INDEX_TIME])
+    
     return True
 
 
