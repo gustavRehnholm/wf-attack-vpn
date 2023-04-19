@@ -73,7 +73,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
 
                 # get the values (lines) of the new foreground file
                 currForegroundFile = open(foregroundFiles[0], 'r') 
-                foreground_lines   = currForegroundFile.readlines()
+                foreground_lines = getStartForeground(currForegroundFile.readlines())
                 currForegroundFile.close()
                 foregroundFiles.pop(0)
 
@@ -103,10 +103,32 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     return True
 
 
+def getStartForeground(foreground_pkts):
+    '''
+    removes the start delay of the foreground file
+    Args:
+        foreground_pkts - Required : all foregorund packets (List)
+    Return:
+        Foreground packets without the delayed start (List)
+    '''
+    NS_PER_SEC = 1000000000
+
+    while(len(foreground_pkts) > 0):
+        foreground_time_0 = int(foreground_lines[0].split(",")[PACKET_ATTR_INDEX_TIME])
+        foreground_time_4 = int(foreground_lines[4].split(",")[PACKET_ATTR_INDEX_TIME])
+        if (foreground_time_4 - foreground_time_0) < NS_PER_SEC:
+            return foreground_pkts
+        else:
+            foreground_pkts.pop(0)
+
+    print("Have removed all packets from the foreground")
+    sys.exit()
+    return []
+
 def printProgressBar (progress, progressLen, prefix = '', suffix = '', barLen = 50, fill = '█'):
     """
     Call in a loop to create terminal progress bar
-    args:
+    Args:
         progress    - Required  : current progress          (Int)
         progressLen - Required  : total iterations          (Int)
         prefix      - Optional  : prefix string             (Str)
