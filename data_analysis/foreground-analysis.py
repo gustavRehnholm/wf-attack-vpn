@@ -45,16 +45,17 @@ def main():
 
     p = Pool(args["w"])
 
-    intervalls = 46
+    intervalls = 20
 
     input = []
-    #for file in todo:
-    #    input.append( (file[0], 30) )
+    for file in todo:
+        input.append( (file[0], intervalls) )
 
-    input = [("foreground_traffic/client/0/0000-0001-0047.log",intervalls)]
+    # to test with one packet
+    #input = [("foreground_traffic/client/0/0000-0001-0047.log",intervalls)]
 
-    results = p.starmap(parse_trace, input)
-    pkt_sec = get_pkt_sec(results, intervalls)
+    list_of_traces = p.starmap(parse_trace, input)
+    pkt_sec = get_pkt_sec(list_of_traces, intervalls)
     print(pkt_sec)
     plot_bar(description_text = "mean pkt/sec", x_txt = "time (s)", y_txt = "packets", stat = pkt_sec)
 
@@ -106,7 +107,7 @@ def parse_trace(fname, interval):
     return timestamp
 
 
-def get_pkt_sec(timestamps, interval):
+def get_pkt_sec(list_of_traces, interval):
     '''
     returns list of mean number of packets per second interval (from 0 to 15 seconds)
     '''
@@ -117,14 +118,14 @@ def get_pkt_sec(timestamps, interval):
     lower        = [0] * intervals
     pkt_interval = [0] * intervals
     #pkt_sec      = [0] * intervals
-    traces       = len(timestamps)
+    len_traces    = len(list_of_traces)
 
     for i in range(0,intervals):
         lower[i] = ns * i
         upper[i] = ns * (i + 1)
 
     # for every packet, in every trace, get which interval it resistent in
-    for trace in timestamps:
+    for trace in list_of_traces:
         for packet in trace:
             # determine which interval it belongs to
             added_pkt = False
@@ -140,8 +141,8 @@ def get_pkt_sec(timestamps, interval):
                 print(packet)
                 sys.exit()
 
-    #for j in pkt_interval:
-    #    pkt_sec.append(j / traces)
+    for j in pkt_interval:
+        pkt_sec.append(j / len_traces)
 
     labels = []
     for k in range(len(pkt_interval)):
