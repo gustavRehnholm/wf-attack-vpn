@@ -115,7 +115,11 @@ def inject(mergedFile, foregroundFile, background_tuple):
         else:
             currMergedFile.writelines(foreground_lines[0])
             foreground_lines.pop(0)
-            foreground_time = int(foreground_lines[0].split(",")[PACKET_ATTR_INDEX_TIME])
+            # end program if end of foreground lines
+            if len(foreground_lines) > 0:
+                foreground_time = int(foreground_lines[0].split(",")[PACKET_ATTR_INDEX_TIME])
+            else:
+                return True
     
     return True
 
