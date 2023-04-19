@@ -52,7 +52,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     input = []
     for j in range(len(mergedFiles)):
         input.append((mergedFiles[j], foregroundFiles[j], background_tuple))
-        
+
     results = p.starmap(inject, input)
 
     if False in results:
@@ -68,9 +68,11 @@ def inject(mergedFile, foregroundFile, background_tuple):
         mergedFile: path to the file where the result will be stored (string)
         foregroundFile: Path to the file where the foreground file is stored (string)
         background_tuple: the background data as a tuple
+        background_nr_packets: 
     Output:
         Boolean if it succeeded or not in creating the merged file
     '''
+    background_nr_packets = len(background_tuple)
     # index to access the values for the background packages
     TIME_INDEX      = 0
     DIRECTION_INDEX = 1
