@@ -44,17 +44,17 @@ def main():
 
     p = Pool(args["w"])
 
-    intervalls = 20
+    intervals = 20
 
     input = []
     for file in todo:
-        input.append( (file[0], intervalls) )
+        input.append( (file[0], intervals) )
 
     # to test with one packet
-    #input = [("foreground_traffic/client/0/0000-0001-0047.log",intervalls)]
+    #input = [("foreground_traffic/client/0/0000-0001-0047.log",intervals)]
 
     list_of_traces = p.starmap(parse_trace, input)
-    pkt_sec = get_pkt_sec(list_of_traces, intervalls)
+    pkt_sec = get_pkt_sec(list_of_traces, intervals)
     print(pkt_sec)
     plot_bar(description_text = "mean pkt/sec", x_txt = "time (s)", y_txt = "packets", stat = pkt_sec)
 
@@ -70,7 +70,7 @@ def plot_bar(description_text, x_txt, y_txt, stat):
     result_path = "fig/"
     file_name   = "foreground_stat"
 
-    sns.barplot(data=stat)
+    sns.pointplot(data=stat, x =x_txt, y=y_txt)
 
     plt.title(description_text)
 
@@ -120,6 +120,8 @@ def get_pkt_sec(list_of_traces, interval):
     labels       = [""] * intervals 
     len_traces    = len(list_of_traces)
 
+    print(f"Number of log files: {len_traces}")
+
     for i in range(0,intervals):
         lower[i] = ns * i
         upper[i] = ns * (i + 1)
@@ -148,7 +150,7 @@ def get_pkt_sec(list_of_traces, interval):
     for k in range(len(pkt_sec)):
         labels[k] = ("[" + str(k) + "," + str(k+1) + "[")
 
-    d = {"pkt/sec" : pkt_sec, "interval" : labels}
+    d = {"pkt/sec" : pkt_sec, "interval (sec)" : labels}
     df = pd.DataFrame(d)
     return df
 
