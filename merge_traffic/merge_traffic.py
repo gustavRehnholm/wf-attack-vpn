@@ -112,6 +112,7 @@ def getStartForeground(foreground_pkts):
         Foreground packets without the delayed start (List)
     '''
     NS_PER_SEC = 1000000000
+    PACKET_ATTR_INDEX_TIME = 0
 
     while(len(foreground_pkts) > 0):
         foreground_time_0 = int(foreground_pkts[0].split(",")[PACKET_ATTR_INDEX_TIME])
@@ -121,7 +122,7 @@ def getStartForeground(foreground_pkts):
         else:
             foreground_pkts.pop(0)
 
-    print("Have removed all packets from the foreground")
+    print("ERROR: have removed all packets from the foreground")
     sys.exit()
     return []
 
