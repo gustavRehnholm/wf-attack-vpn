@@ -4,6 +4,11 @@ import pandas as pd
 import shutil
 import os
 from multiprocessing import Pool
+import timeit
+
+'''
+TODO: progressbar
+'''
 
 BROKEN_FILES = [
     "tshark_1.9h_twitch-chess_stream_2022-12-26.h5",
@@ -56,8 +61,13 @@ def main():
     for currFile in os.listdir(DIR_INPUT):
         input.append((currFile, DIR_INPUT, DIR_OUTPUT))
 
+    start_time = timeit.default_timer()
     p = Pool(10)
     p.starmap(rm_if_broken, input)
+    end_time = timeit.default_timer()
+    print(f"runtime for converting the data (sec): {end_time - start_time}")
+
+    return
 
 
 def rm_if_broken(file, dir_input, dir_output):
