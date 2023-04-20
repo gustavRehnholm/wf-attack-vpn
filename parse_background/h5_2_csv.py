@@ -4,7 +4,7 @@
 Convert the data in h5 format to csv, to check for any problems in the converting steps
 Only necessary to run for bug hunting
 
-python wf-attack-vpn/Parse_noise/h5_2_csv.py <dir with h5 files>
+python wf-attack-vpn/parse_background/h5_2_csv.py background_traffic/twitch_1_first.h5
 '''
 
 import pandas as pd
@@ -28,7 +28,8 @@ def main():
     os.system("rm -f -r " + DIR_OUTPUT)
     os.system("mkdir " + DIR_OUTPUT)
 
-    files = os.listdir(DIR_INPUT)
+    #files = os.listdir(DIR_INPUT)
+    files = ["background_traffic/twitch_1_first.h5"]
     len_files = len(files)
 
     # for every h5 file, create a csv file
