@@ -6,7 +6,9 @@ import sys
 from multiprocessing import Pool
 import timeit
 
-
+'''
+TODO: progressbar
+'''
 
 def main():
     '''
@@ -38,6 +40,7 @@ def main():
 
     end_time = timeit.default_timer()
     print(f"runtime for converting the data: {end_time - start_time}")
+    return
 
 
 def convert_2_hdf5(dir_input, dir_output, file, col_names):
