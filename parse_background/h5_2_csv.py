@@ -50,7 +50,7 @@ def main():
         df.to_csv(csv_file_name, index = True)
     '''
     path = "background_traffic/twitch_1_first.h5"
-    df = pd.read_hdf(path, key=key)
+    df = pd.read_hdf(path, key="df")
 
     csv_file_name = "captures_csv/twitch_1_first.csv"
     df.to_csv(csv_file_name, index = True)
