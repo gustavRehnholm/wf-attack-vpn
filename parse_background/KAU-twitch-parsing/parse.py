@@ -19,6 +19,8 @@ time_index            = 1
 sender_receiver_index = 2
 size_index            = 3
 
+df_columns = ['time', 'direction', 'size']
+
 def main():
     '''
     Parse the twitch noise, which is converted to dataframes in the h5 format
@@ -43,11 +45,11 @@ def main():
     # the capture files that will be parsed
     input_files = os.listdir(DIR_INPUT)
     input_files.sort()
-    columns = ['time', 'direction', 'size']
+    
 
     input = []
     for curr_file in input_files:
-        input.append((curr_file, columns))
+        input.append((curr_file, ipHost))
 
     start_time = timeit.default_timer()
     p = Pool(10)
@@ -61,11 +63,11 @@ def main():
     return
 
 
-def parse_file(file, dfcolumns):
+def parse_file(file, ipHost):
     # should start at 0 for each file
     prev_time = 0
     # to store the parsed file
-    df_parsed = pd.DataFrame(columns = dfcolumns)
+    df_parsed = pd.DataFrame(columns = df_columns)
     # Dictionary to append the results for each row for a file
     dictionary_parsed = {
         'time': [],
