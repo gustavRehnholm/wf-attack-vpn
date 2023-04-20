@@ -11,14 +11,14 @@ python wf-attack-vpn/plotter/plot_all.py twitch_old_20  wf-result/twitch_old/old
 python wf-attack-vpn/plotter/plot_all.py twitch_old_100 wf-result/twitch_old/old_twitch_100 fig/twitch_old
 
 # rnd, sample 100
-python wf-attack-vpn/plotter/plot_all.py twitch_rnd_100_100h wf-result/twitch_rnd_100/twitch_rnd_100h         fig/twitch_rnd
-python wf-attack-vpn/plotter/plot_all.py twitch_rnd_100_2h   wf-result/twitch_rnd_100/twitch_div_rnd_first_2h fig/twitch_rnd
-python wf-attack-vpn/plotter/plot_all.py twitch_rnd_100_2h   wf-result/twitch_rnd_100/twitch_div_rnd_last_2h  fig/twitch_rnd
+#python wf-attack-vpn/plotter/plot_all.py twitch_rnd_100_100h wf-result/twitch_rnd_100/twitch_rnd_100h         fig/twitch_rnd
+#python wf-attack-vpn/plotter/plot_all.py twitch_rnd_100_2h   wf-result/twitch_rnd_100/twitch_div_rnd_first_2h fig/twitch_rnd
+#python wf-attack-vpn/plotter/plot_all.py twitch_rnd_100_2h   wf-result/twitch_rnd_100/twitch_div_rnd_last_2h  fig/twitch_rnd
 
 # Divided, randomized, sample 100
-python wf-attack-vpn/plotter/plot_all.py twitch_div_rnd_100_100h wf-result/twitch_div_rnd_100/twitch_div_rnd_100h      fig/twitch_div_rnd
-python wf-attack-vpn/plotter/plot_all.py twitch_div_rnd_100_2h   wf-result/twitch_div_rnd_100/twitch_div_rnd_first_2h  fig/twitch_div_rnd
-python wf-attack-vpn/plotter/plot_all.py twitch_div_rnd_100_2h   wf-result/twitch_div_rnd_100/twitch_div_rnd_last_2h   fig/twitch_div_rnd
+python wf-attack-vpn/plotter/plot_all.py twitch_div_rnd_100h     wf-result/twitch_div_rnd_100/twitch_div_rnd_100h      fig/twitch_div_rnd
+python wf-attack-vpn/plotter/plot_all.py twitch_div_rnd_first_2h wf-result/twitch_div_rnd_100/twitch_div_rnd_first_2h  fig/twitch_div_rnd
+python wf-attack-vpn/plotter/plot_all.py twitch_div_rnd_last_2h  wf-result/twitch_div_rnd_100/twitch_div_rnd_last_2h   fig/twitch_div_rnd
 
 # cp files for the comparison
 
