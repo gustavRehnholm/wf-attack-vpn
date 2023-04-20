@@ -60,7 +60,7 @@ def main():
     start_time = timeit.default_timer()
     p = Pool(10)
 
-    for i, _ in enumerate(p.imap_unordered(parse_file, xrange(input)), 1):
+    for i, _ in enumerate(p.imap_unordered(parse_file, range(input)), 1):
         sys.stderr.write('\rdone {0:%}'.format(i/input))
         #printProgressBar(progress = )
 
