@@ -48,17 +48,19 @@ def main():
     # the usable captures
     DIR_OUTPUT = "twitch/usable_captures_h5/"
 
-    COL_NAMES =  ['time', 'sender', 'receiver', 'size']
-
     # clean the previous result
     os.system("rm -f -r " + DIR_OUTPUT)
     os.system("mkdir " + DIR_OUTPUT)
 
+    input = []
+    for currFile in os.listdir(DIR_INPUT):
+        input.append((currFile, DIR_INPUT, DIR_OUTPUT))
+
     p = Pool(10)
-    p.starmap(rm_if_broken, os.listdir(DIR_INPUT))
+    p.starmap(rm_if_broken, input)
 
 
-def rm_if_broken(file):
+def rm_if_broken(file, dir_input, dir_output):
 
     filename = os.fsdecode(file)
 
@@ -70,10 +72,10 @@ def rm_if_broken(file):
         print("Removing file: " + filename)
     else:
         print("Keeping file: " + filename)
-        src = DIR_INPUT + filename
-        dst = DIR_OUTPUT + filename
+        src = dir_input + filename
+        dst = dir_output + filename
         shutil.copyfile(src, dst)
-        
+
     return
 
 # run main 
