@@ -27,18 +27,17 @@ def main():
     os.system("rm -f -r " + DIR_RESULT)
     os.system("mkdir " + DIR_RESULT)
 
-    '''
+    
     input = [
         (DIR_MERGED, SAMPLE, ""          , DIR_RESULT, "default"),
         (DIR_MERGED, SAMPLE, "--constant", DIR_RESULT, "constant"),
         (DIR_MERGED, SAMPLE, "--tiktok"  , DIR_RESULT, "tiktok")
     ]
-    
-    p = Pool(3)
+    start_time = timeit.default_timer()
+    p = Pool(1)
     p.starmap(df_attack, input)
 
     '''
-    start_time = timeit.default_timer()
     # default wf attack
     os.system("./df-fitness.py -d " + DIR_MERGED + " --train -s "+ SAMPLE +" --csv " + DIR_RESULT + "/default.csv")
 
@@ -47,7 +46,7 @@ def main():
 
     # tiktok wf attack
     os.system("./df-fitness.py -d " + DIR_MERGED + " --train -s "+ SAMPLE +" --tiktok --csv " + DIR_RESULT + "/tiktok.csv")
-    
+    '''
     end_time = timeit.default_timer()
     print(f"runtime for this merged dataset: {end_time - start_time}")
     return
