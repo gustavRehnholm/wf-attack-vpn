@@ -4,6 +4,7 @@ import pandas as pd
 import os
 import sys
 from multiprocessing import Pool
+import timeit
 
 COL_NAMES =  ['time', 'sender_receiver', 'size']
 # parsed noise files
@@ -27,8 +28,16 @@ def main():
     files = os.listdir(DIR_INPUT)
     len_files = len(files)
 
+    print(files)
+    return
+
+    start_time = timeit.default_timer()
     p = Pool(10)
     p.starmap(convert_2_hdf5, files)
+
+    end_time = timeit.default_timer()
+    print(f"runtime for converting the data: {end_time - start_time}")
+
 
 def convert_2_hdf5(file):
     filename = os.fsdecode(file)
@@ -43,6 +52,8 @@ def convert_2_hdf5(file):
 
     df_file_name = DIR_OUTPUT + filename.rsplit('.', 1)[0] + '.h5'
     df.to_hdf(df_file_name, mode = "w", key = KEY)
+
+    return
 
 # run main 
 if __name__=="__main__":
