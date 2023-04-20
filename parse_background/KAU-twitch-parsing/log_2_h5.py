@@ -5,6 +5,13 @@ import os
 import sys
 from multiprocessing import Pool
 
+COL_NAMES =  ['time', 'sender_receiver', 'size']
+# parsed noise files
+DIR_INPUT = "captures/"
+# the captures in h5 format
+DIR_OUTPUT = "twitch/raw_captures_h5/"
+KEY = "df"
+
 def main():
     '''
     Convert the raw log files to dataframes, and store them with h5
@@ -31,18 +38,11 @@ def convert_2_hdf5(file):
         print("Aborting the program")
         sys.exit()
 
-    COL_NAMES =  ['time', 'sender_receiver', 'size']
-    # parsed noise files
-    DIR_INPUT = "captures/"
-    # the captures in h5 format
-    DIR_OUTPUT = "twitch/raw_captures_h5/"
-    key = "df"
-
     path = DIR_INPUT + filename
     df = pd.read_csv(path, names = COL_NAMES, delim_whitespace = True)
 
     df_file_name = DIR_OUTPUT + filename.rsplit('.', 1)[0] + '.h5'
-    df.to_hdf(df_file_name, mode = "w", key = key)
+    df.to_hdf(df_file_name, mode = "w", key = KEY)
 
 # run main 
 if __name__=="__main__":
