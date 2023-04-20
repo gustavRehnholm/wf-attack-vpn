@@ -22,11 +22,15 @@ NANO_SEC_PER_SEC = 1000000000
 HEADER = 40
 # for storing the result as h5
 KEY = "df"
-time_index            = 1
-sender_receiver_index = 2
-size_index            = 3
+TIME_INDEX            = 1
+SENDER_RECEIVER_INDEX = 2
+SIZE_INDEX            = 3
 
-df_columns = ['time', 'direction', 'size']
+DF_COLUMNS = ['time', 'direction', 'size']
+
+# global variables for the progress bar
+progress = 0
+progressLen = 0
 
 def main():
     '''
@@ -57,14 +61,12 @@ def main():
     for curr_file in input_files:
         input.append((curr_file, ipHost))
 
+    progressLen = len(input)
+
     start_time = timeit.default_timer()
     p = Pool(10)
 
-    for i, _ in enumerate(p.imap_unordered(parse_file, range(input)), 1):
-        sys.stderr.write('\rdone {0:%}'.format(i/input))
-        #printProgressBar(progress = )
-
-    #p.starmap(parse_file, input)
+    p.starmap(parse_file, input)
 
     end_time = timeit.default_timer()
     print(f"runtime for parsing (sec): {end_time - start_time}")
@@ -78,7 +80,7 @@ def parse_file(file, ipHost):
     # should start at 0 for each file
     prev_time = 0
     # to store the parsed file
-    df_parsed = pd.DataFrame(columns = df_columns)
+    df_parsed = pd.DataFrame(columns = DF_COLUMNS)
     # Dictionary to append the results for each row for a file
     dictionary_parsed = {
         'time': [],
@@ -100,12 +102,12 @@ def parse_file(file, ipHost):
         broken = False
 
         # convert from timestamp in sec, to duration form last packet in ns
-        if not row[time_index]:
+        if not row[TIME_INDEX]:
             broken = True
             continue
         else:
             # get the duration (in ns) between this packet, and the one before it
-            parsed_time_float_sec = row[time_index] - prev_time
+            parsed_time_float_sec = row[TIME_INDEX] - prev_time
             parsed_time_float_ns  = parsed_time_float_sec * NANO_SEC_PER_SEC
             parsed_time           = round(parsed_time_float_ns)
 
@@ -116,7 +118,7 @@ def parse_file(file, ipHost):
             elif parsed_time == 0:
                 parsed_time = 1
 
-        sender_receiver = str(row[sender_receiver_index]).split(",")
+        sender_receiver = str(row[SENDER_RECEIVER_INDEX]).split(",")
         # if no or only one IP address, skip this packet
         if len(sender_receiver) < 2:
             broken = True
@@ -144,7 +146,7 @@ def parse_file(file, ipHost):
 
         # get size
         try:
-            parsed_size = int(row[size_index]) - HEADER
+            parsed_size = int(row[SIZE_INDEX]) - HEADER
         except:
             broken = True
             continue
@@ -159,13 +161,16 @@ def parse_file(file, ipHost):
             dictionary_parsed['size'].append(parsed_size)
 
             # update time for the packet before (in sec as float)
-            prev_time = row[time_index]
+            prev_time = row[TIME_INDEX]
 
     # have parsed the whole file, store the result
     df_parsed = pd.DataFrame(dictionary_parsed)
 
     df_file_name = DIR_OUTPUT + filename.rsplit('.', 1)[0] + '.h5'
     df_parsed.to_hdf(df_file_name, mode = "w", key = KEY) 
+
+    progress += 1
+    printProgressBar(progress = progress, progressLen = progressLen)
 
     return
 
