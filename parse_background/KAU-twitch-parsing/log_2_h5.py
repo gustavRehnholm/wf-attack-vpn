@@ -29,7 +29,7 @@ def main():
     input = []
     files = os.listdir(DIR_INPUT)
     for curr_file in files:
-        input.append((DIR_INPUT, curr_file, DIR_OUTPUT, COL_NAMES))
+        input.append((DIR_INPUT, DIR_OUTPUT, curr_file, COL_NAMES))
     len_files = len(input)
 
     start_time = timeit.default_timer()
