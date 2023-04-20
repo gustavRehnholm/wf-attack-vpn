@@ -29,8 +29,8 @@ SIZE_INDEX            = 3
 DF_COLUMNS = ['time', 'direction', 'size']
 
 # global variables for the progress bar
-progress = 0
-progressLen = 0
+global progress
+global progressLen
 
 def main():
     '''
@@ -61,6 +61,9 @@ def main():
     for curr_file in input_files:
         input.append((curr_file, ipHost))
 
+    global progress
+    progress = 0
+    global progressLen
     progressLen = len(input)
 
     start_time = timeit.default_timer()
@@ -169,7 +172,9 @@ def parse_file(file, ipHost):
     df_file_name = DIR_OUTPUT + filename.rsplit('.', 1)[0] + '.h5'
     df_parsed.to_hdf(df_file_name, mode = "w", key = KEY) 
 
+    global progress
     progress += 1
+    global progressLen
     printProgressBar(progress = progress, progressLen = progressLen)
 
     return
