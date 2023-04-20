@@ -41,7 +41,8 @@ def main():
         print("converting file " + str(index) + "/" + str(len_files) + ": " + str(filename))
         print("")
 
-        path = DIR_INPUT + filename
+        #path = DIR_INPUT + filename
+        path = file
         df = pd.read_hdf(path, key=key)
 
         csv_file_name = DIR_OUTPUT + filename.rsplit('.', 1)[0] + '.csv'
