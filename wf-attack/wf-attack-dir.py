@@ -48,9 +48,8 @@ def main():
     return
 
 def df_attack(dir_merged, sample, mode, dir_result, name):
-    txt = f"./df-fitness.py -d {dir_merged} --train -s {sample} {mode} --csv {dir_result} /{name}.csv"
-    print(txt)
-    #os.system(txt)
+    txt = f"./df-fitness.py -d {dir_merged} --train -s {sample} {mode} --csv {dir_result}/{name}.csv"
+    os.system(txt)
 
 if __name__=="__main__":
     main()
