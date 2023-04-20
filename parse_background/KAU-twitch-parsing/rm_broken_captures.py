@@ -64,18 +64,17 @@ def rm_if_broken(file):
 
     if filename in BROKEN_FILES:
         print("Removing file: " + filename)
-        continue
     elif filename in FILES_2_CLIENTS:
         print("Removing file: " + filename)
-        continue
     elif filename in BAD_FILES:
         print("Removing file: " + filename)
-        continue
     else:
         print("Keeping file: " + filename)
         src = DIR_INPUT + filename
         dst = DIR_OUTPUT + filename
         shutil.copyfile(src, dst)
+        
+    return
 
 # run main 
 if __name__=="__main__":
