@@ -6,7 +6,7 @@ from multiprocessing import Pool
 import timeit
 import tqdm
 
-from help_functions import printProgressBar
+from printProgressBar import printProgressBar
 
 '''
 TODO: progressbar
