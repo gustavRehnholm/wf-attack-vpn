@@ -12,6 +12,7 @@ python wf-attack-vpn/wf-attack/wf-attack-dir.py
 
 import os
 import sys
+from multiprocessing import Pool
 
 def main():
 
@@ -25,6 +26,16 @@ def main():
     os.system("rm -f -r " + DIR_RESULT)
     os.system("mkdir " + DIR_RESULT)
 
+    input = [
+        (DIR_MERGED, SAMPLE, ""          , DIR_RESULT, "default"),
+        (DIR_MERGED, SAMPLE, "--constant", DIR_RESULT, "constant"),
+        (DIR_MERGED, SAMPLE, "--tiktok"  , DIR_RESULT, "tiktok")
+    ]
+
+    p = Pool(3)
+    p.starmap(df_attack, input)
+
+    '''
     # default wf attack
     os.system("./df-fitness.py -d " + DIR_MERGED + " --train -s "+ SAMPLE +" --csv " + DIR_RESULT + "/default.csv")
 
@@ -33,8 +44,12 @@ def main():
 
     # tiktok wf attack
     os.system("./df-fitness.py -d " + DIR_MERGED + " --train -s "+ SAMPLE +" --tiktok --csv " + DIR_RESULT + "/tiktok.csv")
-
+    '''
     return
+
+def df_attack(dir_merged, sample, mode, dir_result, name):
+    txt = f"./df-fitness.py -d {dir_merged} --train -s {sample} {mode} --csv {dir_result} /{name}.csv"
+    os.system(txt)
 
 if __name__=="__main__":
     main()
