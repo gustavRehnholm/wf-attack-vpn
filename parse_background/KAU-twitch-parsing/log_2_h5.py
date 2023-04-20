@@ -33,7 +33,7 @@ def main():
     len_files = len(input)
 
     start_time = timeit.default_timer()
-    p = Pool(1)
+    p = Pool(10)
     p.starmap(convert_2_hdf5, input)
 
     end_time = timeit.default_timer()
