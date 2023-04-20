@@ -25,12 +25,15 @@ def main():
     os.system("rm -f -r " + DIR_OUTPUT)
     os.system("mkdir " + DIR_OUTPUT)
 
+    input = []
     files = os.listdir(DIR_INPUT)
-    len_files = len(files)
+    for curr_file in files:
+        input.append((curr_file))
+    len_files = len(input)
 
     start_time = timeit.default_timer()
     p = Pool(10)
-    p.starmap(convert_2_hdf5, iter(files))
+    p.starmap(convert_2_hdf5, input)
 
     end_time = timeit.default_timer()
     print(f"runtime for converting the data: {end_time - start_time}")
