@@ -28,12 +28,9 @@ def main():
     files = os.listdir(DIR_INPUT)
     len_files = len(files)
 
-    print(files)
-    return
-
     start_time = timeit.default_timer()
     p = Pool(10)
-    p.starmap(convert_2_hdf5, files)
+    p.starmap(convert_2_hdf5, iter(files))
 
     end_time = timeit.default_timer()
     print(f"runtime for converting the data: {end_time - start_time}")
