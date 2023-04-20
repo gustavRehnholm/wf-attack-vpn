@@ -14,6 +14,7 @@ import sys
 def main():
     print("Start generating csv file")
 
+    '''
     # the files to create csv files of
     DIR_INPUT = sys.argv[1]
     # the csv files 
@@ -47,7 +48,12 @@ def main():
 
         csv_file_name = DIR_OUTPUT + filename.rsplit('.', 1)[0] + '.csv'
         df.to_csv(csv_file_name, index = True)
+    '''
+    path = "background_traffic/twitch_1_first.h5"
+    df = pd.read_hdf(path, key=key)
 
+    csv_file_name = "captures_csv/twitch_1_first.csv"
+    df.to_csv(csv_file_name, index = True)
 
 # run main 
 if __name__=="__main__":
