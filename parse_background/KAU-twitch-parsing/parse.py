@@ -172,9 +172,9 @@ def parse_file(file, ipHost):
     df_file_name = DIR_OUTPUT + filename.rsplit('.', 1)[0] + '.h5'
     df_parsed.to_hdf(df_file_name, mode = "w", key = KEY) 
 
+    global progressLen
     global progress
     progress += 1
-    global progressLen
     printProgressBar(progress = progress, progressLen = progressLen)
 
     return
