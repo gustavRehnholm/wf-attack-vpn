@@ -47,9 +47,7 @@ def main():
     merged_df = pd.DataFrame(columns = COL_NAMES)
     merged_df.to_hdf(PATH_OUTPUT, mode = "w", key = key, format = 'table') 
 
-    #df_len = []
-
-    sorted_files.reverse()
+    #sorted_files.reverse()
 
     for file in sorted_files:
         index += 1
@@ -59,12 +57,17 @@ def main():
         print("merging file " + str(index) + "/" + str(files_len) + ": " + str(filename))
         print("")
 
+        path = DIR_INPUT + filename
+        df = pd.read_hdf(path, key=key)
+        df.to_hdf(PATH_OUTPUT, mode = "r+", key = key, append = True) 
+
+        '''
         if index == 1:
             path = DIR_INPUT + filename
             df = pd.read_hdf(path, key=key)
-            #df_len.append(len(df.axes[0]))
             df.to_hdf(PATH_OUTPUT, mode = "r+", key = key, append = True) 
             return
+        '''
 
     print("Have merged all twitch traffic, store them now in " + PATH_OUTPUT)
 
