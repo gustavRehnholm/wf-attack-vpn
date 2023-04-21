@@ -3,12 +3,12 @@
 # ./wf-attack-vpn/plotter/plot.sh
 
 # undefended plot
-python wf-attack-vpn/plotter/plot_all.py twitch_undef_100 wf-result/undef_100/10-fold fig/undef
+python wf-attack-vpn/plotter/plot_all.py --title twitch_undef_100 --input wf-result/undef_100/10-fold --output fig/undef
 
 # replicated twitch dataset
-python wf-attack-vpn/plotter/plot_all.py twitch_old_og  wf-result/twitch_old/old_twitch_og  fig/twitch_old
-python wf-attack-vpn/plotter/plot_all.py twitch_old_20  wf-result/twitch_old/old_twitch_20  fig/twitch_old
-python wf-attack-vpn/plotter/plot_all.py twitch_old_100 wf-result/twitch_old/old_twitch_100 fig/twitch_old
+python wf-attack-vpn/plotter/plot_all.py --title twitch_old_og  --input wf-result/twitch_old/old_twitch_og  --output fig/twitch_old
+python wf-attack-vpn/plotter/plot_all.py --title twitch_old_20  --input wf-result/twitch_old/old_twitch_20  --output fig/twitch_old
+python wf-attack-vpn/plotter/plot_all.py --title twitch_old_100 --input wf-result/twitch_old/old_twitch_100 --output fig/twitch_old
 
 # rnd, sample 100
 #python wf-attack-vpn/plotter/plot_all.py twitch_rnd_100_100h wf-result/twitch_rnd_100/twitch_rnd_100h         fig/twitch_rnd
@@ -16,10 +16,10 @@ python wf-attack-vpn/plotter/plot_all.py twitch_old_100 wf-result/twitch_old/old
 #python wf-attack-vpn/plotter/plot_all.py twitch_rnd_100_2h   wf-result/twitch_rnd_100/twitch_div_rnd_last_2h  fig/twitch_rnd
 
 # Divided, randomized, sample 100 (the largest part of the Twitch dataset)
-python wf-attack-vpn/plotter/plot_all.py twitch_div_rnd_100h       wf-result/twitch_div_rnd/twitch_div_rnd_100h      fig/twitch_div_rnd
-python wf-attack-vpn/plotter/plot_all.py twitch_div_rnd_first_2h   wf-result/twitch_div_rnd/twitch_div_rnd_first_2h  fig/twitch_div_rnd
-python wf-attack-vpn/plotter/plot_all.py twitch_div_rnd_last_2h    wf-result/twitch_div_rnd/twitch_div_rnd_last_2h   fig/twitch_div_rnd
-python wf-attack-vpn/plotter/plot_all.py twitch_div_rnd_middle_2h  wf-result/twitch_div_rnd/twitch_div_rnd_middle_2h fig/twitch_div_rnd
+python wf-attack-vpn/plotter/plot_all.py --title twitch_div_rnd_100h      --input wf-result/twitch_div_rnd/twitch_div_rnd_100h      --output fig/twitch_div_rnd
+python wf-attack-vpn/plotter/plot_all.py --title twitch_div_rnd_first_2h  --input wf-result/twitch_div_rnd/twitch_div_rnd_first_2h  --output fig/twitch_div_rnd
+python wf-attack-vpn/plotter/plot_all.py --title twitch_div_rnd_last_2h   --input wf-result/twitch_div_rnd/twitch_div_rnd_last_2h   --output fig/twitch_div_rnd
+python wf-attack-vpn/plotter/plot_all.py --title twitch_div_rnd_middle_2h --input wf-result/twitch_div_rnd/twitch_div_rnd_middle_2h --output fig/twitch_div_rnd
 
 # cp files for the comparison
 
@@ -42,6 +42,6 @@ cp wf-result/twitch_div_rnd/twitch_div_rnd_last_2h/tiktok.csv  wf-result/compare
 cp wf-result/twitch_div_rnd/twitch_div_rnd_first_2h/tiktok.csv wf-result/compare_tiktok/rnd_first.csv
 
 # The final comparison graph
-python wf-attack-vpn/plotter/plot_all.py compare_default   wf-result/compare_default   fig/compare
-python wf-attack-vpn/plotter/plot_all.py compare_constant  wf-result/compare_constant  fig/compare
-python wf-attack-vpn/plotter/plot_all.py compare_tiktok    wf-result/compare_tiktok    fig/compare
+python wf-attack-vpn/plotter/plot_all.py --title compare_default  --input wf-result/compare_default  --output fig/compare
+python wf-attack-vpn/plotter/plot_all.py --title compare_constant --input wf-result/compare_constant --output fig/compare
+python wf-attack-vpn/plotter/plot_all.py --title compare_tiktok   --input wf-result/compare_tiktok   --output fig/compare
