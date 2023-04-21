@@ -17,12 +17,12 @@ def getMerged(dir_foreground, dir_merged, dir_background, fold = 0, workers = 5)
     This program merges the inputted background and foreground traffic, and store it in the specified directory.
     One can if one which to specify which fold file to use, to split the foreground traffic differently.
 
-    Input:
-        dir_foreground: path to the directory that has the foreground that the background should be merged into
-        dir_merged:     path to the directory where the merged result will be stored in
-        dir_background: path to the directory where the background traffic is
-        fold:           which fold file to use
-
+    Args:
+        dir_foreground - Required : path to the directory that has the foreground that the background should be merged into
+        dir_merged     - Required : path to the directory where the merged result will be stored in
+        dir_background - Required : path to the directory where the background traffic is
+        fold           - Optional : which fold file to use
+        workers        - Optional : ...
     Output:
         Boolean which tells if the program succeeded in creating the merged traffic set
     '''
@@ -80,6 +80,7 @@ def getMerged(dir_foreground, dir_merged, dir_background, fold = 0, workers = 5)
     print("Size of the background")
     print(df_len)
 
+    '''
     if workers == 1:
         # start with the training files, if the program has difficulties in running, it will crash at the training
         print("Start merging train files")
@@ -92,16 +93,17 @@ def getMerged(dir_foreground, dir_merged, dir_background, fold = 0, workers = 5)
         if not mergeTrafficOld(mergedValidFiles, foregroundValidFiles, dir_background, part_of_10 + 1 , part_of_10*2):
             return False
     else:
-        # start with the training files, if the program has difficulties in running, it will crash at the training
-        print("Start merging train files")
-        if not mergeTraffic(mergedTrainFiles, foregroundTrainFiles, dir_background, part_of_10*2 + 1, int(df_len), workers):
-            return False
-        print("Start merging test files")
-        if not mergeTraffic(mergedTestFiles , foregroundTestFiles , dir_background, 0              , part_of_10, workers):
-            return False
-        print("Start merging validation files")
-        if not mergeTraffic(mergedValidFiles, foregroundValidFiles, dir_background, part_of_10 + 1 , part_of_10*2, workers):
-            return False
+    '''
+    # start with the training files, if the program has difficulties in running, it will crash at the training
+    print("Start merging train files")
+    if not mergeTraffic(mergedTrainFiles, foregroundTrainFiles, dir_background, part_of_10*2 + 1, int(df_len), workers):
+        return False
+    print("Start merging test files")
+    if not mergeTraffic(mergedTestFiles , foregroundTestFiles , dir_background, 0              , part_of_10, workers):
+        return False
+    print("Start merging validation files")
+    if not mergeTraffic(mergedValidFiles, foregroundValidFiles, dir_background, part_of_10 + 1 , part_of_10*2, workers):
+        return False
 
     '''
     if not mergeTraffic(mergedTestFiles , foregroundTestFiles , dir_background, 0              , int(df_len)):
