@@ -58,7 +58,7 @@ def main():
 
     input = []
     for i in files:
-        input.append((i))
+        input.append((i, ""))
     
     p = Pool(5)
     p.starmap(check_rm_file, input)
@@ -66,7 +66,7 @@ def main():
     return
 
 
-def check_rm_file(file):
+def check_rm_file(file, tmp):
     filename = os.fsdecode(file)
     if filename in BROKEN_FILES_1:
         print("Removing file: " + filename)
