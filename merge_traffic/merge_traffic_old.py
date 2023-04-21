@@ -106,8 +106,9 @@ def mergeTrafficOld(mergedFiles, foregroundFiles, background_path, start, stop):
 def getStartForeground(foreground_pkts):
     '''
     removes the start delay of the foreground file
+    By removing packets until the first 10 packets happens during one second
     Args:
-        foreground_pkts - Required : all foregorund packets (List)
+        foreground_pkts - Required : all foreground packets (List)
     Return:
         Foreground packets without the delayed start (List)
     '''
@@ -116,7 +117,7 @@ def getStartForeground(foreground_pkts):
 
     while(len(foreground_pkts) > 0):
         foreground_time_0 = int(foreground_pkts[0].split(",")[PACKET_ATTR_INDEX_TIME])
-        foreground_time_4 = int(foreground_pkts[4].split(",")[PACKET_ATTR_INDEX_TIME])
+        foreground_time_4 = int(foreground_pkts[9].split(",")[PACKET_ATTR_INDEX_TIME])
         if (foreground_time_4 - foreground_time_0) < NS_PER_SEC:
             return foreground_pkts
         else:
