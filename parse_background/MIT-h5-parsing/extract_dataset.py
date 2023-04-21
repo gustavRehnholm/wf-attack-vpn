@@ -1,26 +1,21 @@
 #!/usr/bin/python3
 
-'''
-extract the captured VPN data that has been generated from the MIT project
-and create new dataframes, stored in h5 format, after the application used.
-All data that has been captured with non vpn traffic, will be skipped.
-The data is not parsed.
-
-Application names in use (extracted from get_keywords.py)
-['youtube', 'sftp', 'skype-chat', 'ssh', 'rdp', 'rsync', 'voip', 'scp', 'netflix', 'vimeo']
-headers:
-['connection', 'timestamps', 'sizes', 'directions', 'file_names']
-
-To run:
-touch stdout/extract_dataset.txt
-python wf-attack-vpn/extract_dataset.py | tee stdout/extract_dataset.txt
-'''
-
 import pandas as pd
 from get_keywords.py import get_keywords
 
-# Extract all data that are from VPN traffic, and store them in different dataframes depending on the application
 def main(): 
+    '''
+    extract the captured VPN data that has been generated from the MIT project
+    and create new dataframes, stored in h5 format, after the application used.
+    All data that has been captured with non vpn traffic, will be skipped.
+    The data is not parsed.
+
+    Application names in use (extracted from get_keywords.py)
+    ['youtube', 'sftp', 'skype-chat', 'ssh', 'rdp', 'rsync', 'voip', 'scp', 'netflix', 'vimeo']
+    headers:
+    ['connection', 'timestamps', 'sizes', 'directions', 'file_names']
+    '''
+    
     INPUT_FILE = "VNAT_Dataframe_release_1.h5"
     # the whole dataset
     df = pd.read_hdf(INPUT_FILE)
