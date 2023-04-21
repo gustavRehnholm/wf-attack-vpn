@@ -24,8 +24,6 @@ def main():
     FOLD           = args['fold']
     WORKERS        = args['w']
 
-    print(WORKERS)
-
     start_time = timeit.default_timer()
     success = getMerged(dir_foreground = DIR_FOREGROUND, 
                         dir_merged     = DIR_MERGED, 
