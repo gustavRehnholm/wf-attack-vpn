@@ -1,14 +1,9 @@
 #!/usr/bin/python3
 
-'''
-rm the capture files that are broken (lack sufficient captures)
-
-TODO: parallize
-'''
-
 import pandas as pd
 import shutil
 import os
+from multiprocessing import Pool
 
 # the known unusable files, check that they are removed
 BROKEN_FILES_1 = [
@@ -44,46 +39,47 @@ BAD_FILES = [
 ]
 
 def main():
+    '''
+    rm the capture files that are broken (lack sufficient captures)
+    '''
+
     print("Start the removal of unusable files")
 
     # the captures in h5 format
     DIR_INPUT = "captures"
     # the usable captures
-    DIR_OUTPUT = "captures_clean"
-
-    files_left = 0
+    DIR_OUTPUT = "captures_clean_test"
 
     # clean the previous result
     os.system("rm -f -r " + DIR_OUTPUT)
     os.system("mkdir " + DIR_OUTPUT)
 
     files = os.listdir(DIR_INPUT)
-    files_len = len(files)
-    index = 0
-    for file in files:
 
-        filename = os.fsdecode(file)
-        index += 1
-        print("")
-        print("checking file " + str(index) + "/"+ str(files_len) +": " + str(filename))
+    input = []
+    for i in files:
+        input.append((i))
+    
+    p = Pool(5)
+    starmap(check_rm_file, input)
 
-        if filename in BROKEN_FILES_1:
-            print("Removing file: " + filename)
-            continue
-        elif filename in BROKEN_FILES_2:
-            print("Removing file: " + filename)
-            continue
-        elif filename in BAD_FILES:
-            print("Removing file: " + filename)
-            continue
-        else:
-            print("Keeping file: " + filename)
-            files_left += 1
-            src = DIR_INPUT + "/" + filename
-            dst = DIR_OUTPUT + "/" + filename
-            shutil.copyfile(src, dst)
+    return
 
-    print(files_left)
+
+def check_rm_file(file):
+    filename = os.fsdecode(file)
+    if filename in BROKEN_FILES_1:
+        print("Removing file: " + filename)
+    elif filename in BROKEN_FILES_2:
+        print("Removing file: " + filename)
+    elif filename in BAD_FILES:
+        print("Removing file: " + filename)
+    else:
+        print("Keeping file: " + filename)
+        src = DIR_INPUT + "/" + filename
+        dst = DIR_OUTPUT + "/" + filename
+        shutil.copyfile(src, dst)
+
 # run main 
 if __name__=="__main__":
     main()
