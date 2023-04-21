@@ -29,7 +29,7 @@ def main():
 
     labels = []
     title  = args['title']
-    input   = args['input']
+    input  = args['input']
     output = args['output']
     
     # path to each size of 
