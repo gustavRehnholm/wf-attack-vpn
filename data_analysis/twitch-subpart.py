@@ -20,7 +20,8 @@ def main():
     DIR_OUTPUT = "captures_50"
 
     # clean the previous result
-    os.system("mkdir " + DIR_OUTPUT)
+    os.system("rm -f -r " + DIR_OUTPUT)
+    os.system("mkdir "    + DIR_OUTPUT)
 
     # list of all twitch traffic captures files, sorted by size
     files        = os.listdir(DIR_INPUT)
