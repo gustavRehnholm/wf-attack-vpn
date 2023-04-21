@@ -27,8 +27,8 @@ def getMerged(dir_foreground, dir_merged, dir_background, fold = 0, workers = 5)
         Boolean which tells if the program succeeded in creating the merged traffic set
     '''
 
-    FOLD_CSV = dir_foreground + "/fold-" + fold + ".csv"
-    key    = "df"
+    FOLD_CSV = dir_foreground + "/fold-" + str(fold) + ".csv"
+    key      = "df"
 
     # list of what each file should be used for
     foregroundTrainFiles = []
