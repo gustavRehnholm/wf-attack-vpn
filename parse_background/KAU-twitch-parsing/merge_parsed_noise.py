@@ -18,7 +18,11 @@ def main():
     DIR_INPUT = "twitch/parsed_captures/"
     # the merged noise file in the h5 format
     DIR_OUTPUT = "background_traffic"
-    FILE_OUTPUT = "twitch_1_middle.h5"
+    # twitch_50
+    # twitch_1_first
+    # twitch_1_last
+    # twitch_1_middle
+    FILE_OUTPUT = "twitch_50.h5"
     PATH_OUTPUT = DIR_OUTPUT + "/" + FILE_OUTPUT
     COL_NAMES =  ['time', 'direction', 'size']
     # for storing the result as h5
@@ -39,7 +43,7 @@ def main():
 
     # Sort list of file names by size (only the 50 largest files)
     sorted_files = sorted(files, key =  lambda x: os.stat(os.path.join(DIR_INPUT, x)).st_size)
-    sorted_files = list(reversed(sorted_files))[:50]
+    sorted_files = list(reversed(sorted_files))
     files_len    = len(sorted_files)
 
     # create the file, that the final result will be stored in
@@ -52,24 +56,23 @@ def main():
     for file in sorted_files:
         index += 1
         filename = os.fsdecode(file)
-        
-        print("")
-        print("merging file " + str(index) + "/" + str(files_len) + ": " + str(filename))
-        print("")
 
-        '''
-        path = DIR_INPUT + filename
-        df = pd.read_hdf(path, key=key)
-        df.to_hdf(PATH_OUTPUT, mode = "r+", key = key, append = True) 
-        '''
-
+        # if index == 30:
+        # if index == 80:
+        # if index == 55:
+        if index >= 30 and index < 80:
         
-        if index == 25:
+            print("")
+            print("merging file " + str(index) + "/" + str(files_len) + ": " + str(filename))
+            print("")
+
             path = DIR_INPUT + filename
             df = pd.read_hdf(path, key=key)
             df.to_hdf(PATH_OUTPUT, mode = "r+", key = key, append = True) 
+            
+        if index >= 80:
+            print("Have merged all twitch traffic, store them now in " + PATH_OUTPUT)
             return
-        
 
     print("Have merged all twitch traffic, store them now in " + PATH_OUTPUT)
 
