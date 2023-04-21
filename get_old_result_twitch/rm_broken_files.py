@@ -61,7 +61,7 @@ def main():
         input.append((i))
     
     p = Pool(5)
-    starmap(check_rm_file, input)
+    p.starmap(check_rm_file, input)
 
     return
 
