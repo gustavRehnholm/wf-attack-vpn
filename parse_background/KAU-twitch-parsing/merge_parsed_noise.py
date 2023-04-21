@@ -18,7 +18,7 @@ def main():
     DIR_INPUT = "twitch/parsed_captures/"
     # the merged noise file in the h5 format
     DIR_OUTPUT = "background_traffic"
-    FILE_OUTPUT = "twitch_first_2h.h5"
+    FILE_OUTPUT = "twitch_last_2h.h5"
     PATH_OUTPUT = DIR_OUTPUT + "/" + FILE_OUTPUT
     COL_NAMES =  ['time', 'direction', 'size']
     # for storing the result as h5
@@ -49,7 +49,7 @@ def main():
 
     #df_len = []
 
-    #sorted_files.reverse()
+    sorted_files.reverse()
 
     for file in sorted_files:
         index += 1
