@@ -11,9 +11,9 @@ python wf-attack-vpn/get_old_result_twitch/parse.py
 python wf-attack-vpn/get_old_result_twitch/parse_og.py
 
 # replicate their wf attack (and they used sample 20)
-python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/old_twitch_og wf-result/old_twitch_og 20
-python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/old_twitch wf-result/old_twitch_20    20
-python wf-attack-vpn/wf-attack/wf-attack-dir.py merged_traffic/old_twitch wf-result/old_twitch_100  100
+python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/old_twitch_og -r wf-result/old_twitch_og  -s  20
+python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/old_twitch    -r wf-result/old_twitch_20  -s  20
+python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/old_twitch    -r wf-result/old_twitch_100 -s 100
 
 # plot the result (as they did)
 python wf-attack-vpn/plotter/plot_all.py twitch_old_og  wf-result/old_twitch_og fig/twitch_old_og
