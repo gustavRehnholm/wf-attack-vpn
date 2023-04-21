@@ -12,8 +12,8 @@ import timeit
 from multiprocessing import Pool
 
 # storing the background data as a global variable, so the same list is accessible for all workers (multiprocessing)
-background_tuple
-background_nr_packets
+global background_tuple
+global background_nr_packets
 
 def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     '''
