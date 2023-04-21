@@ -3,6 +3,10 @@
 import pandas as pd
 import os
 
+'''
+python wf-attack-vpn/parse_background/KAU-twitch-parsing/merge_parsed_noise.py
+'''
+
 def main():
     '''
     Merge all the parsed captures to one single file, where the timestamps flows logical between them
@@ -14,7 +18,7 @@ def main():
     DIR_INPUT = "twitch/parsed_captures/"
     # the merged noise file in the h5 format
     DIR_OUTPUT = "background_traffic"
-    FILE_OUTPUT = "twitch_middle_2h.h5"
+    FILE_OUTPUT = "twitch_first_2h.h5"
     PATH_OUTPUT = DIR_OUTPUT + "/" + FILE_OUTPUT
     COL_NAMES =  ['time', 'direction', 'size']
     # for storing the result as h5
@@ -55,7 +59,7 @@ def main():
         print("merging file " + str(index) + "/" + str(files_len) + ": " + str(filename))
         print("")
 
-        if index == 25:
+        if index == 1:
             path = DIR_INPUT + filename
             df = pd.read_hdf(path, key=key)
             #df_len.append(len(df.axes[0]))
