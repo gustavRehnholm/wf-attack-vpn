@@ -58,7 +58,7 @@ def main():
 
     input = []
     for i in files:
-        input.append((i, ""))
+        input.append((i, DIR_INPUT, DIR_OUTPUT))
     
     p = Pool(5)
     p.starmap(check_rm_file, input)
@@ -66,7 +66,7 @@ def main():
     return
 
 
-def check_rm_file(file, tmp):
+def check_rm_file(file, input, output):
     filename = os.fsdecode(file)
     if filename in BROKEN_FILES_1:
         print("Removing file: " + filename)
@@ -76,8 +76,8 @@ def check_rm_file(file, tmp):
         print("Removing file: " + filename)
     else:
         print("Keeping file: " + filename)
-        src = DIR_INPUT + "/" + filename
-        dst = DIR_OUTPUT + "/" + filename
+        src = input  + "/" + filename
+        dst = output + "/" + filename
         shutil.copyfile(src, dst)
 
 # run main 
