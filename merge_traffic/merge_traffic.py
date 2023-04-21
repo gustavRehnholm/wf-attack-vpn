@@ -11,6 +11,10 @@ import os
 import timeit
 from multiprocessing import Pool
 
+# storing the background data as a global variable, so the same list is accessible for all workers (multiprocessing)
+background_tuple
+background_nr_packets
+
 def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     '''
     This program merges the web traffic with noise, so it can be used to test WF attacks
@@ -31,11 +35,15 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     KEY = "df"
     # timestamp of the current background packets
     time_stamp = 0
+
     # the background traffic: use the tuple for performance
     df = pd.read_hdf(path_or_buf = background_path, key = KEY, start = start, stop = stop)
     # list with indexes [0, background_nr_packets[
+    global background_tuple
     background_tuple      = list(df.itertuples(index=False, name=None))
+    global background_nr_packets
     background_nr_packets = len(background_tuple)
+
 
     # current index to get background from
     subset_index = 0
@@ -47,11 +55,11 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     totalMergeFiles = len(mergedFiles)
     mergeFilesDone = 0
 
-    p = Pool(1)
+    p = Pool(5)
 
     input = []
     for j in range(len(mergedFiles)):
-        input.append((mergedFiles[j], foregroundFiles[j], background_tuple))
+        input.append((mergedFiles[j], foregroundFiles[j]))
 
     results = p.starmap(inject, input)
 
@@ -61,18 +69,16 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     else:
         return True
 
-def inject(mergedFile, foregroundFile, background_tuple):
+def inject(mergedFile, foregroundFile):
     '''
     Inject all foreground packets, with background to the merged file
     Input:
         mergedFile: path to the file where the result will be stored (string)
         foregroundFile: Path to the file where the foreground file is stored (string)
-        background_tuple: the background data as a tuple
-        background_nr_packets: 
     Output:
         Boolean if it succeeded or not in creating the merged file
     '''
-    background_nr_packets = len(background_tuple)
+
     # index to access the values for the background packages
     TIME_INDEX      = 0
     DIRECTION_INDEX = 1
@@ -99,8 +105,8 @@ def inject(mergedFile, foregroundFile, background_tuple):
     # timestamp the current background packet is on
     curr_time = prev_time + int(background_tuple[df_index][TIME_INDEX])
 
-    # inject until all foreground is injected
-    while(len(foreground_lines) > 0): 
+    # inject until 5000 packets has been injected to the merged dataset (DF does not make use of more than the first 5000 packets)
+    for i in range(0, 5000):
         # add the packet that arrives first
         if(curr_time < foreground_time):
             currMergedFile.writelines([str(curr_time), ",", 
@@ -127,8 +133,9 @@ def inject(mergedFile, foregroundFile, background_tuple):
 def getStartForeground(foreground_pkts):
     '''
     removes the start delay of the foreground file
+    By removing packets until the first 10 packets happens during one second
     Args:
-        foreground_pkts - Required : all foregorund packets (List)
+        foreground_pkts - Required : all foreground packets (List)
     Return:
         Foreground packets without the delayed start (List)
     '''
@@ -137,7 +144,7 @@ def getStartForeground(foreground_pkts):
 
     while(len(foreground_pkts) > 0):
         foreground_time_0 = int(foreground_pkts[0].split(",")[PACKET_ATTR_INDEX_TIME])
-        foreground_time_4 = int(foreground_pkts[4].split(",")[PACKET_ATTR_INDEX_TIME])
+        foreground_time_4 = int(foreground_pkts[9].split(",")[PACKET_ATTR_INDEX_TIME])
         if (foreground_time_4 - foreground_time_0) < NS_PER_SEC:
             return foreground_pkts
         else:
