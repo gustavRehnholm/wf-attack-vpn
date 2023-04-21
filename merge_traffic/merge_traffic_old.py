@@ -52,7 +52,7 @@ def mergeTrafficOld(mergedFiles, foregroundFiles, background_path, start, stop):
     totalMergeFiles = len(mergedFiles)
     mergeFilesDone = 0
 
-    while(len(foregroundFiles) > 0): 
+    for i in range(0, 5000):
 
             # if should open a new foreground file
             if len(foreground_lines) <= 0:
