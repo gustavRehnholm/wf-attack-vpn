@@ -40,8 +40,9 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     df = pd.read_hdf(path_or_buf = background_path, key = KEY, start = start, stop = stop)
     # list with indexes [0, background_nr_packets[
     global background_tuple
-    background_tuple      = list(df.itertuples(index=False, name=None))
     global background_nr_packets
+
+    background_tuple      = list(df.itertuples(index=False, name=None))
     background_nr_packets = len(background_tuple)
 
 
@@ -78,6 +79,9 @@ def inject(mergedFile, foregroundFile):
     Output:
         Boolean if it succeeded or not in creating the merged file
     '''
+
+    global background_tuple
+    global background_nr_packets
 
     # index to access the values for the background packages
     TIME_INDEX      = 0
