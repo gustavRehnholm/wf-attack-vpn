@@ -22,7 +22,7 @@ def main():
     # twitch_1_first
     # twitch_1_last
     # twitch_1_middle
-    FILE_OUTPUT = "twitch_50.h5"
+    FILE_OUTPUT = "twitch_1_middle.h5"
     PATH_OUTPUT = DIR_OUTPUT + "/" + FILE_OUTPUT
     COL_NAMES =  ['time', 'direction', 'size']
     # for storing the result as h5
@@ -59,8 +59,8 @@ def main():
 
         # if index == 30:
         # if index == 80:
-        # if index == 55:
-        if index >= 30 and index < 80:
+        if index == 55:
+        #if index >= 30 and index < 80:
         
             print("")
             print("merging file " + str(index) + "/" + str(files_len) + ": " + str(filename))
