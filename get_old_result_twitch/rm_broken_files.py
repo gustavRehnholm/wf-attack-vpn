@@ -48,7 +48,7 @@ def main():
     # the captures in h5 format
     DIR_INPUT = "captures"
     # the usable captures
-    DIR_OUTPUT = "captures_clean_test"
+    DIR_OUTPUT = "captures_clean"
 
     # clean the previous result
     os.system("rm -f -r " + DIR_OUTPUT)
