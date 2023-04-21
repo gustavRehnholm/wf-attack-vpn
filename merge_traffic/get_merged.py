@@ -12,7 +12,7 @@ from merge_traffic_old import mergeTrafficOld
 import shutil
 
 
-def getMerged(dir_foreground, dir_merged, dir_background, fold = 0):
+def getMerged(dir_foreground, dir_merged, dir_background, fold = 0, workers = 5):
     '''
     This program merges the inputted background and foreground traffic, and store it in the specified directory.
     One can if one which to specify which fold file to use, to split the foreground traffic differently.
@@ -82,13 +82,13 @@ def getMerged(dir_foreground, dir_merged, dir_background, fold = 0):
     
     # start with the training files, if the program has difficulties in running, it will crash at the training
     print("Start merging train files")
-    if not mergeTraffic(mergedTrainFiles, foregroundTrainFiles, dir_background, part_of_10*2 + 1, int(df_len)):
+    if not mergeTraffic(mergedTrainFiles, foregroundTrainFiles, dir_background, part_of_10*2 + 1, int(df_len), workers):
         return False
     print("Start merging test files")
-    if not mergeTraffic(mergedTestFiles , foregroundTestFiles , dir_background, 0              , part_of_10):
+    if not mergeTraffic(mergedTestFiles , foregroundTestFiles , dir_background, 0              , part_of_10, workers):
         return False
     print("Start merging validation files")
-    if not mergeTraffic(mergedValidFiles, foregroundValidFiles, dir_background, part_of_10 + 1 , part_of_10*2):
+    if not mergeTraffic(mergedValidFiles, foregroundValidFiles, dir_background, part_of_10 + 1 , part_of_10*2, workers):
         return False
 
     '''

@@ -15,7 +15,7 @@ from multiprocessing import Pool
 global background_tuple
 global background_nr_packets
 
-def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
+def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop, workers):
     '''
     This program merges the web traffic with noise, so it can be used to test WF attacks
 
@@ -56,7 +56,7 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop):
     totalMergeFiles = len(mergedFiles)
     mergeFilesDone = 0
 
-    p = Pool(1)
+    p = Pool(workers)
 
     input = []
     for j in range(len(mergedFiles)):
