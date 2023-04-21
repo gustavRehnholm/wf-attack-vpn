@@ -34,7 +34,7 @@ def main():
         index += 1
         filename = os.fsdecode(file)
         
-        if index >= 30 and index <= 80:
+        if index >= 30 and index < 80:
             print("")
             print("Include file " + str(index) + "/" + str(files_len) + ": " + str(filename))
             print("")
@@ -44,7 +44,7 @@ def main():
             shutil.copyfile(src, dst)
 
         # to gather a subset
-        if index > 80:
+        if index >= 80:
             break
 
     print("Have created a subset of Twitch data, store in " + DIR_OUTPUT)
