@@ -11,13 +11,13 @@ python wf-attack-vpn/plotter/plot_all.py --title twitch_old_20  --input wf-resul
 python wf-attack-vpn/plotter/plot_all.py --title twitch_old_100 --input wf-result/twitch_old/old_twitch_100 --output fig/twitch_old
 
 # rnd, sample 100
-python wf-attack-vpn/plotter/plot_all.py --title twitch_rnd_100h      --input wf-result/twitch_rnd/twitch_rnd_100h      --output fig/twitch_rnd
+python wf-attack-vpn/plotter/plot_all.py --title twitch_rnd_80h       --input wf-result/twitch_rnd/twitch_rnd_80h       --output fig/twitch_rnd
 python wf-attack-vpn/plotter/plot_all.py --title twitch_rnd_first_2h  --input wf-result/twitch_rnd/twitch_rnd_first_2h  --output fig/twitch_rnd
 python wf-attack-vpn/plotter/plot_all.py --title twitch_rnd_last_2h   --input wf-result/twitch_rnd/twitch_rnd_last_2h   --output fig/twitch_rnd
 python wf-attack-vpn/plotter/plot_all.py --title twitch_rnd_middle_2h --input wf-result/twitch_rnd/twitch_rnd_middle_2h --output fig/twitch_rnd
 
 # Divided, randomized, sample 100 (the largest part of the Twitch dataset)
-python wf-attack-vpn/plotter/plot_all.py --title twitch_div_rnd_100h      --input wf-result/twitch_div_rnd/twitch_div_rnd_100h      --output fig/twitch_div_rnd
+python wf-attack-vpn/plotter/plot_all.py --title twitch_div_rnd_80h       --input wf-result/twitch_div_rnd/twitch_div_rnd_80h       --output fig/twitch_div_rnd
 python wf-attack-vpn/plotter/plot_all.py --title twitch_div_rnd_first_2h  --input wf-result/twitch_div_rnd/twitch_div_rnd_first_2h  --output fig/twitch_div_rnd
 python wf-attack-vpn/plotter/plot_all.py --title twitch_div_rnd_last_2h   --input wf-result/twitch_div_rnd/twitch_div_rnd_last_2h   --output fig/twitch_div_rnd
 python wf-attack-vpn/plotter/plot_all.py --title twitch_div_rnd_middle_2h --input wf-result/twitch_div_rnd/twitch_div_rnd_middle_2h --output fig/twitch_div_rnd
