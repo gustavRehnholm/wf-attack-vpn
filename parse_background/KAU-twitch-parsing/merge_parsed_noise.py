@@ -18,11 +18,12 @@ def main():
     DIR_INPUT = "twitch/parsed_captures/"
     # the merged noise file in the h5 format
     DIR_OUTPUT = "background_traffic"
-    # twitch_50
+    # [40,80]
+    # twitch_40
     # twitch_1_first
     # twitch_1_last
     # twitch_1_middle
-    FILE_OUTPUT = "twitch_1_first.h5"
+    FILE_OUTPUT = "twitch_40.h5"
     PATH_OUTPUT = DIR_OUTPUT + "/" + FILE_OUTPUT
     COL_NAMES =  ['time', 'direction', 'size']
     # for storing the result as h5
@@ -57,10 +58,10 @@ def main():
         index += 1
         filename = os.fsdecode(file)
 
-        if index == 30:
+        #if index == 40:
         #if index == 80:
-        #if index == 55:
-        #if index >= 30 and index < 80:
+        #if index == 60:
+        if index >= 40 and index < 80:
         
             print("")
             print("merging file " + str(index) + "/" + str(files_len) + ": " + str(filename))
