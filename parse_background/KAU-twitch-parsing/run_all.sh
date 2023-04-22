@@ -13,4 +13,4 @@ python wf-attack-vpn/parse_background/KAU-twitch-parsing/rm_broken_captures.py
 python wf-attack-vpn/parse_background/KAU-twitch-parsing/parse.py
 
 # merge the parsed twitch captures
-python wf-attack-vpn/parse_background/KAU-twitch-parsing/merge_parsed_noise.py
+# python wf-attack-vpn/parse_background/KAU-twitch-parsing/merge_parsed_noise.py
