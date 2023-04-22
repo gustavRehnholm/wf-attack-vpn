@@ -23,7 +23,7 @@ def main():
     # twitch_1_first
     # twitch_1_last
     # twitch_1_middle
-    FILE_OUTPUT = "twitch_1_last.h5"
+    FILE_OUTPUT = "twitch_1_middle.h5"
     PATH_OUTPUT = DIR_OUTPUT + "/" + FILE_OUTPUT
     COL_NAMES =  ['time', 'direction', 'size']
     # for storing the result as h5
@@ -59,8 +59,8 @@ def main():
         filename = os.fsdecode(file)
 
         #if index == 40:
-        if index == 80:
-        #if index == 60:
+        #if index == 80:
+        if index == 60:
         #if index >= 40 and index < 80:
         
             print("")
