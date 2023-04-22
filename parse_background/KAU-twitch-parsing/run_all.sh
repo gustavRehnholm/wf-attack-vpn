@@ -1,5 +1,5 @@
 #!/bin/bash
-# ./wf-attack-vpn/Parse_noise/KAU-twitch-parsing/run_all.sh
+# ./wf-attack-vpn/parse_background/KAU-twitch-parsing/run_all.sh
 
 # All steps to go from the raw captures, to noise that one can merge with the web traffic
 
