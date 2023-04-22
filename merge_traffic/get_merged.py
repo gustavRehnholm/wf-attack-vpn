@@ -80,7 +80,7 @@ def getMerged(dir_foreground, dir_merged, dir_background, fold = 0, workers = 5)
     print("Size of the background")
     print(df_len)
 
-    '''
+    
     if workers == 1:
         # start with the training files, if the program has difficulties in running, it will crash at the training
         print("Start merging train files")
@@ -127,7 +127,7 @@ def getMerged(dir_foreground, dir_merged, dir_background, fold = 0, workers = 5)
         print("Start merging validation files")
         if not mergeTraffic(mergedValidFiles, foregroundValidFiles, dir_background, 0, int(df_len), workers):
             return False
-    
+    '''
     print("Succeeded in creating the merged traffic set")
     return True
 
