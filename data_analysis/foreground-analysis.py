@@ -54,11 +54,6 @@ def main():
     #input = [("foreground_traffic/client/0/0000-0001-0047.log",intervals)]
     print(f"number of traces: {len(input)}")
 
-    counter = Counter(todo)
-    dupes = [key for (key, value) in counter.iteritems() if value > 1 and key]
-    print(f"duplicates: {dupes}")
-
-
     list_of_traces = p.starmap(parse_trace, input)
     print(f"number of traces: {len(list_of_traces)}")
     pkt_sec = get_pkt_sec(list_of_traces, intervals)
