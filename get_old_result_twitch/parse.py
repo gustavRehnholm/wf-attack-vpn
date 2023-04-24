@@ -7,10 +7,10 @@ from re import search
 import time
 import pandas as pd
 
-'''
-modified version of rds-collect, with the bug fixed which stopped the program from applying all 
-'''    
 def main():
+    '''
+    modified version of rds-collect, where the program ends properly
+    '''    
 
     hours = 60*60
     minutes = 60

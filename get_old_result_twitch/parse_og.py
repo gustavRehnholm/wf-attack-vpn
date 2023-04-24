@@ -8,7 +8,7 @@ import time
 import pandas as pd
 
 '''
-unmodified version of rds-collect, with the bug left
+unmodified version of rds-collect, with only changed directory names, ending by crashing is left unchanged
 '''    
 
 hours = 60*60
