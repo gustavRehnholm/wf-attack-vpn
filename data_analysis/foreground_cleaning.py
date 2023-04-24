@@ -66,7 +66,7 @@ def percent_foreground(fname, dir_index):
         for line in f:
             parts = line.strip().split(",")
             try:
-                dir = int(parts[1])
+                dir = parts[dir_index]
             except:
                 print(f"ERROR: could not extract line: {parts}, ending program")
                 sys.exit()
