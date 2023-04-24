@@ -36,9 +36,10 @@ def main():
         filename = os.fsdecode(file)
         
         if index >= 40 and index < 80:
-            print("")
-            print("Include file " + str(index) + "/" + str(files_len) + ": " + str(filename))
-            print("")
+            #print("")
+            #print("Include file " + str(index) + "/" + str(files_len) + ": " + str(filename))
+            #print("")
+            print(str(filename))
 
             src = DIR_INPUT  + "/" + filename
             dst = DIR_OUTPUT + "/" + filename
