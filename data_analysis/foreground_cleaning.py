@@ -6,8 +6,6 @@ from multiprocessing import Pool
 import numpy as np
 import sys
 
-# python wf-attack-vpn/data_analysis/foreground_cleaning.py -d merged_traffic/test/0/twitch_largest_1
-
 ap = argparse.ArgumentParser()
 ap.add_argument("-d", required = True , type = str, default = "", help="root folder of client/server dataset")
 ap.add_argument("-w", required = False, type = int, default = 10, help="number of workers for loading traces from disk")
