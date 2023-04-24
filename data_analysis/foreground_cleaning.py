@@ -32,7 +32,7 @@ def main():
         for root, dirs, files in os.walk(folder, topdown = False):
             for name in files:
                 if ".log" in name:
-                    todo.append((os.path.join(root, name), name))
+                    todo.append(os.path.join(root, name))
 
 
     p = Pool(args["w"])
@@ -40,7 +40,7 @@ def main():
     # 92 000 inputs
     input = []
     for file in todo:
-        input.append( (file[0], 1) )
+        input.append( (file, 1) )
         print(file)
     return
 
