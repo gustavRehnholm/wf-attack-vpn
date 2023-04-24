@@ -41,8 +41,6 @@ def main():
     input = []
     for file in todo:
         input.append( (file, 1) )
-        print(file)
-    return
 
     # to test with one packet
     #input = [("foreground_traffic/client/0/0000-0001-0047.log",intervals)]
