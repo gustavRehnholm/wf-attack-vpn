@@ -64,10 +64,12 @@ def percent_foreground(fname, dir_index):
     foreground_packets = 0
     with open(fname, "r") as f:
         for line in f:
-            print(line)
             parts = line.strip().split(",")
-            print(parts)
-            dir = int(parts[int(dir_index)])
+            try:
+                dir = int(parts[dir_index])
+            except:
+                print(f"ERROR: could not extract line: {parts}, ending program")
+                sys.exit()
             if dir == "sb" or dir == "rb":
                 background_packets += 1
             elif dir == "s" or dir == "r":
