@@ -106,6 +106,8 @@ def get_pkt_sec(list_of_traces, interval):
         lower[i] = ns * i
         upper[i] = ns * (i + 1)
 
+    print(upper[-1])
+
     # for every packet, in every trace, get which interval it belongs to
     for trace in list_of_traces:
         for packet in trace:
