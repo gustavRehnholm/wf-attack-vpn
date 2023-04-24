@@ -10,6 +10,7 @@ from collections import Counter
 # python wf-attack-vpn/data_analysis/twitch-analysis.py -d captures
 # python wf-attack-vpn/data_analysis/twitch-analysis.py -d captures_clean
 # python wf-attack-vpn/data_analysis/twitch-analysis.py -d captures_50
+# python wf-attack-vpn/data_analysis/twitch-analysis.py -d captures_40
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-d", required=True, default="", help="root folder of client/server dataset")
