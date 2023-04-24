@@ -10,8 +10,7 @@ from collections import Counter
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# python wf-attack-vpn/data_analysis/foreground_cleaning.py -d  merged_traffic/test/0/twitch_largest_1
-
+# python wf-attack-vpn/data_analysis/foreground_cleaning.py -d merged_traffic/test/0/twitch_largest_1
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-d", required = True , type = str, default = "", help="root folder of client/server dataset")
