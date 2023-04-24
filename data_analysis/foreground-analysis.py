@@ -46,16 +46,15 @@ def main():
 
     intervals = 20
 
+    # 92 000 inputs
     input = []
     for file in todo:
         input.append( (file[0], intervals) )
 
     # to test with one packet
     #input = [("foreground_traffic/client/0/0000-0001-0047.log",intervals)]
-    print(f"number of traces: {len(input)}")
 
     list_of_traces = p.starmap(parse_trace, input)
-    print(f"number of traces: {len(list_of_traces)}")
     pkt_sec = get_pkt_sec(list_of_traces, intervals)
     print(pkt_sec)
 
@@ -132,7 +131,7 @@ def get_pkt_sec(list_of_traces, interval):
     for k in range(len(pkt_sec)):
         labels[k] = ("[" + str(k) + "," + str(k+1) + "[")
 
-    d = {"pkt/sec" : pkt_sec, "interval (sec)" : labels}
+    d = {"pkt/sec" : pkt_sec, "pkt" : pkt_interval, "interval (sec)" : labels}
     df = pd.DataFrame(d)
     return df
 
