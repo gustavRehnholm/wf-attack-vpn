@@ -15,52 +15,40 @@ from multiprocessing import Pool
 global background_tuple
 global background_nr_packets
 
-def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop, workers):
+def mergeTraffic(merged_files, foreground_files, background_path, start_index, end_index, workers = 5):
     '''
-    This program merges the web traffic with noise, so it can be used to test WF attacks
+    This program merges the foreground and background datasets, so it can be used to test WF attacks
 
     Args:
-        mergedFiles      - Required  : list of paths to the merged files                (List[str])
-        foregroundFiles  - Required  : list of paths to the foreground files            (List[str])
-        background_path  - Required  : path to the background file                      (str)
-        start            - Required  : The start index of the background traffic to use (int)
-        stop             - Required  : The end index of the background traffic to use   (int)
+        merged_files     - Required : list of paths to the merged files                (List[str])
+        foreground_files - Required : list of paths to the foreground files            (List[str])
+        background_path  - Required : path to the background file                      (str)
+        start_index      - Required : The start index of the background traffic to use (int)
+        end_index        - Required : The end index of the background traffic to use   (int)
+        workers          - Optional : number of workers, multiprocessing (default = 5) (int)
     Returns:
-        boolean if the program succeeded or not in creating the merge files
+        boolean if the program succeeded or not in creating the merge files             (bool)
     '''
 
-    # access the foreground packets time
-    PACKET_ATTR_INDEX_TIME = 0
     # to access the background data in the hdf5 file
     KEY = "df"
-    # timestamp of the current background packets
-    time_stamp = 0
 
     # the background traffic: use the tuple for performance
-    df = pd.read_hdf(path_or_buf = background_path, key = KEY, start = start, stop = stop)
+    df = pd.read_hdf(path_or_buf = background_path, key = KEY, start = start_index, stop = end_index)
     # list with indexes [0, background_nr_packets[
     global background_tuple
     global background_nr_packets
-
     background_tuple      = list(df.itertuples(index=False, name=None))
     background_nr_packets = len(background_tuple)
 
-
-    # current index to get background from
-    subset_index = 0
-    # for testing
-    added_foreground = True
     # seed the rnd generator
     random.seed(timeit.default_timer())
-
-    totalMergeFiles = len(mergedFiles)
-    mergeFilesDone = 0
 
     p = Pool(workers)
 
     input = []
-    for j in range(len(mergedFiles)):
-        input.append((mergedFiles[j], foregroundFiles[j]))
+    for j in range(len(merged_files)):
+        input.append((merged_files[j], foreground_files[j]))
 
     results = p.starmap(inject, input)
 
@@ -70,14 +58,15 @@ def mergeTraffic(mergedFiles, foregroundFiles, background_path, start, stop, wor
     else:
         return True
 
-def inject(mergedFile, foregroundFile):
+def inject(merged_file, foreground_file):
     '''
     Inject all foreground packets, with background to the merged file
-    Input:
-        mergedFile: path to the file where the result will be stored (string)
-        foregroundFile: Path to the file where the foreground file is stored (string)
-    Output:
-        Boolean if it succeeded or not in creating the merged file
+
+    Args:
+        merged_file     - Required : path to the file where the result will be stored     (str)
+        foreground_file - Required : Path to the file where the foreground file is stored (str)
+    Returns:
+        Boolean if it succeeded or not in creating the merged file                        (bool)
     '''
 
     global background_tuple
@@ -98,12 +87,12 @@ def inject(mergedFile, foregroundFile):
     df_index = random.randrange(0, background_nr_packets)
 
     # get the values (lines) of the new foreground file
-    currForegroundFile = open(foregroundFile, 'r') 
+    currForegroundFile = open(foreground_file, 'r') 
     foreground_lines = getStartForeground(currForegroundFile.readlines())
     currForegroundFile.close()
 
     # open the merged file, that the result will be stored to
-    currMergedFile = open(mergedFile, 'a')
+    currMergedFile = open(merged_file, 'a')
 
     foreground_time = int(foreground_lines[0].split(",")[PACKET_ATTR_INDEX_TIME])
     # timestamp the current background packet is on

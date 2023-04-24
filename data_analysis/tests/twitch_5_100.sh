@@ -5,11 +5,11 @@
 # ./wf-attack-vpn/data_analysis/tests/twitch_5_100.sh
 
 # merge 
-python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/test/twitch_largest.h5  -m merged_traffic/test/5_100/twitch_largest_1 --fold 0 -w 5
-python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/test/twitch_largest.h5  -m merged_traffic/test/5_100/twitch_largest_2 --fold 0 -w 5
-python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/test/twitch_largest.h5  -m merged_traffic/test/5_100/twitch_largest_3 --fold 0 -w 5
+python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_1_last.h5  -m merged_traffic/test/tmp --fold 0 -w 5
+#python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/test/twitch_largest.h5  -m merged_traffic/test/5_100/twitch_largest_2 --fold 0 -w 5
+#python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/test/twitch_largest.h5  -m merged_traffic/test/5_100/twitch_largest_3 --fold 0 -w 5
 
 # analysis
-python wf-attack-vpn/data_analysis/foreground_cleaning.py -d merged_traffic/test/5_100/twitch_largest_1
-python wf-attack-vpn/data_analysis/foreground_cleaning.py -d merged_traffic/test/5_100/twitch_largest_2
-python wf-attack-vpn/data_analysis/foreground_cleaning.py -d merged_traffic/test/5_100/twitch_largest_3
+python wf-attack-vpn/data_analysis/foreground_cleaning.py -d merged_traffic/test/tmp
+#python wf-attack-vpn/data_analysis/foreground_cleaning.py -d merged_traffic/test/5_100/twitch_largest_2
+#python wf-attack-vpn/data_analysis/foreground_cleaning.py -d merged_traffic/test/5_100/twitch_largest_3
