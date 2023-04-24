@@ -40,7 +40,7 @@ def main():
     # 92 000 inputs
     input = []
     for file in todo:
-        input.append( (file[0], 1) )
+        input.append( (file, 1) )
 
     # to test with one packet
     #input = [("foreground_traffic/client/0/0000-0001-0047.log",intervals)]
@@ -63,6 +63,7 @@ def percent_foreground(file, dir_index):
     background_packets = 0
     foreground_packets = 0
     for line in file:
+        print(line)
         parts = line.strip().split(",")
         print(parts)
         dir = int(parts[dir_index])
