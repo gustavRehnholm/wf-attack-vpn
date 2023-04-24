@@ -64,8 +64,10 @@ def percent_foreground(fname, dir_index):
     foreground_packets = 0
     with open(fname, "r") as f:
         for line in f:
+            print(line)
             parts = line.strip().split(",")
-            dir = int(parts[dir_index])
+            print(parts)
+            dir = int(parts[int(dir_index)])
             if dir == "sb" or dir == "rb":
                 background_packets += 1
             elif dir == "s" or dir == "r":
