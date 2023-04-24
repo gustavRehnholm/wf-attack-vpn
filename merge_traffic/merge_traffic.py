@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 '''
+TODO: Support multiple intervals (needed for b_fold)
 To run:
 python wf-attack-vpn/generate_merged_dataset/main.py
 '''
@@ -13,7 +14,7 @@ from multiprocessing import Pool
 
 # storing the background data as a global variable, so the same list is accessible for all workers (multiprocessing)
 global background_tuple
-global background_nr_packets
+global background_len
 
 def mergeTraffic(merged_files, foreground_files, background_path, start_index, end_index, workers = 5):
     '''
@@ -27,7 +28,7 @@ def mergeTraffic(merged_files, foreground_files, background_path, start_index, e
         end_index        - Required : The end index of the background traffic to use   (int)
         workers          - Optional : number of workers, multiprocessing (default = 5) (int)
     Returns:
-        boolean if the program succeeded or not in creating the merge files             (bool)
+        boolean if the program succeeded or not in creating the merge files            (bool)
     '''
 
     # to access the background data in the hdf5 file
@@ -35,13 +36,13 @@ def mergeTraffic(merged_files, foreground_files, background_path, start_index, e
 
     # the background traffic: use the tuple for performance
     df = pd.read_hdf(path_or_buf = background_path, key = KEY, start = start_index, stop = end_index)
-    # list with indexes [0, background_nr_packets[
+    # list with indexes [0, background_len[
     global background_tuple
-    global background_nr_packets
-    background_tuple      = list(df.itertuples(index=False, name=None))
-    background_nr_packets = len(background_tuple)
+    global background_len
+    background_tuple = list(df.itertuples(index=False, name=None))
+    background_len   = len(background_tuple)
 
-    # seed the rnd generator
+    # seed the rnd generator // MOVE? OTHER RND FUNCTION?
     random.seed(timeit.default_timer())
 
     p = Pool(workers)
@@ -58,19 +59,19 @@ def mergeTraffic(merged_files, foreground_files, background_path, start_index, e
     else:
         return True
 
-def inject(merged_file, foreground_file):
+def inject(merged_path, foreground_path):
     '''
     Inject all foreground packets, with background to the merged file
 
     Args:
-        merged_file     - Required : path to the file where the result will be stored     (str)
-        foreground_file - Required : Path to the file where the foreground file is stored (str)
+        merged_path     - Required : path to the file where the result will be stored     (str)
+        foreground_path - Required : Path to the file where the foreground file is stored (str)
     Returns:
         Boolean if it succeeded or not in creating the merged file                        (bool)
     '''
 
     global background_tuple
-    global background_nr_packets
+    global background_len
 
     # index to access the values for the background packages
     TIME_INDEX      = 0
@@ -78,41 +79,42 @@ def inject(merged_file, foreground_file):
     SIZE_INDEX      = 2 
     # index for the foreground
     PACKET_ATTR_INDEX_TIME = 0
+
     # all lines in the open foreground file
     foreground_lines = []
     # reset the time stamp for the background packets
-    prev_time = 0
+    prev_b_time = 0
 
     # get randomized stating position
-    df_index = random.randrange(0, background_nr_packets)
+    df_index = random.randrange(0, background_len)
 
-    # get the values (lines) of the new foreground file
-    currForegroundFile = open(foreground_file, 'r') 
-    foreground_lines = getStartForeground(currForegroundFile.readlines())
-    currForegroundFile.close()
+    # get packets of the foreground file
+    foreground_file = open(foreground_path, 'r') 
+    foreground_lines = get_start_foreground(foreground_file.readlines())
+    foreground_file.close()
 
     # open the merged file, that the result will be stored to
-    currMergedFile = open(merged_file, 'a')
+    merged_file = open(merged_path, 'a')
 
+    # timestamp for the foreground and background packet
     foreground_time = int(foreground_lines[0].split(",")[PACKET_ATTR_INDEX_TIME])
-    # timestamp the current background packet is on
-    curr_time = prev_time + int(background_tuple[df_index][TIME_INDEX])
+    curr_b_time     = int(background_tuple[df_index][TIME_INDEX])
 
     # inject until 5000 packets has been injected to the merged dataset (DF does not make use of more than the first 5000 packets)
     for i in range(0, 5000):
         # add the packet that arrives first
-        if(curr_time < foreground_time):
-            currMergedFile.writelines([str(curr_time), ",", 
+        if(curr_b_time < foreground_time):
+            merged_file.writelines([str(curr_b_time), ",", 
                                     str(background_tuple[df_index][DIRECTION_INDEX]), ",", 
                                     str(background_tuple[df_index][SIZE_INDEX]), "\n"])
-            prev_time = curr_time
+            prev_b_time = curr_b_time
             df_index += 1
             # if end of the background list, loop it from the start
-            if df_index >= background_nr_packets:
+            if df_index >= background_len:
                 df_index = 0
-            curr_time = prev_time + int(background_tuple[df_index][TIME_INDEX])
+            curr_b_time = prev_b_time + int(background_tuple[df_index][TIME_INDEX])
         else:
-            currMergedFile.writelines(foreground_lines[0])
+            merged_file.writelines(foreground_lines[0])
             foreground_lines.pop(0)
             # end program if end of foreground lines
             if len(foreground_lines) > 0:
@@ -123,28 +125,25 @@ def inject(merged_file, foreground_file):
     return True
 
 
-def getStartForeground(foreground_pkts):
+def get_start_foreground(foreground_pkts):
     '''
     removes the start delay of the foreground file
     By removing packets until the first 5 packets happens during one second
     Args:
-        foreground_pkts - Required : all foreground packets (List)
+        foreground_pkts - Required : all foreground packets (List[str])
     Return:
-        Foreground packets without the delayed start (List)
+        Foreground packets without the delayed start        (List[str])
     '''
-    '''
-    # FOR TESTING
-    return foreground_pkts
-    '''
-    NS_PER_SEC = 1000000000
-    time_between_pkt_group = NS_PER_SEC/100
-    pkt_group_size = 5
+
+    NS_PER_SEC             = 1000000000
+    TIME_BETWEEN_PKT_GROUP = NS_PER_SEC/100
+    PKT_GROUP_SIZE         = 5
     PACKET_ATTR_INDEX_TIME = 0
 
     while(len(foreground_pkts) > 0):
         foreground_time_first = int(foreground_pkts[0].split(",")[PACKET_ATTR_INDEX_TIME])
-        foreground_time_end   = int(foreground_pkts[pkt_group_size - 1].split(",")[PACKET_ATTR_INDEX_TIME])
-        if (foreground_time_end - foreground_time_first) < time_between_pkt_group:
+        foreground_time_end   = int(foreground_pkts[PKT_GROUP_SIZE - 1].split(",")[PACKET_ATTR_INDEX_TIME])
+        if (foreground_time_end - foreground_time_first) < TIME_BETWEEN_PKT_GROUP:
             return foreground_pkts
         else:
             foreground_pkts.pop(0)
@@ -154,27 +153,28 @@ def getStartForeground(foreground_pkts):
     return []
     
 
-def printProgressBar (progress, progressLen, prefix = '', suffix = '', barLen = 50, fill = '█'):
+def print_progress_bar (progress, progress_len, prefix = '', suffix = '', bar_len = 50, fill = '█'):
     """
-    Call in a loop to create terminal progress bar
+    Print a progressbar
+
     Args:
-        progress    - Required  : current progress          (Int)
-        progressLen - Required  : total iterations          (Int)
-        prefix      - Optional  : prefix string             (Str)
-        suffix      - Optional  : suffix string             (Str)
-        barLen      - Optional  : character length of bar   (Int)
-        fill        - Optional  : bar fill character        (Str)
+        progress     - Required  : current progress          (int)
+        progress_len - Required  : total iterations          (int)
+        prefix       - Optional  : prefix string             (str)
+        suffix       - Optional  : suffix string             (str)
+        bar_len      - Optional  : character length of bar   (int)
+        fill         - Optional  : bar fill character        (str)
     """
-    curr_progress = 100 * (progress / float(progressLen))
+    curr_progress = 100 * (progress / float(progress_len))
     percent       = ("{0:.1f}").format(curr_progress)
 
-    filledLength = int(barLen * progress // progressLen)
-    bar          = fill * filledLength + '-' * (barLen - filledLength)
+    filled_length = int(bar_len * progress // progress_len)
+    bar           = fill * filled_length + '-' * (bar_len - filled_length)
 
     print(f'\r{prefix} |{bar}| {percent}% {suffix}', end = "\r")
 
     # Print New Line on Complete
-    if progress == progressLen: 
+    if progress == progress_len: 
         print()
 
 if __name__=="__main__":
