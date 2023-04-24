@@ -106,8 +106,6 @@ def get_pkt_sec(list_of_traces, interval):
         lower[i] = ns * i
         upper[i] = ns * (i + 1)
 
-    print(upper[-1])
-
     # for every packet, in every trace, get which interval it belongs to
     for trace in list_of_traces:
         for packet in trace:
@@ -118,8 +116,9 @@ def get_pkt_sec(list_of_traces, interval):
                 if packet >= lower[i] and packet < upper[i]:
                     pkt_interval[i] += 1
                     added_pkt = True
+
                 i += 1
-                if i >= intervals:
+                if (not added_pkt) and (i >= intervals):
                     print("ERROR: packet could not be found in a interval")
                     print(packet)
                     sys.exit()
