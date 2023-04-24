@@ -56,24 +56,23 @@ def main():
         return
     
 
-def percent_foreground(file, dir_index):
+def percent_foreground(fname, dir_index):
     '''
     Get the percentage of how much of the files lines comes from the foreground dataset
     '''
     background_packets = 0
     foreground_packets = 0
-    for line in file:
-        print(line)
-        parts = line.strip().split(",")
-        print(parts)
-        dir = int(parts[dir_index])
-        if dir == "sb" or dir == "rb":
-            background_packets += 1
-        elif dir == "s" or dir == "r":
-            foreground_packets += 1
-        else:
-            print(f"ERROR: direction {dir} is not valid")
-            sys.exit()
+    with open(fname, "r") as f:
+        for line in f:
+            parts = line.strip().split(",")
+            dir = int(parts[dir_index])
+            if dir == "sb" or dir == "rb":
+                background_packets += 1
+            elif dir == "s" or dir == "r":
+                foreground_packets += 1
+            else:
+                print(f"ERROR: direction {dir} is not valid")
+                sys.exit()
 
     percent_foreground = (foreground_packets)/(background_packets + foreground_packets)
     percent_foreground = percent_foreground * 100
