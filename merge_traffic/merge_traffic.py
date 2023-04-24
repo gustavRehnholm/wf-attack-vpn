@@ -148,8 +148,8 @@ def getStartForeground(foreground_pkts):
     return foreground_pkts
     '''
     NS_PER_SEC = 1000000000
-    time_between_pkt_group = NS_PER_SEC/10
-    pkt_group_size = 10
+    time_between_pkt_group = NS_PER_SEC/100
+    pkt_group_size = 5
     PACKET_ATTR_INDEX_TIME = 0
 
     while(len(foreground_pkts) > 0):
