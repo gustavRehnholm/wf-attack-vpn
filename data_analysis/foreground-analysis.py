@@ -98,7 +98,7 @@ def get_pkt_sec(list_of_traces, interval):
     pkt_interval = [0] * intervals
     pkt_sec      = [0] * intervals
     labels       = [""] * intervals 
-    len_traces    = len(list_of_traces)
+    len_traces   = len(list_of_traces)
 
     print(f"Number of log files: {len_traces}")
 
@@ -106,22 +106,21 @@ def get_pkt_sec(list_of_traces, interval):
         lower[i] = ns * i
         upper[i] = ns * (i + 1)
 
-    # for every packet, in every trace, get which interval it resistent in
+    # for every packet, in every trace, get which interval it belongs to
     for trace in list_of_traces:
         for packet in trace:
-            # determine which interval it belongs to
+            # determine which interval the packet belongs to
             added_pkt = False
-            for i in range(0,intervals):
-                if not added_pkt:
-                    if packet >= lower[i] and packet < upper[i]:
-                        pkt_interval[i] += 1
-                        added_pkt = True
-                elif added_pkt:
-                    break
-            if not added_pkt:
-                print("ERROR: packet could not be found in a interval")
-                print(packet)
-                sys.exit()
+            i = 0
+            while(not added_pkt):
+                if packet >= lower[i] and packet < upper[i]:
+                    pkt_interval[i] += 1
+                    added_pkt = True
+                i += 1
+                if i >= intervals:
+                    print("ERROR: packet could not be found in a interval")
+                    print(packet)
+                    sys.exit()
 
     # get mean value of number of packets, during each second interval
     for j in range(len(pkt_interval)):
