@@ -148,12 +148,12 @@ def getStartForeground(foreground_pkts):
     return foreground_pkts
     '''
     NS_PER_SEC = 1000000000
-    time_between_pkt = NS_PER_SEC/2
+    time_between_pkt = NS_PER_SEC/10
     PACKET_ATTR_INDEX_TIME = 0
 
     while(len(foreground_pkts) > 0):
         foreground_time_first = int(foreground_pkts[0].split(",")[PACKET_ATTR_INDEX_TIME])
-        foreground_time_end   = int(foreground_pkts[9].split(",")[PACKET_ATTR_INDEX_TIME])
+        foreground_time_end   = int(foreground_pkts[4].split(",")[PACKET_ATTR_INDEX_TIME])
         if (foreground_time_end - foreground_time_first) < time_between_pkt:
             return foreground_pkts
         else:
