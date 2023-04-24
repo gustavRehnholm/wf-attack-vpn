@@ -17,7 +17,7 @@ def main():
     # All usable captures
     DIR_INPUT = "captures_clean"
     # the 50 largest captures
-    DIR_OUTPUT = "captures_50"
+    DIR_OUTPUT = "captures_40"
 
     # clean the previous result
     os.system("rm -f -r " + DIR_OUTPUT)
@@ -35,7 +35,7 @@ def main():
         index += 1
         filename = os.fsdecode(file)
         
-        if index >= 30 and index < 80:
+        if index >= 40 and index < 80:
             print("")
             print("Include file " + str(index) + "/" + str(files_len) + ": " + str(filename))
             print("")
