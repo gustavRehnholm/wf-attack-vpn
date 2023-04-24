@@ -23,7 +23,7 @@ def main():
     # twitch_1_first
     # twitch_1_last
     # twitch_1_middle
-    FILE_OUTPUT = "test/twitch_largest.h5"
+    FILE_OUTPUT = "twitch.h5"
     PATH_OUTPUT = DIR_OUTPUT + "/" + FILE_OUTPUT
     COL_NAMES =  ['time', 'direction', 'size']
     # for storing the result as h5
@@ -65,7 +65,6 @@ def main():
         path = DIR_INPUT + filename
         df = pd.read_hdf(path, key=key)
         df.to_hdf(PATH_OUTPUT, mode = "r+", key = key, append = True) 
-        return
 
         '''
         #if index == 40:
