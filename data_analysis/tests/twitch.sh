@@ -2,7 +2,7 @@
 # Test to get the start of the foreground traffic, by testing against the capture file with the highest density of packets
 
 # to run:
-# ./wf-attack-vpn/data_analysis/tests/twitch_5_10.sh
+# ./wf-attack-vpn/data_analysis/tests/twitch.sh
 
 # merge 
 #python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/test/twitch_10.h5 -m merged_traffic/test/10/twitch_10_10 --ffold 0 -w 5
