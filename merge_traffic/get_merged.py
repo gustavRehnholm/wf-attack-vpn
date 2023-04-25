@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 '''
-TODO: fold on the background dataset
+TODO: fold on the background dataset, aka b_fold
 
 To run:
 python wf-attack-vpn/merged_traffic/main.py
@@ -9,9 +9,11 @@ python wf-attack-vpn/merged_traffic/main.py
 
 import pandas as pd
 import os
+import shutil
+# own defined packages
 from merge_traffic     import mergeTraffic
 from merge_traffic_old import mergeTrafficOld
-import shutil
+
 
 
 def getMerged(dir_foreground, dir_merged, dir_background, f_fold = 0, b_fold = 0, workers = 5):

@@ -42,7 +42,7 @@ def mergeTraffic(merged_files, foreground_files, background_path, start_index, e
     background_tuple = list(df.itertuples(index=False, name=None))
     background_len   = len(background_tuple)
 
-    # seed the rnd generator // MOVE? OTHER RND FUNCTION?
+    # seed the rnd generator
     random.seed(timeit.default_timer())
 
     p = Pool(workers)

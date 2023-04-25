@@ -10,7 +10,7 @@ ap.add_argument("-f"     , required = True , default = "", type = str, help = "r
 ap.add_argument("-b"     , required = True , default = "", type = str, help = "root folder of the background dataset")
 ap.add_argument("-m"     , required = True , default = "", type = str, help = "root folder of the merged dataset")
 ap.add_argument("--ffold", required = False, default = 0 , type = int, help = "foreground fold file to use [0,9]", choices = range(0, 10))
-ap.add_argument("--bfold", required = False, default = 0 , type = int, help = "background fold [0,9]", choices = range(0, 10))
+ap.add_argument("--bfold", required = False, default = 0 , type = int, help = "background fold [0,9]"            , choices = range(0, 10))
 ap.add_argument("-w"     , required = False, default = 5 , type = int, help = "number of workers (multiprocessing)")
 args = vars(ap.parse_args())
 
