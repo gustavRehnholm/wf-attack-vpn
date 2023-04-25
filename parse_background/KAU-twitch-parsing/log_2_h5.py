@@ -15,29 +15,30 @@ args = vars(ap.parse_args())
 TODO: progressbar
 '''
 
-def main():
+def log_2_h5(dir_input = "captures/", dir_output = "twitch/raw_captures_h5/"):
     '''
     Convert the raw log files to dataframes, and store them with h5
     That way, they will be faster to handle
+
+    Args:
+        dir_input  - Optional : Path to the raw log files from rds-collect      (str)
+        dir_output - Optional : Path where the converted dataset will be stored (str)
     '''
 
     print("Start converting twitch traffic")
 
     COL_NAMES =  ['time', 'sender_receiver', 'size']
-    # parsed noise files
-    DIR_INPUT = "captures/"
-    # the captures in h5 format
-    DIR_OUTPUT = "twitch/raw_captures_h5/"
+
 
     # clean old results if their is any
-    if os.path.exists(DIR_OUTPUT):
-        shutil.rmtree(DIR_OUTPUT)
-    os.mkdir(DIR_OUTPUT)
+    if os.path.exists(dir_output):
+        shutil.rmtree(dir_output)
+    os.mkdir(dir_output)
 
     input = []
-    files = os.listdir(DIR_INPUT)
+    files = os.listdir(dir_input)
     for curr_file in files:
-        input.append((DIR_INPUT, DIR_OUTPUT, curr_file, COL_NAMES))
+        input.append((dir_input, dir_output, curr_file, COL_NAMES))
     len_files = len(input)
 
     start_time = timeit.default_timer()
@@ -74,7 +75,3 @@ def convert_2_hdf5(dir_input, dir_output, file, col_names):
     df.to_hdf(df_file_name, mode = "w", key = KEY)
 
     return
-
-# run main 
-if __name__=="__main__":
-    main()

@@ -4,12 +4,6 @@ import pandas as pd
 import shutil
 import os
 from multiprocessing import Pool
-import timeit
-import argparse
-
-ap = argparse.ArgumentParser()
-ap.add_argument("-w"     , required = False, default = 10 , type = int, help = "number of workers (multiprocessing)")
-args = vars(ap.parse_args())
 
 '''
 TODO: progressbar
@@ -50,32 +44,29 @@ FILES_2_CLIENTS = [
     "tshark_1.9h_twitch-thewillhallexp_stream_2022-12-31_6.h5"
 ]
 
-def main():
+
+def rm_broken_captures(dir_input ="twitch/raw_captures_h5/", dir_output = "twitch/usable_captures_h5/", workers = 10):
     '''
     rm the capture files that are broken (lack sufficient captures)
+
+    Args:
+        dir_input  - Optional : Directory to check               (str)
+        dir_output - Optional : Storing the usable capture files (str)
+        workers    - Optional : workers multiprocessing          (int)
     '''
     print("Start the removal of unusable files")
 
-    # the captures in h5 format
-    DIR_INPUT = "twitch/raw_captures_h5/"
-    # the usable captures
-    DIR_OUTPUT = "twitch/usable_captures_h5/"
-
     # clean old results if their is any
-    if os.path.exists(DIR_OUTPUT):
-        shutil.rmtree(DIR_OUTPUT)
-    os.mkdir(DIR_OUTPUT)
+    if os.path.exists(dir_output):
+        shutil.rmtree(dir_output)
+    os.mkdir(dir_output)
 
     input = []
-    for currFile in os.listdir(DIR_INPUT):
-        input.append((currFile, DIR_INPUT, DIR_OUTPUT))
+    for currFile in os.listdir(dir_input):
+        input.append((currFile, dir_input, dir_output))
 
-    start_time = timeit.default_timer()
-    p = Pool(args['w'])
+    p = Pool(workers)
     p.starmap(rm_if_broken, input)
-    end_time = timeit.default_timer()
-    print(f"runtime for converting the data (sec): {end_time - start_time}")
-
     return
 
 
@@ -88,9 +79,7 @@ def rm_if_broken(file, dir_input, dir_output):
         dir_input  - Required : where the capture file is stored      (str)
         dir_output - Required : where the capture file will be moved  (str)
     '''
-
     filename = os.fsdecode(file)
-
     if filename in BROKEN_FILES:
         print("Removing file: " + filename)
     elif filename in FILES_2_CLIENTS:
@@ -102,7 +91,6 @@ def rm_if_broken(file, dir_input, dir_output):
         src = dir_input + filename
         dst = dir_output + filename
         shutil.copyfile(src, dst)
-
     return
 
 # run main 
