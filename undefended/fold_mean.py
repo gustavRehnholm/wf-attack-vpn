@@ -2,14 +2,21 @@
 
 import os
 import pandas as pd
-import sys
+import argparse
 
-'''
-merge the 10 fold, so it can be showed as one graph
-'''
+ap = argparse.ArgumentParser()
+ap.add_argument("--input" , required = True , default = "" , help = "directory for the 10 sets to merge")
+ap.add_argument("--output", required = True , default = "" , help = "Directory for the result")
+args = vars(ap.parse_args())
+
+
 def main():
-    PATH_INPUT  = sys.argv[1]
-    PATH_OUTPUT = sys.argv[2]
+    '''
+    merge the 10 fold, so it can be showed as one graph
+    '''
+    
+    PATH_INPUT  = args['input']
+    PATH_OUTPUT = args['output']
     os.system("rm " + PATH_OUTPUT)
    
     df_list = []

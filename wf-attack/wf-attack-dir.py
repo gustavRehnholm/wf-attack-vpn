@@ -49,6 +49,12 @@ def main():
 def df_attack(dir_merged, sample, mode, dir_result, name):
     '''
     Run a DF attack with the provided input
+    Args:
+        dir_merged - Required : Path to the merged dataset                  (str)
+        sample     - Required : Number of samples                           (str)
+        mode       - Required : Mode used "default", "constant" or "tiktok" (str)
+        dir_result - Required : Path where the result will be stored        (str)
+        name       - Required : File name of the result                     (str)
     '''
     txt = f"./df-fitness.py -d {dir_merged} --train -s {sample} {mode} --csv {dir_result}/{name}.csv"
     os.system(txt)

@@ -9,10 +9,10 @@ def plotDf(title = "untitled", list_of_csv = [], labels = [], result_path = "fig
     '''
     Plot graph of the provided WF results
     Args:
-        title       - Optional : Title of the graph
-        list_of_csv - Required : The WF result to plot the graph for
-        labels      - Optional : labels of the plotted lines
-        result_path - Optional : Where to store the generated graph figure
+        title       - Optional : Title of the graph                        (str)
+        list_of_csv - Required : The WF result to plot the graph for       (List[str])
+        labels      - Optional : labels of the plotted lines               (List[str])
+        result_path - Optional : Where to store the generated graph figure (str)
     '''
 
     colors = sns.color_palette(n_colors = len(list_of_csv))
