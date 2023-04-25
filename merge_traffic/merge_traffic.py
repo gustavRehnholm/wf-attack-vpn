@@ -140,7 +140,7 @@ def get_start_foreground(foreground_pkts):
 
     NS_PER_SEC             = 1000000000
     TIME_BETWEEN_PKT_GROUP = NS_PER_SEC/10
-    PKT_GROUP_SIZE         = 20
+    PKT_GROUP_SIZE         = 10
     PACKET_ATTR_INDEX_TIME = 0
 
     while(len(foreground_pkts) > 0):
