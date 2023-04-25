@@ -134,13 +134,13 @@ def get_start_foreground(foreground_pkts):
     Return:
         Foreground packets without the delayed start        (List[str])
     '''
-
+    '''
     return foreground_pkts
     '''
 
     NS_PER_SEC             = 1000000000
     TIME_BETWEEN_PKT_GROUP = NS_PER_SEC/10
-    PKT_GROUP_SIZE         = 10
+    PKT_GROUP_SIZE         = 20
     PACKET_ATTR_INDEX_TIME = 0
 
     while(len(foreground_pkts) > 0):
@@ -154,7 +154,7 @@ def get_start_foreground(foreground_pkts):
     print("ERROR: have removed all packets from the foreground")
     sys.exit()
     return []
-    '''
+    
     
 
 def print_progress_bar (progress, progress_len, prefix = '', suffix = '', bar_len = 50, fill = '█'):
