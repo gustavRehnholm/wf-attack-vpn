@@ -1,5 +1,9 @@
 #!/usr/bin/python3
 
+'''
+TODO: progress bar
+'''
+
 import pandas as pd
 import os
 
