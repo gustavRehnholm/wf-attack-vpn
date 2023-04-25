@@ -23,7 +23,7 @@ def main():
     # twitch_1_first
     # twitch_1_last
     # twitch_1_middle
-    FILE_OUTPUT = "twitch_10.h5"
+    FILE_OUTPUT = "twitch_50.h5"
     PATH_OUTPUT = DIR_OUTPUT + "/" + FILE_OUTPUT
     COL_NAMES =  ['time', 'direction', 'size']
     # for storing the result as h5
@@ -63,7 +63,7 @@ def main():
         df = pd.read_hdf(path, key=key)
         df.to_hdf(PATH_OUTPUT, mode = "r+", key = key, append = True) 
 
-        if index >= 10:
+        if index >= 50:
             print("Have merged all twitch traffic, store them now in " + PATH_OUTPUT)
             return
 
