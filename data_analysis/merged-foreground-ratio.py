@@ -6,6 +6,11 @@ from multiprocessing import Pool
 import numpy as np
 import sys
 
+'''
+To run:
+python wf-attack-vpn/data_analysis/merged-foreground-ratio.py -d <path>
+'''
+
 ap = argparse.ArgumentParser()
 ap.add_argument("-d", required = True , type = str, default = "", help="root folder of client/server dataset")
 ap.add_argument("-w", required = False, type = int, default = 10, help="number of workers for loading traces from disk")
