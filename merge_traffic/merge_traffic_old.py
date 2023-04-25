@@ -112,6 +112,10 @@ def getStartForeground(foreground_pkts):
     Return:
         Foreground packets without the delayed start (List)
     '''
+
+    # for testing
+    return foreground_pkts
+
     NS_PER_SEC = 1000000000
     PACKET_ATTR_INDEX_TIME = 0
 
