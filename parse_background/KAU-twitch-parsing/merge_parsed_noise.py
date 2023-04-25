@@ -32,7 +32,6 @@ def main():
     df_merged = pd.DataFrame(columns = COL_NAMES)
 
     # clean the previous result
-    os.system("mkdir " + DIR_OUTPUT)
     os.system("rm " + PATH_OUTPUT)
     
     # to correct each captures time, so they all follow a chronological order

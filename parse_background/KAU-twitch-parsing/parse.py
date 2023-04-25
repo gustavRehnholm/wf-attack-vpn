@@ -1,12 +1,17 @@
 #!/usr/bin/python3
 
+from printProgressBar import printProgressBar
+
 import pandas as pd
 import os
 from multiprocessing import Pool
 import timeit
 import tqdm
+import argparse
 
-from printProgressBar import printProgressBar
+ap = argparse.ArgumentParser()
+ap.add_argument("-w"     , required = False, default = 10 , type = int, help = "number of workers (multiprocessing)")
+args = vars(ap.parse_args())
 
 '''
 TODO: progressbar
@@ -43,9 +48,10 @@ def main():
     # is used to get the direction of each packet
     ipHost = '10.88.0.9'
 
-    # clean the previous result
-    os.system("rm -f -r " + DIR_OUTPUT)
-    os.system("mkdir " + DIR_OUTPUT)
+    # clean old results if their is any
+    if os.path.exists(DIR_OUTPUT):
+        shutil.rmtree(DIR_OUTPUT)
+    os.mkdir(DIR_OUTPUT)
 
     # the capture files that will be parsed
     input_files = os.listdir(DIR_INPUT)
@@ -56,7 +62,7 @@ def main():
         input.append((curr_file, ipHost))
 
     start_time = timeit.default_timer()
-    p = Pool(10)
+    p = Pool(args['w'])
 
     p.starmap(parse_file, input)
 

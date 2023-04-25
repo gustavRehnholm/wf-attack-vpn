@@ -9,16 +9,16 @@
 # merge 
 
 # divided
-python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_40.h5       -m merged_traffic/twitch_div_rnd_40       --fold 0 -w 1
-python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_1_first.h5  -m merged_traffic/twitch_div_rnd_1_first  --fold 0 -w 5
-python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_1_last.h5   -m merged_traffic/twitch_div_rnd_1_last   --fold 0 -w 5
-python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_1_middle.h5 -m merged_traffic/twitch_div_rnd_1_middle --fold 0 -w 5
+python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_40.h5       -m merged_traffic/twitch_div_rnd_40       --ffold 0 -w 1
+python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_1_first.h5  -m merged_traffic/twitch_div_rnd_1_first  --ffold 0 -w 5
+python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_1_last.h5   -m merged_traffic/twitch_div_rnd_1_last   --ffold 0 -w 5
+python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_1_middle.h5 -m merged_traffic/twitch_div_rnd_1_middle --ffold 0 -w 5
 
 # non-divided
-#python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_40.h5       -m merged_traffic/twitch_rnd_40       --fold 0 -w 1
-#python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_1_first.h5  -m merged_traffic/twitch_rnd_1_first  --fold 0 -w 5
-#python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_1_last.h5   -m merged_traffic/twitch_rnd_1_last   --fold 0 -w 5
-#python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_1_middle.h5 -m merged_traffic/twitch_rnd_1_middle --fold 0 -w 5
+#python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_40.h5       -m merged_traffic/twitch_rnd_40       --ffold 0 -w 1
+#python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_1_first.h5  -m merged_traffic/twitch_rnd_1_first  --ffold 0 -w 5
+#python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_1_last.h5   -m merged_traffic/twitch_rnd_1_last   --ffold 0 -w 5
+#python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_1_middle.h5 -m merged_traffic/twitch_rnd_1_middle --ffold 0 -w 5
 
 # WF attack
 

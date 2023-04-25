@@ -5,11 +5,17 @@ import shutil
 import os
 from multiprocessing import Pool
 import timeit
+import argparse
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-w"     , required = False, default = 10 , type = int, help = "number of workers (multiprocessing)")
+args = vars(ap.parse_args())
 
 '''
 TODO: progressbar
 '''
 
+# files determined as broken
 BROKEN_FILES = [
     "tshark_1.9h_twitch-chess_stream_2022-12-26.h5",
     "tshark_1.9h_twitch-public_domain_television_stream_2022-12-17.h5",
@@ -28,6 +34,7 @@ BROKEN_FILES = [
     "tshark_1.9h_twitch-zalphx_stream_2023-01-05.h5"
 ]
 
+# files which is not broken, but still not usable
 BAD_FILES = [
     "tshark_2h_twitch-pdcinema_stream_2022-12-15.h5",
     "tshark_8h_twitch-fgfm_stream_2022-12-15.h5",
@@ -36,6 +43,7 @@ BAD_FILES = [
     "tshark_10h_twitch-pdcinema_stream_2022-12-14.h5"
 ]
 
+# files that make use of 2 or more clients (should only be one)
 FILES_2_CLIENTS = [
     "tshark_1.9h_twitch-ccm6403_stream_2023-01-03.h5",
     "tshark_1.9h_twitch-caedrel_stream_2023-01-04.h5",
@@ -53,16 +61,17 @@ def main():
     # the usable captures
     DIR_OUTPUT = "twitch/usable_captures_h5/"
 
-    # clean the previous result
-    os.system("rm -f -r " + DIR_OUTPUT)
-    os.system("mkdir " + DIR_OUTPUT)
+    # clean old results if their is any
+    if os.path.exists(DIR_OUTPUT):
+        shutil.rmtree(DIR_OUTPUT)
+    os.mkdir(DIR_OUTPUT)
 
     input = []
     for currFile in os.listdir(DIR_INPUT):
         input.append((currFile, DIR_INPUT, DIR_OUTPUT))
 
     start_time = timeit.default_timer()
-    p = Pool(10)
+    p = Pool(args['w'])
     p.starmap(rm_if_broken, input)
     end_time = timeit.default_timer()
     print(f"runtime for converting the data (sec): {end_time - start_time}")
@@ -71,6 +80,14 @@ def main():
 
 
 def rm_if_broken(file, dir_input, dir_output):
+    '''
+    Only move the file to its new directory if it is not on the lists of unusable files
+
+    Args:
+        file       - Required : file to check if broken               (str)
+        dir_input  - Required : where the capture file is stored      (str)
+        dir_output - Required : where the capture file will be moved  (str)
+    '''
 
     filename = os.fsdecode(file)
 

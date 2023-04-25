@@ -5,6 +5,11 @@ import os
 import sys
 from multiprocessing import Pool
 import timeit
+import argparse
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-w"     , required = False, default = 10 , type = int, help = "number of workers (multiprocessing)")
+args = vars(ap.parse_args())
 
 '''
 TODO: progressbar
@@ -24,9 +29,10 @@ def main():
     # the captures in h5 format
     DIR_OUTPUT = "twitch/raw_captures_h5/"
 
-    # clean the previous result
-    os.system("rm -f -r " + DIR_OUTPUT)
-    os.system("mkdir " + DIR_OUTPUT)
+    # clean old results if their is any
+    if os.path.exists(DIR_OUTPUT):
+        shutil.rmtree(DIR_OUTPUT)
+    os.mkdir(DIR_OUTPUT)
 
     input = []
     files = os.listdir(DIR_INPUT)
@@ -35,7 +41,7 @@ def main():
     len_files = len(input)
 
     start_time = timeit.default_timer()
-    p = Pool(10)
+    p = Pool(args['w'])
     p.starmap(convert_2_hdf5, input)
 
     end_time = timeit.default_timer()
@@ -44,6 +50,15 @@ def main():
 
 
 def convert_2_hdf5(dir_input, dir_output, file, col_names):
+    '''
+    convert the provided log file to an hdf5 file
+
+    Args:
+        dir_input  - Required : where the log file is stored          (str)
+        dir_output - Required : where the hdf5 file should be stored  (str)
+        file       - Required : file to convert                       (str)
+        col_names  - Required : name of the columns for the hdf5 file (List[str])
+    '''
     KEY = "df"
     filename = os.fsdecode(file)
     if not filename.endswith(".log"): 
