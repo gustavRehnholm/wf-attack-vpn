@@ -128,7 +128,7 @@ def inject(merged_path, foreground_path):
 def get_start_foreground(foreground_pkts):
     '''
     removes the start delay of the foreground file
-    By removing packets until the first 5 packets happens during one second
+    By removing packets until the first 10 packets happens during 1/10 second
     Args:
         foreground_pkts - Required : all foreground packets (List[str])
     Return:
@@ -136,8 +136,8 @@ def get_start_foreground(foreground_pkts):
     '''
 
     NS_PER_SEC             = 1000000000
-    TIME_BETWEEN_PKT_GROUP = NS_PER_SEC/100
-    PKT_GROUP_SIZE         = 5
+    TIME_BETWEEN_PKT_GROUP = NS_PER_SEC/10
+    PKT_GROUP_SIZE         = 10
     PACKET_ATTR_INDEX_TIME = 0
 
     while(len(foreground_pkts) > 0):
