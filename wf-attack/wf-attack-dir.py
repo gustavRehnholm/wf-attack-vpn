@@ -11,6 +11,8 @@ ap.add_argument("-m", required = True , default = "" , help = "root folder of th
 ap.add_argument("-r", required = True , default = "" , help = "root folder of the df result")
 ap.add_argument("-s", required = False, type    = int, help = "sample to use (100 in total)"        , default = 100)
 ap.add_argument("-w", required = False, type    = int, help = "Number of workers (multiprocessing)" , default = 1)
+ap.add_argument("--epochs", required=False, type=int, default=30,
+    help="the number of epochs for training")
 args = vars(ap.parse_args())
 
 def main():
@@ -24,6 +26,7 @@ def main():
     DIR_RESULT = args['r']
     SAMPLE     = args['s']
     WORKERS    = args['w']
+    EPOCHS     = args['epochs']
 
     # create the path for the result
     splitted_merged_path = os.path.dirname(DIR_RESULT)
@@ -32,9 +35,9 @@ def main():
     os.system("mkdir " + DIR_RESULT)
     
     input = [
-        (DIR_MERGED, SAMPLE, ""          , DIR_RESULT, "default"),
-        (DIR_MERGED, SAMPLE, "--constant", DIR_RESULT, "constant"),
-        (DIR_MERGED, SAMPLE, "--tiktok"  , DIR_RESULT, "tiktok")
+        (DIR_MERGED, SAMPLE, ""          , EPOCHS, DIR_RESULT, "default"),
+        (DIR_MERGED, SAMPLE, "--constant", EPOCHS, DIR_RESULT, "constant"),
+        (DIR_MERGED, SAMPLE, "--tiktok"  , EPOCHS, DIR_RESULT, "tiktok")
     ]
     
     start_time = timeit.default_timer()
@@ -46,17 +49,18 @@ def main():
     return
 
 
-def df_attack(dir_merged, sample, mode, dir_result, name):
+def df_attack(dir_merged, sample, mode, epochs, dir_result, name):
     '''
     Run a DF attack with the provided input
     Args:
         dir_merged - Required : Path to the merged dataset                  (str)
         sample     - Required : Number of samples                           (str)
         mode       - Required : Mode used "default", "constant" or "tiktok" (str)
+        epochs     - Required : epochs to run                               (str)
         dir_result - Required : Path where the result will be stored        (str)
         name       - Required : File name of the result                     (str)
     '''
-    txt = f"./df-fitness.py -d {dir_merged} --train -s {sample} {mode} --csv {dir_result}/{name}.csv"
+    txt = f"./df-fitness.py -d {dir_merged} --train -s {sample} {mode} --epochs {epochs} --csv {dir_result}/{name}.csv"
     os.system(txt)
 
 
