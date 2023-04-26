@@ -3,6 +3,7 @@
 import argparse
 import os
 import sys
+from multiprocessing import Pool
 import timeit
 
 ap = argparse.ArgumentParser()
@@ -18,6 +19,7 @@ def main():
     '''
     wf attack on all files in a directory
     Performed with Deep fingerprinting, on the modes: default, constant and Tik-Tok
+    It have support for multiprocessing, but needs a good computer to make use of it
     '''
 
     DIR_MERGED = args['m']
@@ -39,7 +41,9 @@ def main():
     ]
     
     start_time = timeit.default_timer()
-    map(df_attack, input)
+    p = Pool(WORKERS)
+    p.starmap(df_attack, input)
+
     end_time = timeit.default_timer()
     print(f"runtime for this merged dataset: {end_time - start_time}")
     return
