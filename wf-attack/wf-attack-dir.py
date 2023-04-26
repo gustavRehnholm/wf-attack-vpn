@@ -27,10 +27,10 @@ def main():
     '''
 
     # create the path for the result
-    splitted_merged_path = os.path.dirname(DIR_RESULT)
+    splitted_merged_path = os.path.dirname(args['r'])
     os.system("mkdir " + splitted_merged_path)
-    os.system("rm -f -r " + DIR_RESULT)
-    os.system("mkdir " + DIR_RESULT)
+    os.system("rm -f -r " + args['r'])
+    os.system("mkdir " + args['r'])
     
     start_time = timeit.default_timer()
 
