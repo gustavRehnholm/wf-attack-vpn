@@ -7,11 +7,15 @@ from multiprocessing import Pool
 import timeit
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-m", required = True , default = "" , help = "root folder of the merged dataset")
-ap.add_argument("-r", required = True , default = "" , help = "root folder of the df result")
-ap.add_argument("-s", required = False, type    = int, help = "sample to use (100 in total)"        , default = 100)
-ap.add_argument("-w", required = False, type    = int, help = "Number of workers (multiprocessing)" , default = 10)
-ap.add_argument("--epochs", required=False, type=int, default=30,
+ap.add_argument("-m", required = True , type = str, default = "" , 
+    help = "root folder of the merged dataset")
+ap.add_argument("-r", required = True , type = str, default = "" , 
+    help = "root folder of the df result")
+ap.add_argument("-s", required = False, type = int, default = 100,
+    help = "sample to use (100 in total)")
+ap.add_argument("-w", required = False, type = int, default = 10,
+    help = "Number of workers (multiprocessing) NOT IMPLEMENTED")
+ap.add_argument("--epochs", required = False, type = int, default = 30,
     help="the number of epochs for training")
 args = vars(ap.parse_args())
 
@@ -22,27 +26,17 @@ def main():
     It have support for multiprocessing, but needs a good computer to make use of it
     '''
 
-    DIR_MERGED = args['m']
-    DIR_RESULT = args['r']
-    SAMPLE     = args['s']
-    WORKERS    = args['w']
-    EPOCHS     = args['epochs']
-
     # create the path for the result
     splitted_merged_path = os.path.dirname(DIR_RESULT)
     os.system("mkdir " + splitted_merged_path)
     os.system("rm -f -r " + DIR_RESULT)
     os.system("mkdir " + DIR_RESULT)
     
-    input = [
-        (DIR_MERGED, SAMPLE, ""          , EPOCHS, DIR_RESULT, "default"),
-        (DIR_MERGED, SAMPLE, "--constant", EPOCHS, DIR_RESULT, "constant"),
-        (DIR_MERGED, SAMPLE, "--tiktok"  , EPOCHS, DIR_RESULT, "tiktok")
-    ]
-    
     start_time = timeit.default_timer()
-    p = Pool(WORKERS)
-    p.starmap(df_attack, input)
+
+    df_attack(args['m'], args['s'], ""          , args['epochs'], args['r'], "default")
+    df_attack(args['m'], args['s'], "--constant", args['epochs'], args['r'], "constant")
+    df_attack(args['m'], args['s'], "--tiktok"  , args['epochs'], args['r'], "tiktok")
 
     end_time = timeit.default_timer()
     print(f"runtime for this merged dataset: {end_time - start_time}")
