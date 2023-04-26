@@ -9,7 +9,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument("-m", required = True , default = "" , help = "root folder of the merged dataset")
 ap.add_argument("-r", required = True , default = "" , help = "root folder of the df result")
 ap.add_argument("-s", required = False, type    = int, help = "sample to use (100 in total)"        , default = 100)
-#ap.add_argument("-w", required = False, type    = int, help = "Number of workers (multiprocessing)" , default = 1)
+ap.add_argument("-w", required = False, type    = int, help = "Number of workers (multiprocessing)" , default = 10)
 ap.add_argument("--epochs", required=False, type=int, default=30,
     help="the number of epochs for training")
 args = vars(ap.parse_args())
