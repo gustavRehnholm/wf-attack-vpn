@@ -9,13 +9,13 @@
 # merge 
 
 # divided
-#python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_40.h5       -m merged_traffic/twitch_div_rnd_40       --ffold 0 -w 1
+python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_40.h5       -m merged_traffic/twitch_div_rnd_40       --ffold 0 -w 1
 #python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_1_first.h5  -m merged_traffic/twitch_div_rnd_1_first  --ffold 0 -w 5
 #python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_1_last.h5   -m merged_traffic/twitch_div_rnd_1_last   --ffold 0 -w 5
 #python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_1_middle.h5 -m merged_traffic/twitch_div_rnd_1_middle --ffold 0 -w 5
 
 # non-divided
-#python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_40.h5       -m merged_traffic/twitch_rnd_40       --ffold 0 -w 1
+python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_40.h5       -m merged_traffic/twitch_rnd_40       --ffold 0 -w 1
 #python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_1_first.h5  -m merged_traffic/twitch_rnd_1_first  --ffold 0 -w 5
 #python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_1_last.h5   -m merged_traffic/twitch_rnd_1_last   --ffold 0 -w 5
 #python wf-attack-vpn/merge_traffic/main.py -f foreground_traffic -b background_traffic/twitch_1_middle.h5 -m merged_traffic/twitch_rnd_1_middle --ffold 0 -w 5
@@ -30,8 +30,9 @@
 
 # divided, with higher epoch
 #python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/twitch_rnd_1_middle -r wf-result/twitch_rnd/twitch_rnd_middle_2h_epoch_60   -s 100 --epochs 60
-python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/twitch_rnd_1_middle -r wf-result/twitch_rnd/twitch_rnd_middle_2h_epoch_300  -s 100 --epochs 300
-python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/twitch_rnd_1_middle -r wf-result/twitch_rnd/twitch_rnd_middle_2h_epoch_1000 -s 100 --epochs 1000
+#python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/twitch_rnd_1_middle -r wf-result/twitch_rnd/twitch_rnd_middle_2h_epoch_300  -s 100 --epochs 300
+
+#python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/twitch_rnd_1_middle -r wf-result/twitch_rnd/twitch_rnd_middle_2h_epoch_1000 -s 100 --epochs 1000
 
 # divided
 #python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/twitch_div_rnd_40       -r wf-result/twitch_div_rnd/twitch_div_rnd_80h       -s 100 --epochs 30
@@ -44,4 +45,4 @@ python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/twitch_rnd_1_m
 #python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/twitch_div_rnd_1_middle -r wf-result/twitch_div_rnd/twitch_div_rnd_middle_2h_epoch_300  -s 100 --epochs 300
 #python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/twitch_div_rnd_1_middle -r wf-result/twitch_div_rnd/twitch_div_rnd_middle_2h_epoch_1000 -s 100 --epochs 1000
 
-./wf-attack-vpn/plotter/plot.sh
+#./wf-attack-vpn/plotter/plot.sh
