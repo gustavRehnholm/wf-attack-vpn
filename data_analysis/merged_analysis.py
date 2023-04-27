@@ -98,7 +98,7 @@ def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", f
         elif file_name in merged_test_files:
             input_test.append( (file, 1) )
         else:
-            print(f"the file {file} does not belong to any subset")
+            #print(f"the file {file} does not belong to any subset")
             failed = True
 
     if failed:
