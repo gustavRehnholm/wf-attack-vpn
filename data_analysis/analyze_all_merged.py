@@ -27,10 +27,14 @@ def main():
     Analyze all merged datasets that are in the provided folder
     '''
     dirs = os.listdir(args["d"])
+    input = []
     for curr_dir in dirs:
         folder = args['d'] + "/" + curr_dir
         fname  = f"stdout/{curr_dir}.txt"
-        merged_analysis(dir = folder, workers = args['w'], fold = args["fold"], fname = fname)
+        input.append((folder, args['w'], args["fold"], fname))
+
+    p = Pool(args['w'])
+    p.starmap(merged_analysis, input)
     
 if __name__ == "__main__":
     main()
