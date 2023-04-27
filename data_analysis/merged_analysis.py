@@ -69,11 +69,11 @@ def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", f
     # For every log file in the foreground, make sure that there is an correlating log file to store the parsed result
     for x in range(0, len(df_fold['log'])):
         if(df_fold['is_train'][x] == True): 
-            merged_train_files.append(df_fold['log'][x])
+            merged_train_files.append(df_fold['log'][x].split('/')[1])
         elif(df_fold['is_valid'][x] == True): 
-            merged_valid_files.append(df_fold['log'][x])
+            merged_valid_files.append(df_fold['log'][x].split('/')[1])
         elif(df_fold['is_test'][x] == True): 
-            merged_test_files.append(df_fold['log'][x])
+            merged_test_files.append(df_fold['log'][x].split('/')[1])
         else:
             print(f"ERROR: the file  {df_fold['log'][x]} does not have a determined usage")
             print(f"is train: {df_fold['is_train'][x]}")
