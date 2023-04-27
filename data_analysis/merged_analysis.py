@@ -61,7 +61,7 @@ def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", f
 
     merged_train_files = []
     merged_valid_files = []
-    merged_test_files = []
+    merged_test_files  = []
     df_fold = pd.read_csv(fold)
 
     # For every log file in the foreground, make sure that there is an correlating log file to store the parsed result
@@ -96,6 +96,7 @@ def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", f
             input_test.append( (file, 1) )
         else:
             print(f"the file {file} does not belong to any subset")
+            print(f"Example of a merge file for training {merged_train_files[0]}")
             sys.exit()
 
     # to test with one packet
