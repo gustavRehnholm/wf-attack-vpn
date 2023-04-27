@@ -2,9 +2,6 @@
 
 import argparse
 import os
-from multiprocessing import Pool
-import numpy as np
-import sys
 
 from merged_analysis import merged_analysis
 
@@ -27,14 +24,10 @@ def main():
     Analyze all merged datasets that are in the provided folder
     '''
     dirs = os.listdir(args["d"])
-    input = []
     for curr_dir in dirs:
         folder = args['d'] + "/" + curr_dir
         fname  = f"stdout/{curr_dir}.txt"
-        input.append((folder, args['w'], args["fold"], fname))
-
-    p = Pool(args['w'])
-    p.starmap(merged_analysis, input)
+        merged_analysis(dir = folder, workers = args['w'], fold = args["fold"], fname = fname)
     
 if __name__ == "__main__":
     main()
