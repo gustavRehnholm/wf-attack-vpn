@@ -23,6 +23,7 @@ def main():
     '''
     Analyze the provided background traffic
     '''
+    print("Start analyzing background")
     analyze_dataset(dir_input   = args['input'],
                     dir_output  = args['output'],
                     workers     = args['workers'])
@@ -46,7 +47,7 @@ def analyze_dataset(dir_input = "twitch/parsed_captures/", dir_output = "fig/twi
 
     input = []
     index = 0
-    for curr_file in sorted_file:
+    for curr_file in sorted_files:
         path = dir_input + "/" + os.fsdecode(curr_file)
         input.append((path, index))
         index += 1
