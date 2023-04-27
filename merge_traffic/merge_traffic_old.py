@@ -52,7 +52,13 @@ def mergeTrafficOld(mergedFiles, foregroundFiles, background_path, start, stop):
     totalMergeFiles = len(mergedFiles)
     mergeFilesDone = 0
 
+    # how many pkt injected, do only need to inject 5000
+    injected_packets = 0
+
     while(len(foregroundFiles) > 0):
+
+        if injected_packets >= 5000:
+            return True
 
             # if should open a new foreground file
             if len(foreground_lines) <= 0:
@@ -90,6 +96,7 @@ def mergeTrafficOld(mergedFiles, foregroundFiles, background_path, start, stop):
                 currMergedFile.writelines([str(curr_time), ",", 
                                            str(background_tuple[df_index][DIRECTION_INDEX]), ",", 
                                            str(background_tuple[df_index][SIZE_INDEX]), "\n"])
+                injected_packets += 1
                 added_foreground = True
                 prev_time = curr_time
                 df_index += 1
@@ -97,6 +104,7 @@ def mergeTrafficOld(mergedFiles, foregroundFiles, background_path, start, stop):
                 if df_index >= background_nr_packets:
                     df_index = 0
             else:
+                injected_packets += 1
                 currMergedFile.writelines(foreground_lines[0])
                 foreground_lines.pop(0)
         
@@ -106,7 +114,7 @@ def mergeTrafficOld(mergedFiles, foregroundFiles, background_path, start, stop):
 def getStartForeground(foreground_pkts):
     '''
     removes the start delay of the foreground file
-    By removing packets until the first 5 packets happens during one second
+    By removing packets until the first 10 packets happens during a 1/10 of a second
     Args:
         foreground_pkts - Required : all foreground packets (List)
     Return:
