@@ -57,12 +57,9 @@ def mergeTrafficOld(mergedFiles, foregroundFiles, background_path, start, stop):
 
     while(len(foregroundFiles) > 0):
 
-        if injected_packets >= 5000:
-            return True
-
             # if should open a new foreground file
-            if len(foreground_lines) <= 0:
-
+            if len(foreground_lines) <= 0 or injected_packets >= 5000:
+                injected_packets = 0
                 # for testing
                 if added_foreground == False:
                     print(f"ERROR: The foreground file {os.path.basename(foregroundFiles[0])} was not injected with any foreground")
