@@ -93,7 +93,7 @@ def timestamps_capture(path_file2analyze, index):
     tuple_index      = 0
     
     while tuple_index < background_len:
-        time = background_tuple[tuple_index][TUPLE_TIME_INDEX]
+        time = int(background_tuple[tuple_index][TUPLE_TIME_INDEX])
         lower_limit = interval_index     * NS_PER_SEC
         upper_limit = (interval_index+1) * NS_PER_SEC
         # this packet is in the current interval
