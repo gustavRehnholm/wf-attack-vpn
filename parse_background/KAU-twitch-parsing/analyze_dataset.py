@@ -2,7 +2,7 @@
 
 '''
 To run
-python wf-attack-vpn/parse_background/KAU-twitch-parsing/analyze_dataset.py
+python wf-attack-vpn/parse_background/KAU-twitch-parsing/analyze_dataset.py --workers 1
 '''
 
 import pandas  as pd
@@ -11,6 +11,7 @@ import numpy   as np
 import os
 from multiprocessing import Pool
 import argparse
+import sys
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--input"  , required = False, default = "twitch/parsed_captures/"  , type = str, help = "Directory for the files to analyze")
@@ -106,6 +107,8 @@ def timestamps_capture(path_file2analyze, index):
         # the packet is probably in the wrong order
         else:
             print(f"ERROR: the time {time} should not be able to go below the current lower interval {lower_limit}")
+            print(f"Upper limit: {upper_limit}")
+            sys.exit()
 
     return (time_list, index)
 
