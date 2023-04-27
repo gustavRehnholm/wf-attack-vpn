@@ -121,6 +121,8 @@ def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", f
     except:
         print("ERROR while calculating stastics")
         return
+
+    print(f"Result stored in: {args['fname']}")
     
 
 def percent_foreground(fname, dir_index):
@@ -164,7 +166,7 @@ def stat_txt(description_text, np_array):
     Return:
         string to print
     '''
-    txt = "{description:>13}: {mean:>15.2f} +- {std:>15.2f}, median: {median:>15.2f},  min: {min:>15.2f}, max: {max:>15.2f}"
+    txt = "{description:>20}: {mean:>15.2f} +- {std:>15.2f}, median: {median:>15.2f},  min: {min:>15.2f}, max: {max:>15.2f}"
 
     return txt.format(description = description_text   , mean = np.mean(np_array), std = np.std(np_array), 
                       median      = np.median(np_array), min  = np.min(np_array) , max = np.max(np_array))
