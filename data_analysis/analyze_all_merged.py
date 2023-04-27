@@ -26,6 +26,8 @@ def main():
     dirs = os.listdir(args["d"])
     for curr_dir in dirs:
         folder = args['d'] + "/" + curr_dir
+        print(folder)
+        return
         fname  = f"stdout/{curr_dir}.txt"
         merged_analysis(dir = folder, workers = args['w'], fold = args["fold"], fname = fname)
     
