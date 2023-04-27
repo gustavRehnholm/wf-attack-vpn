@@ -82,8 +82,6 @@ def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", f
 
     p = Pool(workers)
 
-    print(merged_test_files[0])
-
     input_all   = []
     input_train = []
     input_valid = []
@@ -98,15 +96,8 @@ def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", f
         elif file_name in merged_test_files:
             input_test.append( (file, 1) )
         else:
-            #print(f"the file {file} does not belong to any subset")
-            failed = True
-
-    if failed:
-        sys.exit()
-
-
-    # to test with one packet
-    #input = [("foreground_traffic/client/0/0000-0001-0047.log",intervals)]
+            print(f"the file {file} does not belong to any subset")
+            sys.exit()
 
     file_stats_all   = p.starmap(percent_foreground, input_all)
     file_stats_train = p.starmap(percent_foreground, input_train)
