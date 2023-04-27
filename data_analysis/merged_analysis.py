@@ -64,6 +64,8 @@ def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", f
     merged_test_files  = []
     df_fold = pd.read_csv(fold)
 
+    failed = False
+
     # For every log file in the foreground, make sure that there is an correlating log file to store the parsed result
     for x in range(0, len(df_fold['log'])):
         if(df_fold['is_train'][x] == True): 
@@ -77,8 +79,10 @@ def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", f
             print(f"is train: {df_fold['is_train'][x]}")
             print(f"is valid: {df_fold['is_valid'][x]}")
             print(f"is test:  {df_fold['is_test'][x]}")
-            sys.exit()
-
+            failed = True
+    
+    if failed:
+        sys.exit()
 
     p = Pool(workers)
 
