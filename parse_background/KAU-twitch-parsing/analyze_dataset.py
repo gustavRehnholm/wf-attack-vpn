@@ -101,16 +101,15 @@ def timestamps_capture(path_file2analyze, index):
         if time >= lower_limit and time < upper_limit:
             time_list[interval_index] += 1
             tuple_index               += 1
+            print(f"Added time at interval[{lower_limit}, {upper_limit}]")
         # advance the interval
         elif time >= upper_limit:
             interval_index += 1
+            print(f"advanced time from the interval[{lower_limit}, {upper_limit}]")
         # the packet is probably in the wrong order
         else:
             print(f"ERROR: the time {time} should not be able to go below the current lower interval {lower_limit}")
             print(f"Upper limit: {upper_limit}")
-            print(f"Added time:")
-            for a in time_list:
-                print(a)
             sys.exit()
 
     return (time_list, index)
