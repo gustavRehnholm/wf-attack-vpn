@@ -108,6 +108,9 @@ def timestamps_capture(path_file2analyze, index):
         else:
             print(f"ERROR: the time {time} should not be able to go below the current lower interval {lower_limit}")
             print(f"Upper limit: {upper_limit}")
+            print(f"Added time:")
+            for a in time_list:
+                print(a)
             sys.exit()
 
     return (time_list, index)
