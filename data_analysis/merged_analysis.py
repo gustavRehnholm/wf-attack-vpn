@@ -4,11 +4,12 @@ import argparse
 import os
 from multiprocessing import Pool
 import numpy as np
+import pandas as pd
 import sys
 
 '''
 To run:
-python wf-attack-vpn/data_analysis/merged_analysis.py -d twitch_rnd_40
+python wf-attack-vpn/data_analysis/merged_analysis.py -d merged_traffic/twitch_rnd_40
 '''
 
 ap = argparse.ArgumentParser()
@@ -125,6 +126,11 @@ def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", f
 def percent_foreground(fname, dir_index):
     '''
     Get the percentage of how much of the files lines comes from the foreground dataset
+    Args:
+        fname     - Required : file to get statistics from                (str)
+        dir_index - Required : index to get the time from the files lines (int)
+    Return:
+        percentage of the foreground found
     '''
     background_packets = 0
     foreground_packets = 0
@@ -152,10 +158,10 @@ def percent_foreground(fname, dir_index):
 def stat_txt(description_text, np_array):
     '''
     format how to print statistics 
-    Input:
-        description_text: short string (1-3 words) to describe what the statistics is for 
-        np_array        : what to show statistics for 
-    Output:
+    Args:
+        description_text - Required : short string (1-3 words) to describe what the statistics is for (str)
+        np_array         - Required : what to show statistics for                                     (np.array)
+    Return:
         string to print
     '''
     txt = "{description:>13}: {mean:>15.2f} +- {std:>15.2f}, median: {median:>15.2f},  min: {min:>15.2f}, max: {max:>15.2f}"
