@@ -65,7 +65,8 @@ def mergeTrafficOld(mergedFiles, foregroundFiles, background_path, start, stop):
 
                 # for testing
                 if added_foreground == False:
-                    print("The foreground file ", os.path.basename(foregroundFiles[0]), " was not injected with any foreground")
+                    print(f"ERROR: The foreground file {os.path.basename(foregroundFiles[0])} was not injected with any foreground")
+                    print("Aborting the program")
                     return False
 
                 added_foreground = False

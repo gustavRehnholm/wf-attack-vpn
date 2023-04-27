@@ -84,15 +84,14 @@ def getMerged(dir_foreground, dir_merged, dir_background, f_fold = 0, b_fold = 0
     print(f"Size of the background: {df_len}")
     
     if workers == 1:
-        # start with the training files, if the program has difficulties in running, it will crash at the training
-        print("Start merging train files")
-        if not mergeTrafficOld(merged_train_files, foreground_train_files, dir_background, part_of_10*2 + 1, int(df_len)):
-            return False
-        print("Start merging test files")
+        print("Start merging test files (not multiprocessor)")
         if not mergeTrafficOld(merged_test_files , foreground_test_files , dir_background, 0              , part_of_10):
             return False
-        print("Start merging validation files")
+        print("Start merging validation files (not multiprocessor)")
         if not mergeTrafficOld(merged_valid_files, foreground_valid_files, dir_background, part_of_10 + 1 , part_of_10*2):
+            return False
+        print("Start merging train files (not multiprocessor)")
+        if not mergeTrafficOld(merged_train_files, foreground_train_files, dir_background, part_of_10*2 + 1, int(df_len)):
             return False
     else:
         # start with the training files, if the program has difficulties in running, it will crash at the training
