@@ -2,7 +2,7 @@
 
 '''
 To run
-python wf-attack-vpn/parse_background/KAU-twitch-parsing/analyze_dataset.py --workers 1
+python wf-attack-vpn/parse_background/KAU-twitch-parsing/analyze_dataset.py --workers 10
 '''
 
 import pandas  as pd
@@ -98,7 +98,7 @@ def timestamps_capture(path_file2analyze, index):
     # which timestamp the packet is sent in
     curr_timestamp   = int(background_tuple[tuple_index][TUPLE_TIME_INDEX])
     
-    while tuple_index < background_len:
+    while tuple_index < background_len-1:
         # advance the time with the duration of the next packet
         lower_limit = interval_index     * NS_PER_SEC
         upper_limit = (interval_index+1) * NS_PER_SEC
