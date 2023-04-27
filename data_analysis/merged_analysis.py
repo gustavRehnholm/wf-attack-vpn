@@ -73,8 +73,10 @@ def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", f
         elif(df_fold['is_test'][x] == True): 
             merged_test_files.append(os.path.join(args['d'], df_fold['log'][x]))
         else:
-            print("ERROR: the file " + df_fold['log'][x] + "does not have a determined usage")
-            print("Aborting program")
+            print(f"ERROR: the file  {df_fold['log'][x]} does not have a determined usage")
+            print(f"is train: {df_fold['is_train'][x]}")
+            print(f"is valid: {df_fold['is_valid'][x]}")
+            print(f"is test:  {df_fold['is_test'][x]}")
             sys.exit()
 
 
