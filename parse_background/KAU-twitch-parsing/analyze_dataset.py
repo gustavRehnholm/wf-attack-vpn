@@ -92,20 +92,22 @@ def timestamps_capture(path_file2analyze, index):
     # keep track of current packet and time interval
     interval_index   = 0
     tuple_index      = 0
+    curr_timestamp   = 0
     
     while tuple_index < background_len:
-        time = int(background_tuple[tuple_index][TUPLE_TIME_INDEX])
+        # advance the time with the duration of the next packet
+        curr_timestamp += int(background_tuple[tuple_index][TUPLE_TIME_INDEX])
         lower_limit = interval_index     * NS_PER_SEC
         upper_limit = (interval_index+1) * NS_PER_SEC
         # this packet is in the current interval
         if time >= lower_limit and time < upper_limit:
             time_list[interval_index] += 1
             tuple_index               += 1
-            print(f"Added time at interval[{lower_limit}, {upper_limit}]")
+            #print(f"Added time at interval[{lower_limit}, {upper_limit}]")
         # advance the interval
         elif time >= upper_limit:
             interval_index += 1
-            print(f"advanced time from the interval[{lower_limit}, {upper_limit}]")
+            #print(f"advanced time from the interval[{lower_limit}, {upper_limit}]")
         # the packet is probably in the wrong order
         else:
             print(f"ERROR: the time {time} should not be able to go below the current lower interval {lower_limit}")
