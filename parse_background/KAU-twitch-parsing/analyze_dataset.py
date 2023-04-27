@@ -2,7 +2,7 @@
 
 '''
 To run
-python wf-attack-vpn/parse_background/KAU-twitch-parsing/analyze_dataset.py --workers 1
+python wf-attack-vpn/parse_background/KAU-twitch-parsing/analyze_dataset.py --workers 10
 '''
 
 import pandas  as pd
@@ -55,9 +55,12 @@ def analyze_dataset(dir_input = "twitch/parsed_captures/", dir_output = "fig/twi
 
     p = Pool(workers)
     # list of pkt/s for each second interval
+    print("Start extracting pkt/sec for each sec interval")
     time_lists = p.starmap(timestamps_capture, input)
     # list of min, max and mean pkt/s for each captures
+    print("Start extracting min, max and mean for each capture file")
     stat_lists = p.starmap(stat, time_lists)
+    print("Plot the data")
     # sort the captures after the original order (size descending)
     sorted_stats = sorted(stat_lists, key = lambda d: d['index'])
     min  = []
@@ -92,6 +95,7 @@ def timestamps_capture(path_file2analyze, index):
     # keep track of current packet and time interval
     interval_index   = 0
     tuple_index      = 0
+    # which timestamp the packet is sent in
     curr_timestamp   = 0
     
     while tuple_index < background_len:
@@ -103,11 +107,9 @@ def timestamps_capture(path_file2analyze, index):
         if curr_timestamp >= lower_limit and curr_timestamp < upper_limit:
             time_list[interval_index] += 1
             tuple_index               += 1
-            #print(f"Added time at interval[{lower_limit}, {upper_limit}]")
         # advance the interval
         elif curr_timestamp >= upper_limit:
             interval_index += 1
-            #print(f"advanced time from the interval[{lower_limit}, {upper_limit}]")
         # the packet is probably in the wrong order
         else:
             print(f"ERROR: the time {curr_timestamp} should not be able to go below the current lower interval {lower_limit}")
