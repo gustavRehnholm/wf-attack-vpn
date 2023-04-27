@@ -80,7 +80,7 @@ def timestamps_capture(path_file2analyze, index):
         path_file2analyze - Required : path to the file                       (str)
     '''
     NS_PER_SEC       = 1000000000
-    TUPLE_TIME_INDEX = 1
+    TUPLE_TIME_INDEX = 0
 
     # the background packets as a list of tuples (better performance than working with the dataframe)
     df               = pd.read_hdf(path_file2analyze, key = "df")
