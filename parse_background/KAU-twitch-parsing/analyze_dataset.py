@@ -67,9 +67,9 @@ def analyze_dataset(dir_input = "twitch/parsed_captures/", dir_output = "fig/twi
     max  = []
     mean = []
     for dic in sorted_stats:
-        min.append(dic[stat][0])
-        max.append(dic[stat][1])
-        mean.append(dic[stat][2])
+        min.append(dic['stat'][0])
+        max.append(dic['stat'][1])
+        mean.append(dic['stat'][2])
     # plot a line for min, max and mean
     plot_analysis(min, max, mean, "Twitch analysis", "/fig")
 
