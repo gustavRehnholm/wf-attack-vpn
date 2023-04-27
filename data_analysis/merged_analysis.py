@@ -43,16 +43,16 @@ def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", f
         fname    - Optional : Text file to store the result in               (str)
     '''
 
-    print(f"walking directory {args['d']}, this might take some time...")
+    print(f"walking directory {dir}, this might take some time...")
     print("")
 
     # walk the dataset folder
     todo = []
-    dirs = os.listdir(args["d"])
+    dirs = os.listdir(dir)
 
     # for each webpage dir
     for curr_dir in dirs:
-        folder = args['d'] + "/" + curr_dir
+        folder = dir + "/" + curr_dir
         # for all log files for each webpage
         for root, dirs, files in os.walk(folder, topdown = False):
             for name in files:
@@ -62,7 +62,7 @@ def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", f
     merged_train_files = []
     merged_valid_files = []
     merged_test_files = []
-    df_fold = pd.read_csv(args["fold"])
+    df_fold = pd.read_csv(fold)
 
     # For every log file in the foreground, make sure that there is an correlating log file to store the parsed result
     for x in range(0, len(df_fold['log'])):
@@ -78,7 +78,7 @@ def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", f
             sys.exit()
 
 
-    p = Pool(args["w"])
+    p = Pool(workers)
 
     input_all   = []
     input_train = []
@@ -110,19 +110,19 @@ def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", f
     np_stat_test  = np.array(file_stats_test)
 
     try:
-        open(args['fname'], 'w').close()
-        with open(args['fname'], "a") as f:
+        open(fname, 'w').close()
+        with open(fname, "a") as f:
             # print some descriptive statistics
-            print("Percentage of the packet that comes from the foreground:", file=f)
-            print(stat_txt("All subsets" , np_stat_all), file=f)
-            print(stat_txt("Training subset" , np_stat_train), file=f)
-            print(stat_txt("Validation subset" , np_stat_valid), file=f)
-            print(stat_txt("Testing subset" , np_stat_test), file=f)
+            print("Percentage of the packet that comes from the foreground:", file = f)
+            print(stat_txt("All subsets"       , np_stat_all)  , file = f)
+            print(stat_txt("Training subset"   , np_stat_train), file = f)
+            print(stat_txt("Validation subset" , np_stat_valid), file = f)
+            print(stat_txt("Testing subset"    , np_stat_test) , file = f)
     except:
-        print("ERROR while calculating stastics")
+        print("ERROR while calculating statistics")
         return
 
-    print(f"Result stored in: {args['fname']}")
+    print(f"Result stored in: {fname}")
     
 
 def percent_foreground(fname, dir_index):
