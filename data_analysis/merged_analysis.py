@@ -69,22 +69,20 @@ def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", f
     # For every log file in the foreground, make sure that there is an correlating log file to store the parsed result
     for x in range(0, len(df_fold['log'])):
         if(df_fold['is_train'][x] == True): 
-            merged_train_files.append(os.path.join(args['d'], df_fold['log'][x]))
+            merged_train_files.append(df_fold['log'][x])
         elif(df_fold['is_valid'][x] == True): 
-            merged_valid_files.append(os.path.join(args['d'], df_fold['log'][x]))
+            merged_valid_files.append(df_fold['log'][x])
         elif(df_fold['is_test'][x] == True): 
-            merged_test_files.append(os.path.join(args['d'], df_fold['log'][x]))
+            merged_test_files.append(df_fold['log'][x])
         else:
             print(f"ERROR: the file  {df_fold['log'][x]} does not have a determined usage")
             print(f"is train: {df_fold['is_train'][x]}")
             print(f"is valid: {df_fold['is_valid'][x]}")
             print(f"is test:  {df_fold['is_test'][x]}")
-            failed = True
-    
-    if failed:
-        sys.exit()
 
     p = Pool(workers)
+
+    print(merged_test_files[0])
 
     input_all   = []
     input_train = []
@@ -92,16 +90,20 @@ def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", f
     input_test  = []
     for file in todo:
         input_all.append( (file, 1) )
-        if file in merged_train_files:
+        file_name = os.path.basename(file)
+        if file_name in merged_train_files:
             input_train.append( (file, 1) )
-        elif file in merged_valid_files:
+        elif file_name in merged_valid_files:
             input_valid.append( (file, 1) )
-        elif file in merged_test_files:
+        elif file_name in merged_test_files:
             input_test.append( (file, 1) )
         else:
             print(f"the file {file} does not belong to any subset")
-            print(f"Example of a merge file for training {merged_train_files[0]}")
-            sys.exit()
+            failed = True
+
+    if failed:
+        sys.exit()
+
 
     # to test with one packet
     #input = [("foreground_traffic/client/0/0000-0001-0047.log",intervals)]
