@@ -103,6 +103,7 @@ def timestamps_capture(path_file2analyze, index):
         curr_timestamp += int(background_tuple[tuple_index][TUPLE_TIME_INDEX])
         lower_limit = interval_index     * NS_PER_SEC
         upper_limit = (interval_index+1) * NS_PER_SEC
+        print(f"current time: {curr_timestamp}, interval: [{lower_limit},{upper_limit}]")
         # this packet is in the current interval
         if curr_timestamp >= lower_limit and curr_timestamp < upper_limit:
             time_list[interval_index] += 1
