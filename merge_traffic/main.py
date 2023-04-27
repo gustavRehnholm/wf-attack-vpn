@@ -6,12 +6,14 @@ import timeit
 from get_merged import getMerged
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-f"     , required = True , default = "", type = str, help = "root folder of the foreground dataset")
-ap.add_argument("-b"     , required = True , default = "", type = str, help = "root folder of the background dataset")
-ap.add_argument("-m"     , required = True , default = "", type = str, help = "root folder of the merged dataset")
-ap.add_argument("--ffold", required = False, default = 0 , type = int, help = "foreground fold file to use [0,9]", choices = range(0, 10))
-ap.add_argument("--bfold", required = False, default = 0 , type = int, help = "background fold [0,9]"            , choices = range(0, 10))
-ap.add_argument("-w"     , required = False, default = 5 , type = int, help = "number of workers (multiprocessing)")
+ap.add_argument("-f"     , required = True , default = ""   , type = str, help = "root folder of the foreground dataset")
+ap.add_argument("-b"     , required = True , default = ""   , type = str, help = "root folder of the background dataset")
+ap.add_argument("-m"     , required = True , default = ""   , type = str, help = "root folder of the merged dataset")
+ap.add_argument("--ffold", required = False, default = 0    , type = int, help = "foreground fold file to use [0,9]", choices = range(0, 10))
+ap.add_argument("--bfold", required = False, default = 0    , type = int, help = "background fold [0,9]"            , choices = range(0, 10))
+ap.add_argument("-w"     , required = False, default = 5    , type = int, help = "number of workers (multiprocessing)")
+ap.add_argument("--div"  , required = True , default = True , type = bool, 
+    help = "If the background dataset should be divided among the testing, validation and traning or not")
 args = vars(ap.parse_args())
 
 def main():
@@ -25,7 +27,8 @@ def main():
                         dir_background = args['b'],
                         f_fold         = args['ffold'],
                         b_fold         = args['bfold'],
-                        workers        = args['w'])
+                        workers        = args['w'],
+                        div            = args['div'])
     end_time = timeit.default_timer()
 
     if success:
