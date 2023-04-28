@@ -5,7 +5,9 @@ import os
 import sys
 from multiprocessing import Pool
 import timeit
+import shutil
 import argparse
+
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-w"     , required = False, default = 10 , type = int, help = "number of workers (multiprocessing)")
