@@ -2,7 +2,7 @@
 
 '''
 To run
-python wf-attack-vpn/parse_background/KAU-twitch-parsing/analyze_dataset.py --input twitch/tmp/ --workers 10
+python wf-attack-vpn/parse_background/KAU-twitch-parsing/analyze_dataset.py --workers 10
 '''
 
 from multiprocessing import Pool
@@ -138,9 +138,9 @@ def plot_analysis(min, max, mean, title = "untitled", result_path = "fig/"):
 
     '''
 
-    plt.plot(mean)
-    plt.plot(max)
-    plt.plot(min)
+    plt.plot(mean, label = 'mean')
+    plt.plot(max, label = 'max')
+    #plt.plot(min)
 
     plt.ylabel('pkt/s')
     plt.xlabel('file')
