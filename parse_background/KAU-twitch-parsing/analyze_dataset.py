@@ -17,7 +17,7 @@ import argparse
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--input"  , required = False, default = "twitch/parsed_captures/"  , type = str, help = "Directory for the files to analyze")
-ap.add_argument("--output" , required = False, default = "fig/twitch_analysis"      , type = str, help = "Directory to store the result")
+ap.add_argument("--output" , required = False, default = "fig/twitch_analysis/"     , type = str, help = "Directory to store the result")
 ap.add_argument("--workers", required = False, default = 10                         , type = int, help = "Workers for multiprocessing")
 args = vars(ap.parse_args())
 
@@ -73,7 +73,7 @@ def analyze_dataset(dir_input = "twitch/parsed_captures/", dir_output = "fig/twi
         max.append(dic['stat'][1])
         mean.append(dic['stat'][2])
     # plot a line for min, max and mean
-    plot_analysis(min, max, mean, "Twitch analysis", "/fig")
+    plot_analysis(min, max, mean, "Twitch_analysis", "/fig/")
 
     return
 
