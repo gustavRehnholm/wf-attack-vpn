@@ -138,9 +138,12 @@ def plot_analysis(min, max, mean, title = "untitled", result_path = "/fig"):
 
     colors  = sns.color_palette(n_colors = len(mean))
 
-    ax = sns.pointplot(data = np.array(min) , x = "file", y = "pkt/s", label = "min")
-    ax = sns.pointplot(data = np.array(max) , x = "file", y = "pkt/s", label = "max")
-    ax = sns.pointplot(data = np.array(mean), x = "file", y = "pkt/s", label = "mean")
+    for i in range(0,len(mean)):
+        print(f"{mean[i]}, {max[i]}, {min[i]}")
+
+    ax = sns.pointplot(data = min , x = "file", y = "pkt/s", label = "min")
+    ax = sns.pointplot(data = max , x = "file", y = "pkt/s", label = "max")
+    ax = sns.pointplot(data = mean, x = "file", y = "pkt/s", label = "mean")
 
     # Tweak spacing to prevent clipping of tick-labels
     plt.subplots_adjust(bottom = 0.15)
