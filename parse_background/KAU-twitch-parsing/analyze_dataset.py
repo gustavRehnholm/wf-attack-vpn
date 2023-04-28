@@ -65,8 +65,7 @@ def analyze_dataset(dir_input = "twitch/parsed_captures/", dir_output = "fig/twi
     print("Plot the data")
     # sort the captures after the original order (size descending)
     sorted_stats = sorted(stat_lists, key = lambda d: d['index'])
-    print(sorted_stats)
-    sys.exit()
+
     min  = []
     max  = []
     mean = []
@@ -84,8 +83,8 @@ def analyze_dataset(dir_input = "twitch/parsed_captures/", dir_output = "fig/twi
         upper_limit_h.append(dic['upper_limit_h'])
 
     upper_limit_h.sort()
-    print(f"time difference [{upper_limit_h[0]},{upper_limit_h[-1]}]")
-    
+    print(f"time difference [{upper_limit_h[0]:.2f},{upper_limit_h[-1]:.2f}]")
+
     # plot a line for min, max and mean
     plot_analysis(min, max, mean, "Twitch_analysis", "fig/")
 
