@@ -136,14 +136,17 @@ def plot_analysis(min, max, mean, title = "untitled", result_path = "/fig"):
 
     '''
 
-    colors  = sns.color_palette(n_colors = len(mean))
+    #colors  = sns.color_palette(n_colors = len(mean))
 
-    for i in range(0,len(mean)):
-        print(f"{mean[i]}, {max[i]}, {min[i]}")
+    #for i in range(0,len(mean)):
+    #    print(f"{mean[i]}, {max[i]}, {min[i]}")
 
-    ax = sns.pointplot(data = min , x = "file", y = "pkt/s", label = "min")
-    ax = sns.pointplot(data = max , x = "file", y = "pkt/s", label = "max")
-    ax = sns.pointplot(data = mean, x = "file", y = "pkt/s", label = "mean")
+    plt.plot(mean)
+    plt.plot(max)
+    plt.plot(min)
+
+    plt.ylabel('pkt/s')
+    plt.xlabel('file')
 
     # Tweak spacing to prevent clipping of tick-labels
     plt.subplots_adjust(bottom = 0.15)
@@ -151,7 +154,7 @@ def plot_analysis(min, max, mean, title = "untitled", result_path = "/fig"):
     plt.legend()
     plt.title(title)
     fig = plt.gcf()
-    os.system(f"rm {result_path}/{title}.png")
+    #os.system(f"rm {result_path}/{title}.png")
     fig.savefig(result_path + title)
 
     plt.show()
