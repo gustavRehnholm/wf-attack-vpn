@@ -2,7 +2,7 @@
 
 '''
 To run
-python wf-attack-vpn/parse_background/KAU-twitch-parsing/analyze_dataset.py --workers 10
+python wf-attack-vpn/parse_background/KAU-twitch-parsing/analyze_dataset.py --input twitch/tmp/ --workers 10
 '''
 
 import pandas  as pd
@@ -137,12 +137,10 @@ def plot_analysis(min, max, mean, title = "untitled", result_path = "/fig"):
     '''
 
     colors  = sns.color_palette(n_colors = len(mean))
-    labels  = ["mean", "max", "min"]
-    dataset = [mean, max, min]
 
-    # plot all lines for the graph
-    for j in range(0, len(mean)):
-        ax = sns.pointplot(data = dataset[j], x ="file", y="pkt/s", color = colors[j], label = labels[j])
+    ax = sns.pointplot(data = min , x = "file", y = "pkt/s", label = "min")
+    ax = sns.pointplot(data = max , x = "file", y = "pkt/s", label = "max")
+    ax = sns.pointplot(data = mean, x = "file", y = "pkt/s", label = "mean")
 
     # Tweak spacing to prevent clipping of tick-labels
     plt.subplots_adjust(bottom = 0.15)
