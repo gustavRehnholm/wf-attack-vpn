@@ -139,7 +139,7 @@ def plot_analysis(min, max, mean, title = "untitled", result_path = "fig/"):
     '''
 
     plt.plot(mean, label = 'mean')
-    plt.plot(max, label = 'max')
+    #plt.plot(max, label = 'max')
     #plt.plot(min)
 
     plt.ylabel('pkt/s')
