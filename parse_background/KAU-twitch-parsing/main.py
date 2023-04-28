@@ -14,16 +14,9 @@ To run:
 python wf-attack-vpn/parse_background/main.py
 '''
 
-'''
 ap = argparse.ArgumentParser()
-ap.add_argument("-f"     , required = True , default = "", type = str, help = "root folder of the foreground dataset")
-ap.add_argument("-b"     , required = True , default = "", type = str, help = "root folder of the background dataset")
-ap.add_argument("-m"     , required = True , default = "", type = str, help = "root folder of the merged dataset")
-ap.add_argument("--ffold", required = False, default = 0 , type = int, help = "foreground fold file to use [0,9]", choices = range(0, 10))
-ap.add_argument("--bfold", required = False, default = 0 , type = int, help = "background fold [0,9]"            , choices = range(0, 10))
-ap.add_argument("-w"     , required = False, default = 5 , type = int, help = "number of workers (multiprocessing)")
+ap.add_argument("-w"     , required = False, default = 10 , type = int, help = "number of workers (multiprocessing)")
 args = vars(ap.parse_args())
-'''
 
 def main():
     '''
@@ -33,13 +26,13 @@ def main():
     start_time = timeit.default_timer()
 
     # conver the log files to h5 format
-    log_2_h5()
+    log_2_h5(workers = args['w'])
     # rm the capture files that are determined to be broken
-    rm_broken_captures()
+    rm_broken_captures(workers = args['w'])
     # parse the usable capture files
-    parse_background()
+    parse_background(workers = args['w'])
     # analyze the usable capture files
-    analyze_dataset()
+    analyze_dataset(workers = args['w'])
     # merge the parsed capture files to one background dataset to use
     #merge_parsed_noise()
 
