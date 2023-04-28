@@ -2,7 +2,7 @@
 
 '''
 To run
-python wf-attack-vpn/parse_background/KAU-twitch-parsing/analyze_dataset.py --workers 10
+python wf-attack-vpn/parse_background/KAU-twitch-parsing/analyze_dataset.py --input twitch/tmp --workers 1
 '''
 
 from multiprocessing import Pool
@@ -80,6 +80,7 @@ def analyze_dataset(dir_input = "twitch/parsed_captures/", dir_output = "fig/twi
         min.append(dic['stat'][0])
         max.append(dic['stat'][1])
         mean.append(dic['stat'][2])
+        print(dic['stat'])
         upper_limit_h.append(dic['upper_limit_h'])
 
     upper_limit_h.sort()
