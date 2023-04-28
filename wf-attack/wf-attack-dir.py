@@ -34,8 +34,8 @@ def main():
     
     start_time = timeit.default_timer()
 
-    #df_attack(args['m'], args['s'], ""          , args['epochs'], args['r'], "default")
-    #df_attack(args['m'], args['s'], "--constant", args['epochs'], args['r'], "constant")
+    df_attack(args['m'], args['s'], ""          , args['epochs'], args['r'], "default")
+    df_attack(args['m'], args['s'], "--constant", args['epochs'], args['r'], "constant")
     df_attack(args['m'], args['s'], "--tiktok"  , args['epochs'], args['r'], "tiktok")
 
     end_time = timeit.default_timer()
