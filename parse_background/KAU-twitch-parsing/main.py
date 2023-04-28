@@ -36,12 +36,12 @@ def main():
     log_2_h5()
     # rm the capture files that are determined to be broken
     rm_broken_captures()
-    # analyze the usable capture files
-    analyze_dataset()
     # parse the usable capture files
     parse_background()
+    # analyze the usable capture files
+    analyze_dataset()
     # merge the parsed capture files to one background dataset to use
-    merge_parsed_noise()
+    #merge_parsed_noise()
 
     end_time = timeit.default_timer()
         

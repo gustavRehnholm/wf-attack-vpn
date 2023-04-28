@@ -15,7 +15,14 @@ args = vars(ap.parse_args())
 TODO: progressbar
 '''
 
-def log_2_h5(dir_input = "captures/", dir_output = "twitch/raw_captures_h5/"):
+def main():
+    '''
+    To run log_2_h5 from the terminal
+    '''
+    log_2_h5(workers= args['w'])
+    return
+
+def log_2_h5(dir_input = "captures/", dir_output = "twitch/raw_captures_h5/", workers = 10):
     '''
     Convert the raw log files to dataframes, and store them with h5
     That way, they will be faster to handle
@@ -23,6 +30,7 @@ def log_2_h5(dir_input = "captures/", dir_output = "twitch/raw_captures_h5/"):
     Args:
         dir_input  - Optional : Path to the raw log files from rds-collect      (str)
         dir_output - Optional : Path where the converted dataset will be stored (str)
+        workers    - Optional : number of workers (multiprocessing)             (int)
     '''
 
     print("Start converting twitch traffic")
@@ -42,7 +50,7 @@ def log_2_h5(dir_input = "captures/", dir_output = "twitch/raw_captures_h5/"):
     len_files = len(input)
 
     start_time = timeit.default_timer()
-    p = Pool(args['w'])
+    p = Pool(workers)
     p.starmap(convert_2_hdf5, input)
 
     end_time = timeit.default_timer()
@@ -75,3 +83,6 @@ def convert_2_hdf5(dir_input, dir_output, file, col_names):
     df.to_hdf(df_file_name, mode = "w", key = KEY)
 
     return
+
+if __name__=="__main__":
+    main()
