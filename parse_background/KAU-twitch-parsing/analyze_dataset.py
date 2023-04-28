@@ -5,13 +5,15 @@ To run
 python wf-attack-vpn/parse_background/KAU-twitch-parsing/analyze_dataset.py --input twitch/tmp/ --workers 10
 '''
 
-import pandas  as pd
-import seaborn as sns
-import numpy   as np
-import os
 from multiprocessing import Pool
-import argparse
+import pandas            as pd
+import seaborn           as sns
+import numpy             as np
+import matplotlib.pyplot as plt
+import os
 import sys
+import argparse
+
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--input"  , required = False, default = "twitch/parsed_captures/"  , type = str, help = "Directory for the files to analyze")
