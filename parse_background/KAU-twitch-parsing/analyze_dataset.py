@@ -56,15 +56,15 @@ def analyze_dataset(dir_input = "twitch/parsed_captures/", dir_output = "fig/twi
         index += 1
 
     p = Pool(workers)
+
     # list of pkt/s for each second interval
     print("Start extracting pkt/sec for each sec interval")
     time_lists = p.starmap(timestamps_capture, input)
 
-    for i in time_lists:
-        print(i[0])
     # list of min, max and mean pkt/s for each captures
     print("Start extracting min, max and mean for each capture file")
     stat_lists = p.starmap(stat, time_lists)
+
     print("Plot the data")
     # sort the captures after the original order (size descending)
     sorted_stats = sorted(stat_lists, key = lambda d: d['index'])
@@ -126,22 +126,23 @@ def timestamps_capture(path_file2analyze, index):
     # the background packets as a list of tuples (better performance than working with the dataframe)
     df               = pd.read_hdf(path_file2analyze, key = "df")
     background_tuple = list(df.itertuples(index=False, name=None))
-    background_len   = len(background_tuple)
-    # the result
-    time_list        = [0] * background_len
+
+    time_list        = [0] * len(background_tuple)
     # keep track of current packet and time interval
     interval_index   = 0
     lower_limit = interval_index     * NS_PER_SEC
     upper_limit = (interval_index+1) * NS_PER_SEC
+
     # which timestamp the packet is sent in
     curr_timestamp   = int(background_tuple[0][TUPLE_TIME_INDEX])
+    background_tuple.pop(0)
 
-    while len(background_tuple) > 0:
+    while background_tuple:
         # this packet is in the current interval
         if curr_timestamp >= lower_limit and curr_timestamp < upper_limit:
             time_list[interval_index] += 1
-            background_tuple.pop(0)
             curr_timestamp += int(background_tuple[0][TUPLE_TIME_INDEX])
+            background_tuple.pop(0)
         # advance the interval
         elif curr_timestamp >= upper_limit:
             interval_index += 1
