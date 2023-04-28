@@ -7,6 +7,11 @@ import timeit
 import shutil
 import argparse
 
+'''
+To run:
+python wf-attack-vpn/parse_background/KAU-twitch-parsing/parse_background.py -w 10
+'''
+
 ap = argparse.ArgumentParser()
 ap.add_argument("-w"     , required = False, default = 10 , type = int, help = "number of workers (multiprocessing)")
 args = vars(ap.parse_args())
