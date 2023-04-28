@@ -11,7 +11,7 @@ from analyze_dataset    import analyze_dataset
 
 '''
 To run:
-python wf-attack-vpn/parse_background/main.py
+python wf-attack-vpn/parse_background/KAU-twitch-parsing/main.py
 '''
 
 ap = argparse.ArgumentParser()
