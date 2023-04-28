@@ -4,16 +4,12 @@ import pandas as pd
 import os
 from multiprocessing import Pool
 import timeit
-import tqdm
+import shutil
 import argparse
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-w"     , required = False, default = 10 , type = int, help = "number of workers (multiprocessing)")
 args = vars(ap.parse_args())
-
-'''
-TODO: progressbar
-'''
 
 def main():
     '''
