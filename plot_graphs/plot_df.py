@@ -29,9 +29,10 @@ def plotDf(title = "untitled", list_of_csv = [], labels = [], result_path = "fig
         print("Aborting program")
         return
 
+    ax = []
     # plot all lines for the graph
     for j in range(0, len(datasets)):
-        ax = sns.pointplot(data = datasets[j][["th", "accuracy"]], x ="th", y="accuracy", color = colors[j], label = labels[j])
+        ax.append(sns.pointplot(data = datasets[j][["th", "accuracy"]], x ="th", y="accuracy", color = colors[j], label = labels[j]))
 
     # Tweak spacing to prevent clipping of tick-labels
     plt.subplots_adjust(bottom = 0.15)
@@ -39,8 +40,11 @@ def plotDf(title = "untitled", list_of_csv = [], labels = [], result_path = "fig
     plt.legend()
     plt.title(title)
     fig = plt.gcf()
+    # fig.set_size_inches(6,3)
+    # fig, ax = plt.subplots(2, 2)
+    # plt.subplot(2,2,1)
     os.system("rm " + str(result_path + title) + ".png")
-    fig.savefig(result_path + title)
+    fig.savefig(result_path + title, bbox_inches='tight')
 
     plt.show()
 

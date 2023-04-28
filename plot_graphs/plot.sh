@@ -16,6 +16,11 @@ python wf-attack-vpn/plotter/plot_all.py --title twitch_rnd_first_2h  --input wf
 python wf-attack-vpn/plotter/plot_all.py --title twitch_rnd_last_2h   --input wf-result/twitch_rnd/twitch_rnd_last_2h   --output fig/twitch_rnd
 python wf-attack-vpn/plotter/plot_all.py --title twitch_rnd_middle_2h --input wf-result/twitch_rnd/twitch_rnd_middle_2h --output fig/twitch_rnd
 
+# div-rnd higher epoch
+python wf-attack-vpn/plotter/plot_all.py --title twitch_rnd_middle_2h_epoch_60 --input wf-result/twitch_rnd/twitch_rnd_middle_2h_epoch_60 --output fig/twitch_rnd_epoch
+python wf-attack-vpn/plotter/plot_all.py --title twitch_rnd_middle_2h_epoch_300 --input wf-result/twitch_rnd/twitch_rnd_middle_2h_epoch_300 --output fig/twitch_rnd_epoch
+python wf-attack-vpn/plotter/plot_all.py --title twitch_rnd_middle_2h_epoch_1000 --input wf-result/twitch_rnd/twitch_rnd_middle_2h_epoch_1000 --output fig/twitch_rnd_epoch
+
 # div-rnd
 python wf-attack-vpn/plotter/plot_all.py --title twitch_div_rnd_80h       --input wf-result/twitch_div_rnd/twitch_div_rnd_80h       --output fig/twitch_div_rnd
 python wf-attack-vpn/plotter/plot_all.py --title twitch_div_rnd_first_2h  --input wf-result/twitch_div_rnd/twitch_div_rnd_first_2h  --output fig/twitch_div_rnd
