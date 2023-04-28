@@ -73,7 +73,7 @@ def analyze_dataset(dir_input = "twitch/parsed_captures/", dir_output = "fig/twi
         max.append(dic['stat'][1])
         mean.append(dic['stat'][2])
     # plot a line for min, max and mean
-    plot_analysis(min, max, mean, "Twitch_analysis", "/fig/")
+    plot_analysis(min, max, mean, "Twitch_analysis", "fig/")
 
     return
 
@@ -133,15 +133,10 @@ def stat(timestamp_list, index):
             "index": index}
 
 
-def plot_analysis(min, max, mean, title = "untitled", result_path = "/fig"):
+def plot_analysis(min, max, mean, title = "untitled", result_path = "fig/"):
     '''
 
     '''
-
-    #colors  = sns.color_palette(n_colors = len(mean))
-
-    #for i in range(0,len(mean)):
-    #    print(f"{mean[i]}, {max[i]}, {min[i]}")
 
     plt.plot(mean)
     plt.plot(max)
