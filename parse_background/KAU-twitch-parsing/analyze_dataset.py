@@ -65,18 +65,50 @@ def analyze_dataset(dir_input = "twitch/parsed_captures/", dir_output = "fig/twi
     print("Plot the data")
     # sort the captures after the original order (size descending)
     sorted_stats = sorted(stat_lists, key = lambda d: d['index'])
+    print(sorted_stats)
+    sys.exit()
     min  = []
     max  = []
     mean = []
+    upper_limit_h = []
+    prev_index = -1
     for dic in sorted_stats:
+        if prev_index < dic['index']:
+            prev_index = dic['index']
+        else:
+            print(f"ERROR, packets out of order!")
+            sys.exit()
         min.append(dic['stat'][0])
         max.append(dic['stat'][1])
         mean.append(dic['stat'][2])
+        upper_limit_h.append(dic['upper_limit_h'])
+
+    upper_limit_h.sort()
+    print(f"time difference [{upper_limit_h[0]},{upper_limit_h[-1]}]")
+    
     # plot a line for min, max and mean
     plot_analysis(min, max, mean, "Twitch_analysis", "fig/")
 
     return
 
+def timestamps_capture_mean(path_file2analyze, index):
+    '''
+    get list of number of packet, each second, for the file
+
+    Args:
+        path_file2analyze - Required : path to the file                       (str)
+    '''
+    NS_PER_SEC       = 1000000000
+    TUPLE_TIME_INDEX = 0
+
+    # the background packets as a list of tuples (better performance than working with the dataframe)
+    df               = pd.read_hdf(path_file2analyze, key = "df")
+    background_tuple = list(df.itertuples(index=False, name=None))
+    background_len   = len(background_tuple)
+
+    mean = background_len / (1.9 * 60 * 60)
+
+    return (mean, index)
 
 def timestamps_capture(path_file2analyze, index):
     '''
@@ -119,18 +151,21 @@ def timestamps_capture(path_file2analyze, index):
             print(f"Upper limit: {upper_limit}")
             sys.exit()
 
-    return (time_list, index)
+    return (time_list, index, upper_limit)
 
 
-def stat(timestamp_list, index):
+def stat(timestamp_list, index, upper_limit):
     np_timestamp = np.array(timestamp_list)
 
     min  = np.min(np_timestamp)
     max  = np.max(np_timestamp)
     mean = np.mean(np_timestamp)
 
+    upper_limit_h = upper_limit/(1000000000 * 60 * 60)
+
     return {"stat": (min, max, mean),
-            "index": index}
+            "index": index,
+            "upper_limit_h" : upper_limit_h}
 
 
 def plot_analysis(min, max, mean, title = "untitled", result_path = "fig/"):
