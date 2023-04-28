@@ -59,7 +59,7 @@ def analyze_dataset(dir_input = "twitch/parsed_captures/", dir_output = "fig/twi
 
     # list of pkt/s for each second interval
     print("Start extracting pkt/sec for each sec interval")
-    time_lists = p.starmap(timestamps_capture, input)
+    time_lists      = p.starmap(timestamps_capture, input)
 
     # list of min, max and mean pkt/s for each captures
     print("Start extracting min, max and mean for each capture file")
@@ -67,7 +67,7 @@ def analyze_dataset(dir_input = "twitch/parsed_captures/", dir_output = "fig/twi
 
     print("Plot the data")
     # sort the captures after the original order (size descending)
-    sorted_stats = sorted(stat_lists, key = lambda d: d['index'])
+    sorted_stats = sorted(stat_lists     , key = lambda d: d['index'])
 
     min  = []
     max  = []
@@ -92,6 +92,16 @@ def analyze_dataset(dir_input = "twitch/parsed_captures/", dir_output = "fig/twi
     # plot a line for min, max and mean
     plot_analysis(min, max, mean, "Twitch_analysis", "fig/")
 
+    # mean test
+    time_lists_mean = p.starmap(timestamps_capture_mean, input)
+    sorted_means = sorted(time_lists_mean, key = lambda d: d['index'])
+    mean_tmp = []
+    for dic in sorted_means:
+        mean_tmp.append(dic['mean'])
+        print(dic['mean'])
+    
+    plot_analysis(min, max, mean_tmp, "Twitch_analysis_tmp", "fig/")
+
     return
 
 def timestamps_capture_mean(path_file2analyze, index):
@@ -111,7 +121,8 @@ def timestamps_capture_mean(path_file2analyze, index):
 
     mean = background_len / (1.9 * 60 * 60)
 
-    return (mean, index)
+    return {"mean"  : mean,
+            "index" : index}
 
 def timestamps_capture(path_file2analyze, index):
     '''
