@@ -143,8 +143,8 @@ def timestamps_capture(path_file2analyze, index):
         # this packet is in the current interval
         if curr_timestamp >= lower_limit and curr_timestamp < upper_limit:
             time_list[interval_index] += 1
-            curr_timestamp   = int(background_tuple[tuple_index][TUPLE_TIME_INDEX])
-            tuple_index += 1
+            curr_timestamp            += int(background_tuple[tuple_index][TUPLE_TIME_INDEX])
+            tuple_index               += 1
         # advance the interval
         elif curr_timestamp >= upper_limit:
             interval_index += 1
