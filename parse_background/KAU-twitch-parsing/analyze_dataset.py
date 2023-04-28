@@ -155,11 +155,11 @@ def plot_analysis(min, max, mean, title = "untitled", result_path = "/fig"):
 
     plt.legend()
     plt.title(title)
-    fig = plt.gcf()
+    #fig = plt.gcf()
     #os.system(f"rm {result_path}/{title}.png")
-    fig.savefig(result_path + title)
+    plt.savefig(result_path + title)
 
-    plt.show()
+    #plt.show()
 
     return
 
