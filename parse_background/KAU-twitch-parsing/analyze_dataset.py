@@ -59,6 +59,9 @@ def analyze_dataset(dir_input = "twitch/parsed_captures/", dir_output = "fig/twi
     # list of pkt/s for each second interval
     print("Start extracting pkt/sec for each sec interval")
     time_lists = p.starmap(timestamps_capture, input)
+
+    for i in time_lists:
+        print(i[0])
     # list of min, max and mean pkt/s for each captures
     print("Start extracting min, max and mean for each capture file")
     stat_lists = p.starmap(stat, time_lists)
