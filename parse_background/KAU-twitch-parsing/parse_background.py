@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 
-from printProgressBar import printProgressBar
-
 import pandas as pd
 import os
 from multiprocessing import Pool

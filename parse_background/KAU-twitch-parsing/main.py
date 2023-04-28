@@ -10,6 +10,10 @@ from merge_parsed_noise import merge_parsed_noise
 from analyze_dataset    import analyze_dataset
 
 '''
+TODO: progressbar for the different steps that works with multiprocessing
+'''
+
+'''
 To run:
 python wf-attack-vpn/parse_background/KAU-twitch-parsing/main.py
 '''
