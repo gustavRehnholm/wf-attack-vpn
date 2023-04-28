@@ -157,7 +157,8 @@ def plot_analysis(min, max, mean, title = "untitled", result_path = "/fig"):
     plt.title(title)
     #fig = plt.gcf()
     file_path = result_path + title + ".png"
-    open(file_path, "w").close
+    f = open(file_path, "w")
+    f.close()
     plt.savefig(file_path)
 
     #plt.show()
