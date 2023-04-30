@@ -94,7 +94,7 @@ def background_graph(dir_input = "captures_clean/", dir_output = "fig/twitch_ana
     print(f"Shortest and longest duration of the captures: [{upper_limit_h[0]:.2f},{upper_limit_h[-1]:.2f}]")
 
     # plot a line for min, max and mean
-    plot_analysis(min = min, max = max, mean = mean, one_file = file_60)
+    plot_analysis(min = min, max = max, mean = mean)
     # plot stats for individual capture files
     plot_analysis_captures(cap1 = file_0, cap2 = file_40, cap3 = file_60, cap4 = file_80)
 
