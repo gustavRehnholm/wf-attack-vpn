@@ -172,26 +172,11 @@ def plot_analysis(min, max, mean, title = "Twitch_captures", result_path = "fig/
     plt.ylabel('pkt/s')
     plt.xlabel('file')
 
-    plt.tight_layout()
-    plt.suptitle(title)
-    plt.savefig(f"{result_path}{title}.png")
-
-    # Tweak spacing to prevent clipping of tick-labels
     #plt.subplots_adjust(bottom = 0.15)
 
-    #plt.legend()
-    #plt.suptitle(title)
-    #fig = plt.gcf()
-
-    #file_path = f"{result_path}{title}.png"
-    # clear old result
-    #f = open(file_path, "w")
-    #f.close()
-    # save new result
-    #  , bbox_inches='tight'
-    #plt.savefig(f"{result_path}{title}.png")
-
-    #plt.show()
+    plt.tight_layout()
+    plt.suptitle(title)
+    plt.savefig(f"{result_path}{title}.png", bbox_inches='tight')
 
     return
 
