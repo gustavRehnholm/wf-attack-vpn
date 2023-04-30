@@ -61,9 +61,10 @@ def background_graph(dir_input = "captures_clean/", dir_output = "fig/twitch_ana
     print("Start extracting pkt/sec for each sec interval")
     time_lists = p.starmap(timestamps_capture, input)
     # stat for one file
-    file_60 = time_lists[60][0]
-    print(file_60)
-    #sys.exit()
+    file_0   = time_lists[0][0]
+    file_40  = time_lists[40][0]
+    file_60  = time_lists[60][0]
+    file_80  = time_lists[80][0]
 
     # list of min, max and mean pkt/s for each captures
     print("Start extracting min, max and mean for each capture file")
@@ -93,8 +94,9 @@ def background_graph(dir_input = "captures_clean/", dir_output = "fig/twitch_ana
     print(f"Shortest and longest duration of the captures: [{upper_limit_h[0]:.2f},{upper_limit_h[-1]:.2f}]")
 
     # plot a line for min, max and mean
-    plot_analysis(min = min         , max = max                 , mean = mean, 
-                  one_file = file_60, title =  "Twitch_analysis", result_path =  "fig/")
+    plot_analysis(min = min, max = max, mean = mean, one_file = file_60)
+    # plot stats for individual capture files
+    plot_analysis_captures(cap1 = file_0, cap2 = file_40, cap3 = file_60, cap4 = file_80)
 
     return
 
@@ -106,6 +108,10 @@ def timestamps_capture(path_file2analyze, index):
     Args:
         path_file2analyze - Required : path to the file  (str)
         index             - Required : index of the file (int)
+    Return:
+        Tuple consisting of 3 elements
+
+        time_list : 
     '''
     time_list = [0]
     # keep track of current packet and time interval
@@ -157,9 +163,49 @@ def stat(timestamp_list, index, upper_limit):
             "upper_limit_h" : upper_limit_h}
 
 
-def plot_analysis(min, max, mean, one_file, title = "Twitch_captures", result_path = "fig/"):
+def plot_analysis_captures(cap1, cap2, cap3, cap4, title = "Twitch_singular_captures", result_path = "fig/"):
     '''
-    Plot a graph to show how the captured data from rds-collect behaivs
+    Plot a graph to show how the captured data from rds-collect behavior
+    Args:
+        cap1-4      - Required : Behavior of one file                  (List[int])
+        title       - Optional : title of the figure                   (str)
+        result_path - Optional : Where to store the figure             (str)
+
+    '''
+
+    plt.subplot(2, 2, 1)
+    plt.plot(cap1)
+    plt.title('file:0')
+    plt.ylabel('pkt/s')
+    plt.xlabel('time(sec)')
+
+    plt.subplot(2, 2, 2)
+    plt.plot(cap2)
+    plt.title('file:40')
+    plt.ylabel('pkt/s')
+    plt.xlabel('time(sec)')
+
+    plt.subplot(2, 2, 3)
+    plt.plot(cap3)
+    plt.title('file:60')
+    plt.ylabel('pkt/s')
+    plt.xlabel('time(sec)')
+
+    plt.subplot(2, 2, 4)
+    plt.plot(cap4)
+    plt.title('file:80')
+    plt.ylabel('pkt/s')
+    plt.xlabel('time(sec)')
+
+    plt.tight_layout()
+    plt.suptitle(title)
+    plt.savefig(f"{result_path}{title}.png")
+
+    return
+
+def plot_analysis(min, max, mean, title = "Twitch_combined_captures", result_path = "fig/"):
+    '''
+    Plot a graph to show how the captured data from rds-collect behavior
     Args:
         min         - Required : list of lowest pkt/sec for each file  (List[int])
         max         - Required : list of highest pkt/sec for each file (List[int])
@@ -187,12 +233,6 @@ def plot_analysis(min, max, mean, one_file, title = "Twitch_captures", result_pa
     plt.title('min')
     plt.ylabel('pkt/s')
     plt.xlabel('file')
-
-    plt.subplot(2, 2, 4)
-    plt.plot(one_file)
-    plt.title('One file')
-    plt.ylabel('pkt/s')
-    plt.xlabel('time(sec)')
 
     plt.tight_layout()
     plt.suptitle(title)
