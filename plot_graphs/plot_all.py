@@ -28,8 +28,10 @@ def main():
     dirs = os.listdir(args["d"])
     for curr_dir in dirs:
         subplot_folder = args['d'] + "/" + curr_dir
-        fname  = f"{curr_dir}.png"
-        plot_figure(dir = folder, workers = args['w'], fold = args["fold"], fname = fname)
+        print(curr_dir)
+
+        #fname  = f"{curr_dir}.png"
+        #plot_figure(dir = subplot_folder, workers = args['w'], fold = args["fold"], fname = fname)
     
 if __name__ == "__main__":
     main()
