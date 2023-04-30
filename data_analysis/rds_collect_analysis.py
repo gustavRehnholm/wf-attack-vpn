@@ -204,35 +204,34 @@ def plot_analysis_captures(cap1, cap2, cap3, cap4, subtitle = ['0', '40', '60', 
 
     '''
 
-    plt.subplot(2, 2, 1)
-    plt.plot(cap1)
-    plt.title(f'file:{subtitle[0]}')
-    plt.ylabel('pkt/s')
-    plt.xlabel('time(sec)')
+    fig, axes = plt.subplots(2, 2, figsize=(10, 10))
+    fig.subplots_adjust(top=0.8)
 
-    plt.subplot(2, 2, 2)
-    plt.plot(cap2)
-    plt.title(f'file:{subtitle[1]}')
-    plt.ylabel('pkt/s')
-    plt.xlabel('time(sec)')
+    axes[0,0].plot(cap1)
+    axes[0,0].set_title(f'file:{subtitle[0]}')
+    axes[0,0].set_ylabel('pkt/s')
+    axes[0,0].set_xlabel('time(sec)')
 
-    plt.subplot(2, 2, 3)
-    plt.plot(cap3)
-    plt.title(f'file:{subtitle[2]}')
-    plt.ylabel('pkt/s')
-    plt.xlabel('time(sec)')
+    axes[0,1].plot(cap2)
+    axes[0,1].set_title(f'file:{subtitle[1]}')
+    axes[0,1].set_ylabel('pkt/s')
+    axes[0,1].set_xlabel('time(sec)')
 
-    plt.subplot(2, 2, 4)
-    plt.plot(cap4)
-    plt.title(f'file:{subtitle[3]}')
-    plt.ylabel('pkt/s')
-    plt.xlabel('time(sec)')
+    axes[1,0].plot(cap3)
+    axes[1,0].set_title(f'file:{subtitle[2]}')
+    axes[1,0].set_ylabel('pkt/s')
+    axes[1,0].set_xlabel('time(sec)')
 
-     # save result and clear the plotting
-    plt.tight_layout()
-    plt.suptitle(title)
-    plt.savefig(f"{result_path}{title}.png")
-    plt.close()
+    axes[1,1].plot(cap4)
+    axes[1,1].set_title(f'file:{subtitle[3]}')
+    axes[1,1].set_ylabel('pkt/s')
+    axes[1,1].set_xlabel('time(sec)')
+
+    # save result and clear the plotting
+    fig.tight_layout()
+    fig.suptitle(title)
+    fig.savefig(f"{result_path}{title}.png")
+    plt.close(fig)
 
     return
 
@@ -249,7 +248,7 @@ def plot_analysis(min, max, mean, title = "Twitch_combined_captures", result_pat
 
     '''
 
-    fig, axes = plt.subplots(3, 1, figsize=(10, 5))
+    fig, axes = plt.subplots(3, 1, figsize=(10, 10))
     fig.subplots_adjust(top=0.8)
 
     axes[0].plot(mean)
