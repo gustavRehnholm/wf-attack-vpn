@@ -61,10 +61,21 @@ def background_graph(dir_input = "captures_clean/", dir_output = "fig/twitch_ana
     print("Start extracting pkt/sec for each sec interval")
     time_lists = p.starmap(timestamps_capture, input)
     # stat for one file
+    f = open("file_0",'w')
     file_0   = time_lists[0][0]
+    print(file_0, file = f)
+
+    f = open("file_40",'w')
     file_40  = time_lists[40][0]
+    print(file_40, file = f)
+
+    f = open("file_60",'w')
     file_60  = time_lists[60][0]
+    print(file_60, file = f)
+
+    f = open("file_80",'w')
     file_80  = time_lists[80][0]
+    print(file_80, file = f)
 
     # list of min, max and mean pkt/s for each captures
     print("Start extracting min, max and mean for each capture file")
