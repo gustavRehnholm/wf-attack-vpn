@@ -1,4 +1,5 @@
 import sys
+import pandas as pd
 
 def plot_figure(files2plot, subtitle ,x_label, y_label, sup_title = "", result_path  = "fig/" ):
     '''
