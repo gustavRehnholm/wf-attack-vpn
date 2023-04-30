@@ -2,7 +2,9 @@
 
 '''
 To run
-python wf-attack-vpn/data_analysis/background_graph.py
+python wf-attack-vpn/data_analysis/rds_collect_analysis.py
+
+./wf-attack-vpn/data_analysis/rds_collect_analysis.py
 '''
 
 from multiprocessing import Pool
@@ -146,16 +148,21 @@ def stat(timestamp_list, index, upper_limit):
             "upper_limit_h" : upper_limit_h}
 
 
-def plot_analysis(min, max, mean, title = "untitled", result_path = "fig/"):
+def plot_analysis(min, max, mean, title = "Twitch_captures", result_path = "fig/"):
     '''
 
     '''
     plt.subplot(2, 2, 1)
-    plt.plot(mean, label = 'mean')
+    plt.plot(mean)
+    plt.title('mean')
+
     plt.subplot(2, 2, 2)
-    plt.plot(max, label = 'max')
+    plt.plot(max)
+    plt.title('max')
+
     plt.subplot(2, 2, 3)
-    plt.plot(min, label = 'min')
+    plt.plot(min)
+    plt.title('min')
 
     plt.ylabel('pkt/s')
     plt.xlabel('file')
@@ -164,15 +171,16 @@ def plot_analysis(min, max, mean, title = "untitled", result_path = "fig/"):
     plt.subplots_adjust(bottom = 0.15)
 
     plt.legend()
-    plt.title(title)
+    suptitle(title)
     #fig = plt.gcf()
 
-    file_path = f"{result_path}{title}.png"
+    #file_path = f"{result_path}{title}.png"
     # clear old result
     #f = open(file_path, "w")
     #f.close()
     # save new result
-    plt.savefig(file_path , bbox_inches='tight')
+    #  , bbox_inches='tight'
+    plt.savefig(f"{result_path}{title}.png")
 
     #plt.show()
 
