@@ -62,6 +62,8 @@ def background_graph(dir_input = "captures_clean/", dir_output = "fig/twitch_ana
     time_lists = p.starmap(timestamps_capture, input)
     # stat for one file
     file_60 = time_lists[60]
+    print(file_60)
+    sys.exit()
 
     # list of min, max and mean pkt/s for each captures
     print("Start extracting min, max and mean for each capture file")
