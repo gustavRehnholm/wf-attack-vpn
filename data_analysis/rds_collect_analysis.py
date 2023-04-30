@@ -208,9 +208,11 @@ def plot_analysis_captures(cap1, cap2, cap3, cap4, title = "Twitch_singular_capt
     plt.ylabel('pkt/s')
     plt.xlabel('time(sec)')
 
+     # save result and clear the plotting
     plt.tight_layout()
     plt.suptitle(title)
     plt.savefig(f"{result_path}{title}.png")
+    plt.show()
 
     return
 
@@ -245,9 +247,11 @@ def plot_analysis(min, max, mean, title = "Twitch_combined_captures", result_pat
     plt.ylabel('pkt/s')
     plt.xlabel('file')
 
+    # save result and clear the plotting
     plt.tight_layout()
     plt.suptitle(title)
     plt.savefig(f"{result_path}{title}.png")
+    plt.show()
 
     return
 
