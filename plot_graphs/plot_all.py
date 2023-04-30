@@ -29,11 +29,11 @@ def main():
     p = Pool(args['w'])
 
     # plot one figure for each folder in the 
-    for curr_dir in os.listdir(args["d"]):
+    for curr_dir in os.listdir(args["r"]):
         files2plot = []
         sub_title  = []
         sup_title  = curr_dir
-        path = args['d'] + "/" + curr_dir
+        path = args['r'] + "/" + curr_dir
         for curr_file in os.listdir(path):
             files2plot.append(f"{path}/{curr_file}")
             sub_title.append(curr_file)
