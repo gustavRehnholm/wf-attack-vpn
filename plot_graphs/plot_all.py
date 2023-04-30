@@ -8,12 +8,12 @@ from plot_figure import plot_figure
 
 '''
 To run:
-python wf-attack-vpn/plot_graphs/plot_all.py -d merged_traffic -w 10
+python wf-attack-vpn/plot_graphs/plot_all.py -r wf_result/ -w 10
 '''
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-d"   , required = True , type = str, default = "wf_result/", 
-    help="root folder of the merged dataset")
+ap.add_argument("-r"   , required = True , type = str, default = "wf_result/", 
+    help="root folder of the DF result")
 ap.add_argument("-w"   , required = False, type = int, default = 10, 
     help="number of workers for loading traces from disk")
 args = vars(ap.parse_args())
