@@ -8,7 +8,7 @@ from plot_figure import plot_figure
 
 '''
 To run:
-python wf-attack-vpn/plot_graphs/plot_all.py -d merged_traffic -w 10 --fold foreground_traffic/fold-0.csv
+python wf-attack-vpn/plot_graphs/plot_all.py -d merged_traffic -w 10
 '''
 
 ap = argparse.ArgumentParser()
@@ -25,13 +25,22 @@ def main():
     input -> one folder foreach figure -> one folder for each subplot -> one file for each line to plot on the subplot
     '''
 
-    dirs = os.listdir(args["d"])
-    for curr_dir in dirs:
-        subplot_folder = args['d'] + "/" + curr_dir
-        print(curr_dir)
+    input = []
+    p = Pool(args['w'])
 
-        #fname  = f"{curr_dir}.png"
-        #plot_figure(dir = subplot_folder, workers = args['w'], fold = args["fold"], fname = fname)
+    # plot one figure for each folder in the 
+    for curr_dir in os.listdir(args["d"]):
+        files2plot = []
+        sub_title  = []
+        sup_title  = curr_dir
+        path = args['d'] + "/" + curr_dir
+        for curr_file in os.listdir(path):
+            files2plot.append(f"{path}/{curr_file}")
+            sub_title.append(curr_file)
+
+        input.append((files2plot, sub_title, 'Threshold', 'Accuracy', sup_title))
+
+    p.starmap(plot_figure, input)
     
 if __name__ == "__main__":
     main()
