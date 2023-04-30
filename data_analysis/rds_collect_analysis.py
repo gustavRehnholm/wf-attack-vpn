@@ -139,7 +139,7 @@ def stat(timestamp_list, index, upper_limit):
     max  = np.max(np_timestamp)
     mean = np.mean(np_timestamp)
 
-    upper_limit_h = upper_limit
+    upper_limit_h = upper_limit*60*60
 
     return {"stat": (min, max, mean),
             "index": index,
@@ -150,26 +150,37 @@ def plot_analysis(min, max, mean, title = "Twitch_captures", result_path = "fig/
     '''
 
     '''
+
+    #fig, axs = plt.subplots(nrows = 2, ncols = 2)
+    #fig.tight_layout()
+
     plt.subplot(2, 2, 1)
     plt.plot(mean)
     plt.title('mean')
+    plt.ylabel('pkt/s')
+    plt.xlabel('file')
 
     plt.subplot(2, 2, 2)
     plt.plot(max)
     plt.title('max')
+    plt.ylabel('pkt/s')
+    plt.xlabel('file')
 
     plt.subplot(2, 2, 3)
     plt.plot(min)
     plt.title('min')
-
     plt.ylabel('pkt/s')
     plt.xlabel('file')
 
-    # Tweak spacing to prevent clipping of tick-labels
-    plt.subplots_adjust(bottom = 0.15)
-
-    plt.legend()
+    plt.tight_layout()
     plt.suptitle(title)
+    plt.savefig(f"{result_path}{title}.png")
+
+    # Tweak spacing to prevent clipping of tick-labels
+    #plt.subplots_adjust(bottom = 0.15)
+
+    #plt.legend()
+    #plt.suptitle(title)
     #fig = plt.gcf()
 
     #file_path = f"{result_path}{title}.png"
@@ -178,7 +189,7 @@ def plot_analysis(min, max, mean, title = "Twitch_captures", result_path = "fig/
     #f.close()
     # save new result
     #  , bbox_inches='tight'
-    plt.savefig(f"{result_path}{title}.png")
+    #plt.savefig(f"{result_path}{title}.png")
 
     #plt.show()
 
