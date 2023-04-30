@@ -3,8 +3,6 @@
 '''
 To run
 python wf-attack-vpn/data_analysis/rds_collect_analysis.py
-
-./wf-attack-vpn/data_analysis/rds_collect_analysis.py
 '''
 
 from multiprocessing import Pool
@@ -171,7 +169,7 @@ def plot_analysis(min, max, mean, title = "Twitch_captures", result_path = "fig/
     plt.subplots_adjust(bottom = 0.15)
 
     plt.legend()
-    suptitle(title)
+    plt.suptitle(title)
     #fig = plt.gcf()
 
     #file_path = f"{result_path}{title}.png"
