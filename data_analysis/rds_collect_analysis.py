@@ -252,20 +252,20 @@ def plot_analysis(min, max, mean, title = "Twitch_combined_captures", result_pat
     fig, axes = plt.subplots(3, 1, figsize=(10, 5))
     fig.subplots_adjust(top=0.8)
 
-    axes[0,0].plot(mean)
-    axes[0,0].set_title('mean')
-    axes[0,0].set_ylabel('pkt/s')
-    axes[0,0].set_xlabel('file')
+    axes[0].plot(mean)
+    axes[0].set_title('mean')
+    axes[0].set_ylabel('pkt/s')
+    axes[0].set_xlabel('file')
 
-    axes[1,0].plot(max)
-    axes[1,0].set_title('max')
-    axes[1,0].set_ylabel('pkt/s')
-    axes[1,0].set_xlabel('file')
+    axes[1].plot(max)
+    axes[1].set_title('max')
+    axes[1].set_ylabel('pkt/s')
+    axes[1].set_xlabel('file')
 
-    axes[2,0].plot(min)
-    axes[2,0].set_title('min')
-    axes[2,0].set_ylabel('pkt/s')
-    axes[2,0].set_xlabel('file')
+    axes[2].plot(min)
+    axes[2].set_title('min')
+    axes[2].set_ylabel('pkt/s')
+    axes[2].set_xlabel('file')
 
     # save result and clear the plotting
     fig.tight_layout()
