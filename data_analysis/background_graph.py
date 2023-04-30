@@ -2,7 +2,7 @@
 
 '''
 To run
-python wf-attack-vpn/parse_background/KAU-twitch-parsing/analyze_dataset.py --input twitch/tmp --workers 1
+python wf-attack-vpn/data_analysis/background_graph.py
 '''
 
 from multiprocessing import Pool
@@ -121,7 +121,7 @@ def timestamps_capture(path_file2analyze, index):
     with open(path_file2analyze, 'r') as file2analyze:
         for file_line in file2analyze: #Reading line by line from the master file since it might be to large to do readlines() on
             split_line = file_line.split("\t")
-            time_stamp = split_line[0].split('.')
+            time_stamp = float(split_line[0])
             added_line = False
             while added_line == False:
                 # this packet is in the current interval
