@@ -16,7 +16,7 @@ import argparse
 
 
 ap = argparse.ArgumentParser()
-ap.add_argument("--input"  , required = False, default = "captures_clean/"           , type = str, help = "Directory for the files to analyze")
+ap.add_argument("--input"  , required = False, default = "captures_clean/"          , type = str, help = "Directory for the files to analyze")
 ap.add_argument("--output" , required = False, default = "fig/twitch_analysis/"     , type = str, help = "Directory to store the result")
 ap.add_argument("--workers", required = False, default = 10                         , type = int, help = "Workers for multiprocessing")
 args = vars(ap.parse_args())
@@ -24,7 +24,7 @@ args = vars(ap.parse_args())
 
 def main():
     '''
-    Analyze the provided background traffic
+    Analyze the provided raw captures from rds-collect
     '''
     print("Start analyzing background")
     background_graph(dir_input   = args['input'],
@@ -92,15 +92,6 @@ def background_graph(dir_input = "captures_clean/", dir_output = "fig/twitch_ana
     # plot a line for min, max and mean
     plot_analysis(min, max, mean, "Twitch_analysis", "fig/")
 
-    # mean test
-    time_lists_mean = p.starmap(timestamps_capture_mean, input)
-    sorted_means = sorted(time_lists_mean, key = lambda d: d['index'])
-    mean_tmp = []
-    for dic in sorted_means:
-        mean_tmp.append(dic['mean'])
-        print(dic['mean'])
-    
-    plot_analysis(min, max, mean_tmp, "Twitch_analysis_tmp", "fig/")
 
     return
 
@@ -148,7 +139,7 @@ def stat(timestamp_list, index, upper_limit):
     max  = np.max(np_timestamp)
     mean = np.mean(np_timestamp)
 
-    upper_limit_h = upper_limit/(1000000000 * 60 * 60)
+    upper_limit_h = upper_limit
 
     return {"stat": (min, max, mean),
             "index": index,
@@ -159,10 +150,12 @@ def plot_analysis(min, max, mean, title = "untitled", result_path = "fig/"):
     '''
 
     '''
-
+    plt.subplot(2, 2, 1)
     plt.plot(mean, label = 'mean')
-    #plt.plot(max, label = 'max')
-    #plt.plot(min)
+    plt.subplot(2, 2, 2)
+    plt.plot(max, label = 'max')
+    plt.subplot(2, 2, 3)
+    plt.plot(min, label = 'min')
 
     plt.ylabel('pkt/s')
     plt.xlabel('file')
@@ -173,10 +166,13 @@ def plot_analysis(min, max, mean, title = "untitled", result_path = "fig/"):
     plt.legend()
     plt.title(title)
     #fig = plt.gcf()
-    file_path = result_path + title + ".png"
-    f = open(file_path, "w")
-    f.close()
-    plt.savefig(file_path)
+
+    file_path = f"{result_path}{title}.png"
+    # clear old result
+    #f = open(file_path, "w")
+    #f.close()
+    # save new result
+    plt.savefig(file_path , bbox_inches='tight')
 
     #plt.show()
 
