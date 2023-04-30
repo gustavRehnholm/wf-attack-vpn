@@ -129,7 +129,7 @@ def timestamps_capture(path_file2analyze, index):
                     time_list[interval_index] += 1
                     added_line                 = True
                 # advance the interval
-                elif curr_timestamp >= upper_limit:
+                elif time_stamp >= upper_limit:
                     interval_index += 1
                     time_list.append(0)
                     # advance the time with the duration of the next packet
@@ -137,7 +137,7 @@ def timestamps_capture(path_file2analyze, index):
                     upper_limit = interval_index + 1
                 # the packet is probably in the wrong order
                 else:
-                    print(f"ERROR: the time {curr_timestamp} should not be able to go below the current lower interval {lower_limit}")
+                    print(f"ERROR: the time {time_stamp} should not be able to go below the current lower interval {lower_limit}")
                     print(f"Upper limit: {upper_limit}")
 
     return (time_list, index, upper_limit)
