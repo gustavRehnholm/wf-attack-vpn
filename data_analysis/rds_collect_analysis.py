@@ -129,7 +129,6 @@ def background_graph(dir_input = "captures_clean/", dir_output = "fig/twitch_ana
     # plot stats for individual capture files
     plot_analysis_captures(cap1 = file__1, cap2 = file__100, cap3 = file__200, cap4 = file__300, subtitle= ['-1', '-100', '-200', '-300'], title = "twitch_smallest_captures")
 
-
     return
 
 
@@ -250,29 +249,29 @@ def plot_analysis(min, max, mean, title = "Twitch_combined_captures", result_pat
 
     '''
 
-    plt.subplot(2, 2, 1)
-    plt.plot(mean)
-    plt.title('mean')
-    plt.ylabel('pkt/s')
-    plt.xlabel('file')
+    fig, axes = plt.subplots(2, 2, figsize=(10, 5))
+    fig.subplots_adjust(top=0.8)
 
-    plt.subplot(2, 2, 2)
-    plt.plot(max)
-    plt.title('max')
-    plt.ylabel('pkt/s')
-    plt.xlabel('file')
+    axes[0,0].plot(mean)
+    axes[0,0].set_title('mean')
+    axes[0,0].ylabel('pkt/s')
+    axes[0,0].xlabel('file')
 
-    plt.subplot(2, 2, 3)
-    plt.plot(min)
-    plt.title('min')
-    plt.ylabel('pkt/s')
-    plt.xlabel('file')
+    axes[1,0].plot(max)
+    axes[0,0].set_title('max')
+    axes[0,0].ylabel('pkt/s')
+    axes[0,0].xlabel('file')
+
+    axes[1,1].plot(min)
+    axes[0,0].set_title('min')
+    axes[0,0].ylabel('pkt/s')
+    axes[0,0].xlabel('file')
 
     # save result and clear the plotting
-    plt.tight_layout()
-    plt.suptitle(title)
-    plt.savefig(f"{result_path}{title}.png")
-    plt.close()
+    fig.tight_layout()
+    fig.suptitle(title)
+    fig.savefig(f"{result_path}{title}.png")
+    fig.close()
 
     return
 
