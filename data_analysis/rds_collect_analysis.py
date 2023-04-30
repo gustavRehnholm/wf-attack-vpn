@@ -228,8 +228,8 @@ def plot_analysis_captures(cap1, cap2, cap3, cap4, subtitle = ['0', '40', '60', 
     axes[1,1].set_xlabel('time(sec)')
 
     # save result and clear the plotting
-    fig.tight_layout()
     fig.suptitle(title)
+    fig.tight_layout()
     fig.savefig(f"{result_path}{title}.png")
     plt.close(fig)
 
@@ -267,8 +267,8 @@ def plot_analysis(min, max, mean, title = "Twitch_combined_captures", result_pat
     axes[2].set_xlabel('file')
 
     # save result and clear the plotting
-    fig.tight_layout()
     fig.suptitle(title)
+    fig.tight_layout()
     fig.savefig(f"{result_path}{title}.png")
     plt.close(fig)
 
