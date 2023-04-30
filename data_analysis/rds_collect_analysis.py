@@ -35,7 +35,7 @@ def main():
 
 def background_graph(dir_input = "captures_clean/", dir_output = "fig/twitch_analysis", workers = 10):
     '''
-    Analyze the parsed Twitch dataset
+    Analyze the provided raw captures from rds-collect
 
     Args:
         dir_input  - Optional : Path to the captures to analyze (str)
@@ -60,6 +60,8 @@ def background_graph(dir_input = "captures_clean/", dir_output = "fig/twitch_ana
     # list of pkt/s for each second interval
     print("Start extracting pkt/sec for each sec interval")
     time_lists = p.starmap(timestamps_capture, input)
+    # stat for one file
+    file_60 = time_lists[60]
 
     # list of min, max and mean pkt/s for each captures
     print("Start extracting min, max and mean for each capture file")
@@ -83,15 +85,14 @@ def background_graph(dir_input = "captures_clean/", dir_output = "fig/twitch_ana
         min.append(dic['stat'][0])
         max.append(dic['stat'][1])
         mean.append(dic['stat'][2])
-        print(dic['stat'])
         upper_limit_h.append(dic['upper_limit_h'])
 
     upper_limit_h.sort()
-    print(f"time difference [{upper_limit_h[0]:.2f},{upper_limit_h[-1]:.2f}]")
+    print(f"Shortest and longest duration of the captures: [{upper_limit_h[0]:.2f},{upper_limit_h[-1]:.2f}]")
 
     # plot a line for min, max and mean
-    plot_analysis(min, max, mean, "Twitch_analysis", "fig/")
-
+    plot_analysis(min = min         , max = max                 , mean = mean, 
+                  one_file = file_60, title =  "Twitch_analysis", result_path =  "fig/")
 
     return
 
@@ -101,7 +102,8 @@ def timestamps_capture(path_file2analyze, index):
     get list of number of packet, each second, for the file
 
     Args:
-        path_file2analyze - Required : path to the file                       (str)
+        path_file2analyze - Required : path to the file  (str)
+        index             - Required : index of the file (int)
     '''
     time_list = [0]
     # keep track of current packet and time interval
@@ -133,26 +135,38 @@ def timestamps_capture(path_file2analyze, index):
 
 
 def stat(timestamp_list, index, upper_limit):
+    '''
+    Get min, max, mean for the provided timestamp list
+    Args:
+        timestamp_list - Required : list of pkt/sec for each sec interval     (List[int])
+        index          - Required : index of the file (so it do not get lost) (int)
+        upper_limit    - Required : converts it from s to h                   (float)
+    '''
     np_timestamp = np.array(timestamp_list)
 
     min  = np.min(np_timestamp)
     max  = np.max(np_timestamp)
     mean = np.mean(np_timestamp)
 
-    upper_limit_h = upper_limit*60*60
+    upper_limit_h = upper_limit/(60*60)
 
     return {"stat": (min, max, mean),
             "index": index,
             "upper_limit_h" : upper_limit_h}
 
 
-def plot_analysis(min, max, mean, title = "Twitch_captures", result_path = "fig/"):
+def plot_analysis(min, max, mean, one_file, title = "Twitch_captures", result_path = "fig/"):
     '''
+    Plot a graph to show how the captured data from rds-collect behaivs
+    Args:
+        min         - Required : list of lowest pkt/sec for each file  (List[int])
+        max         - Required : list of highest pkt/sec for each file (List[int])
+        mean        - Required : list of mean pkt/sec for each file    (List[int])
+        one_file    - Required : Behavior of one file                  (List[int])
+        title       - Optional : title of the figure                   (str)
+        result_path - Optional : Where to store the figure             (str)
 
     '''
-
-    #fig, axs = plt.subplots(nrows = 2, ncols = 2)
-    #fig.tight_layout()
 
     plt.subplot(2, 2, 1)
     plt.plot(mean)
@@ -172,11 +186,15 @@ def plot_analysis(min, max, mean, title = "Twitch_captures", result_path = "fig/
     plt.ylabel('pkt/s')
     plt.xlabel('file')
 
-    #plt.subplots_adjust(bottom = 0.15)
+    plt.subplot(2, 2, 4)
+    plt.plot(one_file)
+    plt.title('One file')
+    plt.ylabel('pkt/s')
+    plt.xlabel('time(sec)')
 
     plt.tight_layout()
     plt.suptitle(title)
-    plt.savefig(f"{result_path}{title}.png", bbox_inches='tight')
+    plt.savefig(f"{result_path}{title}.png")
 
     return
 
