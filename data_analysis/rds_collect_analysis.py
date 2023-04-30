@@ -77,6 +77,23 @@ def background_graph(dir_input = "captures_clean/", dir_output = "fig/twitch_ana
     file_80  = time_lists[80][0]
     print(file_80, file = f)
 
+    # smallest
+    f = open("file_-1",'w')
+    file__1  = time_lists[-1][0]
+    print(file__1, file = f)
+
+    f = open("file_-100",'w')
+    file__100  = time_lists[-100][0]
+    print(file__100, file = f)
+
+    f = open("file_-200",'w')
+    file__200  = time_lists[-200][0]
+    print(file__200, file = f)
+
+    f = open("file_-300",'w')
+    file__300  = time_lists[-300][0]
+    print(file__300, file = f)
+
     # list of min, max and mean pkt/s for each captures
     print("Start extracting min, max and mean for each capture file")
     stat_lists = p.starmap(stat, time_lists)
@@ -104,10 +121,13 @@ def background_graph(dir_input = "captures_clean/", dir_output = "fig/twitch_ana
     upper_limit_h.sort()
     print(f"Shortest and longest duration of the captures: [{upper_limit_h[0]:.2f},{upper_limit_h[-1]:.2f}]")
 
-    # plot stats for individual capture files
-    plot_analysis_captures(cap1 = file_0, cap2 = file_40, cap3 = file_60, cap4 = file_80)
+
     # plot a line for min, max and mean
     plot_analysis(min = min, max = max, mean = mean)
+    # plot stats for individual capture files
+    plot_analysis_captures(cap1 = file_0, cap2 = file_40, cap3 = file_60, cap4 = file_80)
+    # plot stats for individual capture files
+    plot_analysis_captures(cap1 = file__1, cap2 = file__100, cap3 = file__200, cap4 = file__300, subtitle= ['-1', '-100', '-200', '-300'], title = "twitch_smallest_captures")
 
 
     return
@@ -175,7 +195,7 @@ def stat(timestamp_list, index, upper_limit):
             "upper_limit_h" : upper_limit_h}
 
 
-def plot_analysis_captures(cap1, cap2, cap3, cap4, title = "Twitch_singular_captures", result_path = "fig/"):
+def plot_analysis_captures(cap1, cap2, cap3, cap4, subtitle = ['0', '40', '60', '80'], title = "Twitch_singular_captures", result_path = "fig/"):
     '''
     Plot a graph to show how the captured data from rds-collect behavior
     Args:
@@ -187,25 +207,25 @@ def plot_analysis_captures(cap1, cap2, cap3, cap4, title = "Twitch_singular_capt
 
     plt.subplot(2, 2, 1)
     plt.plot(cap1)
-    plt.title('file:0')
+    plt.title(f'file:{subtitle[0]}')
     plt.ylabel('pkt/s')
     plt.xlabel('time(sec)')
 
     plt.subplot(2, 2, 2)
     plt.plot(cap2)
-    plt.title('file:40')
+    plt.title(f'file:{subtitle[1]}')
     plt.ylabel('pkt/s')
     plt.xlabel('time(sec)')
 
     plt.subplot(2, 2, 3)
     plt.plot(cap3)
-    plt.title('file:60')
+    plt.title(f'file:{subtitle[2]}')
     plt.ylabel('pkt/s')
     plt.xlabel('time(sec)')
 
     plt.subplot(2, 2, 4)
     plt.plot(cap4)
-    plt.title('file:80')
+    plt.title(f'file:{subtitle[3]}')
     plt.ylabel('pkt/s')
     plt.xlabel('time(sec)')
 
