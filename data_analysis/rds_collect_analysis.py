@@ -213,7 +213,7 @@ def plot_analysis_captures(cap1, cap2, cap3, cap4, title = "Twitch_singular_capt
     plt.tight_layout()
     plt.suptitle(title)
     plt.savefig(f"{result_path}{title}.png")
-    plt.show()
+    plt.close()
 
     return
 
@@ -252,7 +252,7 @@ def plot_analysis(min, max, mean, title = "Twitch_combined_captures", result_pat
     plt.tight_layout()
     plt.suptitle(title)
     plt.savefig(f"{result_path}{title}.png")
-    plt.show()
+    plt.close()
 
     return
 
