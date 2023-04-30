@@ -22,6 +22,12 @@ def plot_figure(files2plot, subtitle ,x_label, y_label, sup_title = "", result_p
             axes[(i%2),(i%1)].set_ylabel(y_label)
             axes[(i%2),(i%1)].set_xlabel(x_label)
 
+        # save result and clear the plotting
+        fig.suptitle(title)
+        fig.tight_layout()
+        fig.savefig(f"{result_path}{title}.png")
+        plt.close(fig)
+
     elif len(files2plot) == 3:
         fig, axes = plt.subplots(3, 1, figsize=(10, 10))
         fig.subplots_adjust(top=0.8)
@@ -32,10 +38,10 @@ def plot_figure(files2plot, subtitle ,x_label, y_label, sup_title = "", result_p
             axes[i].set_ylabel(y_label)
             axes[i].set_xlabel(x_label)
 
-    # save result and clear the plotting
-    fig.suptitle(title)
-    fig.tight_layout()
-    fig.savefig(f"{result_path}{title}.png")
-    plt.close(fig)
+        # save result and clear the plotting
+        fig.suptitle(title)
+        fig.tight_layout()
+        fig.savefig(f"{result_path}{title}.png")
+        plt.close(fig)
 
     return
