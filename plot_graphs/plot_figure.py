@@ -46,16 +46,19 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
         fig.subplots_adjust(top=0.8)
 
         # plot every subplot
-        for index_subplot in range(4):
-            # every line for the subplot
-            for index_line in range(len(datasets_per_subplot[index_subplot])): 
-                df         = datasets_per_subplot[index_subplot][index_line]
-                line_label = labels_subplot_lines[index_subplot][index_line]  
-                axes[(index_subplot%2),(index_subplot%1)].plot(df["th"], df["accuracy"], label = line_label)
+        index_subplot = -1
+        for index_subplot_row in range(2):
+            for index_subplot_column in range(2):
+                index_subplot += 1
+                # every line for the subplot
+                for index_line in range(len(datasets_per_subplot[index_subplot])): 
+                    df         = datasets_per_subplot[index_subplot][index_line]
+                    line_label = labels_subplot_lines[index_subplot][index_line]  
+                    axes[index_subplot_row, index_subplot_column].plot(df["th"], df["accuracy"], label = line_label)
 
-            axes[(index_subplot%2),(index_subplot%1)].set_title(subtitle[index_subplot])
-            axes[(index_subplot%2),(index_subplot%1)].set_ylabel(y_label)
-            axes[(index_subplot%2),(index_subplot%1)].set_xlabel(x_label)
+                axes[index_subplot_row, index_subplot_column].set_title(subtitle[index_subplot])
+                axes[index_subplot_row, index_subplot_column].set_ylabel(y_label)
+                axes[index_subplot_row, index_subplot_column].set_xlabel(x_label)
 
         # save result and clear the plotting
         fig.suptitle(sup_title)
@@ -65,7 +68,7 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
 
     # if 3 subplots per figure
     elif nr_subplots == 3:
-        fig, axes = plt.subplots(3, 1, figsize=(10, 20))
+        fig, axes = plt.subplots(3, 1, figsize=(10, 15))
         fig.subplots_adjust(top=0.8)
 
         for index_subplot in range(3):
