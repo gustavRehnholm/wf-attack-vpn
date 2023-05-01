@@ -59,6 +59,8 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
                 axes[index_subplot_row, index_subplot_column].set_title(subtitle[index_subplot])
                 axes[index_subplot_row, index_subplot_column].set_ylabel(y_label)
                 axes[index_subplot_row, index_subplot_column].set_xlabel(x_label)
+                axes[index_subplot_row, index_subplot_column].legend()
+                axes[index_subplot_row, index_subplot_column].set_ylim([0.5, 1])
 
         # save result and clear the plotting
         fig.suptitle(sup_title)
@@ -81,6 +83,7 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
             axes[index_subplot].set_ylabel(y_label)
             axes[index_subplot].set_xlabel(x_label)
             axes[index_subplot].legend()
+            axes[index_subplot].set_ylim([0.5, 1])
 
         # save result and clear the plotting
         fig.suptitle(sup_title)
