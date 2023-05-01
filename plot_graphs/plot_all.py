@@ -25,12 +25,13 @@ def main():
     input -> one folder foreach figure -> one folder for each subplot -> one file for each line to plot on the subplot
     '''
 
-    input = []
-    p = Pool(args['w'])
+    input       = []
+    p           = Pool(args['w'])
+    result_path = args["r"]
 
     # plot one figure for each folder in the 
-    for curr_dir in os.listdir(args["r"]):
-        files2plot = args["r"] + "/" + curr_dir
+    for curr_dir in os.listdir(result_path):
+        files2plot = f"{result_path}{curr_dir}"
         sup_title  = curr_dir
 
         input.append((files2plot, 'Threshold', 'Accuracy', sup_title))
