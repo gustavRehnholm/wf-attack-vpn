@@ -71,7 +71,7 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
                 # data = datasets[j][["th", "accuracy"]]
                 df = datasets_per_subplot[index_subplot][index_line]
                 line_label = labels_subplot_lines[index_subplot][index_line]
-                axes[index_subplot].plot(data = df[["th", "accuracy"]], x ="th", y="accuracy", label = line_label)
+                axes[index_subplot].plot(df["th"], df["accuracy"], label = line_label)
             axes[index_subplot].set_title(subtitle[index_subplot])
             axes[index_subplot].set_ylabel(y_label)
             axes[index_subplot].set_xlabel(x_label)
