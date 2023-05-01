@@ -12,7 +12,7 @@ python wf-attack-vpn/plot_graphs/plot_all.py -r wf_result/ -w 10
 '''
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-r"   , required = True , type = str, default = "wf_result/", 
+ap.add_argument("-r"   , required = True , type = str, default = "wf_result", 
     help="root folder of the DF result")
 ap.add_argument("-w"   , required = False, type = int, default = 10, 
     help="number of workers for loading traces from disk")
