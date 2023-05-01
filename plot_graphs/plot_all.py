@@ -34,7 +34,7 @@ def main():
         files2plot = f"{result_path}{curr_dir}"
         sup_title  = curr_dir
 
-        input.append((files2plot, 'Threshold', 'Accuracy', sup_title))
+        input.append((files2plot, 'Threshold', 'Accuracy', sup_title, "fig/twitch/"))
 
     p.starmap(plot_figure, input)
     
