@@ -50,9 +50,9 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
             axes[(index_subplot%2),(index_subplot%1)].set_xlabel(x_label)
 
         # save result and clear the plotting
-        fig.suptitle(title)
+        fig.suptitle(sup_title)
         fig.tight_layout()
-        fig.savefig(f"{result_path}{title}.png")
+        fig.savefig(f"{result_path}{sup_title}.png")
         plt.close(fig)
 
     # if 3 subplots per figure
@@ -68,9 +68,9 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
             axes[index_subplot].set_xlabel(x_label)
 
         # save result and clear the plotting
-        fig.suptitle(title)
+        fig.suptitle(sup_title)
         fig.tight_layout()
-        fig.savefig(f"{result_path}{title}.png")
+        fig.savefig(f"{result_path}{sup_title}.png")
         plt.close(fig)
 
     else:
