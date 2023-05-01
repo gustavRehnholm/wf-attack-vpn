@@ -2,33 +2,39 @@ import sys
 import os
 import pandas as pd
 
-def plot_figure(figure_dir, subtitle ,x_label, y_label, sup_title = "", result_path  = "fig/" ):
+def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fig/" ):
     '''
     Plot a figure of the provided subplots (3 or 4)
     Args:
-        figure_dir  - Required : path to files to plot                    (List[str])
-        sub_title   - Required : list fo titles for each subgraph (List[str])
+        figure_dir  - Required : path to files to plot            (List[str])
         x_label     - Required : label for the x axis             (str)
         y_label     - Required : label for the y axis             (str)
         sup_title   - Optional : title for the figure             (str)
         result_path - Optional : where to store the figure        (str)
     '''
 
-    # Extract all csv files that should be plotted in a graph
-    subplots_paths = os.listdir(figure_dir)
-    nr_subplots    = len(subplots_paths)
+    # paths to all subplots
+    subplots_paths       = os.listdir(figure_dir)
+    # how many subplots to show in the figure
+    nr_subplots          = len(subplots_paths)
+    # the datasets (as DataFrames) to show on each subplot
     datasets_per_subplot = []
 
+    subplot_index = -1
+    # title to show for each subplot
+    subtitle      = [] * len(subplots_paths)
     for subplot_dir in subplots_paths:
+        subplot += 1
         path = f"{figure_dir}/{subplot_dir}"
         datasets = []
         for csv_file in path:
             df = pd.read_csv(csv_file, usecols = ["th", "accuracy"], index_col = None)
             datasets.append(df)
+            subtitle[subplot_index].append(csv_file.split('/')[-1])
 
         datasets_per_subplot.append(datasets)
 
-    # 4 subplots per figure
+    # if 4 subplots per figure
     if nr_subplots == 4:
         fig, axes = plt.subplots(2, 2, figsize=(10, 10))
         fig.subplots_adjust(top=0.8)
@@ -48,7 +54,7 @@ def plot_figure(figure_dir, subtitle ,x_label, y_label, sup_title = "", result_p
         fig.savefig(f"{result_path}{title}.png")
         plt.close(fig)
 
-    # 3 subplots per figure
+    # if 3 subplots per figure
     elif nr_subplots == 3:
         fig, axes = plt.subplots(3, 1, figsize=(10, 10))
         fig.subplots_adjust(top=0.8)
@@ -67,7 +73,7 @@ def plot_figure(figure_dir, subtitle ,x_label, y_label, sup_title = "", result_p
         plt.close(fig)
 
     else:
-        print("ERROR: One must use 3 or 4 subfigures per figure")
+        print("ERROR: One must use 3 or 4 subplots per figure")
         sys.exit()
 
     return

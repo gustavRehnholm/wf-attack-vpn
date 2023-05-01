@@ -30,15 +30,10 @@ def main():
 
     # plot one figure for each folder in the 
     for curr_dir in os.listdir(args["r"]):
-        files2plot = []
-        sub_title  = []
+        files2plot = args["r"] + "/" + curr_dir
         sup_title  = curr_dir
-        path = args['r'] + "/" + curr_dir
-        for curr_file in os.listdir(path):
-            files2plot.append(f"{path}/{curr_file}")
-            sub_title.append(curr_file)
 
-        input.append((files2plot, sub_title, 'Threshold', 'Accuracy', sup_title))
+        input.append((files2plot, 'Threshold', 'Accuracy', sup_title))
 
     p.starmap(plot_figure, input)
     
