@@ -24,7 +24,7 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
     # title to show for each subplot
     subtitle      = [] * len(subplots_paths)
     for subplot_dir in subplots_paths:
-        subplot += 1
+        subplot_index += 1
         path = f"{figure_dir}/{subplot_dir}"
         datasets = []
         for csv_file in path:
