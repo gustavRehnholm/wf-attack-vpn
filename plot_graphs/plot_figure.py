@@ -21,19 +21,24 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
     nr_subplots          = len(subplots_paths)
     # the datasets (as DataFrames) to show on each subplot [index per subplot][index per line/dataset]
     datasets_per_subplot = []
+    # labels for each line [index per subplot][index per line/dataset label]
+    labels_subplot_lines = []
     # subplot title is the same as the directories name
     subtitle = []
 
     for subplot_dir in subplots_paths:
         path = f"{figure_dir}/{subplot_dir}"
         datasets = []
+        dataset_labels = []
         for csv_file in os.listdir(path):
             csv_path = f"{path}/{csv_file}"
             df = pd.read_csv(csv_path, usecols = ["th", "accuracy"], index_col = None)
             datasets.append(df)
+            dataset_labels.append(csv_file)
 
         subtitle.append(subplot_dir)
         datasets_per_subplot.append(datasets)
+        labels_subplot_lines.append(dataset_labels)
 
     # if 4 subplots per figure
     if nr_subplots == 4:
@@ -62,7 +67,11 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
 
         for index_subplot in range(3):
             for index_line in range(len(datasets_per_subplot[index_subplot])):   
-                axes[index_subplot].plot(datasets_per_subplot[index_subplot][index_line])
+                #axes[index_subplot].plot(datasets_per_subplot[index_subplot][index_line])
+                # data = datasets[j][["th", "accuracy"]]
+                df = datasets_per_subplot[index_subplot][index_line]
+                line_label = labels_subplot_lines[index_subplot][index_line]
+                axes[index_subplot].plot(data = df[["th", "accuracy"]], label = line_label)
             axes[index_subplot].set_title(subtitle[index_subplot])
             axes[index_subplot].set_ylabel(y_label)
             axes[index_subplot].set_xlabel(x_label)
