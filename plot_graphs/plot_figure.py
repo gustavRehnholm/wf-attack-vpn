@@ -71,11 +71,11 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
         plt.close(fig)
 
     # if 3 subplots per figure
-    elif nr_subplots == 3:
-        fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+    else:
+        fig, axes = plt.subplots(nr_subplots, 1, figsize=(10, 15))
         fig.subplots_adjust(top=0.8)
 
-        for index_subplot in range(3):
+        for index_subplot in range(nr_subplots):
             for index_line in range(len(datasets_per_subplot[index_subplot])):   
                 df         = datasets_per_subplot[index_subplot][index_line]
                 line_label = labels_subplot_lines[index_subplot][index_line]
@@ -93,9 +93,5 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
         fig.tight_layout()
         fig.savefig(f"{result_path}{sup_title}.png")
         plt.close(fig)
-
-    else:
-        print("ERROR: One must use 3 or 4 subplots per figure")
-        sys.exit()
 
     return
