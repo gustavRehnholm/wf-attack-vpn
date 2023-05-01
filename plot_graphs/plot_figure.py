@@ -5,8 +5,9 @@ import pandas as pd
 def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fig/" ):
     '''
     Plot a figure of the provided subplots (3 or 4)
+    Structure of the folder: figure_dir -> subplot_dir -> csv files
     Args:
-        figure_dir  - Required : path to files to plot            (List[str])
+        figure_dir  - Required : path to folders, which contains the data to plot (List[str])
         x_label     - Required : label for the x axis             (str)
         y_label     - Required : label for the y axis             (str)
         sup_title   - Optional : title for the figure             (str)
@@ -27,9 +28,7 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
         subplot_index += 1
         path = f"{figure_dir}/{subplot_dir}"
         datasets = []
-        for csv_file in path:
-            print(csv_file)
-            print(path)
+        for csv_file in os.listdir(path):
             df = pd.read_csv(csv_file, usecols = ["th", "accuracy"], index_col = None)
             datasets.append(df)
             subtitle[subplot_index].append(csv_file.split('/')[-1])
