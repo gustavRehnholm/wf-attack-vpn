@@ -1,6 +1,7 @@
 import sys
 import os
-import pandas as pd
+import pandas            as pd
+import matplotlib.pyplot as plt
 
 def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fig/" ):
     '''
