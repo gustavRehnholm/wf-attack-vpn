@@ -21,18 +21,16 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
     # the datasets (as DataFrames) to show on each subplot
     datasets_per_subplot = []
 
-    subplot_index = -1
-    # title to show for each subplot
-    subtitle      = [] * len(subplots_paths)
     for subplot_dir in subplots_paths:
-        subplot_index += 1
         path = f"{figure_dir}/{subplot_dir}"
         datasets = []
         for csv_file in os.listdir(path):
             df = pd.read_csv(csv_file, usecols = ["th", "accuracy"], index_col = None)
             datasets.append(df)
-            subtitle[subplot_index].append(csv_file.split('/')[-1])
 
+        # subplot title is the same as the directories name
+        subtitle.append(subplot_dir)
+        #[index per subplot][index per line/dataset]
         datasets_per_subplot.append(datasets)
 
     # if 4 subplots per figure
