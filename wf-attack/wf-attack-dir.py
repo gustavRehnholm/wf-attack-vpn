@@ -54,7 +54,7 @@ def df_attack(dir_merged, sample, mode, epochs, dir_result, name):
         dir_result - Required : Path where the result will be stored        (str)
         name       - Required : File name of the result                     (str)
     '''
-    txt = f"./df-fitness.py -d {dir_merged} --train -s {sample} {mode} --epochs {epochs} --csv {dir_result}/{name}.csv"
+    txt = f"./df-fitness-wg.py -d {dir_merged} --train -s {sample} {mode} --epochs {epochs} --csv {dir_result}/{name}.csv"
     os.system(txt)
 
 
