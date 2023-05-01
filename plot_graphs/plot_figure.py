@@ -34,7 +34,7 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
             csv_path = f"{path}/{csv_file}"
             df = pd.read_csv(csv_path, usecols = ["th", "accuracy"], index_col = None)
             datasets.append(df)
-            dataset_labels.append(csv_file)
+            dataset_labels.append(csv_file.split['.'][0])
 
         subtitle.append(subplot_dir)
         datasets_per_subplot.append(datasets)
@@ -61,6 +61,7 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
                 axes[index_subplot_row, index_subplot_column].set_xlabel(x_label)
                 axes[index_subplot_row, index_subplot_column].legend()
                 axes[index_subplot_row, index_subplot_column].set_ylim([0.5, 1])
+                axes[index_subplot_row, index_subplot_column].set_xlim([0, 1])
 
         # save result and clear the plotting
         fig.suptitle(sup_title)
@@ -84,6 +85,7 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
             axes[index_subplot].set_xlabel(x_label)
             axes[index_subplot].legend()
             axes[index_subplot].set_ylim([0.5, 1])
+            axes[index_subplot].set_xlim([0, 1])
 
         # save result and clear the plotting
         fig.suptitle(sup_title)
