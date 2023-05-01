@@ -34,7 +34,7 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
             csv_path = f"{path}/{csv_file}"
             df = pd.read_csv(csv_path, usecols = ["th", "accuracy"], index_col = None)
             datasets.append(df)
-            fname = csv_file.split['.'][0]
+            fname = csv_file.split('.')[0]
             dataset_labels.append(fname)
 
         subtitle.append(subplot_dir)
