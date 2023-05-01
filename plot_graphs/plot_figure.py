@@ -62,7 +62,7 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
 
     # if 3 subplots per figure
     elif nr_subplots == 3:
-        fig, axes = plt.subplots(3, 1, figsize=(10, 10))
+        fig, axes = plt.subplots(3, 1, figsize=(10, 30))
         fig.subplots_adjust(top=0.8)
 
         for index_subplot in range(3):
@@ -72,9 +72,13 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
                 df = datasets_per_subplot[index_subplot][index_line]
                 line_label = labels_subplot_lines[index_subplot][index_line]
                 axes[index_subplot].plot(df["th"], df["accuracy"], label = line_label)
+                # plt.text(x[-1], y[-1], f'sample {i}')
+                # axes[index_subplot].text(x[-1], y[-1], f'sample {i}')
+
             axes[index_subplot].set_title(subtitle[index_subplot])
             axes[index_subplot].set_ylabel(y_label)
             axes[index_subplot].set_xlabel(x_label)
+            axes[index_subplot].legend()
 
         # save result and clear the plotting
         fig.suptitle(sup_title)
