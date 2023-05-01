@@ -28,6 +28,8 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
         path = f"{figure_dir}/{subplot_dir}"
         datasets = []
         for csv_file in path:
+            print(csv_file)
+            print(path)
             df = pd.read_csv(csv_file, usecols = ["th", "accuracy"], index_col = None)
             datasets.append(df)
             subtitle[subplot_index].append(csv_file.split('/')[-1])
