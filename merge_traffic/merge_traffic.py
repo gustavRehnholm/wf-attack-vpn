@@ -50,7 +50,7 @@ def mergeTraffic(merged_files, foreground_files, background_path, start_index, e
 
     input = []
     for j in range(len(merged_files)):
-        input.append((merged_files[j], foreground_files[j]))
+        input.append((merged_files[j], foreground_files[j], file_len))
 
     results = p.starmap(inject, input)
 
@@ -60,13 +60,14 @@ def mergeTraffic(merged_files, foreground_files, background_path, start_index, e
     else:
         return True
 
-def inject(merged_path, foreground_path):
+def inject(merged_path, foreground_path, file_len = 5000):
     '''
     Inject all foreground packets, with background to the merged file
 
     Args:
         merged_path     - Required : path to the file where the result will be stored     (str)
         foreground_path - Required : Path to the file where the foreground file is stored (str)
+        file_len        - Optional : number of packets per merged file                    (int)
     Returns:
         Boolean if it succeeded or not in creating the merged file                        (bool)
     '''
