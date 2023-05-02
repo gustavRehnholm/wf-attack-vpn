@@ -92,44 +92,20 @@ def analyze_dataset(dir_input = "twitch/parsed_captures/", dir_output = "fig/twi
     # plot a line for min, max and mean
     plot_analysis(min, max, mean, "Twitch_analysis", "fig/")
 
-    # mean test
-    time_lists_mean = p.starmap(timestamps_capture_mean, input)
-    sorted_means = sorted(time_lists_mean, key = lambda d: d['index'])
-    mean_tmp = []
-    for dic in sorted_means:
-        mean_tmp.append(dic['mean'])
-        print(dic['mean'])
-    
-    plot_analysis(min, max, mean_tmp, "Twitch_analysis_tmp", "fig/")
-
     return
 
-def timestamps_capture_mean(path_file2analyze, index):
-    '''
-    get list of number of packet, each second, for the file
-
-    Args:
-        path_file2analyze - Required : path to the file                       (str)
-    '''
-    NS_PER_SEC       = 1000000000
-    TUPLE_TIME_INDEX = 0
-
-    # the background packets as a list of tuples (better performance than working with the dataframe)
-    df               = pd.read_hdf(path_file2analyze, key = "df")
-    background_tuple = list(df.itertuples(index=False, name=None))
-    background_len   = len(background_tuple)
-
-    mean = background_len / (1.9 * 60 * 60)
-
-    return {"mean"  : mean,
-            "index" : index}
 
 def timestamps_capture(path_file2analyze, index):
     '''
     get list of number of packet, each second, for the file
 
     Args:
-        path_file2analyze - Required : path to the file                       (str)
+        path_file2analyze - Required : path to the file                          (str)
+        index             - Required : index of the file (so it do not get lost) (int)
+    Return:
+        time_list   : list of packets/sec for each second
+        index       : same index as the one from args
+        upper_limit : the highest second interval a packet was sent in 
     '''
     NS_PER_SEC       = 1000000000
     TUPLE_TIME_INDEX = 0
@@ -172,12 +148,20 @@ def timestamps_capture(path_file2analyze, index):
 
 
 def stat(timestamp_list, index, upper_limit):
+    '''
+    Get min, max, mean for the provided timestamp list
+    Args:
+        timestamp_list - Required : list of pkt/sec for each sec interval     (List[int])
+        index          - Required : index of the file (so it do not get lost) (int)
+        upper_limit    - Required : converts it from s to h                   (float)
+    '''
     np_timestamp = np.array(timestamp_list)
 
     min  = np.min(np_timestamp)
     max  = np.max(np_timestamp)
     mean = np.mean(np_timestamp)
 
+    # nanos seconds to hours
     upper_limit_h = upper_limit/(1000000000 * 60 * 60)
 
     return {"stat": (min, max, mean),
@@ -185,30 +169,41 @@ def stat(timestamp_list, index, upper_limit):
             "upper_limit_h" : upper_limit_h}
 
 
-def plot_analysis(min, max, mean, title = "untitled", result_path = "fig/"):
+def plot_analysis(min, max, mean, title = "Twitch_combined_captures", result_path = "fig/"):
+    '''
+    Plot a graph to show how the captured data from rds-collect behavior
+    Args:
+        min         - Required : list of lowest pkt/sec for each file  (List[int])
+        max         - Required : list of highest pkt/sec for each file (List[int])
+        mean        - Required : list of mean pkt/sec for each file    (List[int])
+        title       - Optional : title of the figure                   (str)
+        result_path - Optional : Where to store the figure             (str)
+
     '''
 
-    '''
+    fig, axes = plt.subplots(3, 1, figsize=(10, 10))
+    fig.subplots_adjust(top=0.8)
 
-    plt.plot(mean, label = 'mean')
-    #plt.plot(max, label = 'max')
-    #plt.plot(min)
+    axes[0].plot(mean)
+    axes[0].set_title('mean')
+    axes[0].set_ylabel('pkt/s')
+    axes[0].set_xlabel('file')
 
-    plt.ylabel('pkt/s')
-    plt.xlabel('file')
+    axes[1].plot(max)
+    axes[1].set_title('max')
+    axes[1].set_ylabel('pkt/s')
+    axes[1].set_xlabel('file')
 
-    # Tweak spacing to prevent clipping of tick-labels
-    plt.subplots_adjust(bottom = 0.15)
+    axes[2].plot(min)
+    axes[2].set_title('min')
+    axes[2].set_ylabel('pkt/s')
+    axes[2].set_xlabel('file')
 
-    plt.legend()
-    plt.title(title)
-    #fig = plt.gcf()
-    file_path = result_path + title + ".png"
-    f = open(file_path, "w")
-    f.close()
-    plt.savefig(file_path)
-
-    #plt.show()
+    # save result and clear the plotting
+    fig.suptitle(title)
+    fig.tight_layout()
+    fig.savefig(f"{result_path}{title}.png")
+    plt.close(fig)
 
     return
 
