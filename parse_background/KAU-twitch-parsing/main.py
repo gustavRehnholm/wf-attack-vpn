@@ -38,7 +38,7 @@ def main():
     # analyze the usable capture files
     analyze_dataset(workers = args['w'])
     # merge the parsed capture files to one background dataset to use
-    #merge_parsed_noise()
+    merge_parsed_noise()
 
     end_time = timeit.default_timer()
         
