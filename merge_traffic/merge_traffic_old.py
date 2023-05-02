@@ -10,7 +10,7 @@ import pandas as pd
 import os
 import timeit
 
-def mergeTrafficOld(mergedFiles, foregroundFiles, background_path, start, stop):
+def mergeTrafficOld(mergedFiles, foregroundFiles, background_path, start, stop, file_len = 5000):
     '''
     This program merges the web traffic with noise, so it can be used to test WF attacks
 
@@ -20,6 +20,7 @@ def mergeTrafficOld(mergedFiles, foregroundFiles, background_path, start, stop):
         background_path  - Required  : path to the background file                      (str)
         start            - Required  : The start index of the background traffic to use (int)
         stop             - Required  : The end index of the background traffic to use   (int)
+        file_len         - Optional  : number of packets per merged file                (int)
     Returns:
         boolean if the program succeeded or not in creating the merge files
     '''
@@ -58,7 +59,7 @@ def mergeTrafficOld(mergedFiles, foregroundFiles, background_path, start, stop):
     while(len(foregroundFiles) > 0):
 
             # if should open a new foreground file
-            if len(foreground_lines) <= 0 or injected_packets >= 5000:
+            if len(foreground_lines) <= 0 or injected_packets >= file_len:
                 injected_packets = 0
                 # for testing
                 if added_foreground == False:

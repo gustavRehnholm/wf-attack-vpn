@@ -16,7 +16,7 @@ from multiprocessing import Pool
 global background_tuple
 global background_len
 
-def mergeTraffic(merged_files, foreground_files, background_path, start_index, end_index, workers = 5):
+def mergeTraffic(merged_files, foreground_files, background_path, start_index, end_index, file_len = 5000, workers = 5):
     '''
     This program merges the foreground and background datasets, so it can be used to test WF attacks
 
@@ -26,6 +26,7 @@ def mergeTraffic(merged_files, foreground_files, background_path, start_index, e
         background_path  - Required : path to the background file                      (str)
         start_index      - Required : The start index of the background traffic to use (int)
         end_index        - Required : The end index of the background traffic to use   (int)
+        file_len         - Optional : number of packets per merged file                (int)
         workers          - Optional : number of workers, multiprocessing (default = 5) (int)
     Returns:
         boolean if the program succeeded or not in creating the merge files            (bool)
@@ -101,7 +102,7 @@ def inject(merged_path, foreground_path):
     curr_b_time     = int(background_tuple[df_index][TIME_INDEX])
 
     # inject until 5000 packets has been injected to the merged dataset (DF does not make use of more than the first 5000 packets)
-    for i in range(0, 5000):
+    for i in range(0, file_len):
         # add the packet that arrives first
         if(curr_b_time < foreground_time):
             merged_file.writelines([str(curr_b_time), ",", 

@@ -10,10 +10,12 @@ ap.add_argument("-f"     , required = True , default = ""   , type = str, help =
 ap.add_argument("-b"     , required = True , default = ""   , type = str, help = "root folder of the background dataset")
 ap.add_argument("-m"     , required = True , default = ""   , type = str, help = "root folder of the merged dataset")
 ap.add_argument("--ffold", required = False, default = 0    , type = int, help = "foreground fold file to use [0,9]", choices = range(0, 10))
-ap.add_argument("--bfold", required = False, default = 0    , type = int, help = "background fold [0,9]"            , choices = range(0, 10))
+ap.add_argument("--bfold", required = False, default = 0    , type = int, help = "background fold [0,1]"            , choices = range(0, 2))
 ap.add_argument("-w"     , required = False, default = 5    , type = int, help = "number of workers (multiprocessing)")
 ap.add_argument("--div"  , required = True , default = True , type = bool, 
-    help = "If the background dataset should be divided among the testing, validation and traning or not")
+    help = "If the background dataset should be divided among the testing, validation and training or not")
+ap.add_argument("--len"  , required = False , default = 5000 , type = int, 
+    help = "Number of packets per file (more efficient if it correlates to the DF attack)")
 args = vars(ap.parse_args())
 
 def main():
@@ -28,7 +30,8 @@ def main():
                         f_fold         = args['ffold'],
                         b_fold         = args['bfold'],
                         workers        = args['w'],
-                        div            = args['div'])
+                        div            = args['div'],
+                        file_len       = args["len"])
     end_time = timeit.default_timer()
 
     if success:
