@@ -88,7 +88,7 @@ def getMerged(dir_foreground, dir_merged, dir_background, f_fold = 0, b_fold = 0
     # [test, valid, train]
     intervals = []
     if div:
-        if bfold == 0:
+        if b_fold == 0:
             intervals.append((0, part_of_10))
             intervals.append((part_of_10 + 1 , part_of_10*2))
             intervals.append((part_of_10*2 + 1, int(df_len)))
