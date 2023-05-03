@@ -43,7 +43,7 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
 
     # if 4 subplots per figure
     if nr_subplots == 4:
-        fig, axes = plt.subplots(2, 2, figsize=(5, 5))
+        fig, axes = plt.subplots(2, 2, figsize=(7, 7))
         fig.subplots_adjust(top=0.8)
 
         # plot every subplot
@@ -72,7 +72,7 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
 
     # if 3 subplots per figure
     else:
-        fig, axes = plt.subplots(nr_subplots, 1, figsize=(4, 12))
+        fig, axes = plt.subplots(nr_subplots, 1, figsize=(4, 8))
         fig.subplots_adjust(top=0.8)
 
         for index_subplot in range(nr_subplots):
