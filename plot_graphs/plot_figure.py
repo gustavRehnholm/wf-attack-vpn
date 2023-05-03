@@ -32,7 +32,11 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
         path = f"{figure_dir}/{subplot_dir}"
         datasets = []
         dataset_labels = []
-        curr_paths = os.listdir(path).sort()
+        print("--------------------")
+        curr_paths = os.listdir(path)
+        print(curr_paths)
+        curr_paths = curr_paths.sort()
+        print(curr_paths)
         for csv_file in curr_paths:
             csv_path = f"{path}/{csv_file}"
             df = pd.read_csv(csv_path, usecols = ["th", "accuracy"], index_col = None)
