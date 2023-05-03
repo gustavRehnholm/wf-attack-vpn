@@ -9,6 +9,9 @@ from plot_figure import plot_figure
 '''
 To run:
 python wf-attack-vpn/plot_graphs/plot_all.py -r wf_result/ -w 10
+
+Get good result for the recreation of the previous result:
+python wf-attack-vpn/plot_graphs/plot_all.py -r wf_result/ -w 10 --ylim_lower 0
 '''
 
 ap = argparse.ArgumentParser()
