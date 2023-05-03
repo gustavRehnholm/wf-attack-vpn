@@ -59,7 +59,7 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
                 for index_line in range(len(datasets_per_subplot[index_subplot])): 
                     df         = datasets_per_subplot[index_subplot][index_line]
                     line_label = labels_subplot_lines[index_subplot][index_line]  
-                    axes[index_subplot_row, index_subplot_column].plot(df["th"], df["accuracy"], label = line_label, markers=markers_list[j] )
+                    axes[index_subplot_row, index_subplot_column].plot(df["th"], df["accuracy"], label = line_label, markers = markers_list[index_line] )
 
                 axes[index_subplot_row, index_subplot_column].set_title(subtitle[index_subplot])
                 axes[index_subplot_row, index_subplot_column].set_ylabel(y_label)
@@ -86,7 +86,7 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
             for index_line in range(len(datasets_per_subplot[index_subplot])):   
                 df         = datasets_per_subplot[index_subplot][index_line]
                 line_label = labels_subplot_lines[index_subplot][index_line]
-                axes[index_subplot].plot(df["th"], df["accuracy"], label = line_label, markers=markers_list[j])
+                axes[index_subplot].plot(df["th"], df["accuracy"], label = line_label, markers = markers_list[index_line])
 
             axes[index_subplot].set_title(subtitle[index_subplot])
             axes[index_subplot].set_ylabel(y_label)
