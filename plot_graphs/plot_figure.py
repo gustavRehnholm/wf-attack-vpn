@@ -14,7 +14,7 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
         sup_title   - Optional : title for the figure             (str)
         result_path - Optional : where to store the figure        (str)
     '''
-
+    SIZE_PER_SUBGRAPH = 3
     # paths to all subplots
     subplots_paths       = os.listdir(figure_dir)
     # how many subplots to show in the figure
@@ -41,9 +41,11 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
         datasets_per_subplot.append(datasets)
         labels_subplot_lines.append(dataset_labels)
 
-    # if 4 subplots per figure
+    # if 4 subplots per figure (2x2)
     if nr_subplots == 4:
-        fig, axes = plt.subplots(2, 2, figsize=(6, 6))
+        size_figure = SIZE_PER_SUBGRAPH * 2
+        fig, axes   = plt.subplots(2, 2, figsize=(size_figure, size_figure))
+
         fig.subplots_adjust(top=0.8)
 
         # plot every subplot
@@ -70,9 +72,12 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
         fig.savefig(f"{result_path}{sup_title}.png")
         plt.close(fig)
 
-    # if 3 subplots per figure
+    # if figure (1 x nr_subplots)
     else:
-        fig, axes = plt.subplots(nr_subplots, 1, figsize=(5, 8))
+        width     = SIZE_PER_SUBGRAPH * nr_subplots
+        height    = SIZE_PER_SUBGRAPH
+        fig, axes = plt.subplots(nr_subplots, 1, figsize=(width, height))
+
         fig.subplots_adjust(top=0.8)
 
         for index_subplot in range(nr_subplots):
