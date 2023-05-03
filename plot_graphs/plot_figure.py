@@ -74,8 +74,8 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
 
     # if figure (1 x nr_subplots)
     else:
-        width     = SIZE_PER_SUBGRAPH * nr_subplots
-        height    = SIZE_PER_SUBGRAPH
+        height    = SIZE_PER_SUBGRAPH * nr_subplots
+        width     = SIZE_PER_SUBGRAPH
         fig, axes = plt.subplots(nr_subplots, 1, figsize=(width, height))
 
         fig.subplots_adjust(top=0.8)
@@ -91,7 +91,7 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
             axes[index_subplot].set_xlabel(x_label)
             axes[index_subplot].legend()
             axes[index_subplot].set_ylim([0.5, 1])
-            axes[index_subplot].set_xlim([0, 1])
+            axes[index_subplot].set_xlim([0, 0.99])
 
         # save result and clear the plotting
         fig.suptitle(sup_title)
