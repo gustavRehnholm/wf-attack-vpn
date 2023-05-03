@@ -14,7 +14,7 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
         sup_title   - Optional : title for the figure             (str)
         result_path - Optional : where to store the figure        (str)
     '''
-    SIZE_PER_SUBGRAPH = 3
+    SIZE_PER_SUBGRAPH = 4
     # paths to all subplots
     subplots_paths       = os.listdir(figure_dir)
     # how many subplots to show in the figure
@@ -32,7 +32,8 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
         path = f"{figure_dir}/{subplot_dir}"
         datasets = []
         dataset_labels = []
-        for csv_file in os.listdir(path):
+        curr_paths = os.listdir(path).sort()
+        for csv_file in curr_paths:
             csv_path = f"{path}/{csv_file}"
             df = pd.read_csv(csv_path, usecols = ["th", "accuracy"], index_col = None)
             datasets.append(df)
