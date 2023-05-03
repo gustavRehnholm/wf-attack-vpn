@@ -3,7 +3,7 @@ import os
 import pandas            as pd
 import matplotlib.pyplot as plt
 
-def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fig/" ):
+def plot_figure(figure_dir ,x_label, y_label, y_lim = [0.5, 1], sup_title = "", result_path  = "fig/" ):
     '''
     Plot a figure of the provided subplots (3 or 4)
     Structure of the folder: figure_dir -> subplot_dir -> csv files
@@ -11,6 +11,7 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
         figure_dir  - Required : path to folders, which contains the data to plot (List[str])
         x_label     - Required : label for the x axis             (str)
         y_label     - Required : label for the y axis             (str)
+        y_lim       - Optional : limitations on the y-axis        ([int, int])
         sup_title   - Optional : title for the figure             (str)
         result_path - Optional : where to store the figure        (str)
     '''
@@ -34,9 +35,7 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
         dataset_labels = []
         print("--------------------")
         csv_files = os.listdir(path)
-        print(csv_files)
         csv_files.sort()
-        print(csv_files)
         for csv_file in csv_files:
             csv_path = f"{path}/{csv_file}"
             df = pd.read_csv(csv_path, usecols = ["th", "accuracy"], index_col = None)
@@ -68,7 +67,7 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
                 axes[index_subplot_row, index_subplot_column].set_ylabel(y_label)
                 axes[index_subplot_row, index_subplot_column].set_xlabel(x_label)
                 axes[index_subplot_row, index_subplot_column].legend()
-                axes[index_subplot_row, index_subplot_column].set_ylim([0.5, 1])
+                axes[index_subplot_row, index_subplot_column].set_ylim(y_lim)
                 axes[index_subplot_row, index_subplot_column].set_xlim([0, 1])
 
         # save result and clear the plotting
@@ -94,7 +93,7 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
             axes[index_subplot].set_ylabel(y_label)
             axes[index_subplot].set_xlabel(x_label)
             axes[index_subplot].legend()
-            axes[index_subplot].set_ylim([0.5, 1])
+            axes[index_subplot].set_ylim(y_lim)
             axes[index_subplot].set_xlim([0, 0.99])
         # save result and clear the plotting
         fig.suptitle(sup_title)
