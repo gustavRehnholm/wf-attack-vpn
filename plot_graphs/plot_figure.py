@@ -45,9 +45,7 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
 
     # if 4 subplots per figure (2x2)
     if nr_subplots == 4:
-        size_figure = SIZE_PER_SUBGRAPH * 2
-        fig, axes   = plt.subplots(2, 2, figsize=(size_figure, size_figure))
-
+        fig, axes   = plt.subplots(2, 2, figsize=(SIZE_PER_SUBGRAPH * 2, SIZE_PER_SUBGRAPH * 2))
         fig.subplots_adjust(top=0.8)
 
         # plot every subplot
@@ -74,27 +72,25 @@ def plot_figure(figure_dir ,x_label, y_label, sup_title = "", result_path  = "fi
         fig.savefig(f"{result_path}{sup_title}.png")
         plt.close(fig)
 
-    # if figure (1 x nr_subplots)
+    # subgraphs in 1 column (1 X nr_subplots)
     else:
-        height    = SIZE_PER_SUBGRAPH * nr_subplots
-        width     = SIZE_PER_SUBGRAPH
-        fig, axes = plt.subplots(nr_subplots, 1, figsize=(width, height))
-
+        width     = SIZE_PER_SUBGRAPH * nr_subplots
+        height    = SIZE_PER_SUBGRAPH
+        fig, axes = plt.subplots(1, nr_subplots, figsize=(width, height))
         fig.subplots_adjust(top=0.8)
 
         for index_subplot in range(nr_subplots):
             for index_line in range(len(datasets_per_subplot[index_subplot])):   
                 df         = datasets_per_subplot[index_subplot][index_line]
                 line_label = labels_subplot_lines[index_subplot][index_line]
-                axes[index_subplot].plot(df["th"], df["accuracy"], label = line_label, marker = markers_list[index_line], linewidth=2)
+                axes[0][index_subplot].plot(df["th"], df["accuracy"], label = line_label, marker = markers_list[index_line], linewidth=2)
 
-            axes[index_subplot].set_title(subtitle[index_subplot])
-            axes[index_subplot].set_ylabel(y_label)
-            axes[index_subplot].set_xlabel(x_label)
-            axes[index_subplot].legend()
-            axes[index_subplot].set_ylim([0.5, 1])
-            axes[index_subplot].set_xlim([0, 0.99])
-
+            axes[0][index_subplot].set_title(subtitle[index_subplot])
+            axes[0][index_subplot].set_ylabel(y_label)
+            axes[0][index_subplot].set_xlabel(x_label)
+            axes[0][index_subplot].legend()
+            axes[0][index_subplot].set_ylim([0.5, 1])
+            axes[0][index_subplot].set_xlim([0, 0.99])
         # save result and clear the plotting
         fig.suptitle(sup_title)
         fig.tight_layout()
