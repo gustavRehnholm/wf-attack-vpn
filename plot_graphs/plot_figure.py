@@ -33,7 +33,6 @@ def plot_figure(figure_dir ,x_label, y_label, y_lim = [0.5, 1], sup_title = "", 
         path = f"{figure_dir}/{subplot_dir}"
         datasets = []
         dataset_labels = []
-        print("--------------------")
         csv_files = os.listdir(path)
         csv_files.sort()
         for csv_file in csv_files:
