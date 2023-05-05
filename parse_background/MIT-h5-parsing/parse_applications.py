@@ -7,6 +7,7 @@ python wf-attack-vpn/parse_background/MIT-h5-parsing/parse_applications.py
 
 import os
 import argparse
+import pandas as pd
 from multiprocessing import Pool
 
 ap = argparse.ArgumentParser()
