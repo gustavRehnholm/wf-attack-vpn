@@ -68,6 +68,9 @@ def parse_file(input_path, output_path):
     
     # each row is an capture
     for index, row in df.iterrows():
+        all_captures.append((df['timestamps'], df['sizes'], df['directions']))
+
+        '''
 
         timestamps = df['timestamps']
         sizes      = df['sizes']
@@ -86,11 +89,13 @@ def parse_file(input_path, output_path):
             return
 
         all_captures.append((timestamps, sizes, directions))
-
+        '''
+    # parse each capture
     for capture in all_captures:
         # reset start time for each capture file
         prev_time = capture[0][0] * NS_PER_SEC
-        for i in range(nr_of_timestamps):
+        # parse each pkt for each capture
+        for i in range(len(capture[0])):
             # get the time
             absolute_time = capture[0][i] * NS_PER_SEC
             relative_time = round(absolute_time - prev_time)
