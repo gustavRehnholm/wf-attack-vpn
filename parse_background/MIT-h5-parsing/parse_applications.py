@@ -69,7 +69,7 @@ def parse_file(input_path, output_path):
     
     # each row is an capture
     for index, row in df.iterrows():
-        all_captures.append([df['timestamps'], df['sizes'], df['directions']])
+        all_captures.append([row['timestamps'], row['sizes'], row['directions']])
 
         '''
 
