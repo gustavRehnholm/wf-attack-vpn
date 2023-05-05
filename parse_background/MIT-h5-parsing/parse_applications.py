@@ -79,8 +79,7 @@ def parse_file(input_path, output_path):
     for capture in all_captures:
         # convert each capture to an DF, so it can be sorted and parsed
         df = pd.DataFrame({'timestamps':capture[0], "directions" : capture[1], "sizes" : capture[2]})
-        print(df)
-        df.sort_values(by=['timestamps'].astype(float))
+        df.sort_values(by=['timestamps'], ignore_index = True)
 
         # to check the data, if there is any problems
         df.to_hdf("tmp/tmp.h5", mode = "w", key = "df") 
