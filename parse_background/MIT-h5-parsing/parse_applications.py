@@ -69,7 +69,7 @@ def parse_file(input_path, output_path):
     
     # each row is an capture
     for index, row in df.iterrows():
-        all_captures.append([row['timestamps'], row['sizes'], row['directions']])
+        all_captures.append([row['timestamps'], row['directions'], row['sizes']])
 
         timestamps = row['timestamps']
         sizes      = row['sizes']
@@ -86,41 +86,49 @@ def parse_file(input_path, output_path):
         elif nr_of_timestamps < 1:
             print(f"ERROR: the number of timestamps to is small {nr_of_timestamps}")
             return
+
+    TIME_INDEX = 1
+    DIR_INDEX = 2
+    SIZE_INDEX = 3
         
     # parse each capture
     for capture in all_captures:
-        # reset start time for each capture file
-        try:
-            prev_time = capture[0][0] * NS_PER_SEC
-        except:
-            print(f"the capture {capture} could not gather [0][0]")
-            return
+        # convert each capture to an DF, so it can be sorted and parsed
+        df = pd.DataFrame({'timestamps':capture[0], "directions" : capture[1], "sizes" : capture[2]})
+        df.sort_values(by=['timestamps'])
 
-        # parse each pkt for each capture
-        for i in range(len(capture[0])):
-            # get the time
-            absolute_time = capture[0][i] * NS_PER_SEC
+        capture_index = -1
+        first = True
+        for row in df.itertuples():
+            if first:
+                prev_time = row[TIME_INDEX] * NS_PER_SEC
+            first = False
+
+            absolute_time = row[TIME_INDEX] * NS_PER_SEC
             relative_time = round(absolute_time - prev_time)
             prev_time     = absolute_time
+            
+            # if to small, so ti was rounded down to 0, round it up to 1
             if relative_time == 0:
                 relative_time = 1
+                # packets out of order
             elif relative_time < 0:
                 print(f"ERROR: duration is negative")
-                print(f"Itteration {i}; file {output_path}")
+                print(f"Itteration {i}: capture_index {capture_index}; file {output_path}")
                 print(f"{absolute_time} - {prev_time} = {relative_time} ")
-                relative_time = 1
+                return
 
-            # get the size
-            size = capture[1][i]
-
-            raw_dir = capture[2][i]
             # get the direction
+            raw_dir = row[DIR_INDEX]
             if raw_dir == 1:
-                direction = "sb"
-            elif raw_dir == 0:
                 direction = "rb"
+            elif raw_dir == 0:
+                direction = "sb"
             else:
                 print(f"ERROR: direction {raw_dir} is invalid")
+
+            # get the size
+            size = row[SIZE_INDEX]
             
 
             dictionary_parsed['time'].append(relative_time)
