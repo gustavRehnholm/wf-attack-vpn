@@ -100,6 +100,7 @@ def parse_file(input_path, output_path):
         capture_index = -1
         first = True
         for row in df.itertuples():
+            capture_index += 1
             if first:
                 prev_time = row[TIME_INDEX] * NS_PER_SEC
             first = False
@@ -114,7 +115,7 @@ def parse_file(input_path, output_path):
                 # packets out of order
             elif relative_time < 0:
                 print(f"ERROR: duration is negative")
-                print(f"Itteration {i}: capture_index {capture_index}; file {output_path}")
+                print(f"capture_index {capture_index}; file {output_path}")
                 print(f"{absolute_time} - {prev_time} = {relative_time} ")
                 return
 
