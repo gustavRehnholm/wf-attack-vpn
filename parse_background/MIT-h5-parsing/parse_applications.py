@@ -83,7 +83,7 @@ def parse_file(input_path, output_path):
         df.sort_values(by=['timestamps'])
 
         # to check the data, if there is any problems
-        df.to_hdf("mit/tmp/tmp.h5", mode = "w", key = "df") 
+        df.to_hdf("tmp/tmp.h5", mode = "w", key = "df") 
 
         capture_index = -1
         first = True
