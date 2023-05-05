@@ -3,8 +3,8 @@
 import argparse
 import timeit
 # own defined
-from extract_dataset import extract_dataset
-from parse_dataset   import parse_dataset
+from extract_applications import extract_applications
+from parse_applications   import parse_applications
 
 '''
 TODO: progressbar for the different steps that works with multiprocessing
@@ -27,9 +27,9 @@ def main():
     start_time = timeit.default_timer()
 
     # extract the relevant data and store them after application
-    extract_dataset()
+    extract_applications()
     # parse the usable capture files
-    parse_dataset()
+    parse_applications(workers = args['w'])
 
     end_time = timeit.default_timer()
         
