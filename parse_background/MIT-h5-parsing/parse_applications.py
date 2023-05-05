@@ -4,7 +4,7 @@
 To run:
 python wf-attack-vpn/parse_background/MIT-h5-parsing/parse_applications.py -w 1
 '''
-
+import sys
 import os
 import argparse
 import pandas as pd
@@ -71,22 +71,6 @@ def parse_file(input_path, output_path):
     for index, row in df.iterrows():
         all_captures.append([row['timestamps'], row['directions'], row['sizes']])
 
-        timestamps = row['timestamps']
-        sizes      = row['sizes']
-        directions = row['directions']
-
-        nr_of_timestamps = len(df['timestamps'])
-        nr_of_sizes      = len(df['sizes'])
-        nr_of_directions = len(df['directions'])
-
-        if nr_of_timestamps != nr_of_directions != nr_of_sizes:
-            print("ERROR: there is not equal amount of timestamps and directions")
-            print(f"{input_path}: nr of timestamps: {nr_of_timestamps}, nr of directions: {nr_of_directions}, nr of directions: {nr_of_sizes}")
-            return
-        elif nr_of_timestamps < 1:
-            print(f"ERROR: the number of timestamps to is small {nr_of_timestamps}")
-            return
-
     TIME_INDEX = 1
     DIR_INDEX = 2
     SIZE_INDEX = 3
@@ -95,6 +79,7 @@ def parse_file(input_path, output_path):
     for capture in all_captures:
         # convert each capture to an DF, so it can be sorted and parsed
         df = pd.DataFrame({'timestamps':capture[0], "directions" : capture[1], "sizes" : capture[2]})
+        print(df)
         df.sort_values(by=['timestamps'])
 
         capture_index = -1
@@ -102,22 +87,24 @@ def parse_file(input_path, output_path):
         for row in df.itertuples():
             capture_index += 1
             if first:
-                prev_time = row[TIME_INDEX] * NS_PER_SEC
+                prev_time = row[TIME_INDEX]
             first = False
 
-            absolute_time = row[TIME_INDEX] * NS_PER_SEC
-            relative_time = round(absolute_time - prev_time)
-            prev_time     = absolute_time
+            duration_s  = row[TIME_INDEX] - prev_time
+            duration_ns = round(duration* NS_PER_SEC)
+            tmp_prev = prev_time
+            prev_time     = row[TIME_INDEX]
             
             # if to small, so ti was rounded down to 0, round it up to 1
-            if relative_time == 0:
-                relative_time = 1
+            if duration_ns == 0:
+                duration_ns = 1
                 # packets out of order
-            elif relative_time < 0:
+            elif duration_ns < 0:
                 print(f"ERROR: duration is negative")
                 print(f"capture_index {capture_index}; file {output_path}")
-                print(f"{absolute_time} - {prev_time} = {relative_time} ")
-                return
+                print(f"{row[TIME_INDEX]} - {tmp_prev} = {duration_s} ")
+                print(f"duration in ns: {duration_ns}")
+                sys.exit()
 
             # get the direction
             raw_dir = row[DIR_INDEX]
