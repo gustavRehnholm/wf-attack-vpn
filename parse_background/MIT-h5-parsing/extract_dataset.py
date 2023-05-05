@@ -1,9 +1,17 @@
 #!/usr/bin/python3
 
 import pandas as pd
-from get_keywords.py import get_keywords
 
-def main(): 
+'''
+To run:
+python wf-attack-vpn/parse_background/MIT-h5-parsing/extract_dataset.py
+'''
+
+def main():
+    extract_dataset()
+    return
+
+def extract_dataset(): 
     '''
     extract the captured VPN data that has been generated from the MIT project
     and create new dataframes, stored in h5 format, after the application used.
@@ -16,7 +24,7 @@ def main():
     ['connection', 'timestamps', 'sizes', 'directions', 'file_names']
     '''
     
-    INPUT_FILE = "VNAT_Dataframe_release_1.h5"
+    INPUT_FILE = "mit/VNAT_Dataframe_release_1.h5"
     # the whole dataset
     df = pd.read_hdf(INPUT_FILE)
 
@@ -82,6 +90,25 @@ def main():
         df_file_name = "h5/" + APPLICATIONS[i] + ".h5"
         dataframe_list[i].to_hdf(df_file_name, mode = "w", key = "df")
 
+
+def get_keywords(h5_file): 
+    '''
+    Get the keywords that exits in the MIT dataset, which is:
+    ['youtube', 'sftp', 'skype-chat', 'ssh', 'rdp', 'rsync', 'voip', 'scp', 'netflix', 'vimeo']
+    Args:
+        h5_file - Required : Path to the hdf5 file to get the keywords for (str)
+    Return:
+        list of keywords (List[str])
+    '''
+    df = pd.read_hdf(h5_file)
+
+    filenames = df['file_names'].tolist()
+
+    for i in range(0, len(filenames)):
+        filenames[i] = filenames[i].split("_")[1]
+
+    unique_filenames = list(dict.fromkeys(filenames))
+    return unique_filenames
 
 if __name__=="__main__":
     main()
