@@ -71,11 +71,9 @@ def parse_file(input_path, output_path):
     for index, row in df.iterrows():
         all_captures.append([row['timestamps'], row['sizes'], row['directions']])
 
-        '''
-
-        timestamps = df['timestamps']
-        sizes      = df['sizes']
-        directions = df['directions']
+        timestamps = row['timestamps']
+        sizes      = row['sizes']
+        directions = row['directions']
 
         nr_of_timestamps = len(df['timestamps'])
         nr_of_sizes      = len(df['sizes'])
@@ -88,9 +86,7 @@ def parse_file(input_path, output_path):
         elif nr_of_timestamps < 1:
             print(f"ERROR: the number of timestamps to is small {nr_of_timestamps}")
             return
-
-        all_captures.append((timestamps, sizes, directions))
-        '''
+        
     # parse each capture
     for capture in all_captures:
         # reset start time for each capture file
@@ -109,7 +105,8 @@ def parse_file(input_path, output_path):
             if relative_time == 0:
                 relative_time = 1
             elif relative_time < 0:
-                print("ERROR: duration is negative")
+                print(f"ERROR: duration is negative {relative_time}")
+                return
 
             # get the size
             size = capture[1][i]
