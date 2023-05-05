@@ -34,10 +34,11 @@ def parse_applications(workers = 10):
     for app_file in os.listdir(DIR_INPUT):
         path_in  = f"{DIR_INPUT}/{app_file}"
         path_out = f"{DIR_OUTPUT}/{app_file}" 
-        pool_input.append((path_in, path_out))
+        parse_file(path_in, path_out)
+        #pool_input.append((path_in, path_out))
 
-    p = Pool(workers)
-    p.starmap(parse_file, pool_input)
+    #p = Pool(workers)
+    #p.starmap(parse_file, pool_input)
 
     return
 
