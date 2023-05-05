@@ -94,7 +94,12 @@ def parse_file(input_path, output_path):
     # parse each capture
     for capture in all_captures:
         # reset start time for each capture file
-        prev_time = capture[0][0] * NS_PER_SEC
+        try:
+            prev_time = capture[0][0] * NS_PER_SEC
+        except:
+            print(f"the capture {capture} could not gather [0][0]")
+            return
+
         # parse each pkt for each capture
         for i in range(len(capture[0])):
             # get the time
