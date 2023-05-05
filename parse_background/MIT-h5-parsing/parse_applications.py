@@ -119,7 +119,7 @@ def parse_file(input_path, output_path):
             size = row[SIZE_INDEX]
             
 
-            dictionary_parsed['time'].append(relative_time)
+            dictionary_parsed['time'].append(duration_ns)
             dictionary_parsed['direction'].append(direction)
             dictionary_parsed['size'].append(size)
 
