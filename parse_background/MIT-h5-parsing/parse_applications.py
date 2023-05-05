@@ -63,50 +63,59 @@ def parse_file(input_path, output_path):
     }
 
     df = pd.read_hdf(input_path)
-    print(df)
-    timestamps = df['timestamps']
-    sizes      = df['sizes']
-    directions = df['directions']
 
-    nr_of_timestamps = len(df['timestamps'])
-    nr_of_sizes      = len(df['sizes'])
-    nr_of_directions = len(df['directions'])
-
-    if nr_of_timestamps != nr_of_directions != nr_of_sizes:
-        print("ERROR: there is not equal amount of timestamps and directions")
-        print(f"{input_path}: nr of timestamps: {nr_of_timestamps}, nr of directions: {nr_of_directions}, nr of directions: {nr_of_sizes}")
-        return
-    elif nr_of_timestamps < 1:
-        print(f"ERROR: the number of timestamps to is small {nr_of_timestamps}")
-        return
-
+    all_captures = []
     
-    prev_time = timestamps[0] * NS_PER_SEC
-    for i in range(nr_of_timestamps):
-        # get the time
-        absolute_time = timestamps[0] * NS_PER_SEC
-        relative_time = round(absolute_time - prev_time)
-        prev_time     = absolute_time
-        if relative_time == 0:
-            relative_time = 1
-        elif relative_time < 0:
-            print("ERROR: duration is negative")
+    # each row is an capture
+    for index, row in df.iterrows():
 
-        # get the size
-        size = sizes[i]
+        timestamps = df['timestamps']
+        sizes      = df['sizes']
+        directions = df['directions']
 
-        # get the direction
-        if directions['directions'] == 1:
-            direction = "sb"
-        elif directions['directions'] == 0:
-            direction = "rb"
-        else:
-            print(f"ERROR: direction {directions['directions']} is invalid")
-        
+        nr_of_timestamps = len(df['timestamps'])
+        nr_of_sizes      = len(df['sizes'])
+        nr_of_directions = len(df['directions'])
 
-        dictionary_parsed['time'].append(relative_time)
-        dictionary_parsed['direction'].append(direction)
-        dictionary_parsed['size'].append(size)
+        if nr_of_timestamps != nr_of_directions != nr_of_sizes:
+            print("ERROR: there is not equal amount of timestamps and directions")
+            print(f"{input_path}: nr of timestamps: {nr_of_timestamps}, nr of directions: {nr_of_directions}, nr of directions: {nr_of_sizes}")
+            return
+        elif nr_of_timestamps < 1:
+            print(f"ERROR: the number of timestamps to is small {nr_of_timestamps}")
+            return
+
+        all_captures.append((timestamps, sizes, directions))
+
+    for capture in all_captures:
+        # reset start time for each capture file
+        prev_time = capture[0][0] * NS_PER_SEC
+        for i in range(nr_of_timestamps):
+            # get the time
+            absolute_time = capture[0][i] * NS_PER_SEC
+            relative_time = round(absolute_time - prev_time)
+            prev_time     = absolute_time
+            if relative_time == 0:
+                relative_time = 1
+            elif relative_time < 0:
+                print("ERROR: duration is negative")
+
+            # get the size
+            size = capture[1][i]
+
+            raw_dir = capture[2][i]
+            # get the direction
+            if raw_dir == 1:
+                direction = "sb"
+            elif raw_dir == 0:
+                direction = "rb"
+            else:
+                print(f"ERROR: direction {raw_dir} is invalid")
+            
+
+            dictionary_parsed['time'].append(relative_time)
+            dictionary_parsed['direction'].append(direction)
+            dictionary_parsed['size'].append(size)
 
     # save the result
     df_parsed = pd.DataFrame(dictionary_parsed)
