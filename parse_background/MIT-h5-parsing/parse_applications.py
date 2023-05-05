@@ -105,7 +105,9 @@ def parse_file(input_path, output_path):
             if relative_time == 0:
                 relative_time = 1
             elif relative_time < 0:
-                print(f"ERROR: duration is negative {relative_time}")
+                print(f"ERROR: duration is negative")
+                print(f"Itteration {i}; file {output_path}")
+                print(f"{absolute_time} - {prev_time} = {relative_time} ")
                 return
 
             # get the size
