@@ -26,8 +26,8 @@ def parse_applications(workers = 10):
     Parse all the extracted MIT application datasets
     '''
 
-    DIR_INPUT  = "mit/raw_applications"
-    DIR_OUTPUT = "mit/parsed_applications"
+    DIR_INPUT  = "mit/raw_app"
+    DIR_OUTPUT = "mit/parsed_app"
     pool_input = []
 
     for app_file in os.listdir(DIR_INPUT):
