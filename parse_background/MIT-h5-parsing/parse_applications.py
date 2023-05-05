@@ -2,7 +2,7 @@
 
 '''
 To run:
-python wf-attack-vpn/parse_background/MIT-h5-parsing/parse_applications.py -w 1
+python wf-attack-vpn/parse_background/MIT-h5-parsing/parse_applications.py -w 5
 '''
 import sys
 import os
@@ -34,11 +34,10 @@ def parse_applications(workers = 10):
     for app_file in os.listdir(DIR_INPUT):
         path_in  = f"{DIR_INPUT}/{app_file}"
         path_out = f"{DIR_OUTPUT}/{app_file}" 
-        parse_file(path_in, path_out)
-        #pool_input.append((path_in, path_out))
+        pool_input.append((path_in, path_out))
 
-    #p = Pool(workers)
-    #p.starmap(parse_file, pool_input)
+    p = Pool(workers)
+    p.starmap(parse_file, pool_input)
 
     return
 
@@ -80,9 +79,6 @@ def parse_file(input_path, output_path):
         # convert each capture to an DF, so it can be sorted and parsed
         df = pd.DataFrame({'timestamps':capture[0], "directions" : capture[1], "sizes" : capture[2]})
         df.sort_values(by=['timestamps'], inplace = True, ignore_index = True)
-
-        # to check the data, if there is any problems
-        df.to_hdf("tmp/tmp.h5", mode = "w", key = "df") 
 
         capture_index = -1
         first = True
