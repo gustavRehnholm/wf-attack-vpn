@@ -91,7 +91,7 @@ def parse_file(input_path, output_path):
             first = False
 
             duration_s  = row[TIME_INDEX] - prev_time
-            duration_ns = round(duration* NS_PER_SEC)
+            duration_ns = round(duration_s * NS_PER_SEC)
             tmp_prev = prev_time
             prev_time     = row[TIME_INDEX]
             
