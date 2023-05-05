@@ -2,7 +2,7 @@
 
 '''
 To run:
-python wf-attack-vpn/parse_background/MIT-h5-parsing/parse_applications.py
+python wf-attack-vpn/parse_background/MIT-h5-parsing/parse_applications.py -w 5
 '''
 
 import os
@@ -34,6 +34,7 @@ def parse_applications(workers = 10):
     for app_file in os.listdir(DIR_INPUT):
         path_in  = f"{DIR_INPUT}/{app_file}"
         path_out = f"{DIR_OUTPUT}/{app_file}" 
+        print(f"{path_in}:{path_out}")
         pool_input.append((path_in, path_out))
 
     p = Pool(workers)
