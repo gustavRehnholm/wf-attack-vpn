@@ -2,7 +2,7 @@
 
 '''
 To run:
-python wf-attack-vpn/parse_background/MIT-h5-parsing/analyze_dataset.py --input mit/parsed_app/ --workers 1
+python wf-attack-vpn/parse_background/MIT-h5-parsing/analyze_dataset.py --input mit/parsed_app/ --workers 5
 '''
 
 from multiprocessing import Pool
@@ -12,6 +12,7 @@ import numpy             as np
 import matplotlib.pyplot as plt
 import os
 import sys
+import json
 import argparse
 
 
@@ -113,8 +114,13 @@ def timestamps_capture(path_file2analyze, fname):
             print(f"Upper limit: {upper_limit}")
             sys.exit()
 
-    return {"pkt_s": time_list,
+    result_dic = {"pkt_s": time_list,
             "fname": fname}
+
+    with open(f'tmp/{fname}.txt', 'w') as file:
+        file.write(json.dumps(result_dic))
+
+    return result_dic
 
 
 def plot_analysis_captures(captures_pkt_s, title = "MIT_app_analysis", result_path = "fig/"):
