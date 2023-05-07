@@ -46,7 +46,7 @@ def analyze_dataset(dir_input = "mit/parsed_app/", dir_output = "fig/mit_analysi
     # each application capture from MIT
     input_files = os.listdir(dir_input)
     input = []
-    for curr_file in sorted_files:
+    for curr_file in input_files:
         fname_with_extension = os.fsdecode(curr_file)
         path = dir_input + "/" + fname_with_extension
         fname_without_extension = fname_with_extension.split('.')[0]
