@@ -84,6 +84,7 @@ def timestamps_capture(path_file2analyze, fname):
     df               = pd.read_hdf(path_file2analyze, key = "df")
     background_tuple = list(df.itertuples(index=False, name=None))
     len_tuple        =  len(background_tuple)
+    print(f"number of packets in the file {fname}: {len_tuple}")
     time_list        = [0] * len_tuple
     # keep track of current packet and time interval
     interval_index   = 0
