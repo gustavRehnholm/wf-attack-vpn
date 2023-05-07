@@ -94,7 +94,7 @@ def timestamps_capture(path_file2analyze, fname):
     
     # which timestamp the packet is sent in
     tuple_index = 0
-    curr_timestamp   = int(background_tuple[tuple_index][TUPLE_TIME_INDEX])
+    time_stamp   = int(background_tuple[tuple_index][TUPLE_TIME_INDEX])
     tuple_index += 1
 
     while tuple_index < len_tuple:
@@ -109,12 +109,11 @@ def timestamps_capture(path_file2analyze, fname):
         else:
             # one more packet this second
             time_list[interval_index] += 1
-            curr_timestamp            += int(background_tuple[tuple_index][TUPLE_TIME_INDEX])
+            time_stamp                += int(background_tuple[tuple_index][TUPLE_TIME_INDEX])
             tuple_index               += 1
 
 
-    result_dic = {"pkt_s": time_list,
-            "fname": fname}
+    result_dic = {"pkt_s": time_list, "fname": fname}
 
     with open(f'tmp/{fname}.txt', 'w') as file:
         file.write(json.dumps(result_dic))
