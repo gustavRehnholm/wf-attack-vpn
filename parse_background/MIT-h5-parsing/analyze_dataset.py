@@ -85,7 +85,7 @@ def timestamps_capture(path_file2analyze, fname):
     background_tuple = list(df.itertuples(index=False, name=None))
     len_tuple        =  len(background_tuple)
     print(f"number of packets in the file {fname}: {len_tuple}")
-    time_list        = [0] * len_tuple
+    time_list        = [0]
     # keep track of current packet and time interval
     interval_index   = 0
     lower_limit = interval_index     * NS_PER_SEC
@@ -98,22 +98,20 @@ def timestamps_capture(path_file2analyze, fname):
     tuple_index += 1
 
     while tuple_index < len_tuple:
-        # this packet is in the current interval
-        if curr_timestamp >= lower_limit and curr_timestamp < upper_limit:
-            time_list[interval_index] += 1
-            curr_timestamp            += int(background_tuple[tuple_index][TUPLE_TIME_INDEX])
-            tuple_index               += 1
-        # advance the interval
-        elif curr_timestamp >= upper_limit:
+        # if timestamp is in the next intervall
+        if time_stamp >= upper_limit:
+            time_list.append(0)
             interval_index += 1
             # advance the time with the duration of the next packet
             lower_limit = interval_index     * NS_PER_SEC
             upper_limit = (interval_index+1) * NS_PER_SEC
-        # the packet is probably in the wrong order
+        # advance the interval
         else:
-            print(f"ERROR: the time {curr_timestamp} should not be able to go below the current lower interval {lower_limit}")
-            print(f"Upper limit: {upper_limit}")
-            sys.exit()
+            # one more packet this second
+            time_list[interval_index] += 1
+            curr_timestamp            += int(background_tuple[tuple_index][TUPLE_TIME_INDEX])
+            tuple_index               += 1
+
 
     result_dic = {"pkt_s": time_list,
             "fname": fname}
