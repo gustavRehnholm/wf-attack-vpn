@@ -84,7 +84,8 @@ def getMerged(dir_foreground, dir_merged, dir_background, f_fold = 0, b_fold = 0
     print(f"df_len is = {df_len}")
 
     print(f"lengt of the dataframe: {len(df_tmp.index)}")
-    print(f"lengt of the dataframe: {len(df_tmp.shape[0])}")
+
+    print(df_tmp)
 
     if not div:
         # divide it up in 10 parts, 
