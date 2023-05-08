@@ -85,6 +85,11 @@ def getMerged(dir_foreground, dir_merged, dir_background, f_fold = 0, b_fold = 0
 
     print(f"lengt of the dataframe: {len(df_tmp.index)}")
 
+    print(f"shape of the dataframe: {df_tmp.shape}")
+
+
+    print(f"lengt of the dataframe: {df_tmp.shape[0]}")
+
     print(df_tmp)
 
     if not div:
