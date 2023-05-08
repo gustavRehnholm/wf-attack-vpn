@@ -126,6 +126,8 @@ def getMerged(dir_foreground, dir_merged, dir_background, f_fold = 0, b_fold = 0
         return False
     print("----------------------------------------")
     print("Succeeded in creating the merged traffic set")
+    print("")
+    print("")
     return True
 
 
