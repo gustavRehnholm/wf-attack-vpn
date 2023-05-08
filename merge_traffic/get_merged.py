@@ -2,9 +2,6 @@
 
 '''
 TODO: fold on the background dataset, aka b_fold
-
-To run:
-python wf-attack-vpn/merged_traffic/main.py
 '''
 
 import pandas as pd
@@ -127,7 +124,7 @@ def getMerged(dir_foreground, dir_merged, dir_background, f_fold = 0, b_fold = 0
     return True
 
 
-def get_intervals(df_len, bfold = 0):
+def get_intervals(df_len, b_fold = 0):
     # [test, valid, train]
     intervals = dict(test = [], valid = [], train = [])
 
