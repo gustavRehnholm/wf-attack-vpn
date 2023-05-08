@@ -2,7 +2,7 @@
 # To create all the merged sets from the twitch dataset.
 
 # to run:
-# ./wf-attack-vpn/merge_traffic/run_all.sh
+# ./wf-attack-vpn/merge_traffic/run_all_twitch.sh
 
 # merge 
 
