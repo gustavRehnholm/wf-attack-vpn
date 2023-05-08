@@ -44,7 +44,7 @@ def mergeTraffic(merged_files, foreground_files, background_path, intervals, fil
         dfs.append(df_tmp)
 
     df = pd.concat(dfs, axis = 1) 
-    print(f"Final size of df: {df.shape[0]}")
+    #print(f"Final size of df: {df.shape[0]}")
 
     # list with indexes [0, background_len[
     global background_tuple
@@ -52,7 +52,17 @@ def mergeTraffic(merged_files, foreground_files, background_path, intervals, fil
     background_tuple = list(df.itertuples(index=False, name=None))
     background_len   = len(background_tuple)
 
-    print(f"tuple size {background_len}")
+    print(f"final size of background: {background_len}")
+
+    print("--------------")
+    print(background_tuple[0])
+    print("--------------")
+    print(background_tuple[0][0])
+    print("--------------")
+    print(background_tuple[1])
+    print("--------------")
+    print(background_tuple[1][0])
+    print("--------------")
 
     # seed the rnd generator
     random.seed(timeit.default_timer())
