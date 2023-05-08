@@ -34,7 +34,6 @@ def mergeTraffic(merged_files, foreground_files, background_path, intervals, fil
     # to access the background data in the hdf5 file
     KEY = "df"
 
-    # TODO: check that one gets a correct merged dataframe
     dfs = []
     for interval_pair in intervals:
         # the background traffic: use the tuple for performance
@@ -44,7 +43,9 @@ def mergeTraffic(merged_files, foreground_files, background_path, intervals, fil
         dfs.append(df_tmp)
 
     df = pd.concat(dfs, axis = 1) 
-    #print(f"Final size of df: {df.shape[0]}")
+    gfg_csv_data = df.to_csv('tmp/tmp.csv', index = True)
+    
+    print(f"Final size of df: {df.shape[0]}")
 
     # list with indexes [0, background_len[
     global background_tuple
@@ -53,6 +54,7 @@ def mergeTraffic(merged_files, foreground_files, background_path, intervals, fil
     background_len   = len(background_tuple)
 
     print(f"final size of background: {background_len}")
+    print(f"Workers: {workers}")
 
     # seed the rnd generator
     random.seed(timeit.default_timer())
