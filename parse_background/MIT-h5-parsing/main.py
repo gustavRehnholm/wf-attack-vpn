@@ -5,9 +5,11 @@ import timeit
 # own defined
 from extract_applications import extract_applications
 from parse_applications   import parse_applications
+from analyze_dataset      import analyze_dataset
+from app_category_analysis import app_category_analysis
 
 '''
-TODO: progressbar for the different steps that works with multiprocessing
+TODO: progressbar that works with multiprocessing
 '''
 
 '''
@@ -26,10 +28,14 @@ def main():
 
     start_time = timeit.default_timer()
 
+    # analyze the provided data
+    app_category_analysis()
     # extract the relevant data and store them after application
     extract_applications()
     # parse the usable capture files
     parse_applications(workers = args['w'])
+    # analyze the parsed data
+    analyze_dataset()
 
     end_time = timeit.default_timer()
         

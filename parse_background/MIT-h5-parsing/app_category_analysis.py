@@ -14,6 +14,10 @@ python wf-attack-vpn/extract_dataset_analysis.py | tee stdout/extract_dataset_an
 import pandas as pd
 
 def main(): 
+    app_category_analysis()
+    return
+
+def app_category_analysis():
     YOUTUBE_INDEX = 0
     SFTP_INDEX    = 1
     SKYPE_INDEX   = 2
