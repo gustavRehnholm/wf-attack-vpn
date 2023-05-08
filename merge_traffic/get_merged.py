@@ -30,7 +30,6 @@ def getMerged(dir_foreground, dir_merged, dir_background, f_fold = 0, b_fold = 0
     '''
 
     FOLD_CSV = dir_foreground + "/fold-" + str(f_fold) + ".csv"
-    KEY      = "df"
 
     # list of what each file should be used for
     foreground_train_files = []
@@ -75,10 +74,12 @@ def getMerged(dir_foreground, dir_merged, dir_background, f_fold = 0, b_fold = 0
 
     # get number of packets in the background traffic
     store = pd.HDFStore(dir_background)
-    df_len = store.get_storer(KEY).nrows
+    df_len = store.get_storer("df").nrows
     store.close()
 
+    print(dir_background)
     print(f"df_len is = {df_len}")
+
     if not div:
         # divide it up in 10 parts, 
         part_of_10 = round(df_len/10)
