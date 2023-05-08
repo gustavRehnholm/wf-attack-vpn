@@ -42,10 +42,9 @@ def mergeTraffic(merged_files, foreground_files, background_path, intervals, fil
         print(f"Added interval with {df_len} packets")
         dfs.append(df_tmp)
 
-    df = pd.concat(dfs, axis = 1) 
+    # , axis = 1
+    df = pd.concat(dfs, ignore_index = True, join="inner") 
     gfg_csv_data = df.to_csv('tmp/tmp.csv', index = True)
-    
-    print(f"Final size of df: {df.shape[0]}")
 
     # list with indexes [0, background_len[
     global background_tuple
