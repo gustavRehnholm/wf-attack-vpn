@@ -74,23 +74,14 @@ def getMerged(dir_foreground, dir_merged, dir_background, f_fold = 0, b_fold = 0
 
     # get number of packets in the background traffic
     KEY = "df"
+    '''
     store = pd.HDFStore(dir_background)
     df_len = store.get_storer(KEY).nrows
     store.close()
+    '''
 
     df_tmp = pd.read_hdf(dir_background, key = KEY)
-
-    print(dir_background)
-    print(f"df_len is = {df_len}")
-
-    print(f"lengt of the dataframe: {len(df_tmp.index)}")
-
-    print(f"shape of the dataframe: {df_tmp.shape}")
-
-
-    print(f"lengt of the dataframe: {df_tmp.shape[0]}")
-
-    print(df_tmp)
+    df_len = df_tmp.shape[0]
 
     if not div:
         # divide it up in 10 parts, 
