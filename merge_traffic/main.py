@@ -1,18 +1,23 @@
 #!/usr/bin/python3
 
+'''
+To run:
+python wf-attack-vpn/merged_traffic/main.py -b mit/parsed_app/voip.h5 --bfold 0
+'''
+
 import argparse
 import timeit
 # own defined
 from get_merged import getMerged
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-f"     , required = True , default = ""   , type = str, 
-    help = "root folder of the foreground dataset")
-
 ap.add_argument("-b"     , required = True , default = ""   , type = str, 
     help = "root folder of the background dataset")
 
-ap.add_argument("-m"     , required = True , default = ""   , type = str, 
+ap.add_argument("-f"     , required = False , default = "foreground_traffic"   , type = str, 
+    help = "root folder of the foreground dataset")
+
+ap.add_argument("-m"     , required = False , default = "merged_traffic/tmp "   , type = str, 
     help = "root folder of the merged dataset")
 
 ap.add_argument("--ffold", required = False, default = 0    , type = int, choices = range(0, 10),
