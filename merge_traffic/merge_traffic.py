@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 '''
-TODO: Support multiple intervals (needed for b_fold)
 To run:
 python wf-attack-vpn/generate_merged_dataset/main.py
 '''
@@ -42,9 +41,8 @@ def mergeTraffic(merged_files, foreground_files, background_path, intervals, fil
         print(f"Added interval with {df_len} packets")
         dfs.append(df_tmp)
 
-    # , axis = 1
     df = pd.concat(dfs, ignore_index = True, join="inner") 
-    gfg_csv_data = df.to_csv('tmp/tmp.csv', index = True)
+    #gfg_csv_data = df.to_csv('tmp/tmp.csv', index = True)
 
     # list with indexes [0, background_len[
     global background_tuple
@@ -116,10 +114,8 @@ def inject(merged_path, foreground_path, file_len = 5000):
     try:
         curr_b_time     = int(background_tuple[df_index][TIME_INDEX])
     except:
-        print("Cannot convert to a int:")
-        print(f"df_index: {df_index}")
-        print(f"TIME_INDEX: {TIME_INDEX}")
-        print(f"background_tuple[df_index][TIME_INDEX]: {background_tuple[df_index][TIME_INDEX]}")
+        print(f"The background data is broken")
+        return False
 
     # inject until 5000 packets has been injected to the merged dataset (DF does not make use of more than the first 5000 packets)
     for i in range(0, file_len):
