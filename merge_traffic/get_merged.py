@@ -15,7 +15,6 @@ from merge_traffic     import mergeTraffic
 from merge_traffic_old import mergeTrafficOld
 
 
-
 def getMerged(dir_foreground, dir_merged, dir_background, f_fold = 0, b_fold = 0, workers = 5, div = True, file_len = 5000):
     '''
     This program merges the inputted background and foreground traffic, and store it in the specified directory.
@@ -24,9 +23,9 @@ def getMerged(dir_foreground, dir_merged, dir_background, f_fold = 0, b_fold = 0
         dir_foreground - Required : path to the directory that has the foreground that the background should be merged into (str)
         dir_merged     - Required : path to the directory where the merged result will be stored in                         (str)
         dir_background - Required : path to the directory where the background traffic is                                   (str)
-        f_fold         - Optional : which fold file to use for the foreground [0, 9] (default = 0)                          (int)
-        b_fold         - Optional : which fold to use for the background [0, 1] (default = 0)                               (int)
-        workers        - Optional : number of workers, multiprocessing (default = 5)                                        (int)
+        f_fold         - Optional : which fold file to use for the foreground [0, 9]                                        (int)
+        b_fold         - Optional : which fold to use for the background [0, 9]                                             (int)
+        workers        - Optional : number of workers, multiprocessing                                                      (int)
         div            - Optional : if the background should be divided or not                                              (bool)
         file_len       - Optional : number of packets per merged file                                                       (int)
     Output:
@@ -81,50 +80,87 @@ def getMerged(dir_foreground, dir_merged, dir_background, f_fold = 0, b_fold = 0
     store = pd.HDFStore(dir_background)
     df_len = store.get_storer(KEY).nrows
     store.close()
+
+    if not div:
+        # divide it up in 10 parts, 
+        part_of_10 = round(df_len/10)
+        print(f"Size of the background: {df_len}")
+
+        intervals = {"test": [(0, int(df_len))],
+                    "valid": [(0, int(df_len))],
+                    "train": [(0, int(df_len)), (0, int(df_len))]}
+    else:
+        intervals = get_intervals(df_len, b_fold)
+
+    print(f"Total number of packets: {df_len}")
+    print(intervals)
+
+    return False
+    
+    '''
+    # special implementation if lacks memory for multiprocessing
+    if workers == 1:
+        print("Start merging test files (not multiprocessor)")
+        if not mergeTrafficOld(merged_test_files , foreground_test_files , dir_background, intervals["test"], file_len):
+            return False
+        print("Start merging validation files (not multiprocessor)")
+        if not mergeTrafficOld(merged_valid_files, foreground_valid_files, dir_background, intervals["valid"], file_len):
+            return False
+        print("Start merging train files (not multiprocessor)")
+        if not mergeTrafficOld(merged_train_files, foreground_train_files, dir_background, intervals["train"], file_len):
+            return False
+    # implement if multiprocessing
+    else:
+    '''
+
+    print("Start merging test files")
+    if not mergeTraffic(merged_test_files , foreground_test_files , dir_background, intervals["test"], file_len, workers):
+        return False
+    print("Start merging validation files")
+    if not mergeTraffic(merged_valid_files, foreground_valid_files, dir_background, intervals["valid"], workers):
+        return False
+    print("Start merging train files")
+    if not mergeTraffic(merged_train_files, foreground_train_files, dir_background, intervals["train"], file_len, workers):
+        return False
+
+    print("Succeeded in creating the merged traffic set")
+    return True
+
+
+def get_intervals(df_len, bfold = 0):
+    # [test, valid, train]
+    intervals = dict(test = [], valid = [], train = [])
+
     # divide it up in 10 parts, 
     part_of_10 = round(df_len/10)
     print(f"Size of the background: {df_len}")
 
-    # [test, valid, train]
-    intervals = []
-    if div:
-        if b_fold == 0:
-            intervals.append((0, part_of_10))
-            intervals.append((part_of_10 + 1 , part_of_10*2))
-            intervals.append((part_of_10*2 + 1, int(df_len)))
-        elif b_fold == 1:
-            intervals.append((part_of_10*8 + 1 , part_of_10*9))
-            intervals.append((part_of_10*9 + 1, int(df_len)))
-            intervals.append((0, part_of_10*8))
-        else:
-            print(f"ERROR: invalid b_fold: {b_fold}")
+    # test, valid, train
+    if b_fold == 0:
+        intervals["test"].append((0, part_of_10 -1))
+        intervals["valid"].append((part_of_10, part_of_10*2 -1))
+        intervals["train"].append((part_of_10*2, int(df_len)))
+    # train, test, valid
+    elif b_fold == 8:
+        intervals["train"].append( (0, part_of_10*8 -1))
+        intervals["test"].append(  (part_of_10*8, part_of_10*9 -1))
+        intervals["valid"].append( (part_of_10*9, int(df_len)))
+    # valid, train, test
+    elif b_fold == 9:
+        intervals["test"].append((part_of_10*8, part_of_10*9 -1))
+        intervals["valid"].append((0, part_of_10 -1))
+        intervals["train"].append((part_of_10, part_of_10*8 -1))
+    # train, test, valid, train: fold [1,7]
+    elif b_fold  >= 1 and b_fold <= 7:
+        intervals["train"].append( ( 0                        , (part_of_10 * b_fold) -1      ))
+        intervals["test"].append(  ( (part_of_10 * b_fold)    , part_of_10 * (b_fold + 1) -1  ))
+        intervals["valid"].append( ( part_of_10 * (b_fold + 1), part_of_10 * (b_fold + 2) -1  ))
+        intervals["train"].append( ( part_of_10 * (b_fold + 2), int(df_len)                   ))
     else:
-        intervals.append((0, int(df_len)))
-    
+        print(f"ERROR: invalid b_fold: {b_fold}")
 
-    if workers == 1:
-        print("Start merging test files (not multiprocessor)")
-        if not mergeTrafficOld(merged_test_files , foreground_test_files , dir_background, intervals[0][0], intervals[0][1], file_len):
-            return False
-        print("Start merging validation files (not multiprocessor)")
-        if not mergeTrafficOld(merged_valid_files, foreground_valid_files, dir_background, intervals[1][0], intervals[1][1], file_len):
-            return False
-        print("Start merging train files (not multiprocessor)")
-        if not mergeTrafficOld(merged_train_files, foreground_train_files, dir_background, intervals[2][0], intervals[2][1], file_len):
-            return False
-    else:
-        print("Start merging test files")
-        if not mergeTraffic(merged_test_files , foreground_test_files , dir_background, intervals[0][0], intervals[0][1], file_len, workers):
-            return False
-        print("Start merging validation files")
-        if not mergeTraffic(merged_valid_files, foreground_valid_files, dir_background, intervals[0][0], intervals[0][1], file_len, workers):
-            return False
-        print("Start merging train files")
-        if not mergeTraffic(merged_train_files, foreground_train_files, dir_background, intervals[0][0], intervals[0][1], file_len, workers):
-            return False
+    return intervals
 
-    print("Succeeded in creating the merged traffic set")
-    return True
 
 if __name__=="__main__":
     main()

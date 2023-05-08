@@ -16,7 +16,7 @@ from multiprocessing import Pool
 global background_tuple
 global background_len
 
-def mergeTraffic(merged_files, foreground_files, background_path, start_index, end_index, file_len = 5000, workers = 5):
+def mergeTraffic(merged_files, foreground_files, background_path, interval, file_len = 5000, workers = 5):
     '''
     This program merges the foreground and background datasets, so it can be used to test WF attacks
 
@@ -24,8 +24,7 @@ def mergeTraffic(merged_files, foreground_files, background_path, start_index, e
         merged_files     - Required : list of paths to the merged files                (List[str])
         foreground_files - Required : list of paths to the foreground files            (List[str])
         background_path  - Required : path to the background file                      (str)
-        start_index      - Required : The start index of the background traffic to use (int)
-        end_index        - Required : The end index of the background traffic to use   (int)
+        interval         - Required : interval(s) to use from the background           (List[(int, int)])
         file_len         - Optional : number of packets per merged file                (int)
         workers          - Optional : number of workers, multiprocessing (default = 5) (int)
     Returns:
@@ -35,8 +34,13 @@ def mergeTraffic(merged_files, foreground_files, background_path, start_index, e
     # to access the background data in the hdf5 file
     KEY = "df"
 
-    # the background traffic: use the tuple for performance
-    df = pd.read_hdf(path_or_buf = background_path, key = KEY, start = start_index, stop = end_index)
+    # TODO: check that one gets a correct merged dataframe
+    dfs = []
+    for interval_pair in intervals:
+        # the background traffic: use the tuple for performance
+        dfs.append(pd.read_hdf(path_or_buf = background_path, key = KEY, start = interval_pair[0], stop = interval_pair[1]))
+
+    df = pd.concat(dfs, axis = 1) 
     # list with indexes [0, background_len[
     global background_tuple
     global background_len
