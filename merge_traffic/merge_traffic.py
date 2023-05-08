@@ -16,7 +16,7 @@ from multiprocessing import Pool
 global background_tuple
 global background_len
 
-def mergeTraffic(merged_files, foreground_files, background_path, interval, file_len = 5000, workers = 5):
+def mergeTraffic(merged_files, foreground_files, background_path, intervals, file_len = 5000, workers = 5):
     '''
     This program merges the foreground and background datasets, so it can be used to test WF attacks
 
@@ -24,7 +24,7 @@ def mergeTraffic(merged_files, foreground_files, background_path, interval, file
         merged_files     - Required : list of paths to the merged files                (List[str])
         foreground_files - Required : list of paths to the foreground files            (List[str])
         background_path  - Required : path to the background file                      (str)
-        interval         - Required : interval(s) to use from the background           (List[(int, int)])
+        intervals         - Required : interval(s) to use from the background           (List[(int, int)])
         file_len         - Optional : number of packets per merged file                (int)
         workers          - Optional : number of workers, multiprocessing (default = 5) (int)
     Returns:
