@@ -2,7 +2,7 @@
 
 '''
 To run:
-python wf-attack-vpn/merged_traffic/main.py -b mit/parsed_app/voip.h5 --bfold 0
+python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/voip.h5 --bfold 0
 '''
 
 import argparse
