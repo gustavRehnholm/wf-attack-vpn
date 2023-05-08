@@ -121,7 +121,14 @@ def inject(merged_path, foreground_path, file_len = 5000):
 
     # timestamp for the foreground and background packet
     foreground_time = int(foreground_lines[0].split(",")[PACKET_ATTR_INDEX_TIME])
-    curr_b_time     = int(background_tuple[df_index][TIME_INDEX])
+
+    try:
+        curr_b_time     = int(background_tuple[df_index][TIME_INDEX])
+    except:
+        print("Cannot convert to a int:")
+        print(f"df_index: {df_index}")
+        print(f"TIME_INDEX: {TIME_INDEX}")
+        print(f"background_tuple[df_index][TIME_INDEX]: {background_tuple[df_index][TIME_INDEX]}")
 
     # inject until 5000 packets has been injected to the merged dataset (DF does not make use of more than the first 5000 packets)
     for i in range(0, file_len):
