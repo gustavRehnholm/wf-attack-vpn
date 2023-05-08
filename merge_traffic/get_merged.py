@@ -86,7 +86,6 @@ def getMerged(dir_foreground, dir_merged, dir_background, f_fold = 0, b_fold = 0
     if not div:
         # divide it up in 10 parts, 
         part_of_10 = round(df_len/10)
-        print(f"Size of the background: {df_len}")
 
         intervals = {"test": [(0, int(df_len))],
                     "valid": [(0, int(df_len))],
@@ -96,8 +95,6 @@ def getMerged(dir_foreground, dir_merged, dir_background, f_fold = 0, b_fold = 0
 
     print(f"Total number of packets: {df_len}")
     print(intervals)
-
-    return False
     
     '''
     # special implementation if lacks memory for multiprocessing
@@ -135,7 +132,6 @@ def get_intervals(df_len, b_fold = 0):
 
     # divide it up in 10 parts, 
     part_of_10 = round(df_len/10)
-    print(f"Size of the background: {df_len}")
 
     # test, valid, train
     if b_fold == 0:
