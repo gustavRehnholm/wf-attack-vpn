@@ -118,7 +118,7 @@ def getMerged(dir_foreground, dir_merged, dir_background, f_fold = 0, b_fold = 0
         return False
     print("----------------------------------------")
     print("Start merging validation files")
-    if not mergeTraffic(merged_valid_files, foreground_valid_files, dir_background, intervals["valid"], workers):
+    if not mergeTraffic(merged_valid_files, foreground_valid_files, dir_background, intervals["valid"], file_len, workers):
         return False
     print("----------------------------------------")
     print("Start merging train files")
