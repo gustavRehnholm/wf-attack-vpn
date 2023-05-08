@@ -38,9 +38,14 @@ def mergeTraffic(merged_files, foreground_files, background_path, intervals, fil
     dfs = []
     for interval_pair in intervals:
         # the background traffic: use the tuple for performance
-        dfs.append(pd.read_hdf(path_or_buf = background_path, key = KEY, start = interval_pair[0], stop = interval_pair[1]))
+        df_tmp = pd.read_hdf(path_or_buf = background_path, key = KEY, start = interval_pair[0], stop = interval_pair[1])
+        df_len = df_tmp.shape[0]
+        print(f"Added interval with {df_len} packets")
+        dfs.append(df_tmp)
 
     df = pd.concat(dfs, axis = 1) 
+    print(f"Final size of df: {df.shape[0]}")
+    
     # list with indexes [0, background_len[
     global background_tuple
     global background_len
