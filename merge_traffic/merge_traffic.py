@@ -54,16 +54,6 @@ def mergeTraffic(merged_files, foreground_files, background_path, intervals, fil
 
     print(f"final size of background: {background_len}")
 
-    print("--------------")
-    print(background_tuple[0])
-    print("--------------")
-    print(background_tuple[0][0])
-    print("--------------")
-    print(background_tuple[1])
-    print("--------------")
-    print(background_tuple[1][0])
-    print("--------------")
-
     # seed the rnd generator
     random.seed(timeit.default_timer())
 
