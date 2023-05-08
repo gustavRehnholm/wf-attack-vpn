@@ -73,6 +73,8 @@ def parse_file(input_path, output_path):
     TIME_INDEX = 1
     DIR_INDEX = 2
     SIZE_INDEX = 3
+
+    KEY      = "df"
         
     # parse each capture
     for capture in all_captures:
@@ -123,7 +125,7 @@ def parse_file(input_path, output_path):
 
     # save the result
     df_parsed = pd.DataFrame(dictionary_parsed)
-    df_parsed.to_hdf(output_path, mode = "w", key = "df") 
+    df_parsed.to_hdf(output_path, mode = "w", key = KEY) 
 
 
 if __name__=="__main__":

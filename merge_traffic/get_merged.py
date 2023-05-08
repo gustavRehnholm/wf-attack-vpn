@@ -78,6 +78,7 @@ def getMerged(dir_foreground, dir_merged, dir_background, f_fold = 0, b_fold = 0
     df_len = store.get_storer(KEY).nrows
     store.close()
 
+    print(f"df_len is = {df_len}")
     if not div:
         # divide it up in 10 parts, 
         part_of_10 = round(df_len/10)
