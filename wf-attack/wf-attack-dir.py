@@ -39,8 +39,8 @@ def main():
     df_attack(args['m'], args['s'], "--tiktok"  , args['epochs'], args['r'], "tiktok")
 
     end_time = timeit.default_timer()
-    runtime_min = (end_time - start_time)/min
-    print(f"runtime for this merged dataset: {runtime_min:.1f}")
+    runtime_min = (end_time - start_time)/60
+    print(f"runtime for this merged dataset(min): {runtime_min:.1f}")
     return
 
 
