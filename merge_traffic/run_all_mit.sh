@@ -21,12 +21,12 @@
 
 # 10-fold rdp
 #python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/rdp.h5 -m merged_traffic/mit/rdp/fold_0 --bfold 0 -w 10
-python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/rdp.h5 -m merged_traffic/mit/rdp/fold_1 --bfold 1 -w 10
-python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/rdp.h5 -m merged_traffic/mit/rdp/fold_2 --bfold 2 -w 10
-python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/rdp.h5 -m merged_traffic/mit/rdp/fold_3 --bfold 3 -w 10
-python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/rdp.h5 -m merged_traffic/mit/rdp/fold_4 --bfold 4 -w 10
-python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/rdp.h5 -m merged_traffic/mit/rdp/fold_5 --bfold 5 -w 10
-python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/rdp.h5 -m merged_traffic/mit/rdp/fold_6 --bfold 6 -w 10
-python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/rdp.h5 -m merged_traffic/mit/rdp/fold_7 --bfold 7 -w 10
-python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/rdp.h5 -m merged_traffic/mit/rdp/fold_8 --bfold 8 -w 10
-python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/rdp.h5 -m merged_traffic/mit/rdp/fold_9 --bfold 9 -w 10
+#python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/rdp.h5 -m merged_traffic/mit/rdp/fold_1 --bfold 1 -w 10
+#python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/rdp.h5 -m merged_traffic/mit/rdp/fold_2 --bfold 2 -w 10
+#python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/rdp.h5 -m merged_traffic/mit/rdp/fold_3 --bfold 3 -w 10
+#python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/rdp.h5 -m merged_traffic/mit/rdp/fold_4 --bfold 4 -w 10
+#python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/rdp.h5 -m merged_traffic/mit/rdp/fold_5 --bfold 5 -w 10
+#python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/rdp.h5 -m merged_traffic/mit/rdp/fold_6 --bfold 6 -w 10
+#python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/rdp.h5 -m merged_traffic/mit/rdp/fold_7 --bfold 7 -w 10
+#python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/rdp.h5 -m merged_traffic/mit/rdp/fold_8 --bfold 8 -w 10
+#python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/rdp.h5 -m merged_traffic/mit/rdp/fold_9 --bfold 9 -w 10

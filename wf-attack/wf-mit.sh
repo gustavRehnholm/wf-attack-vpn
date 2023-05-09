@@ -18,7 +18,7 @@ Run DF (with all three modes) on the merged datasets with MIT
 #python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/voip/voip_9 -r wf_result/mit/voip/fold_9 -s 100 --epochs 30
 
 # 10-fold voip
-python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/rdp/fold_0 -r wf_result/mit/rdp/fold_0 -s 100 --epochs 30
+#python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/rdp/fold_0 -r wf_result/mit/rdp/fold_0 -s 100 --epochs 30
 python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/rdp/fold_1 -r wf_result/mit/rdp/fold_1 -s 100 --epochs 30
 python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/rdp/fold_2 -r wf_result/mit/rdp/fold_2 -s 100 --epochs 30
 python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/rdp/fold_3 -r wf_result/mit/rdp/fold_3 -s 100 --epochs 30
