@@ -2,7 +2,7 @@
 
 '''
 Run DF (with all three modes) on the merged datasets with MIT
-./wf-attack-vpn/wf-attack/wf-mit.sh
+./wf-attack-vpn/wf-attack/run_all_mit.sh
 '''
 
 # 10-fold voip
@@ -41,6 +41,9 @@ Run DF (with all three modes) on the merged datasets with MIT
 #python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/vimeo/fold_8 -r wf_result/mit/vimeo/fold_8 -s 100 --epochs 30
 #python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/vimeo/fold_9 -r wf_result/mit/vimeo/fold_9 -s 100 --epochs 30
 
+#python wf-attack-vpn/wf-attack/wf_mit.py -app voip
+#python wf-attack-vpn/wf-attack/wf_mit.py -app rdp
+#python wf-attack-vpn/wf-attack/wf_mit.py -app vimeo
 python wf-attack-vpn/wf-attack/wf_mit.py -app netflix
 
 python wf-attack-vpn/plot_graphs/plot_all.py -r wf_result/mit/ -g fig/mit/ -w 10
