@@ -21,7 +21,7 @@ def main():
     app = args["app"]
 
     for i in range(0,10):
-        os.system(f"python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/{app}.h5 -m merged_traffic/{app}_{i} --bfold {i} -w 10")
+        os.system(f"python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/{app}.h5 -m merged_traffic/mit/{app}_{i} --bfold {i} -w 10")
     
 if __name__ == "__main__":
     main()
