@@ -47,14 +47,16 @@ def plot_figure(figure_dir ,x_label, y_label, y_lim = [0.5, 1], sup_title = "", 
         labels_subplot_lines.append(dataset_labels)
 
     # if 4 subplots per figure (2x2)
-    if nr_subplots == 4:
-        fig, axes   = plt.subplots(2, 2, figsize=(SIZE_PER_SUBGRAPH * 2, SIZE_PER_SUBGRAPH * 2))
+    if nr_subplots == 4 or nr_subplots == 10:
+        nrows = nr_subplots/2
+        ncols = 2
+        fig, axes   = plt.subplots(nrows = nrows, ncols = ncols, figsize=(SIZE_PER_SUBGRAPH * nrows, SIZE_PER_SUBGRAPH * ncols))
         fig.subplots_adjust(top=0.8)
 
         # plot every subplot
         index_subplot = -1
-        for index_subplot_row in range(2):
-            for index_subplot_column in range(2):
+        for index_subplot_row in range(nrows):
+            for index_subplot_column in range(ncols):
                 index_subplot += 1
                 # every line for the subplot
                 for index_line in range(len(datasets_per_subplot[index_subplot])): 
