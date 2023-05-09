@@ -31,14 +31,16 @@ Run DF (with all three modes) on the merged datasets with MIT
 
 # 10-fold vimeo
 #python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/vimeo/fold_0 -r wf_result/mit/vimeo/fold_0 -s 100 --epochs 30
-python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/vimeo/fold_1 -r wf_result/mit/vimeo/fold_1 -s 100 --epochs 30
-python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/vimeo/fold_2 -r wf_result/mit/vimeo/fold_2 -s 100 --epochs 30
-python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/vimeo/fold_3 -r wf_result/mit/vimeo/fold_3 -s 100 --epochs 30
-python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/vimeo/fold_4 -r wf_result/mit/vimeo/fold_4 -s 100 --epochs 30
-python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/vimeo/fold_5 -r wf_result/mit/vimeo/fold_5 -s 100 --epochs 30
-python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/vimeo/fold_6 -r wf_result/mit/vimeo/fold_6 -s 100 --epochs 30
-python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/vimeo/fold_7 -r wf_result/mit/vimeo/fold_7 -s 100 --epochs 30
-python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/vimeo/fold_8 -r wf_result/mit/vimeo/fold_8 -s 100 --epochs 30
-python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/vimeo/fold_9 -r wf_result/mit/vimeo/fold_9 -s 100 --epochs 30
+#python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/vimeo/fold_1 -r wf_result/mit/vimeo/fold_1 -s 100 --epochs 30
+#python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/vimeo/fold_2 -r wf_result/mit/vimeo/fold_2 -s 100 --epochs 30
+#python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/vimeo/fold_3 -r wf_result/mit/vimeo/fold_3 -s 100 --epochs 30
+#python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/vimeo/fold_4 -r wf_result/mit/vimeo/fold_4 -s 100 --epochs 30
+#python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/vimeo/fold_5 -r wf_result/mit/vimeo/fold_5 -s 100 --epochs 30
+#python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/vimeo/fold_6 -r wf_result/mit/vimeo/fold_6 -s 100 --epochs 30
+#python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/vimeo/fold_7 -r wf_result/mit/vimeo/fold_7 -s 100 --epochs 30
+#python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/vimeo/fold_8 -r wf_result/mit/vimeo/fold_8 -s 100 --epochs 30
+#python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/vimeo/fold_9 -r wf_result/mit/vimeo/fold_9 -s 100 --epochs 30
+
+python wf-attack-vpn/wf-attack/wf_mit.py -app netflix
 
 python wf-attack-vpn/plot_graphs/plot_all.py -r wf_result/mit/ -g fig/mit/ -w 10
