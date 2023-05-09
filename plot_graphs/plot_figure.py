@@ -48,7 +48,7 @@ def plot_figure(figure_dir ,x_label, y_label, y_lim = [0.5, 1], sup_title = "", 
 
     # if 4 subplots per figure (2x2)
     if nr_subplots == 4 or nr_subplots == 10:
-        nrows = nr_subplots/2
+        nrows = round(nr_subplots/2)
         ncols = 2
         fig, axes   = plt.subplots(nrows = nrows, ncols = ncols, figsize=(SIZE_PER_SUBGRAPH * nrows, SIZE_PER_SUBGRAPH * ncols))
         fig.subplots_adjust(top=0.8)
