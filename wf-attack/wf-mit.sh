@@ -16,4 +16,4 @@ python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/voip/voip_
 python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/voip/voip_8 -r wf_result/mit/voip/fold_8 -s 100 --epochs 30
 python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/mit/voip/voip_9 -r wf_result/mit/voip/fold_9 -s 100 --epochs 30
 
-./wf-attack-vpn/plot_graphs/plot.sh -r wf_result/mit/voip
+python wf-attack-vpn/plot_graphs/plot_all.py -r wf_result/mit/voip -w 10
