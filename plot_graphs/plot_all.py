@@ -17,6 +17,8 @@ python wf-attack-vpn/plot_graphs/plot_all.py -r wf_result/ -w 10 --ylim_lower 0
 ap = argparse.ArgumentParser()
 ap.add_argument("-r"   , required = True , type = str, default = "wf_result", 
     help="root folder of the DF result")
+ap.add_argument("-g"   , required = True , type = str, default = "fig/tmp/", 
+    help="root folder where to store the graphs")
 ap.add_argument("-w"   , required = False, type = int, default = 10, 
     help="number of workers for loading traces from disk")
 ap.add_argument("--ylim_lower"   , required = False, type = float, default = 0.5, 
@@ -35,14 +37,15 @@ def main():
     input       = []
     p           = Pool(args['w'])
     result_path = args["r"]
-    y_lim = [args["ylim_lower"], args["ylim_higher"]]
+    graph_path  = args['g']
+    y_lim       = [args["ylim_lower"], args["ylim_higher"]]
 
     # plot one figure for each folder in the 
     for curr_dir in os.listdir(result_path):
         files2plot = f"{result_path}{curr_dir}"
         sup_title  = curr_dir
 
-        input.append((files2plot, 'Threshold', 'Accuracy',y_lim, sup_title, "fig/twitch/"))
+        input.append((files2plot, 'Threshold', 'Accuracy',y_lim, sup_title, graph_path))
 
     p.starmap(plot_figure, input)
     
