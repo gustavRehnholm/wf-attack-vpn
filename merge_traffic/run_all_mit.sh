@@ -6,7 +6,7 @@
 
 # create 10-fold merged datastes of the applications from the MIT dataset
 
-python wf-attack-vpn/merge_traffic/run_mit.py --app netflix    --len 10000
+#python wf-attack-vpn/merge_traffic/run_mit.py --app netflix    --len 10000
 python wf-attack-vpn/merge_traffic/run_mit.py --app rdp        --len 10000
 python wf-attack-vpn/merge_traffic/run_mit.py --app skype-chat --len 10000
 python wf-attack-vpn/merge_traffic/run_mit.py --app ssh        --len 10000
