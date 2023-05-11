@@ -51,7 +51,7 @@ def plot_figure(figure_dir ,x_label, y_label, y_lim = [0.5, 1], sup_title = "", 
     if nr_subplots == 4 or nr_subplots == 10:
         nrows = round(nr_subplots/2)
         ncols = 2
-        fig, axes   = plt.subplots(nrows = nrows, ncols = ncols, figsize=(SIZE_PER_SUBGRAPH * ncols  * 2, SIZE_PER_SUBGRAPH * nrows))
+        fig, axes   = plt.subplots(nrows = nrows, ncols = ncols, figsize=(SIZE_PER_SUBGRAPH * ncols, SIZE_PER_SUBGRAPH * nrows))
         fig.subplots_adjust(top=0.8)
 
         # plot every subplot
