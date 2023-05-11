@@ -18,6 +18,7 @@ def plot_figure(figure_dir ,x_label, y_label, y_lim = [0.5, 1], sup_title = "", 
     SIZE_PER_SUBGRAPH = 4
     # paths to all subplots
     subplots_paths       = os.listdir(figure_dir)
+    subplots_paths.sort()
     # how many subplots to show in the figure
     nr_subplots          = len(subplots_paths)
     # the datasets (as DataFrames) to show on each subplot [index per subplot][index per line/dataset]
