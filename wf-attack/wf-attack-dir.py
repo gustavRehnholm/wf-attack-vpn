@@ -17,6 +17,8 @@ ap.add_argument("-w", required = False, type = int, default = 10,
     help = "Number of workers (multiprocessing) NOT IMPLEMENTED")
 ap.add_argument("--epochs", required = False, type = int, default = 30,
     help="the number of epochs for training")
+ap.add_argument("-l", required=False, default=False,
+    action="store_true", help="large (10k) input length, else 5k")
 args = vars(ap.parse_args())
 
 def main():
@@ -34,9 +36,9 @@ def main():
     
     start_time = timeit.default_timer()
 
-    df_attack(args['m'], args['s'], ""          , args['epochs'], args['r'], "default")
-    df_attack(args['m'], args['s'], "--constant", args['epochs'], args['r'], "constant")
-    df_attack(args['m'], args['s'], "--tiktok"  , args['epochs'], args['r'], "tiktok")
+    df_attack(args['m'], args['s'], ""          , args['epochs'], args['r'], "default", args['l'])
+    df_attack(args['m'], args['s'], "--constant", args['epochs'], args['r'], "constant", args['l'])
+    df_attack(args['m'], args['s'], "--tiktok"  , args['epochs'], args['r'], "tiktok", args['l'])
 
     end_time = timeit.default_timer()
     runtime_min = (end_time - start_time)/60
@@ -44,7 +46,7 @@ def main():
     return
 
 
-def df_attack(dir_merged, sample, mode, epochs, dir_result, name):
+def df_attack(dir_merged, sample, mode, epochs, dir_result, name, len10k):
     '''
     Run a DF attack with the provided input
     Args:
@@ -54,8 +56,9 @@ def df_attack(dir_merged, sample, mode, epochs, dir_result, name):
         epochs     - Required : epochs to run                               (str)
         dir_result - Required : Path where the result will be stored        (str)
         name       - Required : File name of the result                     (str)
+        len10k     - Required : if one should use 10k packet per file (bool)
     '''
-    txt = f"./df-fitness-wg.py -d {dir_merged} --train -s {sample} {mode} --epochs {epochs} --csv {dir_result}/{name}.csv"
+    txt = f"./df-fitness-wg.py -d {dir_merged} --train -s {sample} {mode} --epochs {epochs} -l {len10k} --csv {dir_result}/{name}.csv"
     os.system(txt)
 
 
