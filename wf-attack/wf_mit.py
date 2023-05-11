@@ -11,7 +11,7 @@ python wf-attack-vpn/wf-attack/wf_mit.py -app ...
 ap = argparse.ArgumentParser()
 ap.add_argument("--app"   , required = True , type = str, default = "", 
     help="MIT application to use")
-ap.add_argument("--len10k"   , required = False , type = Boolean, default = False, 
+ap.add_argument("--len10k"   , required = False , type = bool, default = False, 
     help="How many packets per file to train for")
 args = vars(ap.parse_args())
 
