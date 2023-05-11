@@ -58,7 +58,12 @@ def df_attack(dir_merged, sample, mode, epochs, dir_result, name, len10k):
         name       - Required : File name of the result                     (str)
         len10k     - Required : if one should use 10k packet per file (bool)
     '''
-    txt = f"./df-fitness-wg.py -d {dir_merged} --train -s {sample} {mode} --epochs {epochs} -l {len10k} --csv {dir_result}/{name}.csv"
+    if args["len10k"]:
+        len = "-l"
+    else:
+        len = ""
+
+    txt = f"./df-fitness-wg.py -d {dir_merged} --train -s {sample} {mode} --epochs {epochs} {len} --csv {dir_result}/{name}.csv"
     os.system(txt)
 
 
