@@ -58,7 +58,7 @@ def df_attack(dir_merged, sample, mode, epochs, dir_result, name, len10k):
         name       - Required : File name of the result                     (str)
         len10k     - Required : if one should use 10k packet per file (bool)
     '''
-    if args["len10k"]:
+    if len10k:
         len = "-l"
     else:
         len = ""
