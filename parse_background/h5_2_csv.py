@@ -1,10 +1,8 @@
 #!/usr/bin/python3
 
 '''
-To run:
-python wf-attack-vpn/parse_background/h5_2_csv.py --input mit/raw_app/vimeo.h5 --output tmp/vimeo.csv
-python wf-attack-vpn/parse_background/h5_2_csv.py --input mit/raw_app/rsync.h5 --output tmp/rsync.csv
-python wf-attack-vpn/parse_background/h5_2_csv.py --input tmp/tmp.h5       --output tmp/tmp.csv
+Example how to run
+python wf-attack-vpn/parse_background/h5_2_csv.py --input mit/raw_app/netflix.h5 --output tmp/netflix.csv
 '''
 
 import pandas as pd
