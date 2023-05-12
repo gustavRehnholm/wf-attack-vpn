@@ -24,6 +24,7 @@ def main():
     len = args["len"]
     os.system(f"mkdir merged_traffic/mit/{app}")
     for i in range(0,10):
+        os.system(f"mkdir merged_traffic/mit/{app}/fold_{i}")
         os.system(f"python wf-attack-vpn/merge_traffic/main.py -b mit/parsed_app/{app}.h5 -m merged_traffic/mit/{app}/fold_{i} --bfold {i} -w 10 --len {len}")
     
 if __name__ == "__main__":
