@@ -2,7 +2,7 @@
 
 '''
 To run:
-python wf-attack-vpn/parse_background/MIT-h5-parsing/analyze_dataset.py --input mit/parsed_app/ --workers 5
+python wf-attack-vpn/parse_background/MIT-h5-parsing/analyze_dataset.py --input mit/parsed_app/ --workers 10
 '''
 
 from multiprocessing import Pool
