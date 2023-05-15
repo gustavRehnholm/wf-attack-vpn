@@ -38,9 +38,8 @@ ap.add_argument("--len"  , required = False , default = 5000 , type = int,
 args = vars(ap.parse_args())
 
 def main():
-    '''
-    Creates the merged traffic, used to test DF and TikTok attacks capabilities
-    '''
+
+    print(f"Creates the merged traffic, used to test DF and TikTok attacks capabilities with {args["len"]} packets per file")
 
     start_time = timeit.default_timer()
     success = getMerged(dir_foreground = args['f'], 
