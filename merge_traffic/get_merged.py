@@ -42,12 +42,16 @@ def getMerged(dir_foreground, dir_merged, dir_background, f_fold = 0, b_fold = 0
     # clean old results if their is any
     if os.path.exists(dir_merged):
         shutil.rmtree(dir_merged)
+    # create structure to be in the merged folder (client with results, and fold file)
     os.mkdir(dir_merged)
+    os.mkdir(f"{dir_merged}/client")
+    os.system(f"cp {dir_foreground}/fold-0.csv {dir_merged}")
     
     # The naming structure between the foreground and the merged should be the same
     for (dirpath, dirnames, filenames) in os.walk(dir_foreground, topdown = True):
         for dirs in dirnames:
-            curr_path = os.path.join(dir_merged, dirs)
+            client_path = os.path.join(dir_merged, "client")
+            curr_path = os.path.join(client_path, dirs)
             if not os.path.exists(os.path.join(dir_merged, dirs)):
                 os.mkdir(curr_path)
 
@@ -74,11 +78,6 @@ def getMerged(dir_foreground, dir_merged, dir_background, f_fold = 0, b_fold = 0
 
     # get number of packets in the background traffic
     KEY = "df"
-    '''
-    store = pd.HDFStore(dir_background)
-    df_len = store.get_storer(KEY).nrows
-    store.close()
-    '''
 
     df_tmp = pd.read_hdf(dir_background, key = KEY)
     df_len = df_tmp.shape[0]
