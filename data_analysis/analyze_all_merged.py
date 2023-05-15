@@ -33,11 +33,11 @@ def main():
     '''
     input_path  = args.input
     output_path = args.result
-    
+
     dirs = os.listdir(input_path)
     for curr_dir in dirs:
         folder = f"{input_path}/{curr_dir}"
-        os.mkdir(output_path)
+        os.system(f"mkdir output_path")
         merged_analysis(dir = folder, workers = args.workers, fold = args.fold, fname = f"{output_path}/{curr_dir}.txt")
     
 if __name__ == "__main__":
