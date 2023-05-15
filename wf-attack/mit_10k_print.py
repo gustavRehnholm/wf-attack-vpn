@@ -28,22 +28,20 @@ def main():
     in_dir = args["i"]
     modes = ["default", "constant", "tiktok"]
     
-    '''
-    path = f"wf_result/{dir}/{app}"
+
+    path = f"wf_result/{result}/{app}"
     if not os.path.exists(path):
         os.makedirs(path)
-    '''
 
     for mode in modes:
         # create path to the figure path
-        '''
-        path = f"wf_result/{dir}/{app}/mode"
+        path = f"wf_result/{result}/{app}/mode"
         if not os.path.exists(path):
             os.makedirs(path)
-        '''
+
         # for every fold
         for i in range(0,10):
-            os.system(f"cp wf_result/{in_dir}/{app}/fold_{i}/{mode}.csv wf_result/{dir}/{app}/{mode}/fold_{i}.csv")
+            os.system(f"cp wf_result/{in_dir}/{app}/fold_{i}/{mode}.csv wf_result/{result}/{app}/{mode}/fold_{i}.csv")
     
 if __name__ == "__main__":
     main()
