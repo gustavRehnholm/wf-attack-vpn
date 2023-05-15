@@ -12,6 +12,7 @@ To run:
 python wf-attack-vpn/data_analysis/merged_analysis.py -d merged_traffic/twitch_rnd_40
 '''
 
+'''
 ap = argparse.ArgumentParser()
 ap.add_argument("-d"   , required = True , type = str, default = "", 
     help="root folder of the merged dataset")
@@ -26,11 +27,8 @@ args = vars(ap.parse_args())
 
 
 def main():
-    '''
-    Run analysis of one merged dataset from the terminal
-    '''
     merged_analysis(dir = args["d"], workers = args['w'], fold = args["fold"], fname = args['fname'])
-
+'''
 
 def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", fname = "stdout/merged_analysis.txt"):
     '''
@@ -171,5 +169,7 @@ def stat_txt(description_text, np_array):
     return txt.format(description = description_text   , mean = np.mean(np_array), std = np.std(np_array), 
                       median      = np.median(np_array), min  = np.min(np_array) , max = np.max(np_array))
 
+'''
 if __name__ == "__main__":
     main()
+'''
