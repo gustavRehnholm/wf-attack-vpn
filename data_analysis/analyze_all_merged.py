@@ -29,12 +29,13 @@ def main():
     '''
     Analyze all merged datasets that are in the provided folder
     '''
-    dirs = os.listdir(args["i"])
+    input_path  = args["i"]
+    output_path = args['r']
+    dirs = os.listdir(input_path)
     for curr_dir in dirs:
-        folder = args['i'] + "/" + curr_dir
-        os.mkdir(args['result'])
-        fname  = f"{args['result']}/{curr_dir}.txt"
-        merged_analysis(dir = folder, workers = args['w'], fold = args["fold"], fname = fname)
+        folder = f"{input_path}/{curr_dir}"
+        os.mkdir(output_path)
+        merged_analysis(dir = folder, workers = args['w'], fold = args["fold"], fname = f"{output_path}/{curr_dir}.txt")
     
 if __name__ == "__main__":
     main()
