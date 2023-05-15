@@ -13,6 +13,8 @@ python wf-attack-vpn/data_analysis/analyze_all_merged.py -d merged_traffic -w 10
 ap = argparse.ArgumentParser()
 ap.add_argument("-d"   , required = True , type = str, default = "", 
     help="root folder of the merged dataset")
+ap.add_argument("-r"   , required = True , type = str, default = "", 
+    help="root folder of the overhead result")
 ap.add_argument("-w"   , required = False, type = int, default = 10, 
     help="number of workers for loading traces from disk")
 ap.add_argument("--fold", required = False, type = str, default = "foreground_traffic/fold-0.csv", 
@@ -26,7 +28,8 @@ def main():
     dirs = os.listdir(args["d"])
     for curr_dir in dirs:
         folder = args['d'] + "/" + curr_dir
-        fname  = f"stdout/{curr_dir}.txt"
+        os.mkdir(args['r'])
+        fname  = f"{args['r']}/{curr_dir}.txt"
         merged_analysis(dir = folder, workers = args['w'], fold = args["fold"], fname = fname)
     
 if __name__ == "__main__":
