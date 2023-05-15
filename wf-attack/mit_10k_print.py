@@ -41,7 +41,10 @@ def main():
 
         # for every fold
         for i in range(0,10):
-            os.system(f"cp wf_result/{in_dir}/{app}/fold_{i}/{mode}.csv wf_result/{result}/{app}/{mode}/fold_{i}.csv")
+            # copy result to the folder, for the new subgraph 
+            os.system(f"cp wf_result/{in_dir}/{app}/fold_{i}/{mode}.csv wf_result/{result}/{app}/{mode}")
+            # name after fold, not mode
+            os.system(f"mv wf_result/{result}/{app}/{mode}/{mode}.csv wf_result/{result}/{app}/{mode}/fold_{i}.csv")
     
 if __name__ == "__main__":
     main()
