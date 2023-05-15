@@ -28,7 +28,7 @@ def plot_figure(figure_dir ,x_label, y_label, y_lim = [0.5, 1], sup_title = "", 
     # subplot title is the same as the directories name
     subtitle = []
     # 
-    markers_list = ['x','o','v','^','<']
+    markers_list = ['x','o','v','^','<', '1', 'P', '+', 'd', '|', '2', '3', '4']
 
     for subplot_dir in subplots_paths:
         path = f"{figure_dir}/{subplot_dir}"
