@@ -56,15 +56,15 @@ def getMerged(dir_foreground, dir_merged, dir_background, f_fold = 0, b_fold = 0
     # For every log file in the foreground, make sure that there is an correlating log file to store the parsed result
     for x in range(0, len(df_fold['log'])):
         if(df_fold['is_train'][x] == True): 
-            merged_train_files.append(os.path.join(dir_merged, df_fold['log'][x]))
+            merged_train_files.append(os.path.join(dir_merged, "client", df_fold['log'][x]))
             foreground_train_files.append(os.path.join(dir_foreground, "client", df_fold['log'][x]))
 
         elif(df_fold['is_valid'][x] == True): 
-            merged_valid_files.append(os.path.join(dir_merged, df_fold['log'][x]))
+            merged_valid_files.append(os.path.join(dir_merged, "client", df_fold['log'][x]))
             foreground_valid_files.append(os.path.join(dir_foreground, "client", df_fold['log'][x]))
 
         elif(df_fold['is_test'][x] == True): 
-            merged_test_files.append(os.path.join(dir_merged, df_fold['log'][x]))
+            merged_test_files.append(os.path.join(dir_merged, "client", df_fold['log'][x]))
             foreground_test_files.append(os.path.join(dir_foreground, "client", df_fold['log'][x]))
 
         else:

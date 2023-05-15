@@ -20,5 +20,7 @@
 
 # create the worst case
 
-# netflix and vimeo
+# youtube and vimeo
 python wf-attack-vpn/merge_traffic/scripts/worst_case_mit.py --app vimeo
+# netflix, youtube and vimeo
+python wf-attack-vpn/merge_traffic/scripts/worst_case_mit.py --app netflix
