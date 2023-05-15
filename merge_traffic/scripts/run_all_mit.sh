@@ -6,10 +6,19 @@
 
 # create 10-fold merged datastes of the applications from the MIT dataset
 
-python wf-attack-vpn/merge_traffic/run_mit.py --app netflix    --len 10000
+# get all applications with the len 10,000
+# done
+#python wf-attack-vpn/merge_traffic/run_mit.py --app netflix    --len 10000
+#python wf-attack-vpn/merge_traffic/run_mit.py --app vimeo      --len 10000
+#python wf-attack-vpn/merge_traffic/run_mit.py --app youtube    --len 10000
+
+# not done yeet
 #python wf-attack-vpn/merge_traffic/run_mit.py --app rdp        --len 10000
 #python wf-attack-vpn/merge_traffic/run_mit.py --app skype-chat --len 10000
 #python wf-attack-vpn/merge_traffic/run_mit.py --app ssh        --len 10000
-python wf-attack-vpn/merge_traffic/run_mit.py --app vimeo      --len 10000
 #python wf-attack-vpn/merge_traffic/run_mit.py --app voip       --len 10000
-python wf-attack-vpn/merge_traffic/run_mit.py --app youtube    --len 10000
+
+# create the worst case
+
+# netflix and vimeo
+python wf-attack-vpn/merge_traffic/scripts/worst_case_mit.py --app vimeo
