@@ -24,7 +24,7 @@ def main():
 
     for i in range(0,10):
         os.system(f"mkdir merged_traffic/worst_case/fold_{i}")
-        os.system(f"python wf-attack-vpn/merge_traffic/main.py -f merged_traffic/mit/netflix/fold_{i} -b background_traffic/mit/{app}.h5 -m merged_traffic/worst_case/fold_{i} --bfold {i}")
+        os.system(f"python wf-attack-vpn/merge_traffic/main.py -f merged_traffic/mit/youtube/fold_{i} -b background_traffic/mit/{app}.h5 -m merged_traffic/worst_case/fold_{i} --bfold {i}")
     
 if __name__ == "__main__":
     main()
