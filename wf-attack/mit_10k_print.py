@@ -35,7 +35,7 @@ def main():
 
     for mode in modes:
         # create path to the figure path
-        path = f"wf_result/{result}/{app}/mode"
+        path = f"wf_result/{result}/{app}/{mode}"
         if not os.path.exists(path):
             os.makedirs(path)
 
