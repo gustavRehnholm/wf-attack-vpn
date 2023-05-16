@@ -29,7 +29,7 @@ def main():
     os.system(f"mkdir wf_result/{txt}")
     for i in range(0,10):
         os.system(f"mkdir wf_result/{txt}/fold_{i}")
-        os.system(f"python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/worst_case_b/fold_{i} -r wf_result/{txt}/fold_{i} -s 100 --epochs 30 {len}")
+        os.system(f"python wf-attack-vpn/wf-attack/wf-attack-dir.py -m merged_traffic/worst_case_b/fold_{i}/client -r wf_result/{txt}/fold_{i} -s 100 --epochs 30 {len}")
     
 if __name__ == "__main__":
     main()
