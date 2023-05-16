@@ -20,7 +20,7 @@
 #rm -f -r merged_traffic/mit/rdp
 
 # added skype
-python wf-attack-vpn/merge_traffic/scripts/run_mit.py --app skype-chat        --len 10000
+#python wf-attack-vpn/merge_traffic/scripts/run_mit.py --app skype-chat        --len 10000
 python wf-attack-vpn/merge_traffic/scripts/worst_case_mit.py --app skype-chat -f merged_traffic/worst_case_a -m merged_traffic/worst_case_b
 rm -f -r merged_traffic/mit/skype-chat
 
