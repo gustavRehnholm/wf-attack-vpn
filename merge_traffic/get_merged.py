@@ -50,10 +50,13 @@ def getMerged(dir_foreground, dir_merged, dir_background, f_fold = 0, b_fold = 0
     # The naming structure between the foreground and the merged should be the same
     for (dirpath, dirnames, filenames) in os.walk(dir_foreground, topdown = True):
         for dirs in dirnames:
-            client_path = os.path.join(dir_merged, "client")
-            curr_path = os.path.join(client_path, dirs)
-            if not os.path.exists(curr_path):
-                os.mkdir(curr_path)
+            if isinstance(dirs, "client") or isinstance(dirs, "server"):
+                print("")
+            else:
+                client_path = os.path.join(dir_merged, "client")
+                curr_path = os.path.join(client_path, dirs)
+                if not os.path.exists(curr_path):
+                    os.mkdir(curr_path)
 
     df_fold = pd.read_csv(FOLD_CSV)
 
