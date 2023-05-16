@@ -6,7 +6,7 @@
 
 # create 10-fold merged datastes of the applications from the MIT dataset
 
-# get all applications with the len 5,000
+# get merged dataset for all applications with the len 5,000
 python wf-attack-vpn/merge_traffic/run_mit.py --app vimeo
 python wf-attack-vpn/merge_traffic/run_mit.py --app youtube 
 python wf-attack-vpn/merge_traffic/run_mit.py --app netflix 

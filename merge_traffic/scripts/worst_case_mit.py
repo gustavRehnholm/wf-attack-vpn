@@ -27,7 +27,8 @@ def main():
     m_path = args['m']
 
     for i in range(0,10):
-        os.system(f"mkdir merged_traffic/worst_case/fold_{i}")
+        os.system(f"mkdir merged_traffic/worst_case_a/fold_{i}")
+        os.system(f"mkdir merged_traffic/worst_case_b/fold_{i}")
         os.system(f"python wf-attack-vpn/merge_traffic/main.py -f {f_path}/fold_{i} -b background_traffic/mit/{app}.h5 -m {m_path}/fold_{i} --bfold {i} --len 10000")
     
 if __name__ == "__main__":

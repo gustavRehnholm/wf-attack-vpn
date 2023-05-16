@@ -7,7 +7,7 @@ from merged_analysis import merged_analysis
 
 '''
 To run:
-python wf-attack-vpn/data_analysis/analyze_all_merged.py -d merged_traffic -w 10 --fold foreground_traffic/fold-0.csv
+python wf-attack-vpn/data_analysis/analyze_all_merged.py -i merged_traffic -r analyse/...
 '''
 
 ap = argparse.ArgumentParser(description ='Analyze all merged datasets that are in the provided folder')
@@ -37,7 +37,7 @@ def main():
     dirs = os.listdir(input_path)
     for curr_dir in dirs:
         folder = f"{input_path}/{curr_dir}"
-        os.system(f"mkdir output_path")
+        os.system(f"mkdir {output_path}")
         merged_analysis(dir = folder, workers = args.workers, fold = args.fold, fname = f"{output_path}/{curr_dir}.txt")
     
 if __name__ == "__main__":
