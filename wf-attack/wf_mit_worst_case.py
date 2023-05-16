@@ -9,9 +9,10 @@ python wf-attack-vpn/wf-attack/wf_mit_worst_case.py --len10k True
 '''
 
 ap = argparse.ArgumentParser()
+
 ap.add_argument("--lenpkt"   , required = False , type = int, default = 5000, 
     help="How many packets per file to train for")
-#args = vars(ap.parse_args())
+
 args = ap.parse_args()
 
 def main():
@@ -29,10 +30,6 @@ def main():
     else:
         print(f"{args.lenpkt} is an invalid input, only 5,000 and 10,000 is valid")
 
-
-    print(txt)
-    print(args.lenpkt)
-    return
 
     os.system(f"mkdir wf_result/{txt}")
     for i in range(0,10):
