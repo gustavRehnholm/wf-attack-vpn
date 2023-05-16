@@ -52,7 +52,7 @@ def getMerged(dir_foreground, dir_merged, dir_background, f_fold = 0, b_fold = 0
         for dirs in dirnames:
             client_path = os.path.join(dir_merged, "client")
             curr_path = os.path.join(client_path, dirs)
-            if not os.path.exists(os.path.join(dir_merged, dirs)):
+            if not os.path.exists(curr_path):
                 os.mkdir(curr_path)
 
     df_fold = pd.read_csv(FOLD_CSV)
