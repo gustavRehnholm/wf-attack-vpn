@@ -28,6 +28,7 @@ def main():
         txt = "worst_case_5k"
 
     print(txt)
+    print(args.len10k)
     return
 
     os.system(f"mkdir wf_result/{txt}")
