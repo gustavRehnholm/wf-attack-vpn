@@ -20,7 +20,7 @@ def main():
     '''
     print("Start wf attack on 10-fold")
 
-    if args.len10k == "True":
+    if args.len10k == True:
         len = "-l"
         txt = "worst_case_10k"
     else:
