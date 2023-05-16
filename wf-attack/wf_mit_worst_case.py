@@ -11,7 +11,8 @@ python wf-attack-vpn/wf-attack/wf_mit_worst_case.py --len10k True
 ap = argparse.ArgumentParser()
 ap.add_argument("--len10k"   , required = False , type = bool, default = False, 
     help="How many packets per file to train for")
-args = vars(ap.parse_args())
+#args = vars(ap.parse_args())
+args = ap.parse_args()
 
 def main():
     '''
@@ -19,14 +20,14 @@ def main():
     '''
     print("Start wf attack on 10-fold")
 
-    if args["len10k"] == True:
+    if args.len10k == "True":
         len = "-l"
         txt = "worst_case_10k"
     else:
         len = ""
         txt = "worst_case_5k"
 
-    print(len)
+    print(txt)
     return
 
     os.system(f"mkdir wf_result/{txt}")
