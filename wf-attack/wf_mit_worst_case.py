@@ -19,12 +19,15 @@ def main():
     '''
     print("Start wf attack on 10-fold")
 
-    if args["len10k"]:
+    if args["len10k"] == True:
         len = "-l"
         txt = "worst_case_10k"
     else:
         len = ""
         txt = "worst_case_5k"
+
+    print(len)
+    return
 
     os.system(f"mkdir wf_result/{txt}")
     for i in range(0,10):
