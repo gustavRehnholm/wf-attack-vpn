@@ -1,5 +1,7 @@
 # create the worst case for the MIT dataset
 
+# ./wf-attack-vpn/merge_traffic/scripts/worst_case_mit.sh
+
 # youtube and vimeo
 #python wf-attack-vpn/merge_traffic/scripts/run_mit.py --app vimeo      --len 10000
 #python wf-attack-vpn/merge_traffic/scripts/run_mit.py --app youtube    --len 10000
