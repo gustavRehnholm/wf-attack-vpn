@@ -5,7 +5,8 @@ import os
 
 '''
 To run:
-python wf-attack-vpn/wf-attack/worst_case_print.py --app youtube -r mit_10k_print -i mit_10k
+python wf-attack-vpn/plot_graphs/worst_case_print.py -r worst_case_print_10k -i worst_case_10k
+python wf-attack-vpn/plot_graphs/worst_case_print.py -r worst_case_print_5k -i worst_case_5k
 '''
 
 ap = argparse.ArgumentParser()
