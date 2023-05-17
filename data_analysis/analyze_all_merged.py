@@ -18,6 +18,9 @@ ap.add_argument("-i", "--input"   , required = True , type = str, default = "",
 ap.add_argument("-r", "--result", required = True , type = str,
     help="root folder of the overhead result")
 
+ap.add_argument("-l", "--lenpkt", required = False , type = int, default = 5000,
+    help="number of packets to analyse from the dataset")
+
 ap.add_argument("-w", "--workers", required = False, type = int, default = 10, 
     help="number of workers for loading traces from disk")
 
@@ -38,7 +41,7 @@ def main():
     for curr_dir in dirs:
         folder = f"{input_path}/{curr_dir}"
         os.system(f"mkdir {output_path}")
-        merged_analysis(dir = folder, workers = args.workers, fold = args.fold, fname = f"{output_path}/{curr_dir}.txt")
+        merged_analysis(dir = folder, workers = args.workers, fold = args.fold, fname = f"{output_path}/{curr_dir}.txt", lenpkt = args.lenpkt)
     
 if __name__ == "__main__":
     main()

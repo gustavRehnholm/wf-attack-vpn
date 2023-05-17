@@ -44,8 +44,8 @@ rm -f -r merged_traffic/mit/voip
 rm -f -r merged_traffic/worst_case_a
 
 # get WF result (5k and 10k packets per file)
-python wf-attack-vpn/wf-attack/wf_mit_worst_case.py --len10k False
-python wf-attack-vpn/wf-attack/wf_mit_worst_case.py --len10k True
+python wf-attack-vpn/wf-attack/wf_mit_worst_case.py --lenpkt 5000
+python wf-attack-vpn/wf-attack/wf_mit_worst_case.py --lenpkt 10000
 
 # printable result for the worst case (restructure, so that it becomes one graph per mode, not per fold)
 # ...
@@ -53,5 +53,5 @@ python wf-attack-vpn/wf-attack/wf_mit_worst_case.py --len10k True
 # python wf-attack-vpn/plot_graphs/plot_all.py -r wf_result/worst_case_10k/ -g fig/mit/ -w 10 --ylim_lower 0
 
 # analyse overhead on 5k and 10k
-python wf-attack-vpn/data_analysis/analyze_all_merged.py -i merged_traffic -r analyse/...
-python wf-attack-vpn/data_analysis/analyze_all_merged.py -i merged_traffic -r analyse/...
+python wf-attack-vpn/data_analysis/analyze_all_merged.py -i merged_traffic/worst_case_b -r overhead/worst_case_10k --lenpkt 10000
+python wf-attack-vpn/data_analysis/analyze_all_merged.py -i merged_traffic/worst_case_b -r overhead/worst_case_5k  --lenpkt 5000

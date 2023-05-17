@@ -30,7 +30,7 @@ def main():
     merged_analysis(dir = args["d"], workers = args['w'], fold = args["fold"], fname = args['fname'])
 '''
 
-def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", fname = "stdout/merged_analysis.txt"):
+def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", fname = "stdout/merged_analysis.txt", lenpkt = 5000):
     '''
     Analyze merged dataset, to see how much of the packets are from the foreground and background
     Is done on the dataset as a whole, and its subsets (testing, validation and training)
@@ -39,6 +39,7 @@ def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", f
         workers  - Optional : number of workers for loading traces from disk (int)
         fold     - Optional : The fold file to use                           (str)
         fname    - Optional : Text file to store the result in               (str)
+        lenpkt   - Optional : How many of the packets to analyse             (int)
     '''
 
     print(f"walking directory {dir}, this might take some time...")
@@ -85,14 +86,14 @@ def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", f
     input_valid = []
     input_test  = []
     for file in todo:
-        input_all.append( (file, 1) )
+        input_all.append( (file, lenpkt) )
         file_name = os.path.basename(file)
         if file_name in merged_train_files:
-            input_train.append( (file, 1) )
+            input_train.append( (file, lenpkt) )
         elif file_name in merged_valid_files:
-            input_valid.append( (file, 1) )
+            input_valid.append( (file, lenpkt) )
         elif file_name in merged_test_files:
-            input_test.append( (file, 1) )
+            input_test.append( (file, lenpkt) )
         else:
             print(f"the file {file} does not belong to any subset")
             sys.exit()
@@ -123,22 +124,27 @@ def merged_analysis(dir, workers = 10, fold = "foreground_traffic/fold-0.csv", f
     print(f"Result stored in: {fname}")
     
 
-def percent_foreground(fname, dir_index):
+def percent_foreground(fname, lenpkt):
     '''
     Get the percentage of how much of the files lines comes from the foreground dataset
     Args:
         fname     - Required : file to get statistics from                (str)
-        dir_index - Required : index to get the time from the files lines (int)
+        lenpkt    - Required : how many packets to analyse from each file (int)
     Return:
         percentage of the foreground found
     '''
     background_packets = 0
     foreground_packets = 0
     with open(fname, "r") as f:
+        line_counter = 0
         for line in f:
+            line_counter += 1
+            # only analyse the first "lenpkt" packets (5,000 or 10,000)
+            if line_counter > lenpkt:
+                break
             parts = line.strip().split(",")
             try:
-                dir = parts[dir_index]
+                dir = parts[1]
             except:
                 print(f"ERROR: could not extract line: {parts}, ending program")
                 sys.exit()
