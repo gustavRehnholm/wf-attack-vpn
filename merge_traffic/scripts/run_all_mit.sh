@@ -6,13 +6,13 @@
 
 # create 10-fold merged datastes of the applications from the MIT dataset
 
-# to run: wf-attack-vpn/merge_traffic/scripts/run_all_mit.sh
+# to run: ./wf-attack-vpn/merge_traffic/scripts/run_all_mit.sh
 
 # get merged dataset for all applications with the len 5,000
-python wf-attack-vpn/merge_traffic/run_mit.py --app vimeo
-python wf-attack-vpn/merge_traffic/run_mit.py --app youtube 
-python wf-attack-vpn/merge_traffic/run_mit.py --app netflix 
-python wf-attack-vpn/merge_traffic/run_mit.py --app rdp    
-python wf-attack-vpn/merge_traffic/run_mit.py --app skype-chat 
-python wf-attack-vpn/merge_traffic/run_mit.py --app ssh  
-python wf-attack-vpn/merge_traffic/run_mit.py --app voip   
+python wf-attack-vpn/merge_traffic/scripts/run_mit.py --app vimeo
+python wf-attack-vpn/merge_traffic/scripts/run_mit.py --app youtube 
+python wf-attack-vpn/merge_traffic/scripts/run_mit.py --app netflix 
+python wf-attack-vpn/merge_traffic/scripts/run_mit.py --app rdp    
+python wf-attack-vpn/merge_traffic/scripts/run_mit.py --app skype-chat 
+python wf-attack-vpn/merge_traffic/scripts/run_mit.py --app ssh  
+python wf-attack-vpn/merge_traffic/scripts/run_mit.py --app voip   

@@ -5,7 +5,7 @@ import os
 
 '''
 To run:
-python wf-attack-vpn/merge_traffic/run_mit.py -app ...
+python wf-attack-vpn/merge_traffic/scripts/run_mit.py -app ...
 '''
 
 ap = argparse.ArgumentParser()
