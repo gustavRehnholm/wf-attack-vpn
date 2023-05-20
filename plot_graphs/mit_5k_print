@@ -2,16 +2,16 @@
 
 '''
 get print for all 10k mit results
-./wf-attack-vpn/plot_graphs/mit_10k_print.sh
+./wf-attack-vpn/plot_graphs/mit_5k_print.sh
 '''
 
-python wf-attack-vpn/plot_graphs/result_10k_print.py --app youtube    -r mit_5k_print -i mit_5k
-python wf-attack-vpn/plot_graphs/result_10k_print.py --app netflix    -r mit_5k_print -i mit_5k
-python wf-attack-vpn/plot_graphs/result_10k_print.py --app vimeo      -r mit_5k_print -i mit_5k
-python wf-attack-vpn/plot_graphs/result_10k_print.py --app voip       -r mit_5k_print -i mit_5k
-python wf-attack-vpn/plot_graphs/result_10k_print.py --app rdp        -r mit_5k_print -i mit_5k
-python wf-attack-vpn/plot_graphs/result_10k_print.py --app skype-chat -r mit_5k_print -i mit_5k
-python wf-attack-vpn/plot_graphs/result_10k_print.py --app ssh        -r mit_5k_print -i mit_5k
+python wf-attack-vpn/plot_graphs/result_5k_print.py --app youtube    -r mit_5k_print -i mit_5k
+python wf-attack-vpn/plot_graphs/result_5k_print.py --app netflix    -r mit_5k_print -i mit_5k
+python wf-attack-vpn/plot_graphs/result_5k_print.py --app vimeo      -r mit_5k_print -i mit_5k
+python wf-attack-vpn/plot_graphs/result_5k_print.py --app voip       -r mit_5k_print -i mit_5k
+python wf-attack-vpn/plot_graphs/result_5k_print.py --app rdp        -r mit_5k_print -i mit_5k
+python wf-attack-vpn/plot_graphs/result_5k_print.py --app skype-chat -r mit_5k_print -i mit_5k
+python wf-attack-vpn/plot_graphs/result_5k_print.py --app ssh        -r mit_5k_print -i mit_5k
 
 python wf-attack-vpn/plot_graphs/plot_all.py -r wf_result/mit_5k_print/ -g fig/mit_5k/ -w 10 --ylim_lower 0
 
