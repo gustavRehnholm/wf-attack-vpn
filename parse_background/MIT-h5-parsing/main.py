@@ -30,10 +30,13 @@ def main():
 
     # analyze the provided data
     app_category_analysis()
+
     # extract the relevant data and store them after application
     extract_applications()
+
     # parse the usable capture files
     parse_applications(workers = args['w'])
+
     # analyze the parsed data
     analyze_dataset()
 

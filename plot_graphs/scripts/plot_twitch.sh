@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# ./wf-attack-vpn/plot_graphs/plot.sh
+# get graphs of the Twitch dataset
+# To run: 
+# ./wf-attack-vpn/plot_graphs/scripts/plot.sh
 
 
 # cp files for the comparison
