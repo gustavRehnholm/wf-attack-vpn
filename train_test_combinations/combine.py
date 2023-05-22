@@ -43,6 +43,13 @@ def combine(dir_train, dir_test, dir_dest, f_fold = 0, workers = 10):
     os.mkdir(f"{dir_dest}/client")
     os.system(f"cp {FOLD_CSV} {dir_dest}")
     
+    # The naming structure between the training set and result should be the same
+    for (dirpath, dirnames, filenames) in os.walk(dir_train, topdown = True):
+        for dirs in dirnames:
+            client_path = os.path.join(dir_dest, "client")
+            curr_path = os.path.join(client_path, dirs)
+            if not os.path.exists(curr_path):
+                os.mkdir(curr_path)
 
     df_fold = pd.read_csv(FOLD_CSV)
 
