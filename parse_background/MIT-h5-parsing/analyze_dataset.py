@@ -2,7 +2,7 @@
 
 '''
 To run:
-python wf-attack-vpn/parse_background/MIT-h5-parsing/analyze_dataset.py --input mit/parsed_app/ --workers 10
+python wf-attack-vpn/parse_background/MIT-h5-parsing/analyze_dataset.py
 
 python wf-attack-vpn/parse_background/MIT-h5-parsing/analyze_dataset.py --input mit/parsed_streaming/ --output fig/mit_streaming_analysis/ 
 '''
@@ -62,7 +62,7 @@ def analyze_dataset(dir_input = "mit/parsed_app/", dir_output = "fig/mit_analysi
     time_lists = p.starmap(timestamps_capture, input)
 
     # plot a line for min, max and mean
-    plot_analysis_captures(captures_pkt_s = time_lists,  title = "MIT_app_analysis", result_path = "fig/mit_analysis/")
+    plot_analysis_captures(captures_pkt_s = time_lists,  title = "MIT_app_analysis", result_path = dir_output)
 
     return
 
@@ -148,20 +148,20 @@ def plot_analysis_captures(captures_pkt_s, title = "MIT_app_analysis", result_pa
                 capture_index += 1
 
     elif len(captures_pkt_s) == 3:
-        nrows = 1
-        ncols = 3
+        nrows = 3
+        ncols = 1
         fig, axes = plt.subplots(nrows = nrows, ncols = ncols, figsize=(10, 10))
         fig.subplots_adjust(top=0.8)
 
-        for col_index in range (ncols):
-            axes[col_index].plot(captures_pkt_s[col_index]["pkt_s"])
-            axes[col_index].set_title(captures_pkt_s[col_index]["fname"])
-            axes[col_index].set_ylabel('pkt/s')
-            axes[col_index].set_xlabel('time(sec)')
+        for row_index in range (nrows):
+            axes[row_index].plot(captures_pkt_s[row_index]["pkt_s"])
+            axes[row_index].set_title(captures_pkt_s[row_index]["fname"])
+            axes[row_index].set_ylabel('pkt/s')
+            axes[row_index].set_xlabel('time(sec)')
+            axes.set(xlim=(0, 3500), ylim=(0, 8000))
     else:
         print(f"ERROR: invalid number of graphs to plot {len(captures_pkt_s)}")
         return
-
 
 
     # save result and clear the plotting
