@@ -14,7 +14,7 @@ args = vars(ap.parse_args())
 
 
 def main():
-    combine(dir_train = args["train"], dir_test = args["test"], dest = "")
+    combine(dir_train = args["train"], dir_test = args["test"])
     return
 
 def combine(dir_train, dir_test, dir_dest, f_fold = 0, workers = 10):
