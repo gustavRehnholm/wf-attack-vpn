@@ -132,8 +132,16 @@ def plot_analysis_captures(captures_pkt_s, title = "MIT_app_analysis", result_pa
         result_path   - Optional : Where to store the figure      (str)
 
     '''
-    nrows = 5
-    ncols = 2
+    if len(captures_pkt_s) == 10:
+        nrows = 5
+        ncols = 2
+    elif len(captures_pkt_s) == 3:
+        nrows = 1
+        ncols = 3
+    else:
+        print(f"ERROR: invalid number of graphs to plot {len(captures_pkt_s)}")
+        return
+
     fig, axes = plt.subplots(nrows = nrows, ncols = ncols, figsize=(10, 10))
     fig.subplots_adjust(top=0.8)
 
