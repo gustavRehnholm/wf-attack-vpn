@@ -158,7 +158,7 @@ def plot_analysis_captures(captures_pkt_s, title = "MIT_app_analysis", result_pa
             axes[row_index].set_title(captures_pkt_s[row_index]["fname"])
             axes[row_index].set_ylabel('pkt/s')
             axes[row_index].set_xlabel('time(sec)')
-            axes.set(xlim=(0, 3500), ylim=(0, 8000))
+            axes[row_index].set(xlim=(0, 3500), ylim=(0, 8000))
     else:
         print(f"ERROR: invalid number of graphs to plot {len(captures_pkt_s)}")
         return
