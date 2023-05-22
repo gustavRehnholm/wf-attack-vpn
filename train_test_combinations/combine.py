@@ -10,8 +10,6 @@ ap.add_argument("--train"   , required = True , type = str, default = "",
     help="Root folder to the merged dataset to use for training and validation")
 ap.add_argument("--test"   , required = True , type = str, default = "", 
     help="Root folder to the merged dataset to use for testing")
-ap.add_argument("--b_fold"   , required = True , type = int, default = 0, 
-    help="Root folder to the merged dataset to use for testing")
 args = vars(ap.parse_args())
 
 
