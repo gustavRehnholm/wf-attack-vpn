@@ -25,6 +25,7 @@ def combine_10fold(app, f_fold = 0, workers = 10):
     '''
 
     for i in range(10):
+        print(f"{app}: fold {i}")
         os.system(f"python wf-attack-vpn/train_test_combinations/combine.py --train foreground_traffic --test merged_traffic/mit_5k/{app}/fold_{i} --dest merged_traffic/combined/foreground/{app}/fold_{i}")
 
 if __name__=="__main__":
