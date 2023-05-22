@@ -4,6 +4,8 @@ import pandas as pd
 import os
 import shutil
 from multiprocessing import Pool
+
+'''
 import argparse
 
 ap = argparse.ArgumentParser()
@@ -19,6 +21,8 @@ args = vars(ap.parse_args())
 def main():
     combine(dir_train = args["train"], dir_test = args["test"], dir_dest = args["dest"])
     return
+
+'''
 
 def combine(dir_train, dir_test, dir_dest, f_fold = 0, workers = 10):
     '''
