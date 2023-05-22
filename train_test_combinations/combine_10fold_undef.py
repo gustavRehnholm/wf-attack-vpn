@@ -10,7 +10,7 @@ from combine import combine
 ap = argparse.ArgumentParser()
 ap.add_argument("--app"   , required = True , type = str, default = "", 
     help="Root folder to the merged dataset to use for training and validation")
-args = parser.parse_args()
+args = ap.parse_args()
 
 
 def main():
