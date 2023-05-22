@@ -135,24 +135,34 @@ def plot_analysis_captures(captures_pkt_s, title = "MIT_app_analysis", result_pa
     if len(captures_pkt_s) == 10:
         nrows = 5
         ncols = 2
+        fig, axes = plt.subplots(nrows = nrows, ncols = ncols, figsize=(10, 10))
+        fig.subplots_adjust(top=0.8)
+
+        capture_index = 0
+        for row_index in range (nrows):
+            for col_index in range (ncols):
+                axes[row_index, col_index].plot(captures_pkt_s[capture_index]["pkt_s"])
+                axes[row_index, col_index].set_title(captures_pkt_s[capture_index]["fname"])
+                axes[row_index, col_index].set_ylabel('pkt/s')
+                axes[row_index, col_index].set_xlabel('time(sec)')
+                capture_index += 1
+
     elif len(captures_pkt_s) == 3:
         nrows = 1
         ncols = 3
+        fig, axes = plt.subplots(nrows = nrows, ncols = ncols, figsize=(10, 10))
+        fig.subplots_adjust(top=0.8)
+
+        for col_index in range (ncols):
+            axes[col_index].plot(captures_pkt_s[col_index]["pkt_s"])
+            axes[col_index].set_title(captures_pkt_s[col_index]["fname"])
+            axes[col_index].set_ylabel('pkt/s')
+            axes[col_index].set_xlabel('time(sec)')
     else:
         print(f"ERROR: invalid number of graphs to plot {len(captures_pkt_s)}")
         return
 
-    fig, axes = plt.subplots(nrows = nrows, ncols = ncols, figsize=(10, 10))
-    fig.subplots_adjust(top=0.8)
 
-    capture_index = 0
-    for row_index in range (nrows):
-        for col_index in range (ncols):
-            axes[row_index, col_index].plot(captures_pkt_s[capture_index]["pkt_s"])
-            axes[row_index, col_index].set_title(captures_pkt_s[capture_index]["fname"])
-            axes[row_index, col_index].set_ylabel('pkt/s')
-            axes[row_index, col_index].set_xlabel('time(sec)')
-            capture_index += 1
 
     # save result and clear the plotting
     fig.suptitle(title)
