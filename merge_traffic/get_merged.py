@@ -1,9 +1,5 @@
 #!/usr/bin/python3
 
-'''
-TODO: fold on the background dataset, aka b_fold
-'''
-
 import pandas as pd
 import os
 import shutil
