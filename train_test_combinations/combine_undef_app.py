@@ -20,7 +20,7 @@ def main():
     # create the new merged dataset
     ## os.system(f"python wf-attack-vpn/train_test_combinations/combine_10fold_undef.py --app {args.app}")
     # WF attack on the new set
-    os.system(f"python wf-attack-vpn/wf-attack/train_test_combinations/combine_wf_attack.py --app {args.app}")
+    os.system(f"python wf-attack-vpn/train_test_combinations/combine_wf_attack.py --app {args.app}")
     # print structure
 
     # rm old merged
