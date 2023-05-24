@@ -16,12 +16,7 @@ def print_struct(dir_input, dir_result):
         dir_result - Required : path where to store the result (str)
     '''
     print("Start 10-fold struct")
-
-    app = args["app"]
-    result = args["r"]
-    in_dir = args["i"]
-
-    
+ 
     # make sure that root folder of the result exists
     path = f"{dir_result}"
     if not os.path.exists(dir_result):
