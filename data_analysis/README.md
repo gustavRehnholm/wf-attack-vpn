@@ -1,5 +1,5 @@
 # data analysis
-This part is for scripts that extract information about the datasets used.
+This part is for scripts that extract information about the datasets used. They are sorted after which dataset they analyze, background, foreground, merged or WF result (which is not to present graphs)
 
 ## background traffic analysis
 The background does both consist of unparsed Twitch data, which can be useful if rds-collect will be used more in the future (so one can analyse the data, and remove unnecesary parts, before making the trouble of parsing it).
@@ -20,3 +20,6 @@ with the code foreground_analysis.py, one can get a table of packets per second 
 
 ## Merged dataset analysis
 The merged dataset, can be analyzed for overhead, by runing analyze_all_merged.py, which will analyse all files in a directory. The analysis is performed by merged_analysis.py
+
+### wf result
+To get the median accuracy of the DF and TIk-Tok results

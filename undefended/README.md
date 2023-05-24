@@ -1,0 +1,1 @@
+To generate test on foreground without any background, as a references how high the accuracy can be.

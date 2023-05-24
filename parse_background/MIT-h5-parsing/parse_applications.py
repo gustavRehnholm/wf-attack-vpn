@@ -11,13 +11,10 @@ import pandas as pd
 from multiprocessing import Pool
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-w"     , required = False, default = 10 , type = int, help = "number of workers (multiprocessing)")
+ap.add_argument("-w", required = False, default = 10 , type = int, help = "number of workers (multiprocessing)")
 args = vars(ap.parse_args())
 
 def main():
-    '''
-    To run parse_applications individual from the terminal
-    '''
     parse_applications(workers = args['w'])
     return
 
@@ -118,7 +115,6 @@ def parse_file(input_path, output_path):
             # get the size
             size = row[SIZE_INDEX]
             
-
             dictionary_parsed['time'].append(duration_ns)
             dictionary_parsed['direction'].append(direction)
             dictionary_parsed['size'].append(size)

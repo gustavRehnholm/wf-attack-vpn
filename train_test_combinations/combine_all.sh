@@ -4,6 +4,6 @@
 # to run:
 # ./wf-attack-vpn/train_test_combinations/combine_all.sh
 
-# structure deestination merged_traffic/combined/<train set>/<test set>/<fold>
+# structure result merged_traffic/combined/<train set>/<test set>/<fold>
 
-python wf-attack-vpn/train_test_combinations/combine_undef_app.py --app vimeo
+python wf-attack-vpn/train_test_combinations/combine_set.py --train foreground/client --test background_traffic/mit_5k/vimeo --result merged_traffic/combined/foreground/vimeo

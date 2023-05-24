@@ -1,0 +1,1 @@
+One folder for each dataset source that needs to be parsed, and outside them the shared scripts. Right know a script to convert hdf5 files to csv, so one can easily check if they are correct.

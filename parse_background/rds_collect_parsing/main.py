@@ -31,12 +31,8 @@ def main():
 
     # conver the log files to h5 format
     log_2_h5(workers = args['w'])
-    # rm the capture files that are determined to be broken
-    rm_broken_captures(workers = args['w'])
     # parse the usable capture files
     parse_background(workers = args['w'])
-    # analyze the usable capture files
-    analyze_dataset(workers = args['w'])
     # merge the parsed capture files to one background dataset to use
     merge_parsed_noise()
 

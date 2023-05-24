@@ -18,11 +18,6 @@ def extract_dataset():
     and create new dataframes, stored in h5 format, after the application used.
     All data that has been captured with non vpn traffic, will be skipped.
     The data is not parsed.
-
-    Application names in use (extracted from get_keywords.py)
-    ['youtube', 'sftp', 'skype-chat', 'ssh', 'rdp', 'rsync', 'voip', 'scp', 'netflix', 'vimeo']
-    headers:
-    ['connection', 'timestamps', 'sizes', 'directions', 'file_names']
     '''
     
     INPUT_FILE = "mit/VNAT_Dataframe_release_1.h5"

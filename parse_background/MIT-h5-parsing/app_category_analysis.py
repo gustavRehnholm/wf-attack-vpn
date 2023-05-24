@@ -3,13 +3,9 @@
 '''
 Analyze the extracted dataset
 
-Application names in use (extracted from get_keywords.py)
-['youtube', 'sftp', 'skype-chat', 'ssh', 'rdp', 'rsync', 'voip', 'scp', 'netflix', 'vimeo']
-headers:
-['connection', 'timestamps', 'sizes', 'directions', 'file_names']
-
-touch stdout/extract_dataset_analysis.txt
-python wf-attack-vpn/extract_dataset_analysis.py | tee stdout/extract_dataset_analysis.txt
+Example how to run:
+$ touch stdout/extract_dataset_analysis.txt
+$ python wf-attack-vpn/extract_dataset_analysis.py | tee stdout/extract_dataset_analysis.txt
 '''
 import pandas as pd
 
@@ -45,9 +41,6 @@ def app_category_analysis():
         duration       = 0
 
         for list_times in times:
-            #list_times.sort()
-            #print("this duration")
-            #print(list_times[-1] - list_times[0])
             duration += list_times[-1] - list_times[0]
             for item in list_times:
                 if not isinstance(item, float):
@@ -78,15 +71,15 @@ def app_category_analysis():
 
     print("")
     print("--------------------------------------------------------------")
-    print("Streaming VPN noise(h): " + str(streaming_duration))
-    print("Chat VPN noise(h): " + str(chat_duration))
-    print("c2 VPN noise(h): " + str(c2_duration))
-    print("file transfer VPN noise(h): " + str(file_transfer_duration))
-    print("voip VPN noise(h): " + str(voip_duration))
+    print("Streaming VPN (h): " + str(streaming_duration))
+    print("Chat VPN (h): " + str(chat_duration))
+    print("c2 VPN (h): " + str(c2_duration))
+    print("file transfer VPN (h): " + str(file_transfer_duration))
+    print("voip VPN (h): " + str(voip_duration))
     print("")
-    print("Total VPN noise(h): " + str(total_duration))
+    print("Total VPN (h): " + str(total_duration))
     print("--------------------------------------------------------------")
-    print("How large part the different noises are:")
+    print("How large part the different datasets are:")
     print("")
     print("Streaming: " + str(streaming_duration / total_duration))
     print("Chat: " + str(chat_duration / total_duration))
