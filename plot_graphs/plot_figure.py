@@ -3,7 +3,7 @@ import os
 import pandas            as pd
 import matplotlib.pyplot as plt
 
-def plot_figure(figure_dir ,x_label, y_label, y_lim = [0.5, 1], sup_title = "", result_path  = "fig/" ):
+def plot_figure(figure_dir ,x_label, y_label, y_lim = [0.5, 1], sup_title = "", result_path  = "fig" ):
     '''
     Plot a figure of the provided subplots (3 or 4)
     Structure of the folder: figure_dir -> subplot_dir -> csv files
@@ -75,7 +75,7 @@ def plot_figure(figure_dir ,x_label, y_label, y_lim = [0.5, 1], sup_title = "", 
         # save result and clear the plotting
         fig.suptitle(sup_title)
         fig.tight_layout()
-        fig.savefig(f"{result_path}{sup_title}.png")
+        fig.savefig(f"{result_path}/{sup_title}.png")
         plt.close(fig)
 
     # subgraphs in 1 column (1 X nr_subplots)
@@ -100,7 +100,7 @@ def plot_figure(figure_dir ,x_label, y_label, y_lim = [0.5, 1], sup_title = "", 
         # save result and clear the plotting
         fig.suptitle(sup_title)
         fig.tight_layout()
-        fig.savefig(f"{result_path}{sup_title}.png")
+        fig.savefig(f"{result_path}/{sup_title}.png")
         plt.close(fig)
 
     return
