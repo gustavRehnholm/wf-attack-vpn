@@ -29,10 +29,10 @@ def main():
 
     # overhead
     # python wf-attack-vpn/data_analysis/merged_analysis/analyze_all_merged.py -i merged_traffic/combined/foreground/vimeo -r overhead/combine_undef
-    os.system(f"python wf-attack-vpn/data_analysis/merged_analysis/analyze_all_merged.py -i merged_traffic/combined/foreground/{args.app} -r overhead/combine_undef")
+    os.system(f"python wf-attack-vpn/data_analysis/merged_analysis/analyze_all_merged.py -i merged_traffic/combined/foreground/{args.app} -r overhead/combine_undef/{args.app}")
 
     # rm the combined dataset
-    os.system(f"rm -f -r merged_traffic/combined/foreground/{args.app}")
+    # os.system(f"rm -f -r merged_traffic/combined/foreground/{args.app}")
 
 if __name__ == "__main__":
     main()
