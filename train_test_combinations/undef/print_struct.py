@@ -18,20 +18,12 @@ def print_struct(dir_input, dir_result):
     print("Start 10-fold struct")
  
     # make sure that root folder of the result exists
-    path = f"{dir_result}"
-    if not os.path.exists(dir_result):
-        os.makedirs(dir_result)
+    os.system(f"mkdir {dir_result}")
 
-     
     modes = ["default", "constant", "tiktok"]
     for mode in modes:
         # make sure that each mode folder of the result exists
-        if not os.path.exists(dir_result):
-            os.makedirs(dir_result)
-        path = f"{dir_result}/{mode}"
-        if not os.path.exists(path):
-            os.makedirs(path)
-
+        os.system(f"mkdir {dir_result}/{mode}")
         # for every fold
         for i in range(0,10):
             # copy result to the folder, for the new subgraph 
@@ -39,3 +31,4 @@ def print_struct(dir_input, dir_result):
             # name after fold, not mode
             os.system(f"mv {dir_result}/{mode}/{mode}.csv {dir_result}/{mode}/fold_{i}.csv")
     
+    return
