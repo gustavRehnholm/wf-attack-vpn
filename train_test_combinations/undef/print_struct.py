@@ -26,6 +26,8 @@ def print_struct(dir_input, dir_result):
     modes = ["default", "constant", "tiktok"]
     for mode in modes:
         # make sure that each mode folder of the result exists
+        if not os.path.exists(dir_result):
+            os.makedirs(dir_result)
         path = f"{dir_result}/{mode}"
         if not os.path.exists(path):
             os.makedirs(path)
