@@ -5,25 +5,6 @@ import os
 import shutil
 from multiprocessing import Pool
 
-'''
-import argparse
-
-ap = argparse.ArgumentParser()
-ap.add_argument("--train"   , required = True , type = str, default = "", 
-    help="Root folder to the merged dataset to use for training and validation")
-ap.add_argument("--test"   , required = True , type = str, default = "", 
-    help="Root folder to the merged dataset to use for testing")
-ap.add_argument("--dest"   , required = True , type = str, default = "", 
-    help="Root folder of where to store teh result")
-args = vars(ap.parse_args())
-
-
-def main():
-    combine(dir_train = args["train"], dir_test = args["test"], dir_dest = args["dest"])
-    return
-
-'''
-
 def combine(dir_train, dir_test, dir_dest, f_fold = 0, workers = 10):
     '''
     Args:
