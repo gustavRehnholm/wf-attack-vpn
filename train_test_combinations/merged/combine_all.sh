@@ -7,8 +7,8 @@
 # structure deestination merged_traffic/combined/<train set>/<test set>/<fold>
 
 # test streaming against eachother
-python wf-attack-vpn/train_test_combinations/merged/combine_datasets.py --train merged_traffic/mit_5k/vimeo --test merged_traffic/mit_5k/netflix --title vimeo_netflix
-#python wf-attack-vpn/train_test_combinations/merged/combine_datasets.py --train merged_traffic/mit_5k/vimeo --test merged_traffic/mit_5k/youtube --title vimeo_youtube
+#python wf-attack-vpn/train_test_combinations/merged/combine_datasets.py --train merged_traffic/mit_5k/vimeo --test merged_traffic/mit_5k/netflix --title vimeo_netflix
+python wf-attack-vpn/train_test_combinations/merged/combine_datasets.py --train merged_traffic/mit_5k/vimeo --test merged_traffic/mit_5k/youtube --title vimeo_youtube
 
 #python wf-attack-vpn/train_test_combinations/merged/combine_datasets.py      --train merged_traffic/mit_5k/netflix --test merged_traffic/mit_5k/vimeo   --title netflix_vimeo
 #python wf-attack-vpn/train_test_combinations/unmergeddef/combine_datasets.py --train merged_traffic/mit_5k/netflix --test merged_traffic/mit_5k/youtube --title netflix_youtube

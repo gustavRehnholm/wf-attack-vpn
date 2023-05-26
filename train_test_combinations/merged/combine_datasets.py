@@ -26,16 +26,16 @@ args = ap.parse_args()
 def main():
 
     # create the new merged dataset
-    #combine_10fold(train_dir = args.train, test_dir = args.test, title = args.title) 
+    combine_10fold(train_dir = args.train, test_dir = args.test, title = args.title) 
 
     # WF attack on the new set
-    #combine_10fold_attack(title = args.title)
+    combine_10fold_attack(title = args.title)
 
     # print structure
     print_struct(dir_input = f"wf_result/combine_merged/{args.title}", dir_result = f"wf_result/combined_merged_print/{args.title}")
 
     # rm the combined dataset
-    #os.system(f"rm -f -r merged_traffic/combined/merged/{args.title}")
+    os.system(f"rm -f -r merged_traffic/combined/merged/{args.title}")
 
 if __name__ == "__main__":
     main()
