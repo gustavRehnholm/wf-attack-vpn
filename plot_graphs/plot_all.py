@@ -21,7 +21,7 @@ ap.add_argument("-g"   , required = True , type = str, default = "fig/tmp",
     help="root folder where to store the graphs")
 ap.add_argument("-w"   , required = False, type = int, default = 10, 
     help="number of workers for loading traces from disk")
-ap.add_argument("--ylim_lower"   , required = False, type = float, default = 0.5, 
+ap.add_argument("--ylim_lower"   , required = False, type = float, default = 0, 
     help="lower y limitation")
 ap.add_argument("--ylim_higher"  , required = False, type = float, default = 1, 
     help="higher y limitation")
