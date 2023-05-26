@@ -29,13 +29,10 @@ def main():
     #combine_10fold(train_dir = args.train, test_dir = args.test, title = args.title) 
 
     # WF attack on the new set
-    combine_10fold_attack(title = args.title)
+    #combine_10fold_attack(title = args.title)
 
     # print structure
-    #print_struct(dir_input = f"wf_result/combine_merged/{args.title}", dir_result = f"wf_result/combined_merged_print/{args.title}")
-
-    # overhead (only to confirm that the dataset is reasonable)
-    #os.system(f"python wf-attack-vpn/data_analysis/merged_analysis/analyze_all_merged.py -i merged_traffic/combined/foreground/{args.app} -r overhead/combine_undef/{args.app}")
+    print_struct(dir_input = f"wf_result/combine_merged/{args.title}", dir_result = f"wf_result/combined_merged_print/{args.title}")
 
     # rm the combined dataset
     #os.system(f"rm -f -r merged_traffic/combined/merged/{args.title}")
