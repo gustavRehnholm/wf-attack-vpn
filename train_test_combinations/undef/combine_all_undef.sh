@@ -8,9 +8,10 @@
 
 #python wf-attack-vpn/train_test_combinations/undef/combine_undef_app.py --app vimeo
 #python wf-attack-vpn/train_test_combinations/undef/combine_undef_app.py --app netflix
-python wf-attack-vpn/train_test_combinations/undef/combine_undef_app.py --app youtube
-python wf-attack-vpn/train_test_combinations/undef/combine_undef_app.py --app rdp
-python wf-attack-vpn/train_test_combinations/undef/combine_undef_app.py --app voip
+#python wf-attack-vpn/train_test_combinations/undef/combine_undef_app.py --app youtube
+#python wf-attack-vpn/train_test_combinations/undef/combine_undef_app.py --app rdp
+#python wf-attack-vpn/train_test_combinations/undef/combine_undef_app.py --app voip
+
 python wf-attack-vpn/train_test_combinations/undef/combine_undef_app.py --app ssh
 python wf-attack-vpn/train_test_combinations/undef/combine_undef_app.py --app skype-chat
 
