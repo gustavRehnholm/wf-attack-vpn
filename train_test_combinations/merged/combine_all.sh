@@ -17,7 +17,7 @@
 #python wf-attack-vpn/train_test_combinations/merged/combine_datasets.py --train merged_traffic/mit_5k/youtube --test merged_traffic/mit_5k/vimeo   --title youbute_vimeo
 
 # test recorded streaming against 
-python wf-attack-vpn/train_test_combinations/merged/combine_datasets.py --train merged_traffic/twitch_div_rnd_1_middle --test merged_traffic/mit_5k/netflix --title twitch_netflix
+#python wf-attack-vpn/train_test_combinations/merged/combine_datasets.py --train merged_traffic/twitch_div_rnd_1_middle --test merged_traffic/mit_5k/netflix --title twitch_netflix
 python wf-attack-vpn/train_test_combinations/merged/combine_datasets.py --train merged_traffic/twitch_div_rnd_1_middle --test merged_traffic/mit_5k/vimeo   --title twitch_vimeo
 python wf-attack-vpn/train_test_combinations/merged/combine_datasets.py --train merged_traffic/twitch_div_rnd_1_middle --test merged_traffic/mit_5k/youtube --title twitch_youbute
 
