@@ -9,7 +9,7 @@ import sys
 
 '''
 To run:
-python wf-attack-vpn/data_analysis/merged_analysis.py -d merged_traffic/twitch_div_rnd_1_middle/fold_8/client
+python wf-attack-vpn/data_analysis/merged_analysis/merged_analysis.py -d merged_traffic/twitch_div_rnd_1_middle/fold_8/client
 '''
 
 
@@ -175,7 +175,5 @@ def stat_txt(description_text, np_array):
     return txt.format(description = description_text   , mean = np.mean(np_array), std = np.std(np_array), 
                       median      = np.median(np_array), min  = np.min(np_array) , max = np.max(np_array))
 
-'''
 if __name__ == "__main__":
     main()
-'''
