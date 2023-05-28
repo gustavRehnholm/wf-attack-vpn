@@ -7,7 +7,7 @@ from merged_analysis import merged_analysis
 
 '''
 To run:
-python wf-attack-vpn/data_analysis/analyze_all_merged.py -i merged_traffic -r analyse/...
+python wf-attack-vpn/data_analysis/analyze_all_merged.py -i merged_traffic/ -r analyse/...
 '''
 
 ap = argparse.ArgumentParser(description ='Analyze all merged datasets that are in the provided folder')
@@ -27,7 +27,6 @@ ap.add_argument("-w", "--workers", required = False, type = int, default = 10,
 ap.add_argument("-f", "--fold", required = False, type = str, default = "foreground_traffic/fold-0.csv", 
     help="Path to the fold file to use")
 
-#args = vars(ap.parse_args())
 args = ap.parse_args()
 
 def main():
