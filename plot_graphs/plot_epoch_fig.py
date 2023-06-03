@@ -12,8 +12,8 @@ ap.add_argument("-t"   , required = True , type = str, default = "",
 args = vars(ap.parse_args())
 
 '''
-python wf-attack-vpn/plot_graphs/plot_epoch_fit.py -r wf_result/twitch/twitch_rnd_epoch/
-python wf-attack-vpn/plot_graphs/plot_epoch_fit.py -r wf_result/twitch/twitch_div_rnd_epoch/
+python wf-attack-vpn/plot_graphs/plot_epoch_fig.py -r wf_result/twitch/twitch_rnd_epoch      -t twitch_epoch
+python wf-attack-vpn/plot_graphs/plot_epoch_fig.py -r wf_result/twitch/twitch_div_rnd_epoch  -t twitch_split_epoch
 '''
 
 def main():
@@ -36,10 +36,10 @@ def plot_figure(figure_dir , x_label = 'Threshold', y_label = 'Accuracy', y_lim 
     # paths to all subplots
     #subplots_paths       = os.listdir(figure_dir)
     #subplots_paths.sort()
-    subplots_paths = []
-    subplots_paths.append(f"{figure_dir}/_2h_epoch_60")
-    subplots_paths.append(f"{figure_dir}/_2h_epoch_300")
-    subplots_paths.append(f"{figure_dir}/_2h_epoch_1000")
+    subplots_paths = ["", "", ""]
+    subplots_paths[0] = f"{figure_dir}/_2h_epoch_60"
+    subplots_paths[1] = f"{figure_dir}/_2h_epoch_300"
+    subplots_paths[2] = f"{figure_dir}/_2h_epoch_1000"
     # how many subplots to show in the figure
     nr_subplots          = len(subplots_paths)
     # the datasets (as DataFrames) to show on each subplot [index per subplot][index per line/dataset]
