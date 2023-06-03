@@ -37,9 +37,9 @@ def plot_figure(figure_dir , x_label = 'Threshold', y_label = 'Accuracy', y_lim 
     #subplots_paths       = os.listdir(figure_dir)
     #subplots_paths.sort()
     subplots_paths = ["", "", ""]
-    subplots_paths[0] = f"{figure_dir}/_2h_epoch_60"
-    subplots_paths[1] = f"{figure_dir}/_2h_epoch_300"
-    subplots_paths[2] = f"{figure_dir}/_2h_epoch_1000"
+    subplots_paths[0] = "_2h_epoch_60"
+    subplots_paths[1] = "_2h_epoch_300"
+    subplots_paths[2] = "_2h_epoch_1000"
     # how many subplots to show in the figure
     nr_subplots          = len(subplots_paths)
     # the datasets (as DataFrames) to show on each subplot [index per subplot][index per line/dataset]
