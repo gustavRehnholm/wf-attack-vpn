@@ -126,5 +126,5 @@ If one have any questions, contact Gustav Rehnholm at: gustav.rehnholm.docetic@8
 }
 
 ## License <a name="License"></a>
-[Apache](https://choosealicense.com/licenses/apache-2.0/)
+[Apache 2.0](https://choosealicense.com/licenses/apache-2.0/)
 
