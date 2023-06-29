@@ -22,4 +22,4 @@ with the code foreground_analysis.py, one can get a table of packets per second 
 The merged dataset, can be analyzed for overhead, by runing analyze_all_merged.py, which will analyse all files in a directory. The analysis is performed by merged_analysis.py
 
 ### wf result
-To get the median accuracy of the DF and TIk-Tok results
+To get the median accuracy of the DF and Tik-Tok results

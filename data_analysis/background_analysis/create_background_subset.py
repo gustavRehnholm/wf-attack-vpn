@@ -1,22 +1,36 @@
 #!/usr/bin/python3
 
-import pandas as pd
+'''
+Copyright 2023 Gustav Rehnholm
+SPDX-License-Identifier: Apache-2.0
+
+To run:
+python wf-attack-vpn/data_analysis/background_analysis/create_background_subset.py --start 40 --end 80
+'''
+
 import os
 import shutil
+import argparse
 
+ap = argparse.ArgumentParser()
+ap.add_argument("--start"     , required = True , default = 0   , type = int, 
+    help = "start index")
+ap.add_argument("--end"     , required = True , type = int,
+    help = "end index")
+args = vars(ap.parse_args())
 
-# python wf-attack-vpn/data_analysis/twitch-subpart.py
 
 def main():
     '''
-    create a subpart of the Twitch dataset, for analysis
+    Create a subpart of the Twitch dataset for analysis, by providing an interval (where the files are sorted after size)
+    Useful to see if an picked subset have the desired behaviors, before parsing the data. 
     '''
 
     print("Start creating subpart of the Twitch captures")
 
     # All usable captures
     DIR_INPUT = "captures_clean"
-    # the 50 largest captures
+    # the 40 largest captures
     DIR_OUTPUT = "captures_40"
 
     # clean the previous result
@@ -35,18 +49,14 @@ def main():
         index += 1
         filename = os.fsdecode(file)
         
-        if index >= 40 and index < 80:
-            #print("")
-            #print("Include file " + str(index) + "/" + str(files_len) + ": " + str(filename))
-            #print("")
+        if index >= args["start"] and index < args["end"]:
             print(str(filename))
 
             src = DIR_INPUT  + "/" + filename
             dst = DIR_OUTPUT + "/" + filename
             shutil.copyfile(src, dst)
 
-        # to gather a subset
-        if index >= 80:
+        elif index >= args["end"]:
             break
 
     print("Have created a subset of Twitch data, store in " + DIR_OUTPUT)

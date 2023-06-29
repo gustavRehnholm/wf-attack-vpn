@@ -1,23 +1,27 @@
 #!/usr/bin/env python3
 
+'''
+Copyright 2023 Gustav Rehnholm
+SPDX-License-Identifier: Apache-2.0
+
+To run:
+python wf-attack-vpn/data_analysis/foreground-analysis.py -d foreground_traffic/client
+'''
+
 import argparse
 import os
 from multiprocessing import Pool
 import numpy as np
 import pandas as pd
 import sys
-from collections import Counter
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-# python wf-attack-vpn/data_analysis/foreground-analysis.py -d foreground_traffic/client
-
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-d", required=True, default="", help="root folder of client/server dataset")
-ap.add_argument("-w", required=False, type=int, default=10,
+ap.add_argument("-d"   , required = True , type = str, default = "", 
+    help="root folder of client/server dataset")
+ap.add_argument("-w"   , required = False, type = int, default = 10,
     help="number of workers for loading traces from disk")
-ap.add_argument("--min", required=False, type=int, default=0, help="smallest packet size to consider")
+ap.add_argument("--min", required = False, type = int, default =  0, 
+    help="smallest packet size to consider")
 args = vars(ap.parse_args())
 
 
@@ -50,9 +54,6 @@ def main():
     input = []
     for file in todo:
         input.append( (file[0], intervals) )
-
-    # to test with one packet
-    #input = [("foreground_traffic/client/0/0000-0001-0047.log",intervals)]
 
     list_of_traces = p.starmap(parse_trace, input)
     pkt_sec = get_pkt_sec(list_of_traces, intervals)

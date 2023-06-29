@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 
+'''
+Copyright 2023 Gustav Rehnholm
+SPDX-License-Identifier: Apache-2.0
+
+'''
 import os
 import statistics
 
 
 def get_median_acc_10fold(dir):
     '''
-    dir/mode/fold.csv
+    Expected structure of the input: dir/mode/fold.csv
     Input:
         dir - Required : Which dataset to get the median accuracy
     '''

@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
 
+'''
+Copyright 2023 Gustav Rehnholm
+SPDX-License-Identifier: Apache-2.0
+
+to run: 
+wf-attack-vpn/data_analysis/median_acc/all_median.py -f ...
+'''
+
 from get_median_acc_10fold import get_median_acc_10fold
 import os
 import argparse
@@ -12,10 +20,9 @@ args = vars(ap.parse_args())
 
 def main():
     '''
-    to run: 
-    wf-attack-vpn/data_analysis/median_acc/all_median.py
-    args["f"]/dir/mode/fold.csv
+    Expected structure of the input: args["f"]/dir/mode/fold.csv
     '''
+
 
     merged_datasets = os.listdir(args["f"])
     print("---------------------------------")

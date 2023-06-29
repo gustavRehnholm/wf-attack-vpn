@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
 
+'''
+Copyright 2023 Gustav Rehnholm
+SPDX-License-Identifier: Apache-2.0
+
+To run:
+python wf-attack-vpn/data_analysis/merged_analysis/merged_analysis.py -d merged_traffic/twitch_div_rnd_1_middle/fold_8/client
+'''
+
 import argparse
 import os
 from multiprocessing import Pool
 import numpy as np
 import pandas as pd
 import sys
-
-'''
-To run:
-python wf-attack-vpn/data_analysis/merged_analysis/merged_analysis.py -d merged_traffic/twitch_div_rnd_1_middle/fold_8/client
-'''
-
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-d"   , required = True , type = str, default = "", 

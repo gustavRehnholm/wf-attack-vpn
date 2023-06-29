@@ -1,24 +1,31 @@
 #!/usr/bin/python3
 
 '''
-To run
-python wf-attack-vpn/data_analysis/rds_collect_analysis.py
+Copyright 2023 Gustav Rehnholm
+SPDX-License-Identifier: Apache-2.0
+
+To run:
+python wf-attack-vpn/data_analysis/background_analysis/rds_collect_analysis.py
+
+Comments:
+This script is a hardcoded in which parts it is analyzing. 
 '''
 
 from multiprocessing import Pool
 import pandas            as pd
-import seaborn           as sns
 import numpy             as np
 import matplotlib.pyplot as plt
 import os
 import sys
 import argparse
 
-
 ap = argparse.ArgumentParser()
-ap.add_argument("--input"  , required = False, default = "captures_clean/"          , type = str, help = "Directory for the files to analyze")
-ap.add_argument("--output" , required = False, default = "fig/twitch_analysis/"     , type = str, help = "Directory to store the result")
-ap.add_argument("--workers", required = False, default = 10                         , type = int, help = "Workers for multiprocessing")
+ap.add_argument("--input"  , required = False, default = "captures_clean/"          , type = str, 
+    help = "Directory for the files to analyze")
+ap.add_argument("--output" , required = False, default = "fig/twitch_analysis/"     , type = str, 
+    help = "Directory to store the result")
+ap.add_argument("--workers", required = False, default = 10                         , type = int, 
+    help = "Workers for multiprocessing")
 args = vars(ap.parse_args())
 
 
